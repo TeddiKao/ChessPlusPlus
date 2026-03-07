@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { IconChess, IconEye, IconPlus } from "@tabler/icons-react";
+import { IconChess, IconFolder, IconPlus } from "@tabler/icons-react";
 
 function HomePage() {
 	return (
@@ -13,8 +13,8 @@ function HomePage() {
 					Create variant
 				</Button>
 				<Button className="px-4">
-					<IconEye />
-					View recent
+					<IconFolder />
+					My variants
 				</Button>
 				<Button className="px-4">
 					<IconChess />
