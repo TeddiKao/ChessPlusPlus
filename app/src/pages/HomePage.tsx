@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { IconChess, IconPlus } from "@tabler/icons-react";
+import { IconChess, IconEye, IconPlus } from "@tabler/icons-react";
 
 function HomePage() {
 	return (
@@ -11,6 +11,10 @@ function HomePage() {
 				<Button className="px-4">
 					<IconPlus />
 					Create variant
+				</Button>
+				<Button className="px-4">
+					<IconEye />
+					View recent
 				</Button>
 				<Button className="px-4">
 					<IconChess />
