@@ -49,6 +49,7 @@ const useVariantsStore = create<VariantsStore>()(
 		{
 			name: "variants",
 			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
+			partialize: (state) => ({ variants: state.variants }),
 		},
 	),
 );
