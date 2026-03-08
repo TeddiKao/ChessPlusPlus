@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialogStore";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { Label } from "@/components/ui/label";
 
 function CreateVariantDialog() {
@@ -17,6 +17,10 @@ function CreateVariantDialog() {
 
 	function handleVariantNameOnChange(e: ChangeEvent<HTMLInputElement>) {
 		updateVariantName((e.target as HTMLInputElement).value);
+	}
+
+	function handleCreateVariantFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
+		e.preventDefault();
 	}
 
 	return (
@@ -29,20 +33,25 @@ function CreateVariantDialog() {
 					<DialogTitle>Create variant</DialogTitle>
 				</DialogHeader>
 
-				<div className="flex flex-col gap-2">
-					<Label htmlFor="variantNameInput">Variant name</Label>
-					<Input
-						name="variantNameInput"
-						type="text"
-						placeholder="Variant name"
-						onChange={handleVariantNameOnChange}
-						value={variantName}
-					/>
-				</div>
+				<form
+					onSubmit={handleCreateVariantFormSubmit}
+					className="flex flex-col gap-4"
+				>
+					<div className="flex flex-col gap-2">
+						<Label htmlFor="variantNameInput">Variant name</Label>
+						<Input
+							name="variantNameInput"
+							type="text"
+							placeholder="Variant name"
+							onChange={handleVariantNameOnChange}
+							value={variantName}
+						/>
+					</div>
 
-				<DialogFooter>
-					<Button className="w-full">Create variant</Button>
-				</DialogFooter>
+					<DialogFooter>
+						<Button className="w-full">Create variant</Button>
+					</DialogFooter>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);
