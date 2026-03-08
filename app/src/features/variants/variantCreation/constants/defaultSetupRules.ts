@@ -26,42 +26,42 @@ const defaultStartingPosition: SquareInfo[] = [
 	{
 		pieceName: "white_pawn",
 		xPos: 0,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 1,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 2,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 3,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 4,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 5,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 6,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "white_pawn",
 		xPos: 7,
-		yPos: 0,
+		yPos: 1,
 	},
 	{
 		pieceName: "black_pawn",
