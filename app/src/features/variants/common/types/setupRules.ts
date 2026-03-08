@@ -17,4 +17,4 @@ type SetupRules = {
 	startingPosition: SquareInfo[];
 };
 
-export type { SetupRules };
+export type { SetupRules, PieceOwnershipRules, SquareInfo };
