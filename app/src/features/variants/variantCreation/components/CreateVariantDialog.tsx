@@ -12,14 +12,18 @@ import type { ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 
 function CreateVariantDialog() {
-	const { variantName, updateVariantName } = useCreateVariantDialogStore();
+	const { isOpen, openDialog, closeDialog, variantName, updateVariantName } =
+		useCreateVariantDialogStore();
 
 	function handleVariantNameOnChange(e: ChangeEvent<HTMLInputElement>) {
 		updateVariantName((e.target as HTMLInputElement).value);
 	}
 
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => (open ? openDialog() : closeDialog())}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Create variant</DialogTitle>
