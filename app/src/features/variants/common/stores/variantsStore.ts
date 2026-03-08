@@ -1,7 +1,8 @@
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { generateVariantId } from "@/features/variants/common/utils/idGeneration";
+import { createIndexedDBStorage } from "zustand-indexeddb";
 
 type VariantsStore = {
 	variants: Record<string, VariantInfo>;
@@ -47,7 +48,7 @@ const useVariantsStore = create<VariantsStore>()(
 		}),
 		{
 			name: "variants",
-			storage: createJSONStorage(() => localStorage),
+			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
 		},
 	),
 );
