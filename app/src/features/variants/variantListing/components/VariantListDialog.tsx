@@ -6,16 +6,21 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialogStore";
 
 function VariantListDialog() {
 	const { variants } = useVariantsStore();
+	const { isOpen, openDialog, closeDialog } = useVariantListDialogStore();
 
 	console.log(useVariantsStore.persist.hasHydrated());
 
 	if (!useVariantsStore.persist.hasHydrated()) return null;
 
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => (open ? openDialog() : closeDialog())}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>My variants</DialogTitle>
