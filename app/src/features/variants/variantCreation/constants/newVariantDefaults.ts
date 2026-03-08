@@ -4,6 +4,7 @@ import type {
 	SetupRules,
 	SquareInfo,
 } from "@/features/variants/common/types/setupRules";
+import { defaultPieceRules } from "@/features/variants/variantCreation/constants/pieceRuleDefaults";
 
 const defaultPieceOwnershipRules: PieceOwnershipRules = {
 	white: [
@@ -196,4 +197,12 @@ const defaultSetupRules: SetupRules = {
 
 const defaultVariantRules: VariantRules = {
 	setupRules: defaultSetupRules,
+	piecesRules: defaultPieceRules,
+};
+
+export {
+	defaultVariantRules,
+	defaultSetupRules,
+	defaultPieceOwnershipRules,
+	defaultStartingPosition,
 };
