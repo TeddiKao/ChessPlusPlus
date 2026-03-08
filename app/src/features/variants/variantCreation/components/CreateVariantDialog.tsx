@@ -21,6 +21,7 @@ function CreateVariantDialog() {
 
 	function handleCreateVariantFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
+		closeDialog();
 	}
 
 	return (
