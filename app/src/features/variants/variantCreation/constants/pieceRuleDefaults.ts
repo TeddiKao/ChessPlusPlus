@@ -498,6 +498,7 @@ const defaultPieceRules: PiecesRules = {
 			},
 		],
 	},
+
 	blackPawn: {
 		moves: [
 			{
