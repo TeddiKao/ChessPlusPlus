@@ -10,11 +10,21 @@ import useVariantListDialogStore from "@/features/variants/variantListing/stores
 
 function VariantListDialog() {
 	const { variants } = useVariantsStore();
-	const { isOpen, openDialog, closeDialog } = useVariantListDialogStore();
+	const {
+		isOpen,
+		openDialog,
+		closeDialog,
+		selectedVariantId,
+		updateSelectedVariantId,
+	} = useVariantListDialogStore();
 
 	console.log(useVariantsStore.persist.hasHydrated());
 
 	if (!useVariantsStore.persist.hasHydrated()) return null;
+
+	function handleVariantSelection(variantId: string) {
+		updateSelectedVariantId(variantId);
+	}
 
 	return (
 		<Dialog
@@ -34,7 +44,14 @@ function VariantListDialog() {
 						([variantId, variantInfo]) => (
 							<button
 								type="button"
-								className="flex flex-row gap-2 shadow-md p-2 rounded-md bg-gray-300 shadow-gray-600"
+								onClick={() =>
+									handleVariantSelection(variantId)
+								}
+								className={
+									selectedVariantId === variantId
+										? "flex flex-row gap-2 p-2 rounded-md border-primary border-2 bg-(--muted-primary) [--tw-shadow-color:var(--shadow-primary)] shadow-md"
+										: "flex flex-row gap-2 shadow-md p-2 rounded-md shadow-gray-600"
+								}
 								key={variantId}
 							>
 								<span>{variantInfo.variantName}</span>
