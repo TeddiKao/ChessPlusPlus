@@ -6,4 +6,9 @@ type VariantRules = {
 	piecesRules: PiecesRules;
 };
 
-export type { VariantRules };
+type VariantInfo = {
+	variantRules: VariantRules;
+	variantName: string;
+};
+
+export type { VariantInfo, VariantRules };
