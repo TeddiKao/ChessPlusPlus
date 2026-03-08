@@ -25,4 +25,4 @@ type PieceRules = {
 
 type PiecesRules = Record<string, PieceRules>;
 
-export type { PiecesRules };
+export type { PiecesRules, PieceMovementRules, PieceMoveDefinition };
