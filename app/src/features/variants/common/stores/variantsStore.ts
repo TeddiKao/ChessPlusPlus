@@ -1,6 +1,6 @@
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware/persist";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { generateVariantId } from "@/features/variants/common/utils/idGeneration";
 
 type VariantsStore = {
