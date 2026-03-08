@@ -12,8 +12,14 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { Label } from "@/components/ui/label";
 
 function CreateVariantDialog() {
-	const { isOpen, openDialog, closeDialog, variantName, updateVariantName } =
-		useCreateVariantDialogStore();
+	const {
+		isOpen,
+		openDialog,
+		closeDialog,
+		variantName,
+		updateVariantName,
+		clearVariantName,
+	} = useCreateVariantDialogStore();
 
 	function handleVariantNameOnChange(e: ChangeEvent<HTMLInputElement>) {
 		updateVariantName((e.target as HTMLInputElement).value);
@@ -21,6 +27,8 @@ function CreateVariantDialog() {
 
 	function handleCreateVariantFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
+
+		clearVariantName();
 		closeDialog();
 	}
 
