@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialogStore";
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { Label } from "@/components/ui/label";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
+import type { VariantInfo } from "@/features/variants/common/types/variants";
+import { defaultVariantRules } from "@/features/variants/variantCreation/constants/newVariantDefaults";
 
 function CreateVariantDialog() {
 	const {
@@ -21,12 +24,21 @@ function CreateVariantDialog() {
 		clearVariantName,
 	} = useCreateVariantDialogStore();
 
+	const { createVariant } = useVariantsStore();
+
 	function handleVariantNameOnChange(e: ChangeEvent<HTMLInputElement>) {
 		updateVariantName((e.target as HTMLInputElement).value);
 	}
 
 	function handleCreateVariantFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
+
+		const defaultVariant: VariantInfo = {
+			variantName: variantName,
+			variantRules: structuredClone(defaultVariantRules),
+		};
+
+		createVariant(defaultVariant);
 
 		clearVariantName();
 		closeDialog();
