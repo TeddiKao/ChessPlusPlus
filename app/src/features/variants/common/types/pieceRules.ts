@@ -1,5 +1,5 @@
-type MovementConditions = "hasNotMoved";
-type MoveStopConditions = "insidePiece";
+type MovementConditions = "has_not_moved";
+type MoveStopConditions = "inside_piece";
 
 type PieceMoveDefinition = {
 	moveX: number;
