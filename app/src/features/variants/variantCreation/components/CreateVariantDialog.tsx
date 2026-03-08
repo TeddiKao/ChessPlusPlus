@@ -49,7 +49,7 @@ function CreateVariantDialog() {
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="variantNameInput">Variant name</Label>
 						<Input
-							name="variantNameInput"
+							id="variantNameInput"
 							type="text"
 							placeholder="Variant name"
 							onChange={handleVariantNameOnChange}
