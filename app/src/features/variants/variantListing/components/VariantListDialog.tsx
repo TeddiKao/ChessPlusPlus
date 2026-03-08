@@ -16,6 +16,7 @@ function VariantListDialog() {
 		closeDialog,
 		selectedVariantId,
 		updateSelectedVariantId,
+		clearSelectedVariantId,
 	} = useVariantListDialogStore();
 
 	console.log(useVariantsStore.persist.hasHydrated());
@@ -23,7 +24,11 @@ function VariantListDialog() {
 	if (!useVariantsStore.persist.hasHydrated()) return null;
 
 	function handleVariantSelection(variantId: string) {
-		updateSelectedVariantId(variantId);
+		if (variantId === selectedVariantId) {
+			clearSelectedVariantId();
+		} else {
+			updateSelectedVariantId(variantId);
+		}
 	}
 
 	return (
