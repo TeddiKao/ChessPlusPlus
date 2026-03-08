@@ -26,6 +26,8 @@ function CreateVariantDialog() {
 
 	const { createVariant } = useVariantsStore();
 
+	if (!useVariantsStore.persist.hasHydrated()) return null;
+
 	function handleVariantNameOnChange(e: ChangeEvent<HTMLInputElement>) {
 		updateVariantName((e.target as HTMLInputElement).value);
 	}
