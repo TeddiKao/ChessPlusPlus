@@ -67,18 +67,20 @@ function VariantListDialog() {
 					)}
 				</div>
 
-				<DialogFooter>
-					<Button className="px-4" type="button">
-						Rename
-					</Button>
-					<Button
-						className="px-4"
-						type="button"
-						variant="destructive"
-					>
-						Delete
-					</Button>
-				</DialogFooter>
+				{selectedVariantId && (
+					<DialogFooter>
+						<Button className="px-4" type="button">
+							Rename
+						</Button>
+						<Button
+							className="px-4"
+							type="button"
+							variant="destructive"
+						>
+							Delete
+						</Button>
+					</DialogFooter>
+				)}
 			</DialogContent>
 		</Dialog>
 	);
