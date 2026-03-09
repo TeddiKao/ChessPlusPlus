@@ -10,6 +10,10 @@ type VariantsStore = {
 	createVariant: (variantInfo: VariantInfo) => void;
 	removeVariant: (variantId: string) => void;
 	updateVariant: (variantId: string, newVariantInfo: VariantInfo) => void;
+
+	hasHydrated: boolean;
+	markAsHydrated: () => void;
+	resetHydrationState: () => void;
 };
 
 const useVariantsStore = create<VariantsStore>()(
@@ -45,11 +49,22 @@ const useVariantsStore = create<VariantsStore>()(
 					},
 				}));
 			},
+
+			hasHydrated: false,
+			markAsHydrated: () => set({ hasHydrated: true }),
+			resetHydrationState: () => set({ hasHydrated: false }),
 		}),
 		{
 			name: "variants",
 			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
 			partialize: (state) => ({ variants: state.variants }),
+			onRehydrateStorage: () => (state, error) => {
+				if (error) {
+					console.error("Error rehydrating variants:", error);
+				}
+
+				state?.markAsHydrated();
+			},
 		},
 	),
 );
