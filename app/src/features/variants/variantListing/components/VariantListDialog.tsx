@@ -2,11 +2,13 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialogStore";
+import { Button } from "@/components/ui/button";
 
 function VariantListDialog() {
 	const { variants } = useVariantsStore();
@@ -64,6 +66,19 @@ function VariantListDialog() {
 						),
 					)}
 				</div>
+
+				<DialogFooter>
+					<Button className="px-4" type="button">
+						Rename
+					</Button>
+					<Button
+						className="px-4"
+						type="button"
+						variant="destructive"
+					>
+						Delete
+					</Button>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
