@@ -13,7 +13,7 @@ type VariantListDialogStore = {
 const useVariantListDialogStore = create<VariantListDialogStore>((set) => ({
 	isOpen: false,
 	openDialog: () => set({ isOpen: true }),
-	closeDialog: () => set({ isOpen: false }),
+	closeDialog: () => set({ isOpen: false, selectedVariantId: null }),
 
 	selectedVariantId: null,
 	updateSelectedVariantId: (variantId) =>
