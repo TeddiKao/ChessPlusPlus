@@ -59,6 +59,7 @@ function VariantListDialog() {
 										? "flex flex-row gap-2 p-2 rounded-md border-primary border-2 bg-(--muted-primary) [--tw-shadow-color:var(--shadow-primary)] shadow-md"
 										: "flex flex-row gap-2 shadow-md p-2 rounded-md bg-gray-300 shadow-gray-600"
 								}
+								aria-pressed={selectedVariantId === variantId}
 								key={variantId}
 							>
 								<span>{variantInfo.variantName}</span>
