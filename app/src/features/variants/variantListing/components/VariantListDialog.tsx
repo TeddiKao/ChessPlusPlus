@@ -11,7 +11,7 @@ import useVariantListDialogStore from "@/features/variants/variantListing/stores
 import { Button } from "@/components/ui/button";
 
 function VariantListDialog() {
-	const { variants } = useVariantsStore();
+	const { variants, hasHydrated } = useVariantsStore();
 	const {
 		isOpen,
 		openDialog,
@@ -21,9 +21,7 @@ function VariantListDialog() {
 		clearSelectedVariantId,
 	} = useVariantListDialogStore();
 
-	console.log(useVariantsStore.persist.hasHydrated());
-
-	if (!useVariantsStore.persist.hasHydrated()) return null;
+	if (!hasHydrated) return null;
 
 	function handleVariantSelection(variantId: string) {
 		if (variantId === selectedVariantId) {
