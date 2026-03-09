@@ -2,9 +2,13 @@ import { Button } from "@/components/ui/button";
 import { IconChess, IconFolder, IconPlus } from "@tabler/icons-react";
 import CreateVariantDialog from "@/features/variants/variantCreation/components/CreateVariantDialog";
 import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialogStore";
+import VariantListDialog from "@/features/variants/variantListing/components/VariantListDialog";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialogStore";
 
 function HomePage() {
-	const { openDialog } = useCreateVariantDialogStore();
+	const { openDialog: openCreateVariantDialog } =
+		useCreateVariantDialogStore();
+	const { openDialog: openVariantListDialog } = useVariantListDialogStore();
 
 	return (
 		<>
@@ -13,11 +17,11 @@ function HomePage() {
 				<p>Create and play with your own custom chess pieces</p>
 
 				<div className="flex flex-row gap-4">
-					<Button onClick={openDialog} className="px-4">
+					<Button onClick={openCreateVariantDialog} className="px-4">
 						<IconPlus />
 						Create variant
 					</Button>
-					<Button className="px-4">
+					<Button onClick={openVariantListDialog} className="px-4">
 						<IconFolder />
 						My variants
 					</Button>
@@ -29,6 +33,7 @@ function HomePage() {
 			</div>
 
 			<CreateVariantDialog />
+			<VariantListDialog />
 		</>
 	);
 }
