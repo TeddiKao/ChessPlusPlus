@@ -61,7 +61,6 @@ const useVariantsStore = create<VariantsStore>()(
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {
 					console.error("Error rehydrating variants:", error);
-					return;
 				}
 
 				state?.markAsHydrated();
