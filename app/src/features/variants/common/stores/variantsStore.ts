@@ -58,7 +58,14 @@ const useVariantsStore = create<VariantsStore>()(
 			name: "variants",
 			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
 			partialize: (state) => ({ variants: state.variants }),
-			onRehydrateStorage: (state) => state.markAsHydrated(),
+			onRehydrateStorage: () => (state, error) => {
+				if (error) {
+					console.error("Error rehydrating variants:", error);
+					return;
+				}
+
+				state?.markAsHydrated();
+			},
 		},
 	),
 );
