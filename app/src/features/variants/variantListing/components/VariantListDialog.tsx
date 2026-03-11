@@ -7,7 +7,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialogStore";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 import { Button } from "@/components/ui/button";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
 

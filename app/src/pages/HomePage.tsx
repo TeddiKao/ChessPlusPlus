@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { IconChess, IconFolder, IconPlus } from "@tabler/icons-react";
 import CreateVariantDialog from "@/features/variants/variantCreation/components/CreateVariantDialog";
-import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialogStore";
+import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialog";
 import VariantListDialog from "@/features/variants/variantListing/components/VariantListDialog";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialogStore";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 
 function HomePage() {
 	const { openDialog: openCreateVariantDialog } =

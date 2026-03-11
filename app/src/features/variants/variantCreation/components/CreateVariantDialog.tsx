@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialogStore";
+import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialog";
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { Label } from "@/components/ui/label";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
