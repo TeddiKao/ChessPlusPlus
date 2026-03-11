@@ -22,8 +22,12 @@ function DeleteVariantAlert() {
 				</AlertDialogHeader>
 
 				<AlertDialogFooter>
-					<AlertDialogAction>Delete</AlertDialogAction>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogAction type="button" variant="destructive">
+						Delete variant
+					</AlertDialogAction>
+					<AlertDialogCancel type="button" variant="outline">
+						Cancel
+					</AlertDialogCancel>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>
