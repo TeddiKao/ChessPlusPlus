@@ -41,6 +41,7 @@ function VariantRenameDialog() {
 		e.preventDefault();
 
 		if (!selectedVariantId) return;
+		if (newVariantName.trim() === "") return;
 
 		const updatedVariant = structuredClone(variants[selectedVariantId]);
 		updatedVariant.variantName = newVariantName;
