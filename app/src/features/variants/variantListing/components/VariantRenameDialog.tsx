@@ -1,5 +1,6 @@
 import {
 	Dialog,
+	DialogContent,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
@@ -23,29 +24,33 @@ function VariantRenameDialog() {
 	}
 
 	return (
-		<Dialog>
-			<DialogHeader>
-				<DialogTitle>Rename variant</DialogTitle>
-			</DialogHeader>
+		<Dialog open={true}>
+			<DialogContent>
+				<DialogHeader>
+					<DialogTitle>Rename variant</DialogTitle>
+				</DialogHeader>
 
-			<form onSubmit={handleVariantRenameFormSubmit}>
-				<div className="flex flex-col gap-4">
-					<div className="flex flex-col gap-2">
-						<Label htmlFor="name">Variant name</Label>
-						<Input
-							value={newVariantName}
-							onChange={handleVariantNameInputChange}
-							type="text"
-							id="name"
-							name="name"
-						/>
+				<form onSubmit={handleVariantRenameFormSubmit}>
+					<div className="flex flex-col gap-4">
+						<div className="flex flex-col gap-2">
+							<Label htmlFor="name">Variant name</Label>
+							<Input
+								value={newVariantName}
+								onChange={handleVariantNameInputChange}
+								type="text"
+								id="name"
+								name="name"
+							/>
+						</div>
 					</div>
-				</div>
 
-				<DialogFooter>
-					<Button type="submit">Rename variant</Button>
-				</DialogFooter>
-			</form>
+					<DialogFooter>
+						<Button className="px-4" type="submit">
+							Rename variant
+						</Button>
+					</DialogFooter>
+				</form>
+			</DialogContent>
 		</Dialog>
 	);
 }
