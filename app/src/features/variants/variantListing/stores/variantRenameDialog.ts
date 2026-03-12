@@ -8,6 +8,10 @@ type VariantRenameDialogStore = {
 	variantIdToRename: string | null;
 	updateVariantIdToRename: (variantId: string) => void;
 	clearVariantIdToRename: () => void;
+
+	newVariantName: string;
+	updateNewVariantName: (newVariantName: string) => void;
+	clearNewVariantName: () => void;
 };
 
 const useVariantRenameDialogStore = create<VariantRenameDialogStore>((set) => ({
@@ -19,6 +23,10 @@ const useVariantRenameDialogStore = create<VariantRenameDialogStore>((set) => ({
 	updateVariantIdToRename: (variantId) =>
 		set({ variantIdToRename: variantId }),
 	clearVariantIdToRename: () => set({ variantIdToRename: null }),
+
+	newVariantName: "",
+	updateNewVariantName: (newVariantName) => set({ newVariantName }),
+	clearNewVariantName: () => set({ newVariantName: "" }),
 }));
 
 export default useVariantRenameDialogStore;
