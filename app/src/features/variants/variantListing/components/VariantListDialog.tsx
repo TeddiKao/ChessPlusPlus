@@ -82,7 +82,7 @@ function VariantListDialog() {
 								className="px-4"
 								type="button"
 								variant="destructive"
-								onClick={openAlert}
+								onClick={() => openAlert(selectedVariantId)}
 							>
 								Delete
 							</Button>
