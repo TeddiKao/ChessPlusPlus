@@ -8,9 +8,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
-import type { ChangeEvent, SyntheticEvent } from "react";
+import { type ChangeEvent, type SyntheticEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 
 function VariantRenameDialog() {
 	const {
@@ -21,6 +22,14 @@ function VariantRenameDialog() {
 		updateNewVariantName,
 	} = useVariantRenameDialogStore();
 	const { selectedVariantId } = useVariantListDialogStore();
+	const { variants } = useVariantsStore();
+
+	useEffect(() => {
+		if (!selectedVariantId) return;
+		if (!variants[selectedVariantId]) return;
+
+		updateNewVariantName(variants[selectedVariantId].variantName);
+	}, [variants, selectedVariantId, updateNewVariantName]);
 
 	if (!selectedVariantId) return;
 
