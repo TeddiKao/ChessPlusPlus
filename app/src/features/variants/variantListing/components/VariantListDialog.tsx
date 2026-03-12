@@ -11,19 +11,24 @@ import useVariantListDialogStore from "@/features/variants/variantListing/stores
 import { Button } from "@/components/ui/button";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
+import VariantRenameDialog from "@/features/variants/variantListing/components/VariantRenameDialog";
+import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 
 function VariantListDialog() {
 	const { variants, hasHydrated } = useVariantsStore();
 	const {
 		isOpen,
-		openDialog,
-		closeDialog,
+		openDialog: openVariantListDialog,
+		closeDialog: closeVariantListDialog,
 		selectedVariantId,
 		updateSelectedVariantId,
 		clearSelectedVariantId,
 	} = useVariantListDialogStore();
 
 	const { openAlert } = useVariantDeleteAlertStore();
+
+	const { openDialog: openVariantRenameDialog } =
+		useVariantRenameDialogStore();
 
 	if (!hasHydrated) return null;
 
@@ -39,7 +44,9 @@ function VariantListDialog() {
 		<>
 			<Dialog
 				open={isOpen}
-				onOpenChange={(open) => (open ? openDialog() : closeDialog())}
+				onOpenChange={(open) =>
+					open ? openVariantListDialog() : closeVariantListDialog()
+				}
 			>
 				<DialogContent>
 					<DialogHeader>
@@ -75,7 +82,13 @@ function VariantListDialog() {
 
 					{selectedVariantId && (
 						<DialogFooter>
-							<Button className="px-4" type="button">
+							<Button
+								onClick={() =>
+									openVariantRenameDialog(selectedVariantId)
+								}
+								className="px-4"
+								type="button"
+							>
 								Rename
 							</Button>
 							<Button
@@ -92,6 +105,7 @@ function VariantListDialog() {
 			</Dialog>
 
 			<DeleteVariantAlert />
+			<VariantRenameDialog />
 		</>
 	);
 }
