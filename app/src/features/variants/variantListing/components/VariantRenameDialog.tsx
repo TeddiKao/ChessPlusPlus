@@ -30,8 +30,11 @@ function VariantRenameDialog() {
 					<DialogTitle>Rename variant</DialogTitle>
 				</DialogHeader>
 
-				<form onSubmit={handleVariantRenameFormSubmit}>
-					<div className="flex flex-col gap-4">
+				<form
+					onSubmit={handleVariantRenameFormSubmit}
+					className="flex flex-col gap-4"
+				>
+					<div className="flex flex-col gap-2">
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="name">Variant name</Label>
 							<Input
@@ -45,7 +48,7 @@ function VariantRenameDialog() {
 					</div>
 
 					<DialogFooter>
-						<Button className="px-4" type="submit">
+						<Button className="w-full" type="submit">
 							Rename variant
 						</Button>
 					</DialogFooter>
