@@ -20,7 +20,8 @@ function DeleteVariantAlert() {
 		variantIdToDelete,
 		clearVariantIdToDelete,
 	} = useVariantDeleteAlertStore();
-	const { selectedVariantId } = useVariantListDialogStore();
+	const { selectedVariantId, clearSelectedVariantId } =
+		useVariantListDialogStore();
 	const { removeVariant } = useVariantsStore();
 
 	if (!selectedVariantId) return null;
@@ -49,6 +50,7 @@ function DeleteVariantAlert() {
 							if (!variantIdToDelete) return;
 							removeVariant(variantIdToDelete);
 							clearVariantIdToDelete();
+							clearSelectedVariantId();
 						}}
 						variant="destructive"
 					>
