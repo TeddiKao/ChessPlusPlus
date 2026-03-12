@@ -13,13 +13,8 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 
 function DeleteVariantAlert() {
-	const {
-		isOpen,
-		openAlert,
-		closeAlert,
-		variantIdToDelete,
-		clearVariantIdToDelete,
-	} = useVariantDeleteAlertStore();
+	const { isOpen, openAlert, closeAlert, variantIdToDelete } =
+		useVariantDeleteAlertStore();
 	const { selectedVariantId, clearSelectedVariantId } =
 		useVariantListDialogStore();
 	const { removeVariant } = useVariantsStore();
@@ -49,7 +44,6 @@ function DeleteVariantAlert() {
 						onClick={() => {
 							if (!variantIdToDelete) return;
 							removeVariant(variantIdToDelete);
-							clearVariantIdToDelete();
 							clearSelectedVariantId();
 						}}
 						variant="destructive"
