@@ -61,6 +61,9 @@ function VariantListDialog() {
 							([variantId, variantInfo]) => (
 								<button
 									type="button"
+									onDoubleClick={() =>
+										console.log("Double clicked")
+									}
 									onClick={() =>
 										handleVariantSelection(variantId)
 									}
@@ -82,7 +85,9 @@ function VariantListDialog() {
 
 					{selectedVariantId && (
 						<DialogFooter>
+							<Button className="px-4">Open</Button>
 							<Button
+								variant="outline"
 								onClick={() =>
 									openVariantRenameDialog(selectedVariantId)
 								}
