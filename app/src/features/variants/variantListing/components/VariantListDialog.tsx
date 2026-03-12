@@ -11,6 +11,7 @@ import useVariantListDialogStore from "@/features/variants/variantListing/stores
 import { Button } from "@/components/ui/button";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
+import VariantRenameDialog from "@/features/variants/variantListing/components/VariantRenameDialog";
 
 function VariantListDialog() {
 	const { variants, hasHydrated } = useVariantsStore();
@@ -92,6 +93,7 @@ function VariantListDialog() {
 			</Dialog>
 
 			<DeleteVariantAlert />
+			<VariantRenameDialog />
 		</>
 	);
 }
