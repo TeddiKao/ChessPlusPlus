@@ -10,10 +10,19 @@ import { Input } from "@/components/ui/input";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { Button } from "@/components/ui/button";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 
 function VariantRenameDialog() {
-	const { newVariantName, updateNewVariantName } =
-		useVariantRenameDialogStore();
+	const {
+		isOpen,
+		openDialog,
+		closeDialog,
+		newVariantName,
+		updateNewVariantName,
+	} = useVariantRenameDialogStore();
+	const { selectedVariantId } = useVariantListDialogStore();
+
+	if (!selectedVariantId) return;
 
 	function handleVariantNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updateNewVariantName(e.target.value);
@@ -24,7 +33,12 @@ function VariantRenameDialog() {
 	}
 
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) =>
+				open ? openDialog(selectedVariantId) : closeDialog()
+			}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Rename variant</DialogTitle>
