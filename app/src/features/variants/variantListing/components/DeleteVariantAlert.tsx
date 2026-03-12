@@ -9,9 +9,14 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
+import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 
 function DeleteVariantAlert() {
 	const { isOpen, openAlert, closeAlert } = useVariantDeleteAlertStore();
+	const { selectedVariantId, clearSelectedVariantId } =
+		useVariantListDialogStore();
+	const { removeVariant } = useVariantsStore();
 
 	return (
 		<AlertDialog
@@ -23,7 +28,7 @@ function DeleteVariantAlert() {
 					<AlertDialogTitle>Delete variant?</AlertDialogTitle>
 					<AlertDialogDescription>
 						Are you sure you want to delete this variant? This
-						action cannot be undone?
+						action cannot be undone.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 
@@ -31,6 +36,11 @@ function DeleteVariantAlert() {
 					<AlertDialogAction
 						className="px-4"
 						type="button"
+						onClick={() => {
+							if (!selectedVariantId) return;
+							removeVariant(selectedVariantId);
+							clearSelectedVariantId();
+						}}
 						variant="destructive"
 					>
 						Delete variant
