@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 import VariantRenameDialog from "@/features/variants/variantListing/components/VariantRenameDialog";
+import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 
 function VariantListDialog() {
 	const { variants, hasHydrated } = useVariantsStore();
@@ -25,6 +26,9 @@ function VariantListDialog() {
 	} = useVariantListDialogStore();
 
 	const { openAlert } = useVariantDeleteAlertStore();
+
+	const { openDialog: openVariantRenameDialog } =
+		useVariantRenameDialogStore();
 
 	if (!hasHydrated) return null;
 
@@ -79,7 +83,9 @@ function VariantListDialog() {
 					{selectedVariantId && (
 						<DialogFooter>
 							<Button
-								onClick={() => open}
+								onClick={() =>
+									openVariantRenameDialog(selectedVariantId)
+								}
 								className="px-4"
 								type="button"
 							>
