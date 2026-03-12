@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type CreateVariantDialogStore = {
+type CreateVariantDialog = {
 	isOpen: boolean;
 	openDialog: () => void;
 	closeDialog: () => void;
@@ -10,7 +10,7 @@ type CreateVariantDialogStore = {
 	clearVariantName: () => void;
 };
 
-const useCreateVariantDialogStore = create<CreateVariantDialogStore>((set) => ({
+const useCreateVariantDialogStore = create<CreateVariantDialog>((set) => ({
 	isOpen: false,
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
