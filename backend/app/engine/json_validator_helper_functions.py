@@ -1,3 +1,6 @@
+
+inf = float("inf")
+
 def get_missing_and_invalid(correct_data: set, test_data: set):
     missing = correct_data.difference(test_data)
     invalid = test_data.difference(correct_data)
@@ -7,8 +10,12 @@ def get_invalid(all_data: set, test_data: set):
     invalid = test_data.difference(all_data)
     return invalid
 
-def get_wrong_keys_error_message(missing_and_invalid: tuple, location: str):
-    return f"Incorrect keys detected. Missing: {missing_and_invalid[0]}; Invalid: {missing_and_invalid[1]}; Location: {location}. "
+def get_if_wrong_data_type(value, correct_type):
+    if type(value) == correct_type:
+        return False
+    return True
 
-def get_wrong_values_error_message(wrong_values: set, location: str, extra: str = ""):
-    return f"Invalid values detected. Wrong values: {wrong_values}; Location: {location}. {extra}."
+def get_if_int_not_in_range(test_int: int, min_int: float, max_int: float): # min_int and max_int accepts inf and -inf, defined in json_validator_helper_functions
+    if min_int <= test_int <= max_int:
+        return False
+    return True
