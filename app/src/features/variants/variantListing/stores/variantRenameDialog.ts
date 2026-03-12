@@ -17,7 +17,8 @@ type VariantRenameDialogStore = {
 const useVariantRenameDialogStore = create<VariantRenameDialogStore>((set) => ({
 	isOpen: false,
 	openDialog: (variantIdToRename) => set({ isOpen: true, variantIdToRename }),
-	closeDialog: () => set({ isOpen: false, variantIdToRename: null }),
+	closeDialog: () =>
+		set({ isOpen: false, variantIdToRename: null, newVariantName: "" }),
 
 	variantIdToRename: null,
 	updateVariantIdToRename: (variantId) =>
