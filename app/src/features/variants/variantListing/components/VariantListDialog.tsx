@@ -17,8 +17,8 @@ function VariantListDialog() {
 	const { variants, hasHydrated } = useVariantsStore();
 	const {
 		isOpen,
-		openDialog,
-		closeDialog,
+		openDialog: openVariantListDialog,
+		closeDialog: closeVariantListDialog,
 		selectedVariantId,
 		updateSelectedVariantId,
 		clearSelectedVariantId,
@@ -40,7 +40,9 @@ function VariantListDialog() {
 		<>
 			<Dialog
 				open={isOpen}
-				onOpenChange={(open) => (open ? openDialog() : closeDialog())}
+				onOpenChange={(open) =>
+					open ? openVariantListDialog() : closeVariantListDialog()
+				}
 			>
 				<DialogContent>
 					<DialogHeader>
@@ -76,7 +78,11 @@ function VariantListDialog() {
 
 					{selectedVariantId && (
 						<DialogFooter>
-							<Button className="px-4" type="button">
+							<Button
+								onClick={() => open}
+								className="px-4"
+								type="button"
+							>
 								Rename
 							</Button>
 							<Button
