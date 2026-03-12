@@ -2,16 +2,18 @@ import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 
 function VariantRenameDialog() {
 	const { newVariantName, updateNewVariantName } =
 		useVariantRenameDialogStore();
 
-	function handleVariantNameInputChange(
-		event: ChangeEvent<HTMLInputElement>,
-	) {
-		updateNewVariantName(event.target.value);
+	function handleVariantNameInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateNewVariantName(e.target.value);
+	}
+
+	function handleVariantRenameFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
+		e.preventDefault();
 	}
 
 	return (
@@ -20,7 +22,7 @@ function VariantRenameDialog() {
 				<DialogTitle>Rename variant</DialogTitle>
 			</DialogHeader>
 
-			<form>
+			<form onSubmit={handleVariantRenameFormSubmit}>
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="name">Variant name</Label>
