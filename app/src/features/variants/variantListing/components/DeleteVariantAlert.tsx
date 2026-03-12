@@ -8,10 +8,16 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 
 function DeleteVariantAlert() {
+	const { isOpen, openDialog, closeDialog } = useVariantDeleteAlertStore();
+
 	return (
-		<AlertDialog open={true}>
+		<AlertDialog
+			open={isOpen}
+			onOpenChange={(open) => (open ? openDialog() : closeDialog())}
+		>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Delete variant?</AlertDialogTitle>
