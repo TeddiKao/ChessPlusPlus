@@ -18,10 +18,14 @@ function DeleteVariantAlert() {
 		useVariantListDialogStore();
 	const { removeVariant } = useVariantsStore();
 
+	if (!selectedVariantId) return null;
+
 	return (
 		<AlertDialog
 			open={isOpen}
-			onOpenChange={(open) => (open ? openAlert() : closeAlert())}
+			onOpenChange={(open) =>
+				open ? openAlert(selectedVariantId) : closeAlert()
+			}
 		>
 			<AlertDialogContent>
 				<AlertDialogHeader>
