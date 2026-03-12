@@ -1,8 +1,14 @@
-import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 import type { ChangeEvent, SyntheticEvent } from "react";
+import { Button } from "@/components/ui/button";
 
 function VariantRenameDialog() {
 	const { newVariantName, updateNewVariantName } =
@@ -35,6 +41,10 @@ function VariantRenameDialog() {
 						/>
 					</div>
 				</div>
+
+				<DialogFooter>
+					<Button type="submit">Rename variant</Button>
+				</DialogFooter>
 			</form>
 		</Dialog>
 	);
