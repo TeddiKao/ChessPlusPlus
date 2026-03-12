@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 import { type ChangeEvent, type SyntheticEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 
 function VariantRenameDialog() {
@@ -18,20 +17,20 @@ function VariantRenameDialog() {
 		isOpen,
 		openDialog,
 		closeDialog,
+		variantIdToRename,
 		newVariantName,
 		updateNewVariantName,
 	} = useVariantRenameDialogStore();
-	const { selectedVariantId } = useVariantListDialogStore();
 	const { variants, updateVariant } = useVariantsStore();
 
 	useEffect(() => {
-		if (!selectedVariantId) return;
-		if (!variants[selectedVariantId]) return;
+		if (!variantIdToRename) return;
+		if (!variants[variantIdToRename]) return;
 
-		updateNewVariantName(variants[selectedVariantId].variantName);
-	}, [variants, selectedVariantId, updateNewVariantName]);
+		updateNewVariantName(variants[variantIdToRename].variantName);
+	}, [variants, variantIdToRename, updateNewVariantName]);
 
-	if (!selectedVariantId) return;
+	if (!variantIdToRename) return;
 
 	function handleVariantNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updateNewVariantName(e.target.value);
@@ -40,13 +39,13 @@ function VariantRenameDialog() {
 	function handleVariantRenameFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		if (!selectedVariantId) return;
+		if (!variantIdToRename) return;
 		if (newVariantName.trim() === "") return;
 
-		const updatedVariant = structuredClone(variants[selectedVariantId]);
+		const updatedVariant = structuredClone(variants[variantIdToRename]);
 		updatedVariant.variantName = newVariantName;
 
-		updateVariant(selectedVariantId, updatedVariant);
+		updateVariant(variantIdToRename, updatedVariant);
 		closeDialog();
 	}
 
@@ -54,7 +53,7 @@ function VariantRenameDialog() {
 		<Dialog
 			open={isOpen}
 			onOpenChange={(open) =>
-				open ? openDialog(selectedVariantId) : closeDialog()
+				open ? openDialog(variantIdToRename) : closeDialog()
 			}
 		>
 			<DialogContent>
