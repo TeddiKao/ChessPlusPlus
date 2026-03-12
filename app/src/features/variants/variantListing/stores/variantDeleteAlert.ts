@@ -14,7 +14,7 @@ const useVariantDeleteAlertStore = create<VariantDeleteAlertStore>((set) => ({
 	isOpen: false,
 	openAlert: (variantId) =>
 		set({ isOpen: true, variantIdToDelete: variantId }),
-	closeAlert: () => set({ isOpen: false }),
+	closeAlert: () => set({ isOpen: false, variantIdToDelete: null }),
 
 	variantIdToDelete: null,
 	updateVariantIdToDelete: (variantId) =>
