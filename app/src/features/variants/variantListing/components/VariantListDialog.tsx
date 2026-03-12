@@ -10,9 +10,10 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 import { Button } from "@/components/ui/button";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
+import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 
 function VariantListDialog() {
-	const { variants, hasHydrated, removeVariant } = useVariantsStore();
+	const { variants, hasHydrated } = useVariantsStore();
 	const {
 		isOpen,
 		openDialog,
@@ -21,6 +22,8 @@ function VariantListDialog() {
 		updateSelectedVariantId,
 		clearSelectedVariantId,
 	} = useVariantListDialogStore();
+
+	const { openAlert } = useVariantDeleteAlertStore();
 
 	if (!hasHydrated) return null;
 
@@ -79,7 +82,7 @@ function VariantListDialog() {
 								className="px-4"
 								type="button"
 								variant="destructive"
-								onClick={() => removeVariant(selectedVariantId)}
+								onClick={openAlert}
 							>
 								Delete
 							</Button>
