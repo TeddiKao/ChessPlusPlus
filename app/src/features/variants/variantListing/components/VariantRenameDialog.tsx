@@ -22,7 +22,7 @@ function VariantRenameDialog() {
 		updateNewVariantName,
 	} = useVariantRenameDialogStore();
 	const { selectedVariantId } = useVariantListDialogStore();
-	const { variants } = useVariantsStore();
+	const { variants, updateVariant } = useVariantsStore();
 
 	useEffect(() => {
 		if (!selectedVariantId) return;
@@ -39,6 +39,14 @@ function VariantRenameDialog() {
 
 	function handleVariantRenameFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
+
+		if (!selectedVariantId) return;
+
+		const updatedVariant = structuredClone(variants[selectedVariantId]);
+		updatedVariant.variantName = newVariantName;
+
+		updateVariant(selectedVariantId, updatedVariant);
+		closeDialog();
 	}
 
 	return (
