@@ -1,5 +1,5 @@
 import { IconChevronLeft } from "@tabler/icons-react";
-import VariantSidebar from "@/features/variants/variantEditor/VariantSidebar";
+import VariantSidebar from "@/features/variants/variantEditor/components/VariantSidebar";
 
 function VariantEditorPage() {
 	return (
