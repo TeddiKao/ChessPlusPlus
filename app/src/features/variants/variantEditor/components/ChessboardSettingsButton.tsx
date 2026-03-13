@@ -9,21 +9,21 @@ import BoardSettingsMenu from "@/features/variants/variantEditor/components/menu
 
 function ChessboardSettingsButton() {
 	return (
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<Popover>
+		<Popover>
+			<Tooltip>
+				<TooltipTrigger asChild>
 					<PopoverTrigger asChild>
 						<button type="button">
 							<Grid2X2 strokeWidth={1.5} />
 						</button>
 					</PopoverTrigger>
+				</TooltipTrigger>
 
-					<BoardSettingsMenu />
-				</Popover>
-			</TooltipTrigger>
+				<TooltipContent side="left">Board settings</TooltipContent>
+			</Tooltip>
 
-			<TooltipContent side="left">Board settings</TooltipContent>
-		</Tooltip>
+			<BoardSettingsMenu />
+		</Popover>
 	);
 }
 
