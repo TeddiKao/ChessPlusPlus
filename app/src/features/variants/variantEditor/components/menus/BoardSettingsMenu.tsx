@@ -7,17 +7,17 @@ function BoardSettingsMenu() {
 		<PopoverContent align="start" sideOffset={24} side="left">
 			<h2 className="text-xl">Board settings</h2>
 			<div className="flex flex-col gap-2">
-				<div className="flex flex-row gap-4">
+				<div className="grid grid-cols-2 gap-4 items-center">
 					<p>Board setup</p>
 					<Button>Edit setup</Button>
 				</div>
 
-				<div className="flex flex-row gap-4">
+				<div className="grid grid-cols-2 gap-4 items-center">
 					<p>Board width</p>
 					<Input type="number" defaultValue={8} />
 				</div>
 
-				<div className="flex flex-row gap-4">
+				<div className="grid grid-cols-2 gap-4 items-center">
 					<p>Board height</p>
 					<Input type="number" defaultValue={8} />
 				</div>
