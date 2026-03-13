@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Grid2X2 } from "lucide-react";
 
-export function ChessboardSettingsButton() {
+function ChessboardSettingsButton() {
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
@@ -18,3 +18,5 @@ export function ChessboardSettingsButton() {
 		</Tooltip>
 	);
 }
+
+export default ChessboardSettingsButton;

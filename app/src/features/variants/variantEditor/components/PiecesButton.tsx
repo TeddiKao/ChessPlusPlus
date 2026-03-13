@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ChessKnight } from "lucide-react";
 
-export function PiecesButton() {
+function PiecesButton() {
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
@@ -18,3 +18,5 @@ export function PiecesButton() {
 		</Tooltip>
 	);
 }
+
+export default PiecesButton;
