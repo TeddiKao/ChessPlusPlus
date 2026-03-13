@@ -6,7 +6,7 @@ def test():
     try:
         test_data = json.load(open("test_json.json"))
     except JSONDecodeError:
-        print("JSON Decode Error. Please check the file's syntax.")
+        print("JSON Decode Error detected. Please check the file's syntax.")
         return
 
     output = validate_json(test_data)

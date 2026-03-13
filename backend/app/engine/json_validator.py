@@ -2,10 +2,10 @@ from json_validator_components import *
 
 def validate_json(data: dict):
 
-    if not (temp := key_check(data, {"setup", "pieces"}, "main"))[0]:
+    if not (temp := check_keys(data, {"setup", "pieces"}, "main"))[0]:
         return temp
 
-    if not (temp := key_check(data["setup"], {"piece_ownership", "board_x_size", "board_y_size", "starting_position"}, "main/setup"))[0]:
+    if not (temp := check_keys(data["setup"], {"piece_ownership", "board_x_size", "board_y_size", "starting_position"}, "main/setup"))[0]:
         return temp
 
     if get_if_wrong_data_type(data["pieces"], dict):
@@ -19,18 +19,26 @@ def validate_json(data: dict):
         if wrong_values != set():
             return False, get_wrong_values_error_message(wrong_values, f"main/setup/piece_ownership/{player} (values)", "Wrong pieces do not exist in \"main/pieces (keys)\"")
 
-    main_setup_boardxsize__int = data["setup"]["board_x_size"]
-    if get_if_wrong_data_type(main_setup_boardxsize__int, int):
-        return False, get_wrong_data_type_error_message(type(main_setup_boardxsize__int), int, "main/setup/board_x_size(int)")
+    if not (temp := check_range(data["setup"]["board_x_size"], 1, 8, "main/setup/board_x_size"))[0]:
+        return temp
 
-    if get_if_int_not_in_range(main_setup_boardxsize__int, 1, 8):
-        return False, get_out_of_range_error_message("main/setup/board_x_size(int)")
+    if not (temp := check_range(data["setup"]["board_y_size"], 1, 8, "main/setup/board_y_size"))[0]:
+        return temp
 
-    main_setup_boardysize__int = data["setup"]["board_y_size"]
-    if get_if_wrong_data_type(main_setup_boardysize__int, int):
-        return False, get_wrong_data_type_error_message(type(main_setup_boardysize__int), int, "main/setup/board_y_size(int)")
-
-    if get_if_int_not_in_range(main_setup_boardysize__int, 1, 8):
-        return False, get_out_of_range_error_message("main/setup/board_y_size(int)")
+    if get_if_wrong_data_type(data["setup"]["starting_position"], list):
+        return False, get_wrong_data_type_error_message(type(data["setup"]["starting_position"]), list, "main/setup/starting_position (value)")
+    for index, piece in enumerate(data["setup"]["starting_position"]):
+        if get_if_wrong_data_type(piece, dict):
+            return False, get_wrong_data_type_error_message(type(piece), dict, f"main/setup/starting_position [{index}]")
+        if not (temp := check_keys(piece, {"piece_name", "x_pos", "y_pos"}, f"main/setup/starting_position [{index}]"))[0]:
+            return temp
+        if get_if_wrong_data_type(piece["piece_name"], str):
+            return False, get_wrong_data_type_error_message(type(piece["piece_name"]), str, f"main/setup/starting_position {index}/piece_name (value)")
+        if piece["piece_name"] not in main_pieces__keys:
+            return False, get_wrong_values_error_message(piece["piece_name"], f"main/setup/starting_position [{index}]/piece_name (value)", "Wrong piece does not exist in \"main/pieces (keys)\"")
+        if not (temp := check_range(piece["x_pos"], 0, data["setup"]["board_x_size"] - 1, f"main/setup/starting_position [{index}]/x_pos"))[0]:
+            return temp
+        if not (temp := check_range(piece["y_pos"], 0, data["setup"]["board_y_size"] - 1, f"main/setup/starting_position [{index}]/y_pos"))[0]:
+            return temp
 
     return True, "No errors detected! :)"
