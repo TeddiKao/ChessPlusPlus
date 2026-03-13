@@ -1,5 +1,10 @@
 import { IconChevronLeft } from "@tabler/icons-react";
 import { ChessKnight, Grid2X2 } from "lucide-react";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function VariantEditorPage() {
 	return (
@@ -15,12 +20,25 @@ function VariantEditorPage() {
 			</div>
 
 			<div className="absolute top-0 right-0 flex flex-col gap-4 p-4 h-screen bg-sidebar-primary-foreground">
-				<button type="button">
-					<Grid2X2 strokeWidth={1.5} />
-				</button>
-				<button type="button">
-					<ChessKnight strokeWidth={1.5} />
-				</button>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button type="button">
+							<Grid2X2 strokeWidth={1.5} />
+						</button>
+					</TooltipTrigger>
+
+					<TooltipContent side="left">Board settings</TooltipContent>
+				</Tooltip>
+
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button type="button">
+							<ChessKnight strokeWidth={1.5} />
+						</button>
+					</TooltipTrigger>
+
+					<TooltipContent side="left">Pieces</TooltipContent>
+				</Tooltip>
 			</div>
 		</>
 	);
