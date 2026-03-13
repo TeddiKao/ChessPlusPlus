@@ -1,6 +1,5 @@
 import { IconChevronLeft } from "@tabler/icons-react";
-import { ChessboardSettingsButton } from "@/features/variants/variantEditor/components/ChessboardSettingsButton";
-import { PiecesButton } from "@/features/variants/variantEditor/components/PiecesButton";
+import VariantSidebar from "@/features/variants/variantEditor/VariantSidebar";
 
 function VariantEditorPage() {
 	return (
@@ -15,10 +14,7 @@ function VariantEditorPage() {
 				</div>
 			</div>
 
-			<div className="absolute top-0 right-0 flex flex-col gap-4 p-4 h-screen bg-sidebar-primary-foreground">
-				<ChessboardSettingsButton />
-				<PiecesButton />
-			</div>
+			<VariantSidebar />
 		</>
 	);
 }
