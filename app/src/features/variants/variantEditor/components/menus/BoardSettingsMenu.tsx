@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 
 function BoardSettingsMenu() {
 	return (
-		<PopoverContent side="left">
+		<PopoverContent align="start" sideOffset={24} side="left">
 			<h2 className="text-xl">Board settings</h2>
 			<div className="flex flex-col gap-2">
 				<div className="flex flex-row gap-4">
