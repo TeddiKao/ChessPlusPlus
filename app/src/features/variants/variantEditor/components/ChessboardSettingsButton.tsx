@@ -6,7 +6,7 @@ import {
 import { Grid2X2 } from "lucide-react";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import BoardSettingsMenu from "@/features/variants/variantEditor/components/menus/BoardSettingsMenu";
-import useVariantEditorSidebarStore from "@/features/variants/variantEditor/stores/variantEditorSidebarStore";
+import useVariantEditorSidebarStore from "@/features/variants/variantEditor/stores/variantEditorSidebar";
 
 function ChessboardSettingsButton() {
 	const {
