@@ -5,9 +5,13 @@ import { IconSearch } from "@tabler/icons-react";
 
 function PiecesMenu() {
 	return (
-		<PopoverContent>
-			<InputGroup>
-				<Input type="text" placeholder="Search pieces..." />
+		<PopoverContent side="left" sideOffset={8}>
+			<InputGroup className="border-none shadow-none">
+				<Input
+					className="border-none shadow-none"
+					type="text"
+					placeholder="Search pieces..."
+				/>
 				<InputGroupAddon align="inline-start">
 					<IconSearch />
 				</InputGroupAddon>
