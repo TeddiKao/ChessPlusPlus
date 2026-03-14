@@ -8,7 +8,7 @@ import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import BoardSettingsMenu from "@/features/variants/variantEditor/components/menus/BoardSettingsMenu";
 import useVariantEditorSidebarStore from "@/features/variants/variantEditor/stores/variantEditorSidebar";
 
-function ChessboardSettingsButton() {
+function BoardSettingsButton() {
 	const {
 		currentSelectedSetting,
 		updateCurrentSelectedSetting,
@@ -46,4 +46,4 @@ function ChessboardSettingsButton() {
 	);
 }
 
-export default ChessboardSettingsButton;
+export default BoardSettingsButton;
