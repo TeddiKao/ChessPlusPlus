@@ -31,7 +31,6 @@ function BoardSettingsMenu() {
 						value={boardXSize}
 						onChange={handleBoardWidthInputChange}
 						type="number"
-						defaultValue={8}
 					/>
 				</div>
 
@@ -41,7 +40,6 @@ function BoardSettingsMenu() {
 						value={boardYSize}
 						onChange={handleBoardHeightInputChange}
 						type="number"
-						defaultValue={8}
 					/>
 				</div>
 			</div>
