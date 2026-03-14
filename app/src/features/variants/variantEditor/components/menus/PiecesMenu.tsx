@@ -6,9 +6,9 @@ import { IconSearch } from "@tabler/icons-react";
 function PiecesMenu() {
 	return (
 		<PopoverContent side="left" sideOffset={8}>
-			<InputGroup className="border-none shadow-none">
+			<InputGroup className="border-none shadow-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
 				<Input
-					className="border-none shadow-none"
+					className="border-none shadow-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
 					type="text"
 					placeholder="Search pieces..."
 				/>
