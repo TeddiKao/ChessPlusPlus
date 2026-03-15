@@ -40,6 +40,24 @@ const buttonVariants = cva(
 				size: "default",
 				className: "p-0",
 			},
+
+			{
+				variant: "ghost",
+				size: "xs",
+				className: "p-0",
+			},
+
+			{
+				variant: "ghost",
+				size: "sm",
+				className: "p-0",
+			},
+
+			{
+				variant: "ghost",
+				size: "lg",
+				className: "p-0",
+			},
 		],
 		defaultVariants: {
 			variant: "default",
