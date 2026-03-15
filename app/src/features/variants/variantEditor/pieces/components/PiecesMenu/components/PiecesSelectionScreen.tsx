@@ -59,12 +59,13 @@ function PiecesSelectionScreen() {
 					<CollapsibleContent>
 						{Array.from(pieceIconMap.entries()).map(
 							([piece, Icon]) => (
-								<div className="flex flex-row gap-2">
-									<Button variant="ghost">
-										<Icon className="size-5" />
-										<span>{piece}</span>
-									</Button>
-								</div>
+								<Button
+									className="flex flex-row gap-2"
+									variant="ghost"
+								>
+									<Icon className="size-5" />
+									<span>{piece}</span>
+								</Button>
 							),
 						)}
 					</CollapsibleContent>
