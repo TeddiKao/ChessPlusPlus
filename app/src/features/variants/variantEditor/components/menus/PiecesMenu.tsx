@@ -18,14 +18,14 @@ import { pieceIconMap } from "@/features/variants/variantEditor/constants/pieceI
 import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings";
 
 function PiecesMenu() {
-	const { isOpen, expandDefaultPieces, collapseDefaultPieces } =
+	const { isOpen, openPieceSettingsSheet, closePieceSettingsSheet } =
 		usePieceSettingsStore();
 
 	return (
 		<Sheet
 			open={isOpen}
 			onOpenChange={(open) =>
-				open ? expandDefaultPieces() : collapseDefaultPieces()
+				open ? openPieceSettingsSheet() : closePieceSettingsSheet()
 			}
 		>
 			<SheetContent>
