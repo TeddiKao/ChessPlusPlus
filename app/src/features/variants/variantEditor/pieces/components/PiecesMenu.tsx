@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import { pieceIconMap } from "@/features/variants/variantEditor/constants/pieceIconMap";
-import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSettingsSheet";
-import usePieceSelectionScreenStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSelectionScreen";
+import { pieceIconMap } from "@/features/variants/variantEditor/pieces/constants/pieceIconMap";
+import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
+import usePieceSelectionScreenStore from "@/features/variants/variantEditor/pieces/stores/pieceSelectionScreen";
 
 function PiecesMenu() {
 	const { isOpen, openPieceSettingsSheet, closePieceSettingsSheet } =

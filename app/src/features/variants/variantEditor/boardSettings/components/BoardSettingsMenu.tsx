@@ -1,7 +1,7 @@
 import { PopoverContent } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import useBoardSettingsStore from "@/features/variants/variantEditor/stores/boardSettings";
+import useBoardSettingsStore from "@/features/variants/variantEditor/boardSettings/stores/boardSettings";
 import type { ChangeEvent } from "react";
 
 function BoardSettingsMenu() {

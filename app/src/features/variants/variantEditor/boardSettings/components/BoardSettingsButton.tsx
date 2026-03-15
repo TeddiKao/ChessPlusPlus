@@ -5,8 +5,8 @@ import {
 } from "@/components/ui/tooltip";
 import { Grid2X2 } from "lucide-react";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
-import BoardSettingsMenu from "@/features/variants/variantEditor/components/menus/BoardSettingsMenu";
-import useVariantEditorSidebarStore from "@/features/variants/variantEditor/stores/variantEditorSidebar";
+import BoardSettingsMenu from "@/features/variants/variantEditor/boardSettings/components/BoardSettingsMenu";
+import useVariantEditorSidebarStore from "@/features/variants/variantEditor/common/stores/variantEditorSidebar";
 
 function BoardSettingsButton() {
 	const {
