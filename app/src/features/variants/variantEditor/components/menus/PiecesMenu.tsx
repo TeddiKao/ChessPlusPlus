@@ -48,6 +48,11 @@ function PiecesMenu() {
 				<Collapsible>
 					<CollapsibleTrigger asChild>
 						<Button
+							onClick={
+								isDefaultPiecesExpanded
+									? collapseDefaultPieces
+									: expandDefaultPieces
+							}
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
