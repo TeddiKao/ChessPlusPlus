@@ -116,6 +116,60 @@ function MoveDefinitionFieldSet() {
 	);
 }
 
+function AppearanceTab() {
+	return (
+		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
+			<Field className="grid grid-cols-2 gap-4 items-center">
+				<FieldLabel htmlFor="pieceName">Piece name</FieldLabel>
+				<Input
+					id="pieceName"
+					className="bg-white"
+					placeholder="Piece name"
+				/>
+			</Field>
+
+			<div className="grid grid-cols-2 gap-4 items-center">
+				<p>Piece image (white)</p>
+				<Button className="flex flex-row gap-2" variant="outline">
+					<IconUpload />
+					<span>Upload image</span>
+				</Button>
+			</div>
+
+			<div className="grid grid-cols-2 gap-4 items-center">
+				<p>Piece image (black)</p>
+				<Button className="flex flex-row gap-2" variant="outline">
+					<IconUpload />
+					<span>Upload image</span>
+				</Button>
+			</div>
+		</TabsContent>
+	);
+}
+
+function MovementsTab() {
+	return (
+		<TabsContent value="movements">
+			<Collapsible>
+				<CollapsibleTrigger
+					className="flex flex-row justify-between w-full"
+					asChild
+				>
+					<Button className="pb-2" variant="ghost">
+						<span>Movement 1</span>
+						<IconChevronUp />
+					</Button>
+				</CollapsibleTrigger>
+
+				<CollapsibleContent className="flex flex-col gap-4">
+					<MovementTypeFieldSet />
+					<MoveDefinitionFieldSet />
+				</CollapsibleContent>
+			</Collapsible>
+		</TabsContent>
+	);
+}
+
 function PieceEditorScreen() {
 	return (
 		<>
@@ -138,59 +192,8 @@ function PieceEditorScreen() {
 					<TabsTrigger value="movements">Movements</TabsTrigger>
 				</TabsList>
 
-				<TabsContent
-					value="appearance"
-					className="flex flex-col gap-4 w-full"
-				>
-					<Field className="grid grid-cols-2 gap-4 items-center">
-						<FieldLabel htmlFor="pieceName">Piece name</FieldLabel>
-						<Input
-							id="pieceName"
-							className="bg-white"
-							placeholder="Piece name"
-						/>
-					</Field>
-
-					<div className="grid grid-cols-2 gap-4 items-center">
-						<p>Piece image (white)</p>
-						<Button
-							className="flex flex-row gap-2"
-							variant="outline"
-						>
-							<IconUpload />
-							<span>Upload image</span>
-						</Button>
-					</div>
-
-					<div className="grid grid-cols-2 gap-4 items-center">
-						<p>Piece image (black)</p>
-						<Button
-							className="flex flex-row gap-2"
-							variant="outline"
-						>
-							<IconUpload />
-							<span>Upload image</span>
-						</Button>
-					</div>
-				</TabsContent>
-				<TabsContent value="movements">
-					<Collapsible>
-						<CollapsibleTrigger
-							className="flex flex-row justify-between w-full"
-							asChild
-						>
-							<Button className="pb-2" variant="ghost">
-								<span>Movement 1</span>
-								<IconChevronUp />
-							</Button>
-						</CollapsibleTrigger>
-
-						<CollapsibleContent className="flex flex-col gap-4">
-							<MovementTypeFieldSet />
-							<MoveDefinitionFieldSet />
-						</CollapsibleContent>
-					</Collapsible>
-				</TabsContent>
+				<AppearanceTab />
+				<MovementsTab />
 			</Tabs>
 		</>
 	);
