@@ -15,10 +15,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { IconChevronDown } from "@tabler/icons-react";
 import { pieceIconMap } from "@/features/variants/variantEditor/constants/pieceIconMap";
+import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings";
 
 function PiecesMenu() {
+	const {
+		isDefaultPiecesExpanded,
+		expandDefaultPieces,
+		collapseDefaultPieces,
+	} = usePieceSettingsStore();
+
 	return (
-		<Sheet open={true}>
+		<Sheet
+			open={isDefaultPiecesExpanded}
+			onOpenChange={(isExpanded) =>
+				isExpanded ? expandDefaultPieces() : collapseDefaultPieces()
+			}
+		>
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle>Pieces</SheetTitle>
