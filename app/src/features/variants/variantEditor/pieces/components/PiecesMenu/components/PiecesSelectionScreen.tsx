@@ -1,7 +1,6 @@
 import usePieceSelectionScreenStore from "@/features/variants/variantEditor/pieces/stores/pieceSelectionScreen";
 import {
 	SheetClose,
-	SheetContent,
 	SheetDescription,
 	SheetFooter,
 	SheetHeader,
@@ -30,7 +29,7 @@ function PiecesSelectionScreen() {
 	const { updateCurrentSheetMode } = usePieceSettingsStore();
 
 	return (
-		<SheetContent>
+		<>
 			<SheetHeader>
 				<SheetTitle>Pieces</SheetTitle>
 				<SheetDescription>
@@ -107,7 +106,7 @@ function PiecesSelectionScreen() {
 					<Button variant="outline">Close</Button>
 				</SheetClose>
 			</SheetFooter>
-		</SheetContent>
+		</>
 	);
 }
 
