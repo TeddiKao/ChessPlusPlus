@@ -45,39 +45,62 @@ function PiecesMenu() {
 					</SheetDescription>
 				</SheetHeader>
 
-				<Collapsible>
-					<CollapsibleTrigger asChild>
-						<Button
-							onClick={
-								isDefaultPiecesExpanded
-									? collapseDefaultPieces
-									: expandDefaultPieces
-							}
-							variant="ghost"
-							className="flex flex-row justify-between w-full"
-						>
-							<span>Default (8)</span>
-							{isDefaultPiecesExpanded ? (
-								<IconChevronUp />
-							) : (
-								<IconChevronDown />
-							)}
-						</Button>
-					</CollapsibleTrigger>
+				<div className="flex flex-col">
+					<Collapsible>
+						<CollapsibleTrigger asChild>
+							<Button
+								onClick={
+									isDefaultPiecesExpanded
+										? collapseDefaultPieces
+										: expandDefaultPieces
+								}
+								variant="ghost"
+								className="flex flex-row justify-between w-full"
+							>
+								<span>Default (8)</span>
+								{isDefaultPiecesExpanded ? (
+									<IconChevronDown />
+								) : (
+									<IconChevronUp />
+								)}
+							</Button>
+						</CollapsibleTrigger>
 
-					<CollapsibleContent>
-						{Array.from(pieceIconMap.entries()).map(
-							([piece, Icon]) => (
-								<div className="flex flex-row gap-2">
-									<Button variant="ghost">
-										<Icon className="size-5" />
-										<span>{piece}</span>
-									</Button>
-								</div>
-							),
-						)}
-					</CollapsibleContent>
-				</Collapsible>
+						<CollapsibleContent>
+							{Array.from(pieceIconMap.entries()).map(
+								([piece, Icon]) => (
+									<div className="flex flex-row gap-2">
+										<Button variant="ghost">
+											<Icon className="size-5" />
+											<span>{piece}</span>
+										</Button>
+									</div>
+								),
+							)}
+						</CollapsibleContent>
+					</Collapsible>
+
+					<Collapsible>
+						<CollapsibleTrigger asChild>
+							<Button
+								onClick={
+									isCustomPiecesExpanded
+										? collapseCustomPieces
+										: expandCustomPieces
+								}
+								variant="ghost"
+								className="flex flex-row justify-between w-full"
+							>
+								<span>Custom (0)</span>
+								{isCustomPiecesExpanded ? (
+									<IconChevronDown />
+								) : (
+									<IconChevronUp />
+								)}
+							</Button>
+						</CollapsibleTrigger>
+					</Collapsible>
+				</div>
 
 				<SheetFooter>
 					<Button>Add piece</Button>
