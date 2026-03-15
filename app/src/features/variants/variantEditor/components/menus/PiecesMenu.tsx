@@ -1,7 +1,9 @@
 import {
 	Sheet,
+	SheetClose,
 	SheetContent,
 	SheetDescription,
+	SheetFooter,
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
@@ -12,14 +14,7 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { IconChevronDown } from "@tabler/icons-react";
-import {
-	ChessBishopIcon,
-	ChessKingIcon,
-	ChessKnightIcon,
-	ChessPawnIcon,
-	ChessQueenIcon,
-	ChessRookIcon,
-} from "lucide-react";
+import { pieceIconMap } from "@/features/variants/variantEditor/constants/pieceIconMap";
 
 function PiecesMenu() {
 	return (
@@ -44,49 +39,25 @@ function PiecesMenu() {
 					</CollapsibleTrigger>
 
 					<CollapsibleContent>
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessPawnIcon className="size-5" />
-								<span>Pawn</span>
-							</Button>
-						</div>
-
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessKnightIcon className="size-5" />
-								<span>Knight</span>
-							</Button>
-						</div>
-
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessBishopIcon className="size-5" />
-								<span>Bishop</span>
-							</Button>
-						</div>
-
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessRookIcon className="size-5" />
-								<span>Rook</span>
-							</Button>
-						</div>
-
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessQueenIcon className="size-5" />
-								<span>Queen</span>
-							</Button>
-						</div>
-
-						<div className="flex flex-row gap-2">
-							<Button variant="ghost">
-								<ChessKingIcon className="size-5" />
-								<span>King</span>
-							</Button>
-						</div>
+						{Array.from(pieceIconMap.entries()).map(
+							([piece, Icon]) => (
+								<div className="flex flex-row gap-2">
+									<Button variant="ghost">
+										<Icon className="size-5" />
+										<span>{piece}</span>
+									</Button>
+								</div>
+							),
+						)}
 					</CollapsibleContent>
 				</Collapsible>
+
+				<SheetFooter>
+					<Button>Add piece</Button>
+					<SheetClose asChild>
+						<Button variant="outline">Close</Button>
+					</SheetClose>
+				</SheetFooter>
 			</SheetContent>
 		</Sheet>
 	);
