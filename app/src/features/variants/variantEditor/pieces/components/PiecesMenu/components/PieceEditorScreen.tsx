@@ -33,7 +33,10 @@ function MovementTypeFieldSet() {
 					className="border-gray-600"
 					id="for-movement-checkbox"
 				/>
-				<FieldLabel htmlFor="for-movement-checkbox">
+				<FieldLabel
+					className="font-normal"
+					htmlFor="for-movement-checkbox"
+				>
 					For movement
 				</FieldLabel>
 			</Field>
@@ -42,7 +45,10 @@ function MovementTypeFieldSet() {
 					className="border-gray-600"
 					id="for-capture-checkbox"
 				/>
-				<FieldLabel htmlFor="for-capture-checkbox">
+				<FieldLabel
+					className="font-normal"
+					htmlFor="for-capture-checkbox"
+				>
 					For capture
 				</FieldLabel>
 			</Field>
@@ -58,7 +64,9 @@ function RangeFieldSet() {
 				id="pieceRange"
 				orientation="horizontal"
 			>
-				<FieldLabel htmlFor="pieceRange">Range</FieldLabel>
+				<FieldLabel className="font-normal" htmlFor="pieceRange">
+					Range
+				</FieldLabel>
 				<Input
 					className="bg-background"
 					type="number"
@@ -68,7 +76,9 @@ function RangeFieldSet() {
 
 			<Field orientation="horizontal">
 				<Checkbox className="border-gray-600" id="infiniteRange" />
-				<FieldLabel htmlFor="infiniteRange">Infinite range</FieldLabel>
+				<FieldLabel className="font-normal" htmlFor="infiniteRange">
+					Infinite range
+				</FieldLabel>
 			</Field>
 		</FieldSet>
 	);
@@ -79,7 +89,7 @@ function OffsetFieldSet() {
 		<FieldSet>
 			<div className="grid grid-cols-2 gap-4 items-center">
 				<FieldLegend
-					className="data-[variant=label]:text-foreground mb-0"
+					className="data-[variant=label]:text-foreground mb-0 font-normal"
 					variant="label"
 				>
 					Offsets
@@ -120,7 +130,9 @@ function AppearanceTab() {
 	return (
 		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
 			<Field className="grid grid-cols-2 gap-4 items-center">
-				<FieldLabel htmlFor="pieceName">Piece name</FieldLabel>
+				<FieldLabel className="font-normal" htmlFor="pieceName">
+					Piece name
+				</FieldLabel>
 				<Input
 					id="pieceName"
 					className="bg-white"
