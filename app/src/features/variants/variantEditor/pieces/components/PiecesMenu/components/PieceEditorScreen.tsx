@@ -3,9 +3,10 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { IconChevronLeft } from "@tabler/icons-react";
+import { IconChevronLeft, IconUpload } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 
 function PieceEditorScreen() {
 	return (
@@ -29,7 +30,37 @@ function PieceEditorScreen() {
 					<TabsTrigger value="movements">Movements</TabsTrigger>
 				</TabsList>
 
-				<TabsContent value="appearance">Appearance content</TabsContent>
+				<TabsContent
+					value="appearance"
+					className="flex flex-col gap-4 w-full"
+				>
+					<div className="grid grid-cols-2 gap-4 items-center">
+						<p>Piece name</p>
+						<Input className="bg-white" placeholder="Piece name" />
+					</div>
+
+					<div className="grid grid-cols-2 gap-4 items-center">
+						<p>Piece image (white)</p>
+						<Button
+							className="flex flex-row gap-2"
+							variant="outline"
+						>
+							<IconUpload />
+							<span>Upload image</span>
+						</Button>
+					</div>
+
+					<div className="grid grid-cols-2 gap-4 items-center">
+						<p>Piece image (black)</p>
+						<Button
+							className="flex flex-row gap-2"
+							variant="outline"
+						>
+							<IconUpload />
+							<span>Upload image</span>
+						</Button>
+					</div>
+				</TabsContent>
 				<TabsContent value="movements">Movements content</TabsContent>
 			</Tabs>
 		</>
