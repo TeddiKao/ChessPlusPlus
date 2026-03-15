@@ -1,5 +1,5 @@
-function PiecEditorScreen() {
+function PieceEditorScreen() {
 	return <div>Piece Editor Screen</div>;
 }
 
-export default PiecEditorScreen;
+export default PieceEditorScreen;
