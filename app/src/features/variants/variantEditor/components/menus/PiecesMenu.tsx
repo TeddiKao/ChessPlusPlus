@@ -13,13 +13,22 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { pieceIconMap } from "@/features/variants/variantEditor/constants/pieceIconMap";
-import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSettings";
+import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSettingsSheet";
+import usePieceSelectionScreenStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSelectionScreen";
 
 function PiecesMenu() {
 	const { isOpen, openPieceSettingsSheet, closePieceSettingsSheet } =
 		usePieceSettingsStore();
+	const {
+		isDefaultPiecesExpanded,
+		expandDefaultPieces,
+		collapseDefaultPieces,
+		isCustomPiecesExpanded,
+		expandCustomPieces,
+		collapseCustomPieces,
+	} = usePieceSelectionScreenStore();
 
 	return (
 		<Sheet
@@ -43,7 +52,11 @@ function PiecesMenu() {
 							className="flex flex-row justify-between w-full"
 						>
 							<span>Default (8)</span>
-							<IconChevronDown />
+							{isDefaultPiecesExpanded ? (
+								<IconChevronUp />
+							) : (
+								<IconChevronDown />
+							)}
 						</Button>
 					</CollapsibleTrigger>
 
