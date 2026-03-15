@@ -1,4 +1,4 @@
-import { Sheet } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
 import PiecesSelectionScreen from "@/features/variants/variantEditor/pieces/components/PiecesMenu/components/PiecesSelectionScreen";
 
@@ -17,9 +17,11 @@ function PiecesMenu() {
 				open ? openPieceSettingsSheet() : closePieceSettingsSheet()
 			}
 		>
-			{currentSheetMode === "pieceSelection" ? (
-				<PiecesSelectionScreen />
-			) : null}
+			<SheetContent>
+				{currentSheetMode === "pieceSelection" ? (
+					<PiecesSelectionScreen />
+				) : null}
+			</SheetContent>
 		</Sheet>
 	);
 }
