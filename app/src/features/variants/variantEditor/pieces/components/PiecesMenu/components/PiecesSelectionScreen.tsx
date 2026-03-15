@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { pieceIconMap } from "@/features/variants/variantEditor/pieces/constants/pieceIconMap";
+import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
 
 function PiecesSelectionScreen() {
 	const {
@@ -25,6 +26,8 @@ function PiecesSelectionScreen() {
 		expandCustomPieces,
 		collapseCustomPieces,
 	} = usePieceSelectionScreenStore();
+
+	const { updateCurrentSheetMode } = usePieceSettingsStore();
 
 	return (
 		<SheetContent>
@@ -62,6 +65,11 @@ function PiecesSelectionScreen() {
 								<Button
 									className="flex flex-row gap-2"
 									variant="ghost"
+									onClick={() =>
+										updateCurrentSheetMode(
+											"pieceConfiguration",
+										)
+									}
 								>
 									<Icon className="size-5" />
 									<span>{piece}</span>
