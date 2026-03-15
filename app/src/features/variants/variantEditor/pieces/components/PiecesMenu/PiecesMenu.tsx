@@ -17,7 +17,10 @@ function PiecesMenu() {
 				open ? openPieceSettingsSheet() : closePieceSettingsSheet()
 			}
 		>
-			<SheetContent>
+			<SheetContent
+				className="bg-sidebar-primary-foreground"
+				showOverlay={false}
+			>
 				{currentSheetMode === "pieceSelection" ? (
 					<PiecesSelectionScreen />
 				) : null}
