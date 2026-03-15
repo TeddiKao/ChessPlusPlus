@@ -11,12 +11,15 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
+import { IconChevronDown } from "@tabler/icons-react";
 import {
-	IconChess,
-	IconChessBishop,
-	IconChevronDown,
-} from "@tabler/icons-react";
-import { ChessKnightIcon } from "lucide-react";
+	ChessBishopIcon,
+	ChessKingIcon,
+	ChessKnightIcon,
+	ChessPawnIcon,
+	ChessQueenIcon,
+	ChessRookIcon,
+} from "lucide-react";
 
 function PiecesMenu() {
 	return (
@@ -43,22 +46,43 @@ function PiecesMenu() {
 					<CollapsibleContent>
 						<div className="flex flex-row gap-2">
 							<Button variant="ghost">
-								<IconChess />
+								<ChessPawnIcon className="size-5" />
 								<span>Pawn</span>
 							</Button>
 						</div>
 
 						<div className="flex flex-row gap-2">
 							<Button variant="ghost">
-								<ChessKnightIcon />
+								<ChessKnightIcon className="size-5" />
 								<span>Knight</span>
 							</Button>
 						</div>
 
 						<div className="flex flex-row gap-2">
 							<Button variant="ghost">
-								<IconChessBishop />
+								<ChessBishopIcon className="size-5" />
 								<span>Bishop</span>
+							</Button>
+						</div>
+
+						<div className="flex flex-row gap-2">
+							<Button variant="ghost">
+								<ChessRookIcon className="size-5" />
+								<span>Rook</span>
+							</Button>
+						</div>
+
+						<div className="flex flex-row gap-2">
+							<Button variant="ghost">
+								<ChessQueenIcon className="size-5" />
+								<span>Queen</span>
+							</Button>
+						</div>
+
+						<div className="flex flex-row gap-2">
+							<Button variant="ghost">
+								<ChessKingIcon className="size-5" />
+								<span>King</span>
 							</Button>
 						</div>
 					</CollapsibleContent>
