@@ -21,6 +21,7 @@ function PiecesMenu() {
 			<SheetContent
 				className="bg-sidebar-primary-foreground"
 				showOverlay={false}
+				showCloseButton={false}
 			>
 				{currentSheetMode === "pieceSelection" ? (
 					<PiecesSelectionScreen />
