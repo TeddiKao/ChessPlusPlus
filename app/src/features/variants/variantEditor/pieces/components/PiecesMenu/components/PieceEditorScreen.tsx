@@ -3,10 +3,20 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { IconChevronLeft, IconUpload } from "@tabler/icons-react";
+import {
+	IconChevronLeft,
+	IconChevronUp,
+	IconUpload,
+} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Field, FieldLabel } from "@/components/ui/field";
 
 function PieceEditorScreen() {
 	return (
@@ -34,10 +44,14 @@ function PieceEditorScreen() {
 					value="appearance"
 					className="flex flex-col gap-4 w-full"
 				>
-					<div className="grid grid-cols-2 gap-4 items-center">
-						<p>Piece name</p>
-						<Input className="bg-white" placeholder="Piece name" />
-					</div>
+					<Field className="grid grid-cols-2 gap-4 items-center">
+						<FieldLabel htmlFor="pieceName">Piece name</FieldLabel>
+						<Input
+							id="pieceName"
+							className="bg-white"
+							placeholder="Piece name"
+						/>
+					</Field>
 
 					<div className="grid grid-cols-2 gap-4 items-center">
 						<p>Piece image (white)</p>
@@ -61,7 +75,21 @@ function PieceEditorScreen() {
 						</Button>
 					</div>
 				</TabsContent>
-				<TabsContent value="movements">Movements content</TabsContent>
+				<TabsContent value="movements">
+					<Collapsible>
+						<CollapsibleTrigger
+							className="flex flex-row justify-between w-full"
+							asChild
+						>
+							<Button variant="ghost">
+								<span>Movement 1</span>
+								<IconChevronUp />
+							</Button>
+						</CollapsibleTrigger>
+
+						<CollapsibleContent className="flex flex-col gap-4"></CollapsibleContent>
+					</Collapsible>
+				</TabsContent>
 			</Tabs>
 		</>
 	);
