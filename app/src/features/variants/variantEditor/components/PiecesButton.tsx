@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ChessKnight } from "lucide-react";
 import PiecesMenu from "@/features/variants/variantEditor/components/menus/PiecesMenu";
-import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings";
+import usePieceSettingsStore from "@/features/variants/variantEditor/stores/pieceSettings/pieceSettings";
 
 function PiecesButton() {
 	const { openPieceSettingsSheet } = usePieceSettingsStore();
