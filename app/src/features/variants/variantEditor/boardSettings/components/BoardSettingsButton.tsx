@@ -21,7 +21,8 @@ function BoardSettingsButton() {
 			onOpenChange={(open) =>
 				open
 					? updateCurrentSelectedSetting("board")
-					: clearCurrentSelectedSetting()
+					: currentSelectedSetting === "board" &&
+						clearCurrentSelectedSetting()
 			}
 		>
 			<Tooltip>
