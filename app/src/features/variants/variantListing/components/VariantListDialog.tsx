@@ -13,6 +13,7 @@ import DeleteVariantAlert from "@/features/variants/variantListing/components/De
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 import VariantRenameDialog from "@/features/variants/variantListing/components/VariantRenameDialog";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
+import { useNavigate } from "react-router-dom";
 
 function VariantListDialog() {
 	const { variants, hasHydrated } = useVariantsStore();
@@ -29,6 +30,8 @@ function VariantListDialog() {
 
 	const { openDialog: openVariantRenameDialog } =
 		useVariantRenameDialogStore();
+
+	const navigate = useNavigate();
 
 	if (!hasHydrated) return null;
 
@@ -83,6 +86,18 @@ function VariantListDialog() {
 					{selectedVariantId && (
 						<DialogFooter>
 							<Button
+								onClick={() => {
+									closeVariantListDialog();
+									navigate(
+										`/variant-editor/${selectedVariantId}`,
+									);
+								}}
+								className="px-4"
+							>
+								Open
+							</Button>
+							<Button
+								variant="outline"
 								onClick={() =>
 									openVariantRenameDialog(selectedVariantId)
 								}
