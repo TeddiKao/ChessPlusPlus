@@ -62,6 +62,7 @@ function PiecesSelectionScreen() {
 						{Array.from(pieceIconMap.entries()).map(
 							([piece, Icon]) => (
 								<Button
+									key={piece}
 									className="flex flex-row gap-2"
 									variant="ghost"
 									onClick={() =>
