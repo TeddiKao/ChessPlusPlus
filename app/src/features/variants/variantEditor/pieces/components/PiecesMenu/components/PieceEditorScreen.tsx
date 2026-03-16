@@ -91,23 +91,21 @@ function OffsetFieldSet() {
 				Offsets
 			</FieldLegend>
 
-			<div className="grid grid-cols-2 gap-4 items-center">
-				<div className="grid grid-cols-2 gap-2">
-					<Field>
-						<Input
-							className="bg-background"
-							type="number"
-							placeholder="X"
-						/>
-					</Field>
-					<Field>
-						<Input
-							className="bg-background"
-							type="number"
-							placeholder="Y"
-						/>
-					</Field>
-				</div>
+			<div className="grid grid-cols-2 gap-2 items-center">
+				<Field>
+					<Input
+						className="bg-background"
+						type="number"
+						placeholder="X"
+					/>
+				</Field>
+				<Field>
+					<Input
+						className="bg-background"
+						type="number"
+						placeholder="Y"
+					/>
+				</Field>
 			</div>
 		</FieldSet>
 	);
