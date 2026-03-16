@@ -5,16 +5,19 @@ import {
 } from "@/components/ui/tooltip";
 import { ChessKnight } from "lucide-react";
 import PiecesMenu from "@/features/variants/variantEditor/pieces/components/PiecesMenu/PiecesMenu";
-import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
+import useVariantEditorSidebarStore from "@/features/variants/variantEditor/common/stores/variantEditorSidebar";
 
 function PiecesButton() {
-	const { openPieceSettingsSheet } = usePieceSettingsStore();
+	const { updateCurrentSelectedSetting } = useVariantEditorSidebarStore();
 
 	return (
 		<>
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<button onClick={openPieceSettingsSheet} type="button">
+					<button
+						type="button"
+						onClick={() => updateCurrentSelectedSetting("pieces")}
+					>
 						<ChessKnight strokeWidth={1.5} />
 					</button>
 				</TooltipTrigger>
