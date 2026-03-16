@@ -38,14 +38,14 @@ function PiecesSelectionScreen() {
 			</SheetHeader>
 
 			<div className="flex flex-col">
-				<Collapsible>
+				<Collapsible
+					open={isDefaultPiecesExpanded}
+					onOpenChange={(open) =>
+						open ? expandDefaultPieces() : collapseDefaultPieces()
+					}
+				>
 					<CollapsibleTrigger asChild>
 						<Button
-							onClick={
-								isDefaultPiecesExpanded
-									? collapseDefaultPieces
-									: expandDefaultPieces
-							}
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
@@ -79,7 +79,12 @@ function PiecesSelectionScreen() {
 					</CollapsibleContent>
 				</Collapsible>
 
-				<Collapsible>
+				<Collapsible
+					open={isCustomPiecesExpanded}
+					onOpenChange={(open) =>
+						open ? expandCustomPieces() : collapseCustomPieces()
+					}
+				>
 					<CollapsibleTrigger asChild>
 						<Button
 							onClick={
