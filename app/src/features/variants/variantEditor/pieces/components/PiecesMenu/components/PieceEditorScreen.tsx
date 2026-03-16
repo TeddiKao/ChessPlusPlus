@@ -58,7 +58,8 @@ function MovementTypeFieldSet() {
 
 function RangeFieldSet() {
 	return (
-		<FieldSet>
+		<FieldSet className="gap-2">
+			<FieldLegend variant="label">Range settings</FieldLegend>
 			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
 				<FieldLabel className="font-normal" htmlFor="pieceRange">
 					Range
