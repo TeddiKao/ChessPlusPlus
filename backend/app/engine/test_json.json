@@ -183,60 +183,410 @@
       }
     ]
   },
+  "moves": {
+    "white_pawn_forward": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "white_pawn_double_step": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": ["has_not_moved"],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "white_pawn_capture_east": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "white_pawn_capture_west": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_forward": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "black_pawn_double_step": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": ["has_not_moved"],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_capture_east": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_capture_west": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "east": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 0,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "west": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 0,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "north": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "south": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northeast": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southwest": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southeast": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northwest": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "knight_0201": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 2,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_02m1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 2,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m201": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -2,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m2m1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -2,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_0102": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m102": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_01m2": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m1m2": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "east_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 0,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "west_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 0,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "north_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "south_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northeast_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southwest_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southeast_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northwest_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "valid_move": true,
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    }
+  },
   "pieces": {
     "white_pawn": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": false,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "white_pawn_forward",
           "chained_moves": [
             {
-              "for_movement": true,
-              "for_capture": false,
-              "conditions": ["has_not_moved"],
-              "valid_move": true,
-              "move_definition": {
-                "move_x": 0,
-                "move_y": 1,
-                "range": 1,
-                "move_stop_conditions": []
-              },
+              "move_name": "white_forward_double_step",
               "chained_moves": []
             }
           ]
         },
         {
-          "for_movement": false,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "white_pawn_capture_east",
           "chained_moves": []
         },
         {
-          "for_movement": false,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "white_pawn_capture_west",
           "chained_moves": []
         }
       ]
@@ -244,56 +594,20 @@
     "black_pawn": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": false,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "black_pawn_forward",
           "chained_moves": [
             {
-              "for_movement": true,
-              "for_capture": false,
-              "conditions": ["has_not_moved"],
-              "valid_move": true,
-              "move_definition": {
-                "move_x": 0,
-                "move_y": -1,
-                "range": 1,
-                "move_stop_conditions": []
-              },
+              "move_name": "black_forward_double_step",
               "chained_moves": []
             }
           ]
         },
         {
-          "for_movement": false,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "black_pawn_capture_east",
           "chained_moves": []
         },
         {
-          "for_movement": false,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "black_pawn_capture_west",
           "chained_moves": []
         }
       ]
@@ -301,107 +615,35 @@
     "white_queen": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "north",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "south",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "east",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "west",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northwest",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southwest",
           "chained_moves": []
         }
       ]
@@ -409,107 +651,35 @@
     "black_queen": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "north",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "south",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "east",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "west",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northwest",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southwest",
           "chained_moves": []
         }
       ]
@@ -517,55 +687,19 @@
     "white_rook": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "north",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "south",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "east",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "west",
           "chained_moves": []
         }
       ]
@@ -573,55 +707,19 @@
     "black_rook": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "north",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "south",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "east",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "west",
           "chained_moves": []
         }
       ]
@@ -629,55 +727,19 @@
     "white_bishop": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northwest",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southwest",
           "chained_moves": []
         }
       ]
@@ -685,55 +747,19 @@
     "black_bishop": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "northwest",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southeast",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": "inf",
-            "move_stop_conditions": ["inside_piece"]
-          },
+          "move_name": "southwest",
           "chained_moves": []
         }
       ]
@@ -741,107 +767,35 @@
     "white_knight": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 2,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_0201",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 2,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_02m1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -2,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m201",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -2,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m2m1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_0102",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m102",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_01m2",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m1m2",
           "chained_moves": []
         }
       ]
@@ -849,107 +803,35 @@
     "black_knight": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 2,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_0201",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 2,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_02m1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -2,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m201",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -2,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m2m1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_0102",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m102",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_01m2",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -2,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "knight_m1m2",
           "chained_moves": []
         }
       ]
@@ -957,107 +839,35 @@
     "white_king": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "north_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "south_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "east_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "west_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "northeast_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "northwest_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "southeast_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "southwest_1",
           "chained_moves": []
         }
       ]
@@ -1065,107 +875,35 @@
     "black_king": {
       "moves": [
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 0,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "north_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 0,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "south_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "east_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 0,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "west_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "northeast_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "northwest_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": 1,
-            "move_y": -1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "southeast_1",
           "chained_moves": []
         },
         {
-          "for_movement": true,
-          "for_capture": true,
-          "conditions": [],
-          "valid_move": true,
-          "move_definition": {
-            "move_x": -1,
-            "move_y": 1,
-            "range": 1,
-            "move_stop_conditions": []
-          },
+          "move_name": "southwest_1",
           "chained_moves": []
         }
       ]
