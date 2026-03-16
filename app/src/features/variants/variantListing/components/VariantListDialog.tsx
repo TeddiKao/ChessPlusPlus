@@ -64,9 +64,6 @@ function VariantListDialog() {
 							([variantId, variantInfo]) => (
 								<button
 									type="button"
-									onDoubleClick={() =>
-										console.log("Double clicked")
-									}
 									onClick={() =>
 										handleVariantSelection(variantId)
 									}
