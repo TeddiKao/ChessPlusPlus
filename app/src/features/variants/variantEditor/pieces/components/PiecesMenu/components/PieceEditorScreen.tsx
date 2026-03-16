@@ -66,7 +66,9 @@ function MovementTypeFieldSet() {
 function RangeFieldSet() {
 	return (
 		<FieldSet className="gap-2">
-			<FieldLegend variant="label">Range settings</FieldLegend>
+			<FieldLegend className="mb-1" variant="label">
+				Range settings
+			</FieldLegend>
 			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
 				<FieldLabel className="font-normal" htmlFor="pieceRange">
 					Range
@@ -115,7 +117,9 @@ function OffsetField() {
 function MoveDefinitionFieldSet() {
 	return (
 		<FieldSet>
-			<FieldLegend variant="label">Move definitions</FieldLegend>
+			<FieldLegend className="mb-1" variant="label">
+				Move definitions
+			</FieldLegend>
 
 			<OffsetField />
 			<RangeFieldSet />
@@ -126,9 +130,11 @@ function MoveDefinitionFieldSet() {
 function AppliesToFieldSet() {
 	return (
 		<FieldSet>
-			<FieldLegend variant="label">Applies to</FieldLegend>
+			<FieldLegend className="mb-1" variant="label">
+				Applies to
+			</FieldLegend>
 			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
-				<FieldLabel>Side</FieldLabel>
+				<FieldLabel className="font-normal">Side</FieldLabel>
 				<Select defaultValue="both">
 					<SelectTrigger className="w-full bg-background">
 						<SelectValue placeholder="Select side" />
