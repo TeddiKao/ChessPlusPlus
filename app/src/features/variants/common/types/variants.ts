@@ -5,7 +5,7 @@ import type { MovementRules } from "@/features/variants/common/types/movementRul
 type VariantRules = {
 	setupRules: SetupRules;
 	piecesRules: PiecesRules;
-	movementRules: MovementRules;
+	movementRules: Record<string, MovementRules>;
 };
 
 type VariantInfo = {
