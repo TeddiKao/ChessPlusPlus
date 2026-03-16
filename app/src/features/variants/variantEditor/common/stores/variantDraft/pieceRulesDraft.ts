@@ -13,6 +13,20 @@ type PieceRulesDraftStore = {
 		chainedMoves: string[],
 	) => void;
 	removePiece: (pieceName: string) => void;
+
+	addMovementToPiece: (pieceName: string, moveName: string) => void;
+	removeMovementFromPiece: (pieceName: string, moveName: string) => void;
+
+	addChainedMoveToPiece: (
+		pieceName: string,
+		moveName: string,
+		chainedMoveToAdd: string,
+	) => void;
+	removeChainedMoveFromPiece: (
+		pieceName: string,
+		moveName: string,
+		chainedMoveToRemove: string,
+	) => void;
 };
 
 const usePieceRulesDraftStore = create<PieceRulesDraftStore>()(
@@ -34,6 +48,63 @@ const usePieceRulesDraftStore = create<PieceRulesDraftStore>()(
 			set((state) => {
 				if (!state.pieces) return;
 				delete state.pieces[pieceName];
+			});
+		},
+
+		addMovementToPiece: (pieceName, moveName) => {
+			set((state) => {
+				if (!state.pieces) return;
+				if (!state.pieces[pieceName]) return;
+
+				state.pieces[pieceName].moves.push({
+					moveName,
+					chainedMoves: [],
+				});
+			});
+		},
+
+		removeMovementFromPiece: (pieceName, moveName) => {
+			set((state) => {
+				if (!state.pieces) return;
+				if (!state.pieces[pieceName]) return;
+
+				state.pieces[pieceName].moves = state.pieces[
+					pieceName
+				].moves.filter((move) => move.moveName !== moveName);
+			});
+		},
+
+		addChainedMoveToPiece: (pieceName, moveName, chainedMoveToAdd) => {
+			set((state) => {
+				if (!state.pieces) return;
+				if (!state.pieces[pieceName]) return;
+
+				const move = state.pieces[pieceName].moves.find(
+					(moveRuleInfo) => moveRuleInfo.moveName === moveName,
+				);
+				if (!move) return;
+
+				move.chainedMoves.push(chainedMoveToAdd);
+			});
+		},
+
+		removeChainedMoveFromPiece: (
+			pieceName,
+			moveName,
+			chainedMoveToRemove,
+		) => {
+			set((state) => {
+				if (!state.pieces) return;
+				if (!state.pieces[pieceName]) return;
+
+				const move = state.pieces[pieceName].moves.find(
+					(m) => m.moveName === moveName,
+				);
+				if (!move) return;
+
+				move.chainedMoves = move.chainedMoves.filter(
+					(chainedMove) => chainedMoveToRemove !== chainedMove,
+				);
 			});
 		},
 	})),
