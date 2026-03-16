@@ -59,15 +59,12 @@ function MovementTypeFieldSet() {
 function RangeFieldSet() {
 	return (
 		<FieldSet>
-			<Field
-				className="grid grid-cols-2 gap-2"
-				id="pieceRange"
-				orientation="horizontal"
-			>
+			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
 				<FieldLabel className="font-normal" htmlFor="pieceRange">
 					Range
 				</FieldLabel>
 				<Input
+					id="pieceRange"
 					className="bg-background"
 					type="number"
 					placeholder="Range"
