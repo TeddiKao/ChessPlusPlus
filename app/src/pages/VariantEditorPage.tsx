@@ -10,7 +10,11 @@ function VariantEditorPage() {
 		<>
 			<div className="flex-col gap-2 pt-4 pl-4">
 				<div className="flex flex-row gap-2 items-center">
-					<Button onClick={() => navigate("/")} variant="ghost">
+					<Button
+						aria-label="Back to home page"
+						onClick={() => navigate("/")}
+						variant="ghost"
+					>
 						<IconChevronLeft className="size-5" />
 					</Button>
 
