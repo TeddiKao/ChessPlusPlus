@@ -23,6 +23,13 @@ import {
 	FieldSet,
 } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 function MovementTypeFieldSet() {
 	return (
@@ -116,6 +123,28 @@ function MoveDefinitionFieldSet() {
 	);
 }
 
+function AppliesToFieldSet() {
+	return (
+		<FieldSet>
+			<FieldLegend variant="label">Applies to</FieldLegend>
+			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
+				<FieldLabel>Side</FieldLabel>
+				<Select>
+					<SelectTrigger className="w-full bg-background">
+						<SelectValue placeholder="Select side" />
+					</SelectTrigger>
+
+					<SelectContent>
+						<SelectItem value="white">White</SelectItem>
+						<SelectItem value="black">Black</SelectItem>
+						<SelectItem value="both">Both</SelectItem>
+					</SelectContent>
+				</Select>
+			</Field>
+		</FieldSet>
+	);
+}
+
 function AppearanceTab() {
 	return (
 		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
@@ -164,6 +193,7 @@ function MovementsTab() {
 				</CollapsibleTrigger>
 
 				<CollapsibleContent className="flex flex-col gap-4">
+					<AppliesToFieldSet />
 					<MovementTypeFieldSet />
 					<MoveDefinitionFieldSet />
 				</CollapsibleContent>
