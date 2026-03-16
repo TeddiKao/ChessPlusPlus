@@ -224,8 +224,8 @@ function PieceEditorScreen() {
 				</SheetDescription>
 			</SheetHeader>
 
-			<Tabs>
-				<TabsList defaultValue="appearance" variant="line">
+			<Tabs defaultValue="appearance">
+				<TabsList variant="line">
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="movements">Movements</TabsTrigger>
 				</TabsList>
