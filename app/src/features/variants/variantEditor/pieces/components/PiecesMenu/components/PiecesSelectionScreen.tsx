@@ -87,11 +87,6 @@ function PiecesSelectionScreen() {
 				>
 					<CollapsibleTrigger asChild>
 						<Button
-							onClick={
-								isCustomPiecesExpanded
-									? collapseCustomPieces
-									: expandCustomPieces
-							}
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
