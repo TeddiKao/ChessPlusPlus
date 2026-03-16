@@ -84,13 +84,14 @@ function RangeFieldSet() {
 function OffsetFieldSet() {
 	return (
 		<FieldSet>
+			<FieldLegend
+				className="data-[variant=label]:text-foreground mb-0 font-normal"
+				variant="label"
+			>
+				Offsets
+			</FieldLegend>
+
 			<div className="grid grid-cols-2 gap-4 items-center">
-				<FieldLegend
-					className="data-[variant=label]:text-foreground mb-0 font-normal"
-					variant="label"
-				>
-					Offsets
-				</FieldLegend>
 				<div className="grid grid-cols-2 gap-2">
 					<Field>
 						<Input
