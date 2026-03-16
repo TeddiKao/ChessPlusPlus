@@ -1,10 +1,18 @@
 import { IconChevronLeft } from "@tabler/icons-react";
 import VariantSidebar from "@/features/variants/variantEditor/common/components/VariantSidebar";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 
 function VariantEditorPage() {
 	const navigate = useNavigate();
+
+	const { variants } = useVariantsStore();
+	const { variantId } = useParams<{ variantId: string }>();
+
+	if (!variantId) return null;
+
+	const variantName = variants[variantId]?.variantName ?? "";
 
 	return (
 		<>
@@ -18,7 +26,7 @@ function VariantEditorPage() {
 						<IconChevronLeft className="size-5" />
 					</Button>
 
-					<p>Variant name</p>
+					<p>{variantName}</p>
 				</div>
 			</div>
 
