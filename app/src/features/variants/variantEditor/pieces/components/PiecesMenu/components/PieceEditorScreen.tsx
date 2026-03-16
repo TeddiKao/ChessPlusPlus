@@ -81,7 +81,7 @@ function RangeFieldSet() {
 	);
 }
 
-function OffsetFieldSet() {
+function OffsetField() {
 	return (
 		<Field className="grid grid-cols-2 gap-2">
 			<FieldLabel className="text-foreground mb-0 font-normal">
@@ -109,7 +109,7 @@ function MoveDefinitionFieldSet() {
 		<FieldSet>
 			<FieldLegend variant="label">Move definitions</FieldLegend>
 
-			<OffsetFieldSet />
+			<OffsetField />
 			<RangeFieldSet />
 		</FieldSet>
 	);
