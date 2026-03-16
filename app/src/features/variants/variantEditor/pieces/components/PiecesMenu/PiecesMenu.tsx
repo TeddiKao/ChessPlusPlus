@@ -2,20 +2,23 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
 import PiecesSelectionScreen from "@/features/variants/variantEditor/pieces/components/PiecesMenu/components/PiecesSelectionScreen";
 import PieceEditorScreen from "@/features/variants/variantEditor/pieces/components/PiecesMenu/components/PieceEditorScreen";
+import useVariantEditorSidebarStore from "@/features/variants/variantEditor/common/stores/variantEditorSidebar";
 
 function PiecesMenu() {
 	const {
-		isOpen,
-		openPieceSettingsSheet,
-		closePieceSettingsSheet,
-		currentSheetMode,
-	} = usePieceSettingsStore();
+		currentSelectedSetting,
+		updateCurrentSelectedSetting,
+		clearCurrentSelectedSetting,
+	} = useVariantEditorSidebarStore();
+	const { currentSheetMode } = usePieceSettingsStore();
 
 	return (
 		<Sheet
-			open={isOpen}
+			open={currentSelectedSetting === "pieces"}
 			onOpenChange={(open) =>
-				open ? openPieceSettingsSheet() : closePieceSettingsSheet()
+				open
+					? updateCurrentSelectedSetting("pieces")
+					: clearCurrentSelectedSetting()
 			}
 		>
 			<SheetContent
