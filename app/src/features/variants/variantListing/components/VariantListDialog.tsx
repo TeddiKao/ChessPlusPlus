@@ -86,11 +86,12 @@ function VariantListDialog() {
 					{selectedVariantId && (
 						<DialogFooter>
 							<Button
-								onClick={() =>
+								onClick={() => {
+									closeVariantListDialog();
 									navigate(
 										`/variant-editor/${selectedVariantId}`,
-									)
-								}
+									);
+								}}
 								className="px-4"
 							>
 								Open
