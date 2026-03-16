@@ -83,31 +83,24 @@ function RangeFieldSet() {
 
 function OffsetFieldSet() {
 	return (
-		<FieldSet>
-			<FieldLegend
-				className="data-[variant=label]:text-foreground mb-0 font-normal"
-				variant="label"
-			>
+		<Field className="grid grid-cols-2 gap-2">
+			<FieldLabel className="text-foreground mb-0 font-normal">
 				Offsets
-			</FieldLegend>
+			</FieldLabel>
 
 			<div className="grid grid-cols-2 gap-2 items-center">
-				<Field>
-					<Input
-						className="bg-background"
-						type="number"
-						placeholder="X"
-					/>
-				</Field>
-				<Field>
-					<Input
-						className="bg-background"
-						type="number"
-						placeholder="Y"
-					/>
-				</Field>
+				<Input
+					className="bg-background"
+					type="number"
+					placeholder="X"
+				/>
+				<Input
+					className="bg-background"
+					type="number"
+					placeholder="Y"
+				/>
 			</div>
-		</FieldSet>
+		</Field>
 	);
 }
 
