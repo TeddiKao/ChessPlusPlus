@@ -129,7 +129,7 @@ function AppliesToFieldSet() {
 			<FieldLegend variant="label">Applies to</FieldLegend>
 			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
 				<FieldLabel>Side</FieldLabel>
-				<Select>
+				<Select defaultValue="both">
 					<SelectTrigger className="w-full bg-background">
 						<SelectValue placeholder="Select side" />
 					</SelectTrigger>
