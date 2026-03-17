@@ -1,6 +1,11 @@
+type ChainedMove = {
+	moveName: string;
+	chainedMoves: ChainedMove[];
+};
+
 type PieceMovementRules = {
 	moveName: string;
-	chainedMoves: string[];
+	chainedMoves: ChainedMove[];
 };
 
 type PieceRules = {
