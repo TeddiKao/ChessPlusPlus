@@ -1,4 +1,4 @@
-import usePieceSelectionScreenStore from "@/features/variants/variantEditor/pieces/stores/pieceSelectionScreen";
+import usePieceSelectionScreenStore from "@/features/variants/variantEditor/pieces/pieceSelection/stores/pieceSelectionScreen";
 import {
 	SheetClose,
 	SheetDescription,
@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import { pieceIconMap } from "@/features/variants/variantEditor/pieces/constants/pieceIconMap";
-import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
+import { pieceIconMap } from "@/features/variants/variantEditor/pieces/pieceSelection/constants/pieceIconMap";
+import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
 
 function PiecesSelectionScreen() {
 	const {

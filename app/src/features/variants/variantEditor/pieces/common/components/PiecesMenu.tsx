@@ -1,7 +1,7 @@
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
-import PiecesSelectionScreen from "@/features/variants/variantEditor/pieces/components/PiecesMenu/components/PiecesSelectionScreen";
-import PieceEditorScreen from "@/features/variants/variantEditor/pieces/components/PiecesMenu/components/PieceEditorScreen";
+import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
+import PiecesSelectionScreen from "@/features/variants/variantEditor/pieces/pieceSelection/components/PiecesSelectionScreen";
+import PieceEditorScreen from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen";
 import useVariantEditorSidebarStore from "@/features/variants/variantEditor/common/stores/variantEditorSidebar";
 
 function PiecesMenu() {
