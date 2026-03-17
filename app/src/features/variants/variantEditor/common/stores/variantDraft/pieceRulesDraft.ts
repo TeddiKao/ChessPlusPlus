@@ -1,4 +1,8 @@
-import type { PiecesRules } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMovePath,
+	MoveNode,
+	PiecesRules,
+} from "@/features/variants/common/types/pieceRules";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -10,7 +14,7 @@ type PieceRulesDraftStore = {
 	addPiece: (
 		pieceName: string,
 		moveName: string,
-		chainedMoves: string[],
+		chainedMoves: MoveNode[],
 	) => void;
 	removePiece: (pieceName: string) => void;
 
@@ -19,13 +23,15 @@ type PieceRulesDraftStore = {
 
 	addChainedMoveToPiece: (
 		pieceName: string,
-		moveName: string,
-		chainedMoveToAdd: string,
+		rootMoveName: string,
+		movePath: ChainedMovePath,
+		chainedMoveToAdd: MoveNode,
 	) => void;
 	removeChainedMoveFromPiece: (
 		pieceName: string,
-		moveName: string,
-		chainedMoveToRemove: string,
+		rootMoveName: string,
+		movePath: ChainedMovePath,
+		chainedMoveNameToRemove: string,
 	) => void;
 };
 
@@ -74,36 +80,58 @@ const usePieceRulesDraftStore = create<PieceRulesDraftStore>()(
 			});
 		},
 
-		addChainedMoveToPiece: (pieceName, moveName, chainedMoveToAdd) => {
-			set((state) => {
-				if (!state.pieces) return;
-				if (!state.pieces[pieceName]) return;
-
-				const move = state.pieces[pieceName].moves.find(
-					(moveRuleInfo) => moveRuleInfo.moveName === moveName,
-				);
-				if (!move) return;
-
-				move.chainedMoves.push(chainedMoveToAdd);
-			});
-		},
-
-		removeChainedMoveFromPiece: (
+		addChainedMoveToPiece: (
 			pieceName,
-			moveName,
-			chainedMoveToRemove,
+			rootMoveName,
+			movePath,
+			chainedMoveToAdd,
 		) => {
 			set((state) => {
 				if (!state.pieces) return;
 				if (!state.pieces[pieceName]) return;
 
-				const move = state.pieces[pieceName].moves.find(
-					(m) => m.moveName === moveName,
+				const rootMove = state.pieces[pieceName].moves.find(
+					(move) => move.moveName === rootMoveName,
 				);
-				if (!move) return;
+				if (!rootMove) return;
 
-				move.chainedMoves = move.chainedMoves.filter(
-					(chainedMove) => chainedMoveToRemove !== chainedMove,
+				let currentNode = rootMove;
+				for (const chainedMoveIndex of movePath) {
+					const newNode = currentNode.chainedMoves[chainedMoveIndex];
+					if (!newNode) return;
+
+					currentNode = newNode;
+				}
+
+				currentNode.chainedMoves.push(chainedMoveToAdd);
+			});
+		},
+
+		removeChainedMoveFromPiece: (
+			pieceName,
+			rootMoveName,
+			movePath,
+			chainedMoveNameToRemove,
+		) => {
+			set((state) => {
+				if (!state.pieces) return;
+				if (!state.pieces[pieceName]) return;
+
+				const rootMove = state.pieces[pieceName].moves.find(
+					(move) => move.moveName === rootMoveName,
+				);
+				if (!rootMove) return;
+
+				let currentNode = rootMove;
+				for (const chainedMoveIndex of movePath) {
+					const newNode = currentNode.chainedMoves[chainedMoveIndex];
+					if (!newNode) return;
+					currentNode = newNode;
+				}
+
+				currentNode.chainedMoves = currentNode.chainedMoves.filter(
+					(chainedMove) =>
+						chainedMove.moveName !== chainedMoveNameToRemove,
 				);
 			});
 		},
