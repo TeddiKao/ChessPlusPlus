@@ -18,7 +18,7 @@ type VariantDraftStore = {
 const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 	currentVariantId: null,
 	updateCurrentVariantId: (newId) => set({ currentVariantId: newId }),
-	clearCurrentVariantId: () => set({ currentVariantId: "" }),
+	clearCurrentVariantId: () => set({ currentVariantId: null }),
 
 	syncFullDraftWithDB: () => {
 		const currentVariantId = get().currentVariantId;
