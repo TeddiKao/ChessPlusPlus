@@ -32,6 +32,9 @@ import {
 } from "@/components/ui/select";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
 import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
+import { getMovementsListForPiece } from "@/features/variants/variantEditor/pieces/pieceEditor/utils/movementsList";
+import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
+import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
 
 function MovementTypeFieldSet() {
 	return (
@@ -187,25 +190,46 @@ function AppearanceTab() {
 }
 
 function MovementsTab() {
+	const { currentPiece } = usePieceEditorStore();
+	const { pieces } = usePieceRulesDraftStore();
+	const { expandedMovements, expandMovement, collapseMovement } =
+		usePieceMovementEditorStore();
+
+	if (!currentPiece) return null;
+	if (!pieces) return null;
+	if (!pieces[currentPiece]) return null;
+
+	const movementsList = getMovementsListForPiece(pieces[currentPiece]);
+
 	return (
 		<TabsContent value="movements">
-			<Collapsible>
-				<CollapsibleTrigger
-					className="flex flex-row justify-between w-full"
-					asChild
+			{movementsList.map(({ moveName }) => (
+				<Collapsible
+					open={expandedMovements.includes(moveName)}
+					onOpenChange={(open) =>
+						open
+							? expandMovement(moveName)
+							: collapseMovement(moveName)
+					}
+					key={moveName}
 				>
-					<Button className="pb-2" variant="ghost">
-						<span>Movement 1</span>
-						<IconChevronUp />
-					</Button>
-				</CollapsibleTrigger>
+					<CollapsibleTrigger
+						className="flex flex-row justify-between w-full"
+						asChild
+					>
+						<Button className="pb-2" variant="ghost">
+							<span>{moveName}</span>
+							<IconChevronUp />
+						</Button>
+					</CollapsibleTrigger>
 
-				<CollapsibleContent className="flex flex-col gap-4">
-					<AppliesToFieldSet />
-					<MovementTypeFieldSet />
-					<MoveDefinitionFieldSet />
-				</CollapsibleContent>
-			</Collapsible>
+					<CollapsibleContent className="flex flex-col gap-4">
+						<AppliesToFieldSet />
+						<MovementTypeFieldSet />
+						<MoveDefinitionFieldSet />
+					</CollapsibleContent>
+				</Collapsible>
+			))}
 		</TabsContent>
 	);
 }
