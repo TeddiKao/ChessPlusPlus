@@ -3,14 +3,12 @@ type MoveNode = {
 	chainedMoves: MoveNode[];
 };
 
-type PieceMovementRules = {
-	moves: MoveNode[];
-};
+type ChainedMovePath = number[];
 
 type PieceRules = {
-	moves: PieceMovementRules[];
+	moves: MoveNode[];
 };
 
 type PiecesRules = Record<string, PieceRules>;
 
-export type { PiecesRules, PieceMovementRules, PieceRules };
+export type { PiecesRules, PieceRules, ChainedMovePath, MoveNode };
