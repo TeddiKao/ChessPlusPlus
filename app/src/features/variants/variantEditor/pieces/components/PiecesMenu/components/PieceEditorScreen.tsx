@@ -30,6 +30,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/stores/pieceSettingsSheet";
 
 function MovementTypeFieldSet() {
 	return (
@@ -209,11 +210,16 @@ function MovementsTab() {
 }
 
 function PieceEditorScreen() {
+	const { updateCurrentSheetMode } = usePieceSettingsStore();
+
 	return (
 		<>
 			<SheetHeader>
 				<SheetTitle className="flex flex-row items-center gap-2">
-					<Button variant="ghost">
+					<Button
+						onClick={() => updateCurrentSheetMode("pieceSelection")}
+						variant="ghost"
+					>
 						<IconChevronLeft className="size-5" />
 					</Button>
 					<span>Piece Editor</span>
