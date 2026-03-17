@@ -227,7 +227,7 @@ function MovementsTab() {
 							value={moveName}
 							key={moveName}
 						>
-							<AccordionTrigger className="flex flex-row justify-between w-full pb-2">
+							<AccordionTrigger className="flex flex-row justify-between w-full pt-0 pb-3">
 								<span>{moveName}</span>
 							</AccordionTrigger>
 
