@@ -1,13 +1,9 @@
 import { create } from "zustand";
 
 type PieceMovementEditorStore = {
-	expandedMovements: string[];
-	expandMovement: (movementName: string) => void;
-	collapseMovement: (movementName: string) => void;
-
 	activeMovementName: string | null;
-	updateMovementName: (newMovementName: string) => void;
-	clearMovementName: () => void;
+	updateActiveMovementName: (newMovementName: string) => void;
+	clearActiveMovementName: () => void;
 
 	appliesTo: "white" | "black" | "both";
 	updateAppliesTo: (newAppliesTo: "white" | "black" | "both") => void;
@@ -31,23 +27,10 @@ type PieceMovementEditorStore = {
 };
 
 const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
-	expandedMovements: [],
-	expandMovement: (movementName) =>
-		set((state) => ({
-			expandedMovements: [...state.expandedMovements, movementName],
-		})),
-
-	collapseMovement: (movementName) =>
-		set((state) => ({
-			expandedMovements: state.expandedMovements.filter(
-				(movement) => movement !== movementName,
-			),
-		})),
-
 	activeMovementName: null,
-	updateMovementName: (newMovementName) =>
+	updateActiveMovementName: (newMovementName) =>
 		set({ activeMovementName: newMovementName }),
-	clearMovementName: () => set({ activeMovementName: null }),
+	clearActiveMovementName: () => set({ activeMovementName: null }),
 
 	appliesTo: "both",
 	updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
