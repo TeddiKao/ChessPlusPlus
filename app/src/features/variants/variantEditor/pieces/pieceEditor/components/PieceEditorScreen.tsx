@@ -4,6 +4,7 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import {
+	IconChevronDown,
 	IconChevronLeft,
 	IconChevronUp,
 	IconUpload,
@@ -228,7 +229,12 @@ function MovementsTab() {
 							>
 								<Button className="pb-2" variant="ghost">
 									<span>{moveName}</span>
-									<IconChevronUp />
+
+									{expandedMovements.includes(moveName) ? (
+										<IconChevronDown />
+									) : (
+										<IconChevronUp />
+									)}
 								</Button>
 							</CollapsibleTrigger>
 
@@ -256,7 +262,14 @@ function MovementsTab() {
 								>
 									<Button className="pb-2" variant="ghost">
 										<span>{moveName}</span>
-										<IconChevronUp />
+
+										{expandedMovements.includes(
+											moveName,
+										) ? (
+											<IconChevronDown />
+										) : (
+											<IconChevronUp />
+										)}
 									</Button>
 								</CollapsibleTrigger>
 
