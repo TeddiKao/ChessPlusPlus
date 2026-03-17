@@ -101,7 +101,7 @@ function PiecesSelectionScreen() {
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
-							<span>Custom (0)</span>
+							<span>Custom ({piecesList.custom.length})</span>
 							{isCustomPiecesExpanded ? (
 								<IconChevronDown />
 							) : (
@@ -109,6 +109,29 @@ function PiecesSelectionScreen() {
 							)}
 						</Button>
 					</CollapsibleTrigger>
+
+					<CollapsibleContent>
+						{piecesList.custom.map((piece) => {
+							const Icon = pieceIconMap.get(piece);
+							if (!Icon) return null;
+
+							return (
+								<Button
+									key={piece}
+									className="flex flex-row gap-2"
+									variant="ghost"
+									onClick={() =>
+										updateCurrentSheetMode(
+											"pieceConfiguration",
+										)
+									}
+								>
+									<Icon className="size-5" />
+									<span>{piece}</span>
+								</Button>
+							);
+						})}
+					</CollapsibleContent>
 				</Collapsible>
 			</div>
 
