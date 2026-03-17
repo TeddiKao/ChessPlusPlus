@@ -3,7 +3,7 @@ import VariantSidebar from "@/features/variants/variantEditor/common/components/
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/variantDraft";
 import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
 import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
@@ -22,6 +22,8 @@ function VariantEditorPage() {
 
 	const { variantId } = useParams<{ variantId: string }>();
 
+	const initialisedVariantIdRef = useRef<string | null>(null);
+
 	useEffect(() => {
 		if (!variantId) {
 			navigate("/");
@@ -33,13 +35,20 @@ function VariantEditorPage() {
 			return;
 		}
 
-		updateCurrentVariantId(variantId);
+		if (initialisedVariantIdRef.current !== variantId) {
+			updateCurrentVariantId(variantId);
 
-		updateSetupRules(variants[variantId].variantRules.setupRules);
-		updatePieceRules(variants[variantId].variantRules.piecesRules);
-		updateMovementRules(variants[variantId].variantRules.movementRules);
+			updateSetupRules(variants[variantId].variantRules.setupRules);
+			updatePieceRules(variants[variantId].variantRules.piecesRules);
+			updateMovementRules(variants[variantId].variantRules.movementRules);
 
-		return () => clearCurrentVariantId();
+			initialisedVariantIdRef.current = variantId;
+		}
+
+		return () => {
+			initialisedVariantIdRef.current = null;
+			clearCurrentVariantId();
+		};
 	}, [
 		variants,
 		variantId,
