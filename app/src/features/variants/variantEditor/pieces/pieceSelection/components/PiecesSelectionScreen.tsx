@@ -21,6 +21,7 @@ import { pieceIconMap } from "@/features/variants/variantEditor/pieces/pieceSele
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
 import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
 import { getPiecesList } from "@/features/variants/variantEditor/pieces/pieceSelection/utils/piecesList";
+import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
 
 function PiecesSelectionScreen() {
 	const {
@@ -33,12 +34,18 @@ function PiecesSelectionScreen() {
 	} = usePieceSelectionScreenStore();
 
 	const { updateCurrentSheetMode } = usePieceSettingsStore();
+	const { updateCurrentPiece } = usePieceEditorStore();
 
 	const { setupRules } = useSetupRulesDraftStore();
 	if (!setupRules) return null;
 
 	const pieceOwnership = setupRules.pieceOwnership;
 	const piecesList = getPiecesList(pieceOwnership);
+
+	function handlePieceClick(piece: string) {
+		updateCurrentSheetMode("pieceConfiguration");
+		updateCurrentPiece(piece);
+	}
 
 	return (
 		<>
@@ -81,9 +88,7 @@ function PiecesSelectionScreen() {
 									className="flex flex-row gap-2"
 									variant="ghost"
 									onClick={() =>
-										updateCurrentSheetMode(
-											"pieceConfiguration",
-										)
+										handlePieceClick(piece.toLowerCase())
 									}
 								>
 									<Icon className="size-5" />
@@ -123,9 +128,7 @@ function PiecesSelectionScreen() {
 									className="flex flex-row gap-2"
 									variant="ghost"
 									onClick={() =>
-										updateCurrentSheetMode(
-											"pieceConfiguration",
-										)
+										handlePieceClick(piece.toLowerCase())
 									}
 								>
 									{Icon ? (
