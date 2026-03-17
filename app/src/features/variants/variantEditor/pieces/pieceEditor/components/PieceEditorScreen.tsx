@@ -3,20 +3,10 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import {
-	IconChevronDown,
-	IconChevronLeft,
-	IconChevronUp,
-	IconUpload,
-} from "@tabler/icons-react";
+import { IconChevronLeft, IconUpload } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import {
 	Field,
 	FieldLabel,
@@ -37,6 +27,12 @@ import { getMovementsListForPiece } from "@/features/variants/variantEditor/piec
 import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
 import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
 import _ from "lodash";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
 
 function MovementTypeFieldSet() {
 	return (
@@ -194,7 +190,7 @@ function AppearanceTab() {
 function MovementsTab() {
 	const { currentPiece } = usePieceEditorStore();
 	const { pieces } = usePieceRulesDraftStore();
-	const { expandedMovements, expandMovement, collapseMovement } =
+	const { activeMovementName, updateActiveMovementName } =
 		usePieceMovementEditorStore();
 
 	if (!currentPiece) return null;
@@ -210,77 +206,40 @@ function MovementsTab() {
 		pieces[`black_${currentPiece}`],
 	);
 
+	const movementsList = _.isEqual(whitePieceMovements, blackPieceMovements)
+		? whitePieceMovements
+		: [...whitePieceMovements, ...blackPieceMovements];
+
 	return (
 		<TabsContent value="movements" className="flex flex-col gap-4">
-			{_.isEqual(whitePieceMovements, blackPieceMovements)
-				? whitePieceMovements.map(({ moveName }) => (
-						<Collapsible
-							open={expandedMovements.includes(moveName)}
-							onOpenChange={(open) =>
-								open
-									? expandMovement(moveName)
-									: collapseMovement(moveName)
-							}
+			<Accordion
+				value={activeMovementName ?? undefined}
+				onValueChange={(value) =>
+					updateActiveMovementName(value ?? null)
+				}
+				collapsible
+				type="single"
+			>
+				{movementsList.map(({ moveName }) => {
+					return (
+						<AccordionItem
+							className="border-none no-underline hover:no-underline"
+							value={moveName}
 							key={moveName}
 						>
-							<CollapsibleTrigger
-								className="flex flex-row justify-between w-full"
-								asChild
-							>
-								<Button className="pb-2" variant="ghost">
-									<span>{moveName}</span>
+							<AccordionTrigger className="flex flex-row justify-between w-full pb-2">
+								<span>{moveName}</span>
+							</AccordionTrigger>
 
-									{expandedMovements.includes(moveName) ? (
-										<IconChevronDown />
-									) : (
-										<IconChevronUp />
-									)}
-								</Button>
-							</CollapsibleTrigger>
-
-							<CollapsibleContent className="flex flex-col gap-4">
+							<AccordionContent className="flex flex-col gap-4">
 								<AppliesToFieldSet />
 								<MovementTypeFieldSet />
 								<MoveDefinitionFieldSet />
-							</CollapsibleContent>
-						</Collapsible>
-					))
-				: [...whitePieceMovements, ...blackPieceMovements].map(
-						({ moveName }) => (
-							<Collapsible
-								open={expandedMovements.includes(moveName)}
-								onOpenChange={(open) =>
-									open
-										? expandMovement(moveName)
-										: collapseMovement(moveName)
-								}
-								key={moveName}
-							>
-								<CollapsibleTrigger
-									className="flex flex-row justify-between w-full"
-									asChild
-								>
-									<Button className="pb-2" variant="ghost">
-										<span>{moveName}</span>
-
-										{expandedMovements.includes(
-											moveName,
-										) ? (
-											<IconChevronDown />
-										) : (
-											<IconChevronUp />
-										)}
-									</Button>
-								</CollapsibleTrigger>
-
-								<CollapsibleContent className="flex flex-col gap-4">
-									<AppliesToFieldSet />
-									<MovementTypeFieldSet />
-									<MoveDefinitionFieldSet />
-								</CollapsibleContent>
-							</Collapsible>
-						),
-					)}
+							</AccordionContent>
+						</AccordionItem>
+					);
+				})}
+			</Accordion>
 		</TabsContent>
 	);
 }
