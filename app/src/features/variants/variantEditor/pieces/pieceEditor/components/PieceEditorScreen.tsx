@@ -212,16 +212,18 @@ function MovementsTab() {
 
 function PieceEditorScreen() {
 	const { updateCurrentSheetMode } = usePieceSettingsStore();
-	const { currentPiece } = usePieceEditorStore();
+	const { currentPiece, clearCurrentPiece } = usePieceEditorStore();
+
+	function handleBackClick() {
+		clearCurrentPiece();
+		updateCurrentSheetMode("pieceSelection");
+	}
 
 	return (
 		<>
 			<SheetHeader>
 				<SheetTitle className="flex flex-row items-center gap-2">
-					<Button
-						onClick={() => updateCurrentSheetMode("pieceSelection")}
-						variant="ghost"
-					>
+					<Button onClick={handleBackClick} variant="ghost">
 						<IconChevronLeft className="size-5" />
 					</Button>
 					<span>Piece Editor</span>
