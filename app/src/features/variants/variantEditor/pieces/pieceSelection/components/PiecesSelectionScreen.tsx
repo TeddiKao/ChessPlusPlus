@@ -12,9 +12,15 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconChevronUp,
+	IconPuzzle,
+} from "@tabler/icons-react";
 import { pieceIconMap } from "@/features/variants/variantEditor/pieces/pieceSelection/constants/pieceIconMap";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
+import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
+import { getPiecesList } from "@/features/variants/variantEditor/pieces/pieceSelection/utils/piecesList";
 
 function PiecesSelectionScreen() {
 	const {
@@ -27,6 +33,12 @@ function PiecesSelectionScreen() {
 	} = usePieceSelectionScreenStore();
 
 	const { updateCurrentSheetMode } = usePieceSettingsStore();
+
+	const { setupRules } = useSetupRulesDraftStore();
+	if (!setupRules) return null;
+
+	const pieceOwnership = setupRules.pieceOwnership;
+	const piecesList = getPiecesList(pieceOwnership);
 
 	return (
 		<>
@@ -49,7 +61,7 @@ function PiecesSelectionScreen() {
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
-							<span>Default (8)</span>
+							<span>Default ({piecesList.default.length})</span>
 							{isDefaultPiecesExpanded ? (
 								<IconChevronDown />
 							) : (
@@ -59,8 +71,11 @@ function PiecesSelectionScreen() {
 					</CollapsibleTrigger>
 
 					<CollapsibleContent>
-						{Array.from(pieceIconMap.entries()).map(
-							([piece, Icon]) => (
+						{piecesList.default.map((piece) => {
+							const Icon = pieceIconMap.get(piece);
+							if (!Icon) return null;
+
+							return (
 								<Button
 									key={piece}
 									className="flex flex-row gap-2"
@@ -74,8 +89,8 @@ function PiecesSelectionScreen() {
 									<Icon className="size-5" />
 									<span>{piece}</span>
 								</Button>
-							),
-						)}
+							);
+						})}
 					</CollapsibleContent>
 				</Collapsible>
 
@@ -90,7 +105,7 @@ function PiecesSelectionScreen() {
 							variant="ghost"
 							className="flex flex-row justify-between w-full"
 						>
-							<span>Custom (0)</span>
+							<span>Custom ({piecesList.custom.length})</span>
 							{isCustomPiecesExpanded ? (
 								<IconChevronDown />
 							) : (
@@ -98,6 +113,31 @@ function PiecesSelectionScreen() {
 							)}
 						</Button>
 					</CollapsibleTrigger>
+
+					<CollapsibleContent>
+						{piecesList.custom.map((piece) => {
+							const Icon = pieceIconMap.get(piece);
+							return (
+								<Button
+									key={piece}
+									className="flex flex-row gap-2"
+									variant="ghost"
+									onClick={() =>
+										updateCurrentSheetMode(
+											"pieceConfiguration",
+										)
+									}
+								>
+									{Icon ? (
+										<Icon className="size-5" />
+									) : (
+										<IconPuzzle className="size-5" />
+									)}
+									<span>{piece}</span>
+								</Button>
+							);
+						})}
+					</CollapsibleContent>
 				</Collapsible>
 			</div>
 
