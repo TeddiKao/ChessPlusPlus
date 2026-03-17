@@ -4,7 +4,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ChessKnight } from "lucide-react";
-import PiecesMenu from "@/features/variants/variantEditor/pieces/components/PiecesMenu/PiecesMenu";
+import PiecesMenu from "@/features/variants/variantEditor/pieces/common/components/PiecesMenu";
 import useVariantEditorSidebarStore from "@/features/variants/variantEditor/common/stores/variantEditorSidebar";
 
 function PiecesButton() {

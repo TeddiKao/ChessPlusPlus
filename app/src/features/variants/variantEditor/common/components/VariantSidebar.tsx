@@ -1,5 +1,5 @@
 import BoardSettingsButton from "@/features/variants/variantEditor/boardSettings/components/BoardSettingsButton";
-import PiecesButton from "@/features/variants/variantEditor/pieces/components/PiecesButton";
+import PiecesButton from "@/features/variants/variantEditor/pieces/common/components/PiecesButton";
 
 function VariantSidebar() {
 	return (
