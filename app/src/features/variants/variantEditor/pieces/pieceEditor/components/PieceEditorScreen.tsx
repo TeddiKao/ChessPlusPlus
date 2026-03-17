@@ -210,7 +210,7 @@ function MovementsTab() {
 	);
 
 	return (
-		<TabsContent value="movements">
+		<TabsContent value="movements" className="flex flex-col gap-4">
 			{_.isEqual(whitePieceMovements, blackPieceMovements)
 				? whitePieceMovements.map(({ moveName }) => (
 						<Collapsible
