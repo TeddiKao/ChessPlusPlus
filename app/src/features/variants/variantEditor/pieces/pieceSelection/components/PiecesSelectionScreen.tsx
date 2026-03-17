@@ -12,7 +12,11 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconChevronUp,
+	IconPuzzle,
+} from "@tabler/icons-react";
 import { pieceIconMap } from "@/features/variants/variantEditor/pieces/pieceSelection/constants/pieceIconMap";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
 import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
@@ -113,8 +117,6 @@ function PiecesSelectionScreen() {
 					<CollapsibleContent>
 						{piecesList.custom.map((piece) => {
 							const Icon = pieceIconMap.get(piece);
-							if (!Icon) return null;
-
 							return (
 								<Button
 									key={piece}
@@ -126,7 +128,11 @@ function PiecesSelectionScreen() {
 										)
 									}
 								>
-									<Icon className="size-5" />
+									{Icon ? (
+										<Icon className="size-5" />
+									) : (
+										<IconPuzzle className="size-5" />
+									)}
 									<span>{piece}</span>
 								</Button>
 							);
