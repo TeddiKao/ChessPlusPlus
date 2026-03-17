@@ -1,6 +1,11 @@
-import type { PiecesRules } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMovePath,
+	MoveNode,
+	PiecesRules,
+} from "@/features/variants/common/types/pieceRules";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { getChainedMoveNodeFromPath } from "@/features/variants/variantEditor/common/utils/moveNodePath";
 
 type PieceRulesDraftStore = {
 	pieces: PiecesRules | null;
@@ -10,7 +15,7 @@ type PieceRulesDraftStore = {
 	addPiece: (
 		pieceName: string,
 		moveName: string,
-		chainedMoves: string[],
+		chainedMoves: MoveNode[],
 	) => void;
 	removePiece: (pieceName: string) => void;
 
@@ -19,13 +24,15 @@ type PieceRulesDraftStore = {
 
 	addChainedMoveToPiece: (
 		pieceName: string,
-		moveName: string,
-		chainedMoveToAdd: string,
+		rootMoveName: string,
+		movePath: ChainedMovePath,
+		chainedMoveToAdd: MoveNode,
 	) => void;
 	removeChainedMoveFromPiece: (
 		pieceName: string,
-		moveName: string,
-		chainedMoveToRemove: string,
+		rootMoveName: string,
+		movePath: ChainedMovePath,
+		chainedMoveNameToRemove: string,
 	) => void;
 };
 
@@ -74,37 +81,52 @@ const usePieceRulesDraftStore = create<PieceRulesDraftStore>()(
 			});
 		},
 
-		addChainedMoveToPiece: (pieceName, moveName, chainedMoveToAdd) => {
+		addChainedMoveToPiece: (
+			pieceName,
+			rootMoveName,
+			movePath,
+			chainedMoveToAdd,
+		) => {
 			set((state) => {
 				if (!state.pieces) return;
-				if (!state.pieces[pieceName]) return;
 
-				const move = state.pieces[pieceName].moves.find(
-					(moveRuleInfo) => moveRuleInfo.moveName === moveName,
+				const currentNodeChainedMoves = getChainedMoveNodeFromPath(
+					state.pieces,
+					pieceName,
+					rootMoveName,
+					movePath,
 				);
-				if (!move) return;
+				if (!currentNodeChainedMoves) return;
 
-				move.chainedMoves.push(chainedMoveToAdd);
+				currentNodeChainedMoves.push(chainedMoveToAdd);
 			});
 		},
 
 		removeChainedMoveFromPiece: (
 			pieceName,
-			moveName,
-			chainedMoveToRemove,
+			rootMoveName,
+			movePath,
+			chainedMoveNameToRemove,
 		) => {
 			set((state) => {
 				if (!state.pieces) return;
 				if (!state.pieces[pieceName]) return;
 
-				const move = state.pieces[pieceName].moves.find(
-					(m) => m.moveName === moveName,
+				const currentNodeChainedMoves = getChainedMoveNodeFromPath(
+					state.pieces,
+					pieceName,
+					rootMoveName,
+					movePath,
 				);
-				if (!move) return;
+				if (!currentNodeChainedMoves) return;
 
-				move.chainedMoves = move.chainedMoves.filter(
-					(chainedMove) => chainedMoveToRemove !== chainedMove,
+				const indexToDelete = currentNodeChainedMoves.findIndex(
+					(chainedMove) =>
+						chainedMove.moveName === chainedMoveNameToRemove,
 				);
+				if (indexToDelete === -1) return;
+
+				currentNodeChainedMoves.splice(indexToDelete, 1);
 			});
 		},
 	})),
