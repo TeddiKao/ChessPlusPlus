@@ -35,6 +35,7 @@ import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceE
 import { getMovementsListForPiece } from "@/features/variants/variantEditor/pieces/pieceEditor/utils/movementsList";
 import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
 import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
+import _ from "lodash";
 
 function MovementTypeFieldSet() {
 	return (
@@ -197,39 +198,76 @@ function MovementsTab() {
 
 	if (!currentPiece) return null;
 	if (!pieces) return null;
-	if (!pieces[currentPiece]) return null;
 
-	const movementsList = getMovementsListForPiece(pieces[currentPiece]);
+	if (!pieces[`white_${currentPiece}`]) return null;
+	if (!pieces[`black_${currentPiece}`]) return null;
+
+	const whitePieceMovements = getMovementsListForPiece(
+		pieces[`white_${currentPiece}`],
+	);
+	const blackPieceMovements = getMovementsListForPiece(
+		pieces[`black_${currentPiece}`],
+	);
 
 	return (
 		<TabsContent value="movements">
-			{movementsList.map(({ moveName }) => (
-				<Collapsible
-					open={expandedMovements.includes(moveName)}
-					onOpenChange={(open) =>
-						open
-							? expandMovement(moveName)
-							: collapseMovement(moveName)
-					}
-					key={moveName}
-				>
-					<CollapsibleTrigger
-						className="flex flex-row justify-between w-full"
-						asChild
-					>
-						<Button className="pb-2" variant="ghost">
-							<span>{moveName}</span>
-							<IconChevronUp />
-						</Button>
-					</CollapsibleTrigger>
+			{_.isEqual(whitePieceMovements, blackPieceMovements)
+				? whitePieceMovements.map(({ moveName }) => (
+						<Collapsible
+							open={expandedMovements.includes(moveName)}
+							onOpenChange={(open) =>
+								open
+									? expandMovement(moveName)
+									: collapseMovement(moveName)
+							}
+							key={moveName}
+						>
+							<CollapsibleTrigger
+								className="flex flex-row justify-between w-full"
+								asChild
+							>
+								<Button className="pb-2" variant="ghost">
+									<span>{moveName}</span>
+									<IconChevronUp />
+								</Button>
+							</CollapsibleTrigger>
 
-					<CollapsibleContent className="flex flex-col gap-4">
-						<AppliesToFieldSet />
-						<MovementTypeFieldSet />
-						<MoveDefinitionFieldSet />
-					</CollapsibleContent>
-				</Collapsible>
-			))}
+							<CollapsibleContent className="flex flex-col gap-4">
+								<AppliesToFieldSet />
+								<MovementTypeFieldSet />
+								<MoveDefinitionFieldSet />
+							</CollapsibleContent>
+						</Collapsible>
+					))
+				: [...whitePieceMovements, ...blackPieceMovements].map(
+						({ moveName }) => (
+							<Collapsible
+								open={expandedMovements.includes(moveName)}
+								onOpenChange={(open) =>
+									open
+										? expandMovement(moveName)
+										: collapseMovement(moveName)
+								}
+								key={moveName}
+							>
+								<CollapsibleTrigger
+									className="flex flex-row justify-between w-full"
+									asChild
+								>
+									<Button className="pb-2" variant="ghost">
+										<span>{moveName}</span>
+										<IconChevronUp />
+									</Button>
+								</CollapsibleTrigger>
+
+								<CollapsibleContent className="flex flex-col gap-4">
+									<AppliesToFieldSet />
+									<MovementTypeFieldSet />
+									<MoveDefinitionFieldSet />
+								</CollapsibleContent>
+							</Collapsible>
+						),
+					)}
 		</TabsContent>
 	);
 }
@@ -258,7 +296,7 @@ function PieceEditorScreen() {
 				</SheetDescription>
 			</SheetHeader>
 
-			<Tabs defaultValue="appearance">
+			<Tabs defaultValue="appearance" className="overflow-y-auto">
 				<TabsList variant="line">
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="movements">Movements</TabsTrigger>
