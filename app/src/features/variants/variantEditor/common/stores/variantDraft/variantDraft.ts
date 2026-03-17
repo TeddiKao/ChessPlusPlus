@@ -27,6 +27,7 @@ const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 		const updateVariant = useVariantsStore.getState().updateVariant;
 		const originalVariantInfo =
 			useVariantsStore.getState().variants[currentVariantId];
+		if (!originalVariantInfo) return;
 
 		const movementRulesDraft =
 			useMovementRulesDraftStore.getState().movementRules;
@@ -54,6 +55,7 @@ const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 		const updateVariant = useVariantsStore.getState().updateVariant;
 		const originalVariantInfo =
 			useVariantsStore.getState().variants[currentVariantId];
+		if (!originalVariantInfo) return;
 
 		const movementRulesDraft =
 			useMovementRulesDraftStore.getState().movementRules;
@@ -76,6 +78,7 @@ const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 		const updateVariant = useVariantsStore.getState().updateVariant;
 		const originalVariantInfo =
 			useVariantsStore.getState().variants[currentVariantId];
+		if (!originalVariantInfo) return;
 
 		const setupRulesDraft = useSetupRulesDraftStore.getState().setupRules;
 
@@ -97,6 +100,7 @@ const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 		const updateVariant = useVariantsStore.getState().updateVariant;
 		const originalVariantInfo =
 			useVariantsStore.getState().variants[currentVariantId];
+		if (!originalVariantInfo) return;
 
 		const piecesRulesDraft = usePieceRulesDraftStore.getState().pieces;
 		if (!piecesRulesDraft) return;
