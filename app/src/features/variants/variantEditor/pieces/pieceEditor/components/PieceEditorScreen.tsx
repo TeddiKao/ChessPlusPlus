@@ -31,6 +31,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
+import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
 
 function MovementTypeFieldSet() {
 	return (
@@ -211,6 +212,7 @@ function MovementsTab() {
 
 function PieceEditorScreen() {
 	const { updateCurrentSheetMode } = usePieceSettingsStore();
+	const { currentPiece } = usePieceEditorStore();
 
 	return (
 		<>
@@ -225,8 +227,8 @@ function PieceEditorScreen() {
 					<span>Piece Editor</span>
 				</SheetTitle>
 				<SheetDescription>
-					You are currently editing the bishop. Click the back arrow
-					to switch your selection.
+					You are currently editing the {currentPiece}. Click the back
+					arrow to switch your selection.
 				</SheetDescription>
 			</SheetHeader>
 
