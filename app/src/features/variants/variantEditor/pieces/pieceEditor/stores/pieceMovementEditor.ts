@@ -16,13 +16,13 @@ type PieceMovementEditorStore = {
 	enableCapture: () => void;
 	disableCapture: () => void;
 
-	offsetX: number | null;
+	offsetX: number;
 	updateOffsetX: (newOffsetX: number) => void;
 
-	offsetY: number | null;
+	offsetY: number;
 	updateOffsetY: (newOffsetY: number) => void;
 
-	range: number | "inf" | null;
+	range: number | "inf";
 	updateRange: (newRange: number | "inf") => void;
 };
 
@@ -43,10 +43,10 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
 	enableCapture: () => set({ forCapture: true }),
 	disableCapture: () => set({ forCapture: false }),
 
-	offsetX: null,
+	offsetX: 0,
 	updateOffsetX: (newOffsetX) => set({ offsetX: newOffsetX }),
 
-	offsetY: null,
+	offsetY: 0,
 	updateOffsetY: (newOffsetY) => set({ offsetY: newOffsetY }),
 
 	range: 0,
