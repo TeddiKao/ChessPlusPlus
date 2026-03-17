@@ -1,7 +1,7 @@
 import type { MovementRules } from "@/features/variants/common/types/movementRules";
 
 const defaultMovementRules: Record<string, MovementRules> = {
-	whitePawnForward: {
+	white_pawn_forward: {
 		forMovement: true,
 		forCapture: false,
 		conditions: [],
@@ -13,7 +13,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	whitePawnDoubleStep: {
+	white_pawn_double_step: {
 		forMovement: true,
 		forCapture: false,
 		conditions: ["has_not_moved"],
@@ -25,7 +25,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	whitePawnCaptureEast: {
+	white_pawn_capture_east: {
 		forMovement: false,
 		forCapture: true,
 		conditions: [],
@@ -37,7 +37,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	whitePawnCaptureWest: {
+	white_pawn_capture_west: {
 		forMovement: false,
 		forCapture: true,
 		conditions: [],
@@ -49,7 +49,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	blackPawnForward: {
+	black_pawn_forward: {
 		forMovement: true,
 		forCapture: false,
 		conditions: [],
@@ -61,7 +61,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	blackPawnDoubleStep: {
+	black_pawn_double_step: {
 		forMovement: true,
 		forCapture: false,
 		conditions: ["has_not_moved"],
@@ -73,7 +73,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	blackPawnCaptureEast: {
+	black_pawn_capture_east: {
 		forMovement: false,
 		forCapture: true,
 		conditions: [],
@@ -85,7 +85,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	blackPawnCaptureWest: {
+	black_pawn_capture_west: {
 		forMovement: false,
 		forCapture: true,
 		conditions: [],
@@ -193,7 +193,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	knight0201: {
+	knight_0201: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -217,7 +217,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knightM201: {
+	knight_m201: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -229,7 +229,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knightM2m1: {
+	knight_m2m1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -241,7 +241,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knight0102: {
+	knight_0102: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -253,7 +253,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knightM102: {
+	knight_m102: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -265,7 +265,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knight01m2: {
+	knight_01m2: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -277,7 +277,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	knightM1m2: {
+	knight_m1m2: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -289,7 +289,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: [],
 		},
 	},
-	east1: {
+	east_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -301,7 +301,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	west1: {
+	west_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -313,7 +313,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	north1: {
+	north_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -325,7 +325,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	south1: {
+	south_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -337,7 +337,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	northeast1: {
+	northeast_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -349,7 +349,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	southwest1: {
+	southwest_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -361,7 +361,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	southeast1: {
+	southeast_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
@@ -373,7 +373,7 @@ const defaultMovementRules: Record<string, MovementRules> = {
 			moveStopConditions: ["inside_piece"],
 		},
 	},
-	northwest1: {
+	northwest_1: {
 		forMovement: true,
 		forCapture: true,
 		conditions: [],
