@@ -1,7 +1,11 @@
 import { create } from "zustand";
 
 type PieceMovementEditorStore = {
-	movementName: string | null;
+	expandedMovements: string[];
+	expandMovement: (movementName: string) => void;
+	collapseMovement: (movementName: string) => void;
+
+	activeMovementName: string | null;
 	updateMovementName: (newMovementName: string) => void;
 	clearMovementName: () => void;
 
@@ -27,10 +31,23 @@ type PieceMovementEditorStore = {
 };
 
 const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
-	movementName: null,
+	expandedMovements: [],
+	expandMovement: (movementName) =>
+		set((state) => ({
+			expandedMovements: [...state.expandedMovements, movementName],
+		})),
+
+	collapseMovement: (movementName) =>
+		set((state) => ({
+			expandedMovements: state.expandedMovements.filter(
+				(movement) => movement !== movementName,
+			),
+		})),
+
+	activeMovementName: null,
 	updateMovementName: (newMovementName) =>
-		set({ movementName: newMovementName }),
-	clearMovementName: () => set({ movementName: null }),
+		set({ activeMovementName: newMovementName }),
+	clearMovementName: () => set({ activeMovementName: null }),
 
 	appliesTo: "both",
 	updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
