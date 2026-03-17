@@ -120,13 +120,13 @@ const usePieceRulesDraftStore = create<PieceRulesDraftStore>()(
 				);
 				if (!currentNodeChainedMoves) return;
 
-				currentNodeChainedMoves.splice(
-					currentNodeChainedMoves.findIndex(
-						(chainedMove) =>
-							chainedMove.moveName === chainedMoveNameToRemove,
-					),
-					1,
+				const indexToDelete = currentNodeChainedMoves.findIndex(
+					(chainedMove) =>
+						chainedMove.moveName === chainedMoveNameToRemove,
 				);
+				if (indexToDelete === -1) return;
+
+				currentNodeChainedMoves.splice(indexToDelete, 1);
 			});
 		},
 	})),
