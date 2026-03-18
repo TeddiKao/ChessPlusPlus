@@ -190,8 +190,11 @@ function AppearanceTab() {
 function MovementsTab() {
 	const { currentPiece } = usePieceEditorStore();
 	const { pieces } = usePieceRulesDraftStore();
-	const { activeMovementName, updateActiveMovementName } =
-		usePieceMovementEditorStore();
+	const {
+		activeMovementName,
+		updateActiveMovementName,
+		clearActiveMovementName,
+	} = usePieceMovementEditorStore();
 
 	if (!currentPiece) return null;
 	if (!pieces) return null;
@@ -214,9 +217,13 @@ function MovementsTab() {
 		<TabsContent value="movements" className="flex flex-col gap-4">
 			<Accordion
 				value={activeMovementName ?? undefined}
-				onValueChange={(value) =>
-					updateActiveMovementName(value ?? null)
-				}
+				onValueChange={(value) => {
+					if (value) {
+						updateActiveMovementName(value);
+					} else {
+						clearActiveMovementName();
+					}
+				}}
 				collapsible
 				type="single"
 			>
