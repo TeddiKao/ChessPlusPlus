@@ -8,11 +8,15 @@ function OffsetField() {
 		usePieceMovementEditorStore();
 
 	function handleOffsetXChange(event: ChangeEvent<HTMLInputElement>) {
-		updateOffsetX(Number(event.target.value));
+		const newOffsetX = event.target.valueAsNumber;
+		if (Number.isNaN(newOffsetX)) return;
+		updateOffsetX(newOffsetX);
 	}
 
 	function handleOffsetYChange(event: ChangeEvent<HTMLInputElement>) {
-		updateOffsetY(Number(event.target.value));
+		const newOffsetY = event.target.valueAsNumber;
+		if (Number.isNaN(newOffsetY)) return;
+		updateOffsetY(newOffsetY);
 	}
 
 	return (
