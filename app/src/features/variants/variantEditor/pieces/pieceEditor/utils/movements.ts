@@ -49,7 +49,10 @@ function getMovementFromPath(
 	pieceRules: PieceRules,
 	movementPath: ChainedMovePath,
 ) {
-	let currentMoveNode: MoveNode = pieceRules.moves[movementPath[0]];
+	let currentMoveNode: MoveNode | undefined =
+		pieceRules.moves[movementPath[0]];
+	if (!currentMoveNode) return;
+
 	for (let i = 1; i < movementPath.length; i++) {
 		currentMoveNode = currentMoveNode.chainedMoves[movementPath[i]];
 		if (!currentMoveNode) return;
