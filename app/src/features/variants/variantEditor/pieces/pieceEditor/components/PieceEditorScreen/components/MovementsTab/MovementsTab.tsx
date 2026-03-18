@@ -38,6 +38,7 @@ function MovementsTab() {
 
 	useEffect(() => {
 		if (!pieces) return;
+		if (!currentPiece) return;
 		if (!activeMovementName) return;
 		if (!activeMovementPath) return;
 		if (!movementRules) return;
