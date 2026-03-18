@@ -15,8 +15,11 @@ function RangeFieldSet() {
 	const originalRangeValueRef = useRef(range);
 
 	function handleRangeInputChange(event: ChangeEvent<HTMLInputElement>) {
-		updateRange(Number(event.target.value));
-		originalRangeValueRef.current = Number(event.target.value);
+		const newValue = event.currentTarget.valueAsNumber;
+		if (Number.isNaN(newValue)) return;
+
+		updateRange(newValue);
+		originalRangeValueRef.current = newValue;
 	}
 
 	function handleInfiniteRangeCheckboxChange(checked: boolean) {
