@@ -1,8 +1,7 @@
 import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
 import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
-import usePieceMovementEditorStore
-	from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
-import {getMovementsListForPiece} from "@/features/variants/variantEditor/pieces/pieceEditor/utils/movementsList";
+import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
+import { getMovementsListForPiece } from "@/features/variants/variantEditor/pieces/pieceEditor/utils/movementsList";
 import _ from "lodash";
 import { TabsContent } from "@/components/ui/tabs";
 import {
@@ -11,16 +10,11 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-	AppliesToFieldSet
-} from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/AppliesToFieldSet";
-import MovementTypeFieldSet
-	from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MovementTypeFieldSet";
-import {
-	MoveDefinitionFieldSet
-} from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/MoveDefinitionFieldSet";
+import AppliesToFieldSet from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/AppliesToFieldSet";
+import MovementTypeFieldSet from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MovementTypeFieldSet";
+import MoveDefinitionFieldSet from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/MoveDefinitionFieldSet";
 
-export function MovementsTab() {
+function MovementsTab() {
 	const { currentPiece } = usePieceEditorStore();
 	const { pieces } = usePieceRulesDraftStore();
 	const {
@@ -85,3 +79,5 @@ export function MovementsTab() {
 		</TabsContent>
 	);
 }
+
+export default MovementsTab;

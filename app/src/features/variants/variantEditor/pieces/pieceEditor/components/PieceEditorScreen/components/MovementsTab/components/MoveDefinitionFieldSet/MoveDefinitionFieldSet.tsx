@@ -1,8 +1,8 @@
 import { FieldLegend, FieldSet } from "@/components/ui/field";
-import { OffsetField } from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/components/OffsetField";
-import { RangeFieldSet } from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/components/RangeFieldSet";
+import OffsetField from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/components/OffsetField";
+import RangeFieldSet from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/components/MoveDefinitionFieldSet/components/RangeFieldSet";
 
-export function MoveDefinitionFieldSet() {
+function MoveDefinitionFieldSet() {
 	return (
 		<FieldSet>
 			<FieldLegend className="mb-1" variant="label">
@@ -14,3 +14,5 @@ export function MoveDefinitionFieldSet() {
 		</FieldSet>
 	);
 }
+
+export default MoveDefinitionFieldSet;

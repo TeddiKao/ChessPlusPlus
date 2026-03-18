@@ -1,7 +1,7 @@
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-export function OffsetField() {
+function OffsetField() {
 	return (
 		<Field className="grid grid-cols-2 gap-2">
 			<FieldLabel className="text-foreground mb-0 font-normal">
@@ -23,3 +23,5 @@ export function OffsetField() {
 		</Field>
 	);
 }
+
+export default OffsetField;

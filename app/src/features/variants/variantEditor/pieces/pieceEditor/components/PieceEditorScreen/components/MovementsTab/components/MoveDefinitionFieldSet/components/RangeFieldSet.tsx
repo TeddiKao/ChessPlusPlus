@@ -7,7 +7,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export function RangeFieldSet() {
+function RangeFieldSet() {
 	return (
 		<FieldSet className="gap-2">
 			<FieldLegend className="mb-1" variant="label">
@@ -34,3 +34,5 @@ export function RangeFieldSet() {
 		</FieldSet>
 	);
 }
+
+export default RangeFieldSet;

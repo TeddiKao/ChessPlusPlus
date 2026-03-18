@@ -12,7 +12,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 
-export function AppliesToFieldSet() {
+function AppliesToFieldSet() {
 	return (
 		<FieldSet>
 			<FieldLegend className="mb-1" variant="label">
@@ -35,3 +35,5 @@ export function AppliesToFieldSet() {
 		</FieldSet>
 	);
 }
+
+export default AppliesToFieldSet;

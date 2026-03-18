@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/common/stores/pieceSettingsSheet";
 import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
-import { MovementsTab } from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/MovementsTab";
-import { AppearanceTab } from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/AppearanceTab";
+import MovementsTab from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/MovementsTab/MovementsTab";
+import AppearanceTab from "@/features/variants/variantEditor/pieces/pieceEditor/components/PieceEditorScreen/components/AppearanceTab";
 
 function PieceEditorScreen() {
 	const { updateCurrentSheetMode } = usePieceSettingsStore();

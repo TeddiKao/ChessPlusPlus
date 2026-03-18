@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IconUpload } from "@tabler/icons-react";
 
-export function AppearanceTab() {
+function AppearanceTab() {
 	return (
 		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
 			<Field className="grid grid-cols-2 gap-4 items-center">
@@ -36,3 +36,5 @@ export function AppearanceTab() {
 		</TabsContent>
 	);
 }
+
+export default AppearanceTab;
