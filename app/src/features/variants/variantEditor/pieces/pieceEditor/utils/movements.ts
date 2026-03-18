@@ -45,4 +45,17 @@ function getMovementsListForPiece(pieceRules: PieceRules) {
 	return movementsList;
 }
 
-export { getMovementsListForPiece };
+function getMovementFromPath(
+	pieceRules: PieceRules,
+	movementPath: ChainedMovePath,
+) {
+	let currentMoveNode: MoveNode = pieceRules.moves[movementPath[0]];
+	for (let i = 1; i < movementPath.length; i++) {
+		currentMoveNode = currentMoveNode.chainedMoves[movementPath[i]];
+		if (!currentMoveNode) return;
+	}
+
+	return currentMoveNode;
+}
+
+export { getMovementsListForPiece, getMovementFromPath };
