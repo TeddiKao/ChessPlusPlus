@@ -45,7 +45,7 @@ function MovementsTab() {
 
 	const accordionValue =
 		activeMovementName && activeMovementPath
-			? `${activeMovementName}_${activeMovementPath.join("-")}`
+			? `${activeMovementName}__${activeMovementPath.join("-")}`
 			: "";
 
 	return (
@@ -54,9 +54,11 @@ function MovementsTab() {
 				value={accordionValue}
 				onValueChange={(value) => {
 					if (value) {
-						const [movementName, path] = value.split("_");
+						const [movementName, path] = value.split("__");
 
 						updateActiveMovementName(movementName);
+
+						console.log(value);
 						updateActiveMovementPath(
 							path
 								.split("-")
@@ -71,7 +73,7 @@ function MovementsTab() {
 				type="single"
 			>
 				{movementsList.map(({ moveName, path }) => {
-					const key = `${moveName}_${path.join("-")}`;
+					const key = `${moveName}__${path.join("-")}`;
 
 					return (
 						<AccordionItem
