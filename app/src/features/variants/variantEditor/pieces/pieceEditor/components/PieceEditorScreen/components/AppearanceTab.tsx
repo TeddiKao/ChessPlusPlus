@@ -4,10 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IconUpload } from "@tabler/icons-react";
 import useAppearanceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/appearanceEditor";
-import type { ChangeEvent } from "react";
+import { type ChangeEvent, useEffect } from "react";
+import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
 
 function AppearanceTab() {
+	const { currentPiece } = usePieceEditorStore();
 	const { pieceName, updatePieceName } = useAppearanceEditorStore();
+
+	useEffect(() => {
+		if (!currentPiece) return;
+		updatePieceName(currentPiece);
+	}, [currentPiece, updatePieceName]);
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
