@@ -1,5 +1,4 @@
 import type { PieceOwnershipRules } from "@/features/variants/common/types/setupRules";
-import _ from "lodash";
 
 type PiecesList = {
 	default: string[];
@@ -25,9 +24,9 @@ function getPiecesList(pieceOwnershipRules: PieceOwnershipRules): PiecesList {
 	]) {
 		const [, pieceName] = piece.split("_");
 		if (!defaultPiecesList.includes(pieceName.toLowerCase())) {
-			customPieces.add(_.capitalize(pieceName));
+			customPieces.add(pieceName);
 		} else {
-			defaultPieces.add(_.capitalize(pieceName));
+			defaultPieces.add(pieceName);
 		}
 	}
 

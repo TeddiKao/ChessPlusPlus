@@ -22,6 +22,7 @@ import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/comm
 import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
 import { getPiecesList } from "@/features/variants/variantEditor/pieces/pieceSelection/utils/piecesList";
 import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
+import _ from "lodash";
 
 function PiecesSelectionScreen() {
 	const {
@@ -79,7 +80,7 @@ function PiecesSelectionScreen() {
 
 					<CollapsibleContent>
 						{piecesList.default.map((piece) => {
-							const Icon = pieceIconMap.get(piece);
+							const Icon = pieceIconMap.get(piece.toLowerCase());
 							if (!Icon) return null;
 
 							return (
@@ -88,11 +89,11 @@ function PiecesSelectionScreen() {
 									className="flex flex-row gap-2"
 									variant="ghost"
 									onClick={() =>
-										handlePieceClick(piece.toLowerCase())
+										handlePieceClick(_.capitalize(piece))
 									}
 								>
 									<Icon className="size-5" />
-									<span>{piece}</span>
+									<span>{_.capitalize(piece)}</span>
 								</Button>
 							);
 						})}
@@ -127,9 +128,7 @@ function PiecesSelectionScreen() {
 									key={piece}
 									className="flex flex-row gap-2"
 									variant="ghost"
-									onClick={() =>
-										handlePieceClick(piece.toLowerCase())
-									}
+									onClick={() => handlePieceClick(piece)}
 								>
 									{Icon ? (
 										<Icon className="size-5" />
