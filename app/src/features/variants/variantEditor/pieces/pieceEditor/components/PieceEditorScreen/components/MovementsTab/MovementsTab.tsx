@@ -43,7 +43,7 @@ function MovementsTab() {
 	return (
 		<TabsContent value="movements" className="flex flex-col gap-4">
 			<Accordion
-				value={activeMovementName ?? undefined}
+				value={activeMovementName ?? ""}
 				onValueChange={(value) => {
 					if (value) {
 						updateActiveMovementName(value);
