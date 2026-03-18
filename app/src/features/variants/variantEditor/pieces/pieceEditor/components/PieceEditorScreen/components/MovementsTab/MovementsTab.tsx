@@ -21,6 +21,9 @@ function MovementsTab() {
 		activeMovementName,
 		updateActiveMovementName,
 		clearActiveMovementName,
+		activeMovementPath,
+		updateActiveMovementPath,
+		clearActiveMovementPath,
 	} = usePieceMovementEditorStore();
 
 	if (!currentPiece) return null;
@@ -40,15 +43,28 @@ function MovementsTab() {
 		? whitePieceMovements
 		: [...whitePieceMovements, ...blackPieceMovements];
 
+	const accordionValue =
+		activeMovementName && activeMovementPath
+			? `${activeMovementName}_${activeMovementPath.join("-")}`
+			: "";
+
 	return (
 		<TabsContent value="movements" className="flex flex-col gap-4">
 			<Accordion
-				value={activeMovementName ?? ""}
+				value={accordionValue}
 				onValueChange={(value) => {
 					if (value) {
-						updateActiveMovementName(value);
+						const [movementName, path] = value.split("_");
+
+						updateActiveMovementName(movementName);
+						updateActiveMovementPath(
+							path
+								.split("-")
+								.map((pathIndex) => Number(pathIndex)),
+						);
 					} else {
 						clearActiveMovementName();
+						clearActiveMovementPath();
 					}
 				}}
 				collapsible
@@ -60,7 +76,7 @@ function MovementsTab() {
 					return (
 						<AccordionItem
 							className="border-none no-underline hover:no-underline"
-							value={moveName}
+							value={key}
 							key={key}
 						>
 							<AccordionTrigger className="flex flex-row justify-between w-full pt-0 pb-3">
