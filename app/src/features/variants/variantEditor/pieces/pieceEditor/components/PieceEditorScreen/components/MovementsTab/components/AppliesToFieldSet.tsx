@@ -11,8 +11,17 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
 
 function AppliesToFieldSet() {
+	const { appliesTo, updateAppliesTo } = usePieceMovementEditorStore();
+
+	function handleAppliesToDropdownChange(
+		appliesToValue: "white" | "black" | "both",
+	) {
+		updateAppliesTo(appliesToValue);
+	}
+
 	return (
 		<FieldSet>
 			<FieldLegend className="mb-1" variant="label">
@@ -20,7 +29,10 @@ function AppliesToFieldSet() {
 			</FieldLegend>
 			<Field className="grid grid-cols-2 gap-2" orientation="horizontal">
 				<FieldLabel className="font-normal">Side</FieldLabel>
-				<Select defaultValue="both">
+				<Select
+					value={appliesTo}
+					onValueChange={handleAppliesToDropdownChange}
+				>
 					<SelectTrigger className="w-full bg-background">
 						<SelectValue placeholder="Select side" />
 					</SelectTrigger>
