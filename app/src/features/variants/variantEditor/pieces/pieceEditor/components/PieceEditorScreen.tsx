@@ -265,8 +265,14 @@ function PieceEditorScreen() {
 					<span>Piece Editor</span>
 				</SheetTitle>
 				<SheetDescription>
-					You are currently editing the {currentPiece}. Click the back
-					arrow to switch your selection.
+					{currentPiece ? (
+						<span>
+							You are currently editing the {currentPiece}. Click
+							the back arrow to switch your selection.
+						</span>
+					) : (
+						<span>Select a piece to edit.</span>
+					)}
 				</SheetDescription>
 			</SheetHeader>
 
