@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 type PieceMovementEditorStore = {
-	movementName: string | null;
-	updateMovementName: (newMovementName: string) => void;
-	clearMovementName: () => void;
+	activeMovementName: string | null;
+	updateActiveMovementName: (newMovementName: string) => void;
+	clearActiveMovementName: () => void;
 
 	appliesTo: "white" | "black" | "both";
 	updateAppliesTo: (newAppliesTo: "white" | "black" | "both") => void;
@@ -27,10 +27,10 @@ type PieceMovementEditorStore = {
 };
 
 const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
-	movementName: null,
-	updateMovementName: (newMovementName) =>
-		set({ movementName: newMovementName }),
-	clearMovementName: () => set({ movementName: null }),
+	activeMovementName: null,
+	updateActiveMovementName: (newMovementName) =>
+		set({ activeMovementName: newMovementName }),
+	clearActiveMovementName: () => set({ activeMovementName: null }),
 
 	appliesTo: "both",
 	updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
