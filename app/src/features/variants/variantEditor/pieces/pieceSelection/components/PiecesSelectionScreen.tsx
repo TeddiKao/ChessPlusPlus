@@ -22,7 +22,6 @@ import usePieceSettingsStore from "@/features/variants/variantEditor/pieces/comm
 import useSetupRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/setupRulesDraft";
 import { getPiecesList } from "@/features/variants/variantEditor/pieces/pieceSelection/utils/piecesList";
 import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
-import _ from "lodash";
 
 function PiecesSelectionScreen() {
 	const {
@@ -88,12 +87,10 @@ function PiecesSelectionScreen() {
 									key={piece}
 									className="flex flex-row gap-2"
 									variant="ghost"
-									onClick={() =>
-										handlePieceClick(_.capitalize(piece))
-									}
+									onClick={() => handlePieceClick(piece)}
 								>
 									<Icon className="size-5" />
-									<span>{_.capitalize(piece)}</span>
+									<span>{piece}</span>
 								</Button>
 							);
 						})}
