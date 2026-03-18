@@ -9,12 +9,32 @@ import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceE
 
 function AppearanceTab() {
 	const { currentPiece } = usePieceEditorStore();
-	const { pieceName, updatePieceName } = useAppearanceEditorStore();
+	const {
+		pieceName,
+		updatePieceName,
+		clearPieceName,
+		clearWhitePieceImage,
+		clearBlackPieceImage,
+	} = useAppearanceEditorStore();
 
 	useEffect(() => {
-		if (!currentPiece) return;
+		if (!currentPiece) {
+			clearPieceName();
+			clearWhitePieceImage();
+			clearBlackPieceImage();
+			return;
+		}
+
 		updatePieceName(currentPiece);
-	}, [currentPiece, updatePieceName]);
+	}, [
+		currentPiece,
+		updatePieceName,
+		clearPieceName,
+		clearWhitePieceImage,
+		clearBlackPieceImage,
+	]);
+
+	if (!pieceName) return null;
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
