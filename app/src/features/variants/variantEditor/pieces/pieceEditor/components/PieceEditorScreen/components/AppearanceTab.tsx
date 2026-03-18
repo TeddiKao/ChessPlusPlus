@@ -3,8 +3,16 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IconUpload } from "@tabler/icons-react";
+import useAppearanceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/appearanceEditor";
+import type { ChangeEvent } from "react";
 
 function AppearanceTab() {
+	const { pieceName, updatePieceName } = useAppearanceEditorStore();
+
+	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updatePieceName(e.target.value);
+	}
+
 	return (
 		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
 			<Field className="grid grid-cols-2 gap-4 items-center">
@@ -15,6 +23,8 @@ function AppearanceTab() {
 					id="pieceName"
 					className="bg-white"
 					placeholder="Piece name"
+					value={pieceName}
+					onChange={handlePieceNameInputChange}
 				/>
 			</Field>
 
