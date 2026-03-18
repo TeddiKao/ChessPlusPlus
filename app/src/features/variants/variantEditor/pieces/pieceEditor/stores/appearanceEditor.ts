@@ -5,10 +5,12 @@ type AppearanceEditorStore = {
 	updatePieceName: (newPieceName: string) => void;
 
 	whitePieceImage: Blob | null;
-	updateWhitePieceImage: (newImage: Blob | null) => void;
+	updateWhitePieceImage: (newImage: Blob) => void;
+	clearWhitePieceImage: () => void;
 
 	blackPieceImage: Blob | null;
-	updateBlackPieceImage: (newImage: Blob | null) => void;
+	updateBlackPieceImage: (newImage: Blob) => void;
+	clearBlackPieceImage: () => void;
 };
 
 const useAppearanceEditorStore = create<AppearanceEditorStore>((set) => ({
@@ -17,9 +19,11 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set) => ({
 
 	whitePieceImage: null,
 	updateWhitePieceImage: (newImage) => set({ whitePieceImage: newImage }),
+	clearWhitePieceImage: () => set({ whitePieceImage: null }),
 
 	blackPieceImage: null,
 	updateBlackPieceImage: (newImage) => set({ blackPieceImage: newImage }),
+	clearBlackPieceImage: () => set({ blackPieceImage: null }),
 }));
 
 export default useAppearanceEditorStore;
