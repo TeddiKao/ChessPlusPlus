@@ -6,20 +6,20 @@ import type {
 
 const defaultPieceOwnershipRules: PieceOwnershipRules = {
 	white: [
-		"white_pawn",
-		"white_queen",
-		"white_rook",
-		"white_bishop",
-		"white_knight",
-		"white_king",
+		"white_Pawn",
+		"white_Queen",
+		"white_Rook",
+		"white_Bishop",
+		"white_Knight",
+		"white_King",
 	],
 	black: [
-		"black_pawn",
-		"black_queen",
-		"black_rook",
-		"black_bishop",
-		"black_knight",
-		"black_king",
+		"black_Pawn",
+		"black_Queen",
+		"black_Rook",
+		"black_Bishop",
+		"black_Knight",
+		"black_King",
 	],
 };
 const defaultStartingPosition: SquareInfo[] = [
