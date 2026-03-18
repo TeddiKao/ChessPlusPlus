@@ -9,10 +9,8 @@ function loopOverChainedMoves(
 	movementsList: { moveName: string; path: ChainedMovePath }[],
 	movePath: number[],
 ) {
-	for (const movementInfo of chainedMoves) {
-		const index = chainedMoves.findIndex(
-			(move) => move.moveName === movementInfo.moveName,
-		);
+	for (let index = 0; index < chainedMoves.length; index++) {
+		const movementInfo = chainedMoves[index];
 
 		const updatedMovePath = [...movePath, index];
 
@@ -32,10 +30,8 @@ function loopOverChainedMoves(
 function getMovementsListForPiece(pieceRules: PieceRules) {
 	const movementsList: { moveName: string; path: ChainedMovePath }[] = [];
 
-	for (const movementInfo of pieceRules.moves) {
-		const rootIndex = pieceRules.moves.findIndex(
-			(move) => move.moveName === movementInfo.moveName,
-		);
+	for (let rootIndex = 0; rootIndex < pieceRules.moves.length; rootIndex++) {
+		const movementInfo = pieceRules.moves[rootIndex];
 		const movePath: number[] = [rootIndex];
 
 		let chainedMoves: MoveNode[] | null = null;
