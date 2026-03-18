@@ -42,7 +42,7 @@ function RangeFieldSet() {
 					type="number"
 					placeholder="Range"
 					disabled={range === "inf"}
-					value={range}
+					value={range === "inf" ? "" : range}
 					onChange={handleRangeInputChange}
 				/>
 			</Field>
