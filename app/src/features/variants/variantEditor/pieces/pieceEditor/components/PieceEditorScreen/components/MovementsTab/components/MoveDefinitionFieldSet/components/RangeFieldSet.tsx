@@ -12,17 +12,18 @@ import { type ChangeEvent, useRef } from "react";
 function RangeFieldSet() {
 	const { range, updateRange } = usePieceMovementEditorStore();
 
-	const rangeInputRef = useRef<HTMLInputElement | null>(null);
+	const originalRangeValueRef = useRef(range);
 
 	function handleRangeInputChange(event: ChangeEvent<HTMLInputElement>) {
 		updateRange(Number(event.target.value));
+		originalRangeValueRef.current = Number(event.target.value);
 	}
 
 	function handleInfiniteRangeCheckboxChange(checked: boolean) {
 		if (checked) {
 			updateRange("inf");
 		} else {
-			updateRange(Number(rangeInputRef.current?.value ?? 0));
+			updateRange(originalRangeValueRef.current);
 		}
 	}
 
@@ -40,7 +41,6 @@ function RangeFieldSet() {
 					className="bg-background"
 					type="number"
 					placeholder="Range"
-					ref={rangeInputRef}
 					disabled={range === "inf"}
 					value={range}
 					onChange={handleRangeInputChange}
