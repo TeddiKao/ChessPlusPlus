@@ -1,8 +1,9 @@
 import { create } from "zustand";
 
 type AppearanceEditorStore = {
-	pieceName: string;
+	pieceName: string | null;
 	updatePieceName: (newPieceName: string) => void;
+	clearPieceName: () => void;
 
 	whitePieceImage: Blob | null;
 	updateWhitePieceImage: (newImage: Blob) => void;
@@ -14,8 +15,9 @@ type AppearanceEditorStore = {
 };
 
 const useAppearanceEditorStore = create<AppearanceEditorStore>((set) => ({
-	pieceName: "",
+	pieceName: null,
 	updatePieceName: (newPieceName) => set({ pieceName: newPieceName }),
+	clearPieceName: () => set({ pieceName: null }),
 
 	whitePieceImage: null,
 	updateWhitePieceImage: (newImage) => set({ whitePieceImage: newImage }),
