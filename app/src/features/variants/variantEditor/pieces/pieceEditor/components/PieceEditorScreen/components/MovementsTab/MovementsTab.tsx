@@ -89,14 +89,14 @@ function MovementsTab() {
 	if (!currentPiece) return null;
 	if (!pieces) return null;
 
-	if (!pieces[`white_${currentPiece}`]) return null;
-	if (!pieces[`black_${currentPiece}`]) return null;
+	if (!pieces[`white_${currentPiece.toLowerCase()}`]) return null;
+	if (!pieces[`black_${currentPiece.toLowerCase()}`]) return null;
 
 	const whitePieceMovements = getMovementsListForPiece(
-		pieces[`white_${currentPiece}`],
+		pieces[`white_${currentPiece.toLowerCase()}`],
 	);
 	const blackPieceMovements = getMovementsListForPiece(
-		pieces[`black_${currentPiece}`],
+		pieces[`black_${currentPiece.toLowerCase()}`],
 	);
 
 	const movementsList = _.isEqual(whitePieceMovements, blackPieceMovements)
