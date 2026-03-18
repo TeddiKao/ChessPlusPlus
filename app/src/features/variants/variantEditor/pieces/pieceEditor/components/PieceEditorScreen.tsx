@@ -220,12 +220,14 @@ function MovementsTab() {
 				collapsible
 				type="single"
 			>
-				{movementsList.map(({ moveName }) => {
+				{movementsList.map(({ moveName, path }) => {
+					const key = `${moveName}_${path.join("-")}`;
+
 					return (
 						<AccordionItem
 							className="border-none no-underline hover:no-underline"
 							value={moveName}
-							key={moveName}
+							key={key}
 						>
 							<AccordionTrigger className="flex flex-row justify-between w-full pt-0 pb-3">
 								<span>{moveName}</span>
