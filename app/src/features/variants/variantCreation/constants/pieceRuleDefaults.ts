@@ -154,7 +154,7 @@ const kingRules = {
 	],
 };
 const defaultPieceRules: PiecesRules = {
-	white_pawn: {
+	white_Pawn: {
 		moves: [
 			{
 				moveName: "white_pawn_forward",
@@ -176,7 +176,7 @@ const defaultPieceRules: PiecesRules = {
 		],
 	},
 
-	black_pawn: {
+	black_Pawn: {
 		moves: [
 			{
 				moveName: "black_pawn_forward",
@@ -198,20 +198,20 @@ const defaultPieceRules: PiecesRules = {
 		],
 	},
 
-	white_queen: queenRules,
-	black_queen: queenRules,
+	white_Queen: queenRules,
+	black_Queen: queenRules,
 
-	white_rook: rookRules,
-	black_rook: rookRules,
+	white_Rook: rookRules,
+	black_Rook: rookRules,
 
-	white_bishop: bishopRules,
-	black_bishop: bishopRules,
+	white_Bishop: bishopRules,
+	black_Bishop: bishopRules,
 
-	white_knight: knightRules,
-	black_knight: knightRules,
+	white_Knight: knightRules,
+	black_Knight: knightRules,
 
-	white_king: kingRules,
-	black_king: kingRules,
+	white_King: kingRules,
+	black_King: kingRules,
 };
 
 export { defaultPieceRules };

@@ -8,12 +8,12 @@ import {
 } from "lucide-react";
 
 const pieceIconMap = new Map([
-	["Pawn", ChessPawnIcon],
-	["Knight", ChessKnightIcon],
-	["Bishop", ChessBishopIcon],
-	["Rook", ChessRookIcon],
-	["Queen", ChessQueenIcon],
-	["King", ChessKingIcon],
+	["pawn", ChessPawnIcon],
+	["knight", ChessKnightIcon],
+	["bishop", ChessBishopIcon],
+	["rook", ChessRookIcon],
+	["queen", ChessQueenIcon],
+	["king", ChessKingIcon],
 ]);
 
 export { pieceIconMap };

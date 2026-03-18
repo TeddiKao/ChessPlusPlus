@@ -79,7 +79,7 @@ function PiecesSelectionScreen() {
 
 					<CollapsibleContent>
 						{piecesList.default.map((piece) => {
-							const Icon = pieceIconMap.get(piece);
+							const Icon = pieceIconMap.get(piece.toLowerCase());
 							if (!Icon) return null;
 
 							return (
@@ -87,9 +87,7 @@ function PiecesSelectionScreen() {
 									key={piece}
 									className="flex flex-row gap-2"
 									variant="ghost"
-									onClick={() =>
-										handlePieceClick(piece.toLowerCase())
-									}
+									onClick={() => handlePieceClick(piece)}
 								>
 									<Icon className="size-5" />
 									<span>{piece}</span>
@@ -127,9 +125,7 @@ function PiecesSelectionScreen() {
 									key={piece}
 									className="flex flex-row gap-2"
 									variant="ghost"
-									onClick={() =>
-										handlePieceClick(piece.toLowerCase())
-									}
+									onClick={() => handlePieceClick(piece)}
 								>
 									{Icon ? (
 										<Icon className="size-5" />

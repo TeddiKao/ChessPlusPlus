@@ -15,10 +15,12 @@ type PieceMovementEditorStore = {
 	forMovement: boolean;
 	enableMovement: () => void;
 	disableMovement: () => void;
+	updateForMovement: (forMovement: boolean) => void;
 
 	forCapture: boolean;
 	enableCapture: () => void;
 	disableCapture: () => void;
+	updateForCapture: (forMovement: boolean) => void;
 
 	offsetX: number;
 	updateOffsetX: (newOffsetX: number) => void;
@@ -46,10 +48,12 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
 	forMovement: false,
 	enableMovement: () => set({ forMovement: true }),
 	disableMovement: () => set({ forMovement: false }),
+	updateForMovement: (forMovement: boolean) => set({ forMovement }),
 
 	forCapture: false,
 	enableCapture: () => set({ forCapture: true }),
 	disableCapture: () => set({ forCapture: false }),
+	updateForCapture: (forCapture: boolean) => set({ forCapture }),
 
 	offsetX: 0,
 	updateOffsetX: (newOffsetX) => set({ offsetX: newOffsetX }),
