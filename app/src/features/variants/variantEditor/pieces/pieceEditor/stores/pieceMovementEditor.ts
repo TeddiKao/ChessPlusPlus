@@ -5,6 +5,10 @@ type PieceMovementEditorStore = {
 	updateActiveMovementName: (newMovementName: string) => void;
 	clearActiveMovementName: () => void;
 
+	activeMovementPath: number[] | null;
+	updateActiveMovementPath: (newPath: number[]) => void;
+	clearActiveMovementPath: () => void;
+
 	appliesTo: "white" | "black" | "both";
 	updateAppliesTo: (newAppliesTo: "white" | "black" | "both") => void;
 
@@ -31,6 +35,10 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
 	updateActiveMovementName: (newMovementName) =>
 		set({ activeMovementName: newMovementName }),
 	clearActiveMovementName: () => set({ activeMovementName: null }),
+
+	activeMovementPath: null,
+	updateActiveMovementPath: (newPath) => set({ activeMovementPath: newPath }),
+	clearActiveMovementPath: () => set({ activeMovementPath: null }),
 
 	appliesTo: "both",
 	updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
