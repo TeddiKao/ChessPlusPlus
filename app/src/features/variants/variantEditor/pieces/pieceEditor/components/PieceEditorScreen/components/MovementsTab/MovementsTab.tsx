@@ -28,6 +28,7 @@ function MovementsTab() {
 		updateActiveMovementPath,
 		clearActiveMovementPath,
 
+		updateAppliesTo,
 		updateForMovement,
 		updateForCapture,
 		updateOffsetX,
@@ -36,6 +37,7 @@ function MovementsTab() {
 	} = usePieceMovementEditorStore();
 
 	useEffect(() => {
+		if (!pieces) return;
 		if (!activeMovementName) return;
 		if (!activeMovementPath) return;
 		if (!movementRules) return;
@@ -43,15 +45,40 @@ function MovementsTab() {
 		const movementInfo = movementRules[activeMovementName];
 		if (!movementInfo) return;
 
+		const whitePieceMovements = getMovementsListForPiece(
+			pieces[`white_${currentPiece}`],
+		);
+		const blackPieceMovements = getMovementsListForPiece(
+			pieces[`black_${currentPiece}`],
+		);
+
+		const isInWhite = whitePieceMovements.some(
+			(movement) => movement.moveName === activeMovementName,
+		);
+		const isInBlack = blackPieceMovements.some(
+			(movement) => movement.moveName === activeMovementName,
+		);
+
+		if (isInWhite && isInBlack) {
+			updateAppliesTo("both");
+		} else if (isInWhite) {
+			updateAppliesTo("white");
+		} else if (isInBlack) {
+			updateAppliesTo("black");
+		}
+
 		updateOffsetX(movementInfo.moveDefinition.moveX);
 		updateOffsetY(movementInfo.moveDefinition.moveY);
 		updateRange(movementInfo.moveDefinition.range);
 		updateForMovement(movementInfo.forMovement);
 		updateForCapture(movementInfo.forCapture);
 	}, [
+		pieces,
+		currentPiece,
 		activeMovementName,
 		activeMovementPath,
 		movementRules,
+		updateAppliesTo,
 		updateForCapture,
 		updateForMovement,
 		updateOffsetX,
