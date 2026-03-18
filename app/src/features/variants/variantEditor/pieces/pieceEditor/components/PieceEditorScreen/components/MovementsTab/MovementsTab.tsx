@@ -54,10 +54,14 @@ function MovementsTab() {
 		);
 
 		const isInWhite = whitePieceMovements.some(
-			(movement) => movement.moveName === activeMovementName,
+			(movement) =>
+				movement.moveName === activeMovementName &&
+				_.isEqual(movement.path, activeMovementPath),
 		);
 		const isInBlack = blackPieceMovements.some(
-			(movement) => movement.moveName === activeMovementName,
+			(movement) =>
+				movement.moveName === activeMovementName &&
+				_.isEqual(movement.path, activeMovementPath),
 		);
 
 		if (isInWhite && isInBlack) {
