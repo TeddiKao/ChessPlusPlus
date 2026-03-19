@@ -82,7 +82,12 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
 
 	movementEditorChanges: {} as Partial<MovementEditorChanges>,
 	addMovementEditorChanges: (changes) =>
-		set((state) => ({ ...state, ...changes })),
+		set((state) => ({
+			movementEditorChanges: {
+				...state.movementEditorChanges,
+				...changes,
+			},
+		})),
 
 	removeMovementEditorChanges: (keys) =>
 		set((state) => {
