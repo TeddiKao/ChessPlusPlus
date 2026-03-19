@@ -107,11 +107,12 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 		clearMovementEditorChanges: () => set({ movementEditorChanges: {} }),
 
 		commitToDraft: (keys) => {
+			const updateMovementRules =
+				useMovementRulesDraftStore.getState().updateMovementRules;
+			const originalMovementRules =
+				useMovementRulesDraftStore.getState().movementRules;
+
 			if (!keys) {
-				const updateMovementRules =
-					useMovementRulesDraftStore.getState().updateMovementRules;
-				const originalMovementRules =
-					useMovementRulesDraftStore.getState().movementRules;
 				if (!originalMovementRules) return;
 
 				const activeMovementName = get().activeMovementName;
@@ -129,6 +130,7 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 				});
 
 				get().clearMovementEditorChanges();
+			} else {
 			}
 		},
 	}),
