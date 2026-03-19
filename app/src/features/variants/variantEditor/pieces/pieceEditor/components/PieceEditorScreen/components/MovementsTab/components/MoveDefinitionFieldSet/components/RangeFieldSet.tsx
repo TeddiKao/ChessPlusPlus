@@ -10,7 +10,7 @@ import usePieceMovementEditorStore from "@/features/variants/variantEditor/piece
 import { type ChangeEvent, useRef } from "react";
 
 function RangeFieldSet() {
-	const { range, updateRange, addMovementEditorChanges } =
+	const { range, updateRange, addMovementEditorChanges, commitToDraft } =
 		usePieceMovementEditorStore();
 
 	const originalRangeValueRef = useRef(range);
@@ -35,6 +35,10 @@ function RangeFieldSet() {
 		}
 	}
 
+	function handleRangeFieldsBlur() {
+		commitToDraft(["range"]);
+	}
+
 	return (
 		<FieldSet className="gap-2">
 			<FieldLegend className="mb-1" variant="label">
@@ -51,6 +55,7 @@ function RangeFieldSet() {
 					placeholder="Range"
 					disabled={range === "inf"}
 					value={range === "inf" ? "" : range}
+					onBlur={handleRangeFieldsBlur}
 					onChange={handleRangeInputChange}
 				/>
 			</Field>
@@ -59,6 +64,7 @@ function RangeFieldSet() {
 				<Checkbox
 					checked={range === "inf"}
 					onCheckedChange={handleInfiniteRangeCheckboxChange}
+					onBlur={handleRangeFieldsBlur}
 					className="border-gray-600"
 					id="infiniteRange"
 				/>
