@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import usePieceRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/pieceRulesDraft";
+import usePieceEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceEditor";
 
 type AppearanceEditorChanges = {
 	pieceName: string;
@@ -27,9 +29,11 @@ type AppearanceEditorStore = {
 		keys: (keyof AppearanceEditorChanges)[],
 	) => void;
 	clearAppearanceEditorChanges: () => void;
+
+	commitToDraft: (keys?: (keyof AppearanceEditorChanges)[]) => void;
 };
 
-const useAppearanceEditorStore = create<AppearanceEditorStore>((set) => ({
+const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 	pieceName: null,
 	updatePieceName: (newPieceName) => set({ pieceName: newPieceName }),
 	clearPieceName: () => set({ pieceName: null }),
@@ -64,6 +68,44 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set) => ({
 	},
 
 	clearAppearanceEditorChanges: () => set({ appearanceEditorChanges: {} }),
+
+	commitToDraft: (keys) => {
+		const updatePieceRules =
+			usePieceRulesDraftStore.getState().updatePieceRules;
+		const originalPieceRules = usePieceRulesDraftStore.getState().pieces;
+		const currentPiece = usePieceEditorStore.getState().currentPiece;
+
+		if (!originalPieceRules) return;
+		if (!currentPiece) return;
+
+		const updatedPieceRules = structuredClone(originalPieceRules);
+		const appearanceEditorChanges = get().appearanceEditorChanges;
+		if (!appearanceEditorChanges) return;
+
+		if (!keys) {
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(appearanceEditorChanges).filter(
+					([key]) => key !== "pieceName",
+				),
+			);
+
+			updatedPieceRules[currentPiece] = {
+				...updatedPieceRules[currentPiece],
+				...nonNameChanges,
+			};
+
+			if (Object.keys(appearanceEditorChanges).includes("pieceName")) {
+				const newPieceName = appearanceEditorChanges.pieceName;
+				if (!newPieceName) return;
+
+				delete updatedPieceRules[currentPiece];
+				updatedPieceRules[newPieceName] =
+					originalPieceRules[currentPiece];
+			}
+
+			updatePieceRules(updatedPieceRules);
+		}
+	},
 }));
 
 export default useAppearanceEditorStore;
