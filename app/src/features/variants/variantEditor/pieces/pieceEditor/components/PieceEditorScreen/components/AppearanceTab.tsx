@@ -15,6 +15,7 @@ function AppearanceTab() {
 		clearPieceName,
 		clearWhitePieceImage,
 		clearBlackPieceImage,
+		addAppearanceEditorChanges,
 	} = useAppearanceEditorStore();
 
 	useEffect(() => {
@@ -38,6 +39,7 @@ function AppearanceTab() {
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
+		addAppearanceEditorChanges({ pieceName: e.target.value });
 	}
 
 	return (
