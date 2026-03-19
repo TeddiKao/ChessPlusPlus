@@ -14,14 +14,19 @@ import {
 import usePieceMovementEditorStore from "@/features/variants/variantEditor/pieces/pieceEditor/stores/pieceMovementEditor";
 
 function AppliesToFieldSet() {
-	const { appliesTo, updateAppliesTo, addMovementEditorChanges } =
-		usePieceMovementEditorStore();
+	const {
+		appliesTo,
+		updateAppliesTo,
+		addMovementEditorChanges,
+		commitToDraft,
+	} = usePieceMovementEditorStore();
 
 	function handleAppliesToDropdownChange(
 		appliesToValue: "white" | "black" | "both",
 	) {
 		updateAppliesTo(appliesToValue);
 		addMovementEditorChanges({ appliesTo: appliesToValue });
+		commitToDraft(["appliesTo"]);
 	}
 
 	return (

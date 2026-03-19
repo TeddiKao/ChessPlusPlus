@@ -16,6 +16,7 @@ function MovementTypeFieldSet() {
 		enableCapture,
 		disableCapture,
 		addMovementEditorChanges,
+		commitToDraft,
 	} = usePieceMovementEditorStore();
 
 	function handleForMovementCheckboxChange(checked: boolean) {
@@ -38,6 +39,14 @@ function MovementTypeFieldSet() {
 		}
 	}
 
+	function handleForCaptureCheckboxBlur() {
+		commitToDraft(["forCapture"]);
+	}
+
+	function handleForMovementCheckboxBlur() {
+		commitToDraft(["forMovement"]);
+	}
+
 	return (
 		<FieldSet className="gap-2">
 			<FieldLegend variant="label">Movement types</FieldLegend>
@@ -47,6 +56,7 @@ function MovementTypeFieldSet() {
 					id="for-movement-checkbox"
 					checked={forMovement}
 					onCheckedChange={handleForMovementCheckboxChange}
+					onBlur={handleForMovementCheckboxBlur}
 				/>
 				<FieldLabel
 					className="font-normal"
@@ -61,6 +71,7 @@ function MovementTypeFieldSet() {
 					id="for-capture-checkbox"
 					checked={forCapture}
 					onCheckedChange={handleForCaptureCheckboxChange}
+					onBlur={handleForCaptureCheckboxBlur}
 				/>
 				<FieldLabel
 					className="font-normal"
