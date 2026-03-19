@@ -104,6 +104,32 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 			}
 
 			updatePieceRules(updatedPieceRules);
+		} else {
+			const changesToCommit = Object.fromEntries(
+				Object.entries(appearanceEditorChanges).filter(([key]) =>
+					keys.includes(key as keyof AppearanceEditorChanges),
+				),
+			);
+
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(changesToCommit).filter(
+					([key]) => key !== "pieceName",
+				),
+			);
+
+			updatedPieceRules[currentPiece] = {
+				...updatedPieceRules[currentPiece],
+				...nonNameChanges,
+			};
+
+			if (Object.keys(changesToCommit).includes("pieceName")) {
+				const newPieceName = appearanceEditorChanges.pieceName;
+				if (!newPieceName) return;
+
+				delete updatedPieceRules[currentPiece];
+				updatedPieceRules[newPieceName] =
+					originalPieceRules[currentPiece];
+			}
 		}
 	},
 }));
