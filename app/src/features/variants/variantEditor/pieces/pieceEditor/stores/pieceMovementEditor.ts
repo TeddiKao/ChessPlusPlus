@@ -112,15 +112,14 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 			const originalMovementRules =
 				useMovementRulesDraftStore.getState().movementRules;
 
+			const activeMovementName = get().activeMovementName;
+			const movementEditorChanges = get().movementEditorChanges;
+
+			if (!originalMovementRules) return;
+			if (!activeMovementName) return;
+			if (!movementEditorChanges) return;
+
 			if (!keys) {
-				if (!originalMovementRules) return;
-
-				const activeMovementName = get().activeMovementName;
-				const movementEditorChanges = get().movementEditorChanges;
-
-				if (!activeMovementName) return;
-				if (!movementEditorChanges) return;
-
 				updateMovementRules({
 					...originalMovementRules,
 					[activeMovementName]: {
@@ -130,7 +129,6 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 				});
 
 				get().clearMovementEditorChanges();
-			} else {
 			}
 		},
 	}),
