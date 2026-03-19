@@ -10,6 +10,7 @@ function OffsetField() {
 		offsetY,
 		updateOffsetY,
 		addMovementEditorChanges,
+		commitToDraft,
 	} = usePieceMovementEditorStore();
 
 	function handleOffsetXChange(event: ChangeEvent<HTMLInputElement>) {
@@ -28,6 +29,14 @@ function OffsetField() {
 		addMovementEditorChanges({ offsetY: newOffsetY });
 	}
 
+	function handleOffsetXBlur() {
+		commitToDraft(["offsetX"]);
+	}
+
+	function handleOffsetYBlur() {
+		commitToDraft(["offsetY"]);
+	}
+
 	return (
 		<Field className="grid grid-cols-2 gap-2">
 			<FieldLabel className="text-foreground mb-0 font-normal">
@@ -39,6 +48,7 @@ function OffsetField() {
 					className="bg-background"
 					type="number"
 					placeholder="X"
+					onBlur={handleOffsetXBlur}
 					value={offsetX}
 					onChange={handleOffsetXChange}
 				/>
@@ -46,6 +56,7 @@ function OffsetField() {
 					className="bg-background"
 					type="number"
 					placeholder="Y"
+					onBlur={handleOffsetYBlur}
 					value={offsetY}
 					onChange={handleOffsetYChange}
 				/>
