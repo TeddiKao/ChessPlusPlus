@@ -94,13 +94,14 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 				...nonNameChanges,
 			};
 
+			const newRules = structuredClone(updatedPieceRules[currentPiece]);
+
 			if (Object.keys(appearanceEditorChanges).includes("pieceName")) {
 				const newPieceName = appearanceEditorChanges.pieceName;
 				if (!newPieceName) return;
 
 				delete updatedPieceRules[currentPiece];
-				updatedPieceRules[newPieceName] =
-					originalPieceRules[currentPiece];
+				updatedPieceRules[newPieceName] = newRules;
 			}
 
 			updatePieceRules(updatedPieceRules);
@@ -123,13 +124,14 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 				...nonNameChanges,
 			};
 
+			const newRules = structuredClone(updatedPieceRules[currentPiece]);
+
 			if (Object.keys(changesToCommit).includes("pieceName")) {
 				const newPieceName = appearanceEditorChanges.pieceName;
 				if (!newPieceName) return;
 
 				delete updatedPieceRules[currentPiece];
-				updatedPieceRules[newPieceName] =
-					originalPieceRules[currentPiece];
+				updatedPieceRules[newPieceName] = newRules;
 			}
 
 			updatePieceRules(updatedPieceRules);
