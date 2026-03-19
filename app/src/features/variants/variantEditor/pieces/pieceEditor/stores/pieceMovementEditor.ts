@@ -129,6 +129,22 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 				});
 
 				get().clearMovementEditorChanges();
+			} else {
+				const changesToCommit = Object.fromEntries(
+					Object.entries(movementEditorChanges).filter(([key]) =>
+						keys.includes(key as keyof MovementEditorChanges),
+					),
+				);
+
+				updateMovementRules({
+					...originalMovementRules,
+					[activeMovementName]: {
+						...originalMovementRules[activeMovementName],
+						...changesToCommit,
+					},
+				});
+
+				get().removeMovementEditorChanges(keys);
 			}
 		},
 	}),
