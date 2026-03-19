@@ -96,12 +96,14 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 
 		removeMovementEditorChanges: (keys) =>
 			set((state) => {
-				const newState = structuredClone(state);
+				const newMovementEditorChanges = structuredClone(
+					state.movementEditorChanges,
+				);
 				for (const key of keys) {
-					delete newState.movementEditorChanges[key];
+					delete newMovementEditorChanges[key];
 				}
 
-				return newState;
+				return { movementEditorChanges: newMovementEditorChanges };
 			}),
 
 		clearMovementEditorChanges: () => set({ movementEditorChanges: {} }),
