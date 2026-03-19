@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import useMovementRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/movementRulesDraft";
+import type { PieceMoveDefinition } from "@/features/variants/common/types/movementRules";
 
 type MovementEditorChanges = {
 	appliesTo: "white" | "black" | "both";
@@ -121,12 +122,44 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 			if (!activeMovementName) return;
 			if (!movementEditorChanges) return;
 
+			console.log(originalMovementRules);
+			console.log(activeMovementName);
+
+			const moveDefinitionKeys: (keyof PieceMoveDefinition)[] = [
+				"moveX",
+				"moveY",
+				"range",
+				"moveStopConditions",
+			];
+
 			if (!keys) {
+				const moveDefinitionChanges = Object.fromEntries(
+					Object.entries(movementEditorChanges).filter(([key]) =>
+						moveDefinitionKeys.includes(
+							key as keyof PieceMoveDefinition,
+						),
+					),
+				);
+
+				const topLevelRuleChanges = Object.fromEntries(
+					Object.entries(movementEditorChanges).filter(
+						([key]) =>
+							!moveDefinitionKeys.includes(
+								key as keyof PieceMoveDefinition,
+							),
+					),
+				);
+
 				updateMovementRules({
 					...originalMovementRules,
 					[activeMovementName]: {
 						...originalMovementRules[activeMovementName],
-						...movementEditorChanges,
+						...topLevelRuleChanges,
+						moveDefinition: {
+							...originalMovementRules[activeMovementName]
+								.moveDefinition,
+							...moveDefinitionChanges,
+						},
 					},
 				});
 
@@ -138,11 +171,33 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 					),
 				);
 
+				const moveDefinitionChanges = Object.fromEntries(
+					Object.entries(changesToCommit).filter(([key]) =>
+						moveDefinitionKeys.includes(
+							key as keyof PieceMoveDefinition,
+						),
+					),
+				);
+
+				const topLevelRuleChanges = Object.fromEntries(
+					Object.entries(changesToCommit).filter(
+						([key]) =>
+							!moveDefinitionKeys.includes(
+								key as keyof PieceMoveDefinition,
+							),
+					),
+				);
+
 				updateMovementRules({
 					...originalMovementRules,
 					[activeMovementName]: {
 						...originalMovementRules[activeMovementName],
-						...changesToCommit,
+						...topLevelRuleChanges,
+						moveDefinition: {
+							...originalMovementRules[activeMovementName]
+								.moveDefinition,
+							...moveDefinitionChanges,
+						},
 					},
 				});
 
