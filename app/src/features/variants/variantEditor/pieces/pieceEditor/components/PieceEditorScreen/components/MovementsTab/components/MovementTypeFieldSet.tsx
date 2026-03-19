@@ -15,21 +15,26 @@ function MovementTypeFieldSet() {
 		forCapture,
 		enableCapture,
 		disableCapture,
+		addMovementEditorChanges,
 	} = usePieceMovementEditorStore();
 
 	function handleForMovementCheckboxChange(checked: boolean) {
 		if (checked) {
 			enableMovement();
+			addMovementEditorChanges({ forMovement: true });
 		} else {
 			disableMovement();
+			addMovementEditorChanges({ forMovement: false });
 		}
 	}
 
 	function handleForCaptureCheckboxChange(checked: boolean) {
 		if (checked) {
 			enableCapture();
+			addMovementEditorChanges({ forCapture: true });
 		} else {
 			disableCapture();
+			addMovementEditorChanges({ forCapture: false });
 		}
 	}
 
