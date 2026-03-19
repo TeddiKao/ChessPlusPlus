@@ -130,6 +130,8 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 				updatedPieceRules[newPieceName] =
 					originalPieceRules[currentPiece];
 			}
+
+			updatePieceRules(updatedPieceRules);
 		}
 	},
 }));
