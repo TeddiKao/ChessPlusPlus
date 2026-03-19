@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import useMovementRulesDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft/movementRulesDraft";
 
 type MovementEditorChanges = {
 	appliesTo: "white" | "black" | "both";
@@ -46,60 +47,91 @@ type PieceMovementEditorStore = {
 		keys: (keyof MovementEditorChanges)[],
 	) => void;
 	clearMovementEditorChanges: () => void;
+
+	commitToDraft: (keys?: (keyof MovementEditorChanges)[]) => void;
 };
 
-const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
-	activeMovementName: null,
-	updateActiveMovementName: (newMovementName) =>
-		set({ activeMovementName: newMovementName }),
-	clearActiveMovementName: () => set({ activeMovementName: null }),
+const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
+	(set, get) => ({
+		activeMovementName: null,
+		updateActiveMovementName: (newMovementName) =>
+			set({ activeMovementName: newMovementName }),
+		clearActiveMovementName: () => set({ activeMovementName: null }),
 
-	activeMovementPath: null,
-	updateActiveMovementPath: (newPath) => set({ activeMovementPath: newPath }),
-	clearActiveMovementPath: () => set({ activeMovementPath: null }),
+		activeMovementPath: null,
+		updateActiveMovementPath: (newPath) =>
+			set({ activeMovementPath: newPath }),
+		clearActiveMovementPath: () => set({ activeMovementPath: null }),
 
-	appliesTo: "both",
-	updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
+		appliesTo: "both",
+		updateAppliesTo: (newAppliesTo) => set({ appliesTo: newAppliesTo }),
 
-	forMovement: false,
-	enableMovement: () => set({ forMovement: true }),
-	disableMovement: () => set({ forMovement: false }),
-	updateForMovement: (forMovement: boolean) => set({ forMovement }),
+		forMovement: false,
+		enableMovement: () => set({ forMovement: true }),
+		disableMovement: () => set({ forMovement: false }),
+		updateForMovement: (forMovement: boolean) => set({ forMovement }),
 
-	forCapture: false,
-	enableCapture: () => set({ forCapture: true }),
-	disableCapture: () => set({ forCapture: false }),
-	updateForCapture: (forCapture: boolean) => set({ forCapture }),
+		forCapture: false,
+		enableCapture: () => set({ forCapture: true }),
+		disableCapture: () => set({ forCapture: false }),
+		updateForCapture: (forCapture: boolean) => set({ forCapture }),
 
-	offsetX: 0,
-	updateOffsetX: (newOffsetX) => set({ offsetX: newOffsetX }),
+		offsetX: 0,
+		updateOffsetX: (newOffsetX) => set({ offsetX: newOffsetX }),
 
-	offsetY: 0,
-	updateOffsetY: (newOffsetY) => set({ offsetY: newOffsetY }),
+		offsetY: 0,
+		updateOffsetY: (newOffsetY) => set({ offsetY: newOffsetY }),
 
-	range: 0,
-	updateRange: (newRange) => set({ range: newRange }),
+		range: 0,
+		updateRange: (newRange) => set({ range: newRange }),
 
-	movementEditorChanges: {},
-	addMovementEditorChanges: (changes) =>
-		set((state) => ({
-			movementEditorChanges: {
-				...state.movementEditorChanges,
-				...changes,
-			},
-		})),
+		movementEditorChanges: {},
+		addMovementEditorChanges: (changes) =>
+			set((state) => ({
+				movementEditorChanges: {
+					...state.movementEditorChanges,
+					...changes,
+				},
+			})),
 
-	removeMovementEditorChanges: (keys) =>
-		set((state) => {
-			const newState = structuredClone(state);
-			for (const key of keys) {
-				delete newState.movementEditorChanges[key];
+		removeMovementEditorChanges: (keys) =>
+			set((state) => {
+				const newState = structuredClone(state);
+				for (const key of keys) {
+					delete newState.movementEditorChanges[key];
+				}
+
+				return newState;
+			}),
+
+		clearMovementEditorChanges: () => set({ movementEditorChanges: {} }),
+
+		commitToDraft: (keys) => {
+			if (!keys) {
+				const updateMovementRules =
+					useMovementRulesDraftStore.getState().updateMovementRules;
+				const originalMovementRules =
+					useMovementRulesDraftStore.getState().movementRules;
+				if (!originalMovementRules) return;
+
+				const activeMovementName = get().activeMovementName;
+				const movementEditorChanges = get().movementEditorChanges;
+
+				if (!activeMovementName) return;
+				if (!movementEditorChanges) return;
+
+				updateMovementRules({
+					...originalMovementRules,
+					[activeMovementName]: {
+						...originalMovementRules[activeMovementName],
+						...movementEditorChanges,
+					},
+				});
+
+				get().clearMovementEditorChanges();
 			}
-
-			return newState;
-		}),
-
-	clearMovementEditorChanges: () => set({ movementEditorChanges: {} }),
-}));
+		},
+	}),
+);
 
 export default usePieceMovementEditorStore;
