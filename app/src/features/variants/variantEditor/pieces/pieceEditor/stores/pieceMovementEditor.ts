@@ -125,9 +125,9 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>(
 			console.log(originalMovementRules);
 			console.log(activeMovementName);
 
-			const moveDefinitionKeys: (keyof PieceMoveDefinition)[] = [
-				"moveX",
-				"moveY",
+			const moveDefinitionKeys: string[] = [
+				"offsetX",
+				"offsetY",
 				"range",
 				"moveStopConditions",
 			];
