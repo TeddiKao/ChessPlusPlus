@@ -16,6 +16,7 @@ function AppearanceTab() {
 		clearWhitePieceImage,
 		clearBlackPieceImage,
 		addAppearanceEditorChanges,
+		commitToDraft,
 	} = useAppearanceEditorStore();
 
 	useEffect(() => {
@@ -42,6 +43,10 @@ function AppearanceTab() {
 		addAppearanceEditorChanges({ pieceName: e.target.value });
 	}
 
+	function handlePieceNameInputBlur() {
+		commitToDraft(["pieceName"]);
+	}
+
 	return (
 		<TabsContent value="appearance" className="flex flex-col gap-4 w-full">
 			<Field className="grid grid-cols-2 gap-4 items-center">
@@ -53,6 +58,7 @@ function AppearanceTab() {
 					className="bg-white"
 					placeholder="Piece name"
 					value={pieceName}
+					onBlur={handlePieceNameInputBlur}
 					onChange={handlePieceNameInputChange}
 				/>
 			</Field>
