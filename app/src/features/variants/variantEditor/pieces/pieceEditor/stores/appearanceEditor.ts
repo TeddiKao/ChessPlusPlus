@@ -104,6 +104,7 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 			}
 
 			updatePieceRules(updatedPieceRules);
+			get().clearAppearanceEditorChanges();
 		} else {
 			const changesToCommit = Object.fromEntries(
 				Object.entries(appearanceEditorChanges).filter(([key]) =>
@@ -132,6 +133,8 @@ const useAppearanceEditorStore = create<AppearanceEditorStore>((set, get) => ({
 			}
 
 			updatePieceRules(updatedPieceRules);
+
+			get().removeAppearanceEditorChanges(keys);
 		}
 	},
 }));
