@@ -10,7 +10,8 @@ import usePieceMovementEditorStore from "@/features/variants/variantEditor/piece
 import { type ChangeEvent, useRef } from "react";
 
 function RangeFieldSet() {
-	const { range, updateRange } = usePieceMovementEditorStore();
+	const { range, updateRange, addMovementEditorChanges } =
+		usePieceMovementEditorStore();
 
 	const originalRangeValueRef = useRef(range);
 
@@ -19,14 +20,18 @@ function RangeFieldSet() {
 		if (Number.isNaN(newValue)) return;
 
 		updateRange(newValue);
+		addMovementEditorChanges({ range: newValue });
+
 		originalRangeValueRef.current = newValue;
 	}
 
 	function handleInfiniteRangeCheckboxChange(checked: boolean) {
 		if (checked) {
 			updateRange("inf");
+			addMovementEditorChanges({ range: "inf" });
 		} else {
 			updateRange(originalRangeValueRef.current);
+			addMovementEditorChanges({ range: originalRangeValueRef.current });
 		}
 	}
 

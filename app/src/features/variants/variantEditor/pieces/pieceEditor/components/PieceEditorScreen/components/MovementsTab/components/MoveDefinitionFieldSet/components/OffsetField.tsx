@@ -4,19 +4,28 @@ import usePieceMovementEditorStore from "@/features/variants/variantEditor/piece
 import type { ChangeEvent } from "react";
 
 function OffsetField() {
-	const { offsetX, updateOffsetX, offsetY, updateOffsetY } =
-		usePieceMovementEditorStore();
+	const {
+		offsetX,
+		updateOffsetX,
+		offsetY,
+		updateOffsetY,
+		addMovementEditorChanges,
+	} = usePieceMovementEditorStore();
 
 	function handleOffsetXChange(event: ChangeEvent<HTMLInputElement>) {
 		const newOffsetX = event.target.valueAsNumber;
 		if (Number.isNaN(newOffsetX)) return;
+
 		updateOffsetX(newOffsetX);
+		addMovementEditorChanges({ offsetX: newOffsetX });
 	}
 
 	function handleOffsetYChange(event: ChangeEvent<HTMLInputElement>) {
 		const newOffsetY = event.target.valueAsNumber;
 		if (Number.isNaN(newOffsetY)) return;
+
 		updateOffsetY(newOffsetY);
+		addMovementEditorChanges({ offsetY: newOffsetY });
 	}
 
 	return (
