@@ -1,5 +1,14 @@
 import { create } from "zustand";
 
+type MovementEditorChanges = {
+	appliesTo: "white" | "black" | "both";
+	forMovement: boolean;
+	forCapture: boolean;
+	offsetX: number;
+	offsetY: number;
+	range: number | "inf";
+};
+
 type PieceMovementEditorStore = {
 	activeMovementName: string | null;
 	updateActiveMovementName: (newMovementName: string) => void;
@@ -30,6 +39,13 @@ type PieceMovementEditorStore = {
 
 	range: number | "inf";
 	updateRange: (newRange: number | "inf") => void;
+
+	movementEditorChanges: Partial<MovementEditorChanges>;
+	addMovementEditorChanges: (changes: Partial<MovementEditorChanges>) => void;
+	removeMovementEditorChanges: (
+		keys: (keyof MovementEditorChanges)[],
+	) => void;
+	clearMovementEditorChanges: () => void;
 };
 
 const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
@@ -63,6 +79,22 @@ const usePieceMovementEditorStore = create<PieceMovementEditorStore>((set) => ({
 
 	range: 0,
 	updateRange: (newRange) => set({ range: newRange }),
+
+	movementEditorChanges: {} as Partial<MovementEditorChanges>,
+	addMovementEditorChanges: (changes) =>
+		set((state) => ({ ...state, ...changes })),
+
+	removeMovementEditorChanges: (keys) =>
+		set((state) => {
+			const newState = structuredClone(state);
+			for (const key of keys) {
+				delete newState.movementEditorChanges[key];
+			}
+
+			return newState;
+		}),
+
+	clearMovementEditorChanges: () => set({ movementEditorChanges: {} }),
 }));
 
 export default usePieceMovementEditorStore;
