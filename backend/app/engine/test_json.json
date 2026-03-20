@@ -188,7 +188,6 @@
       "for_movement": true,
       "for_capture": false,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": 1,
@@ -200,7 +199,6 @@
       "for_movement": true,
       "for_capture": false,
       "conditions": ["has_not_moved"],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": 1,
@@ -212,7 +210,6 @@
       "for_movement": false,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 1,
@@ -224,7 +221,6 @@
       "for_movement": false,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 1,
@@ -236,7 +232,6 @@
       "for_movement": true,
       "for_capture": false,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": -1,
@@ -248,7 +243,6 @@
       "for_movement": true,
       "for_capture": false,
       "conditions": ["has_not_moved"],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": -1,
@@ -260,7 +254,6 @@
       "for_movement": false,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": -1,
@@ -272,7 +265,6 @@
       "for_movement": false,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": -1,
@@ -284,7 +276,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 0,
@@ -296,7 +287,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 0,
@@ -308,7 +298,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": 1,
@@ -320,7 +309,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": -1,
@@ -332,7 +320,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 1,
@@ -344,7 +331,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": -1,
@@ -356,7 +342,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": -1,
@@ -368,7 +353,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 1,
@@ -380,7 +364,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 2,
         "move_y": 1,
@@ -392,7 +375,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 2,
         "move_y": -1,
@@ -404,7 +386,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -2,
         "move_y": 1,
@@ -416,7 +397,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -2,
         "move_y": -1,
@@ -428,7 +408,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 2,
@@ -440,7 +419,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 2,
@@ -452,7 +430,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": -2,
@@ -464,7 +441,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": -2,
@@ -476,7 +452,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 0,
@@ -488,7 +463,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 0,
@@ -500,7 +474,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": 1,
@@ -512,7 +485,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 0,
         "move_y": -1,
@@ -524,7 +496,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": 1,
@@ -536,7 +507,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": -1,
@@ -548,7 +518,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": 1,
         "move_y": -1,
@@ -560,7 +529,6 @@
       "for_movement": true,
       "for_capture": true,
       "conditions": [],
-      "valid_move": true,
       "move_definition": {
         "move_x": -1,
         "move_y": 1,
@@ -576,18 +544,21 @@
           "move_name": "white_pawn_forward",
           "chained_moves": [
             {
-              "move_name": "white_forward_double_step",
-              "chained_moves": []
+              "move_name": "white_pawn_double_step",
+              "chained_moves": [],
+              "valid_move": true
             }
           ]
         },
         {
           "move_name": "white_pawn_capture_east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "white_pawn_capture_west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -598,17 +569,20 @@
           "chained_moves": [
             {
               "move_name": "black_forward_double_step",
-              "chained_moves": []
+              "chained_moves": [],
+              "valid_move": true
             }
           ]
         },
         {
           "move_name": "black_pawn_capture_east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "black_pawn_capture_west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -616,35 +590,43 @@
       "moves": [
         {
           "move_name": "north",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -652,35 +634,43 @@
       "moves": [
         {
           "move_name": "north",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -688,19 +678,23 @@
       "moves": [
         {
           "move_name": "north",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -708,19 +702,23 @@
       "moves": [
         {
           "move_name": "north",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -728,19 +726,23 @@
       "moves": [
         {
           "move_name": "northeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -748,19 +750,23 @@
       "moves": [
         {
           "move_name": "northeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -768,35 +774,43 @@
       "moves": [
         {
           "move_name": "knight_0201",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_02m1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m201",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m2m1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_0102",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m102",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_01m2",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m1m2",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -804,35 +818,43 @@
       "moves": [
         {
           "move_name": "knight_0201",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_02m1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m201",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m2m1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_0102",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m102",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_01m2",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "knight_m1m2",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -840,35 +862,43 @@
       "moves": [
         {
           "move_name": "north_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northeast_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     },
@@ -876,35 +906,43 @@
       "moves": [
         {
           "move_name": "north_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "south_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "east_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "west_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northeast_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "northwest_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southeast_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         },
         {
           "move_name": "southwest_1",
-          "chained_moves": []
+          "chained_moves": [],
+          "valid_move": true
         }
       ]
     }
