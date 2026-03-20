@@ -548,7 +548,8 @@
               "chained_moves": [],
               "valid_move": true
             }
-          ]
+          ],
+          "valid_move": true
         },
         {
           "move_name": "white_pawn_capture_east",
@@ -572,7 +573,8 @@
               "chained_moves": [],
               "valid_move": true
             }
-          ]
+          ],
+          "valid_move": true
         },
         {
           "move_name": "black_pawn_capture_east",
