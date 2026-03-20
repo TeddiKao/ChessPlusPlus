@@ -11,7 +11,7 @@ def get_invalid(all_data: set, test_data: set):
     return invalid
 
 def get_if_wrong_data_type(value, correct_type):
-    if type(value) == correct_type:
+    if isinstance(value, correct_type):
         return False
     return True
 
