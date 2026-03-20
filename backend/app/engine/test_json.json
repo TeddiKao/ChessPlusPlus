@@ -539,7 +539,7 @@
   },
   "pieces": {
     "white_pawn": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "white_pawn_forward",
           "chained_moves": [
@@ -563,7 +563,7 @@
       ]
     },
     "black_pawn": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "black_pawn_forward",
           "chained_moves": [
@@ -587,7 +587,7 @@
       ]
     },
     "white_queen": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north",
           "chained_moves": [],
@@ -631,7 +631,7 @@
       ]
     },
     "black_queen": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north",
           "chained_moves": [],
@@ -675,7 +675,7 @@
       ]
     },
     "white_rook": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north",
           "chained_moves": [],
@@ -699,7 +699,7 @@
       ]
     },
     "black_rook": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north",
           "chained_moves": [],
@@ -723,7 +723,7 @@
       ]
     },
     "white_bishop": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "northeast",
           "chained_moves": [],
@@ -747,7 +747,7 @@
       ]
     },
     "black_bishop": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "northeast",
           "chained_moves": [],
@@ -771,7 +771,7 @@
       ]
     },
     "white_knight": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "knight_0201",
           "chained_moves": [],
@@ -815,7 +815,7 @@
       ]
     },
     "black_knight": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "knight_0201",
           "chained_moves": [],
@@ -859,7 +859,7 @@
       ]
     },
     "white_king": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north_1",
           "chained_moves": [],
@@ -903,7 +903,7 @@
       ]
     },
     "black_king": {
-      "moves": [
+      "moveset": [
         {
           "move_name": "north_1",
           "chained_moves": [],
