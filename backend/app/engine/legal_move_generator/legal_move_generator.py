@@ -13,7 +13,7 @@ class Game:
         return self._game_state
 
     def update_game_state(self, piece_start_postion: tuple, piece_end_postion: tuple):
-        pass
+        self._game_state[piece_end_postion] = self._game_state.pop(piece_start_postion)
 
     def get_legal_moves(self, piece_position: tuple):
         pass

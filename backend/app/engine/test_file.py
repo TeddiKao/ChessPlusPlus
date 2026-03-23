@@ -13,10 +13,10 @@ def test_validate_json():
     return output
 
 def display_game_state(board_size: tuple, game_state: dict):
-    print("Game state:")
+    print("\nGame state:")
     for y in range(board_size[1]):
         print("+", end="")
-        print("---+" * board_size[0])
+        print("----+" * board_size[0])
         print("|", end="")
         for x in range(board_size[0]):
             print(" ", end="")
@@ -51,14 +51,14 @@ def display_game_state(board_size: tuple, game_state: dict):
                     case "black_bishop":
                         print_piece = "b"
 
-                print(print_piece, end="")
+                print(print_piece, end=" ")
             else:
-                print(" ", end="")
+                print("  ", end="")
 
             print(" |", end="")
         print()
     print("+", end="")
-    print("---+" * board_size[0])
+    print("----+" * board_size[0])
 
 tvj_output = test_validate_json()
 print("JSON Validation:")
@@ -66,7 +66,12 @@ print(f"\tOutput: {tvj_output[0]}")
 print(f"\tMessage: {tvj_output[1]}")
 
 if tvj_output[0]:
-    print()
     game = lmg.Game(json.load(open("test_json.json")))
+
+    game_state = game.get_game_state(True)
+    display_game_state(game_state[0], game_state[1])
+
+    game.update_game_state((3, 1), (3, 3))
+
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1])
