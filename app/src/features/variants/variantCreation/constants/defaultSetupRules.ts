@@ -184,6 +184,7 @@ const defaultStartingPosition: SquareInfo[] = [
 		yPos: 7,
 	},
 ];
+
 const defaultSetupRules: SetupRules = {
 	pieceOwnership: defaultPieceOwnershipRules,
 	boardXSize: 8,

@@ -1,9 +1,11 @@
 import type { SetupRules } from "@/features/variants/common/types/setupRules";
-import type { PiecesRules } from "@/features/variants/common/types/pieceRules";
+import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
+import type { MovementRules } from "@/features/variants/common/types/movementRules";
 
 type VariantRules = {
 	setupRules: SetupRules;
-	piecesRules: PiecesRules;
+	pieceRuleset: PieceRuleset;
+	movementRules: MovementRules;
 };
 
 type VariantInfo = {
