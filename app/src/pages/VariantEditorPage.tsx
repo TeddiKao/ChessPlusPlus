@@ -5,11 +5,12 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
-	const { variants } = useVariantsStore();
+	const { variants, hasHydrated } = useVariantsStore();
 
 	const navigate = useNavigate();
 
 	if (!variantId) return null;
+	if (!hasHydrated) return null;
 
 	const variantName = variants[variantId].variantName;
 
