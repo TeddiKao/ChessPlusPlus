@@ -29,6 +29,7 @@ function VariantEditorPage() {
 					size="xs"
 					data-icon="inline-start"
 					variant="ghost"
+					aria-label="Back to home page"
 				>
 					<IconChevronLeft className="size-5" />
 				</Button>
