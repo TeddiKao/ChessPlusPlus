@@ -1,0 +1,942 @@
+{
+  "setup": {
+    "piece_ownership": {
+      "white": [
+        "white_pawn",
+        "white_queen",
+        "white_rook",
+        "white_bishop",
+        "white_knight",
+        "white_king"
+      ],
+      "black": [
+        "black_pawn",
+        "black_queen",
+        "black_rook",
+        "black_bishop",
+        "black_knight",
+        "black_king"
+      ]
+    },
+    "board_x_size": 8,
+    "board_y_size": 8,
+    "starting_position": [
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 0,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 1,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 2,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 3,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 4,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 5,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 6,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "white_pawn",
+        "x_pos": 7,
+        "y_pos": 1
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 0,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 1,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 2,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 3,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 4,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 5,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 6,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "black_pawn",
+        "x_pos": 7,
+        "y_pos": 6
+      },
+      {
+        "piece_name": "white_queen",
+        "x_pos": 4,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "black_queen",
+        "x_pos": 4,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "white_rook",
+        "x_pos": 0,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "white_rook",
+        "x_pos": 7,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "black_rook",
+        "x_pos": 0,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "black_rook",
+        "x_pos": 7,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "white_bishop",
+        "x_pos": 2,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "white_bishop",
+        "x_pos": 5,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "black_bishop",
+        "x_pos": 2,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "black_bishop",
+        "x_pos": 5,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "white_knight",
+        "x_pos": 1,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "white_knight",
+        "x_pos": 6,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "black_knight",
+        "x_pos": 1,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "black_knight",
+        "x_pos": 6,
+        "y_pos": 7
+      },
+      {
+        "piece_name": "white_king",
+        "x_pos": 3,
+        "y_pos": 0
+      },
+      {
+        "piece_name": "black_king",
+        "x_pos": 3,
+        "y_pos": 7
+      }
+    ]
+  },
+  "moves": {
+    "white_pawn_forward": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "white_pawn_double_step": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": ["has_not_moved"],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "white_pawn_capture_east": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "white_pawn_capture_west": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_forward": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "black_pawn_double_step": {
+      "for_movement": true,
+      "for_capture": false,
+      "conditions": ["has_not_moved"],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_capture_east": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "black_pawn_capture_west": {
+      "for_movement": false,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "east": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 0,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "west": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 0,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "north": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "south": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northeast": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southwest": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southeast": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northwest": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": "inf",
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "knight_0201": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 2,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_02m1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 2,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m201": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -2,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m2m1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -2,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_0102": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m102": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_01m2": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "knight_m1m2": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -2,
+        "range": 1,
+        "move_stop_conditions": []
+      }
+    },
+    "east_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 0,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "west_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 0,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "north_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "south_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 0,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northeast_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southwest_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "southeast_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": 1,
+        "move_y": -1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    },
+    "northwest_1": {
+      "for_movement": true,
+      "for_capture": true,
+      "conditions": [],
+      "move_definition": {
+        "move_x": -1,
+        "move_y": 1,
+        "range": 1,
+        "move_stop_conditions": ["inside_piece"]
+      }
+    }
+  },
+  "pieces": {
+    "white_pawn": {
+      "moveset": [
+        [
+          {
+            "move_name": "white_pawn_forward",
+            "valid_move": true
+          },
+          {
+            "move_name": "white_pawn_double_step",
+            "valid_move": true
+          }
+        ],
+        {
+          "move_name": "white_pawn_capture_east"
+        },
+        {
+          "move_name": "white_pawn_capture_west"
+        }
+      ]
+    },
+    "black_pawn": {
+      "moveset": [
+        [
+          {
+            "move_name": "black_pawn_forward",
+            "valid_move": true
+          },
+          {
+            "move_name": "black_pawn_double_step",
+            "valid_move": true
+          }
+        ],
+        {
+          "move_name": "black_pawn_capture_east"
+        },
+        {
+          "move_name": "black_pawn_capture_west"
+        }
+      ]
+    },
+    "white_queen": {
+      "moveset": [
+        {
+          "move_name": "north",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "black_queen": {
+      "moveset": [
+        {
+          "move_name": "north",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "white_rook": {
+      "moveset": [
+        {
+          "move_name": "north",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "black_rook": {
+      "moveset": [
+        {
+          "move_name": "north",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "white_bishop": {
+      "moveset": [
+        {
+          "move_name": "northeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "black_bishop": {
+      "moveset": [
+        {
+          "move_name": "northeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "white_knight": {
+      "moveset": [
+        {
+          "move_name": "knight_0201",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_02m1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m201",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m2m1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_0102",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m102",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_01m2",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m1m2",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "black_knight": {
+      "moveset": [
+        {
+          "move_name": "knight_0201",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_02m1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m201",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m2m1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_0102",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m102",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_01m2",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "knight_m1m2",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "white_king": {
+      "moveset": [
+        {
+          "move_name": "north_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northeast_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest_1",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    },
+    "black_king": {
+      "moveset": [
+        {
+          "move_name": "north_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "south_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "east_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "west_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northeast_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "northwest_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southeast_1",
+          "chained_moves": [],
+          "valid_move": true
+        },
+        {
+          "move_name": "southwest_1",
+          "chained_moves": [],
+          "valid_move": true
+        }
+      ]
+    }
+  }
+}
