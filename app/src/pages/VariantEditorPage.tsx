@@ -12,6 +12,9 @@ function VariantEditorPage() {
 	if (!variantId) return null;
 	if (!hasHydrated) return null;
 
+	const selectedVariant = variants[variantId];
+	if (!selectedVariant) return null;
+
 	const variantName = variants[variantId].variantName;
 
 	function handleNavigationToHomePage() {
