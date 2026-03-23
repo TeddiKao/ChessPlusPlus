@@ -4,558 +4,195 @@ import type {
 } from "@/features/variants/common/types/pieceRules";
 
 const queenRules: PieceRules = {
-	moves: [
+	moveset: [
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 0,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "north",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 0,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "south",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "east",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "west",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "northeast",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "northwest",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "southeast",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "southwest",
 			chainedMoves: [],
 		},
 	],
 };
 
 const rookRules: PieceRules = {
-	moves: [
+	moveset: [
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 0,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "north",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 0,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "south",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "east",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "west",
 			chainedMoves: [],
 		},
 	],
 };
 const bishopRules: PieceRules = {
-	moves: [
+	moveset: [
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "northeast",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "northwest",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: -1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "southeast",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 1,
-				range: "inf",
-				moveStopConditions: ["inside_piece"],
-			},
+			moveName: "southwest",
 			chainedMoves: [],
 		},
 	],
 };
-const knightRules = {
-	moves: [
+const knightRules: PieceRules = {
+	moveset: [
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 2,
-				moveY: 1,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_0201",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 2,
-				moveY: -1,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_02m1",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -2,
-				moveY: 1,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_m201",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -2,
-				moveY: -1,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_m2m1",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 2,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_0102",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 2,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_m102",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: -2,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_01m2",
 			chainedMoves: [],
 		},
 		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: -2,
-				range: 1,
-				moveStopConditions: [],
-			},
+			moveName: "knight_m1m2",
+			chainedMoves: [],
+		}
+	],
+};
+
+const kingRules: PieceRules = {
+	moveset: [
+		{
+			moveName: "north_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "south_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "east_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "west_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "northeast_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "northwest_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "southeast_1",
+			chainedMoves: [],
+		},
+		{
+			moveName: "southwest_1",
 			chainedMoves: [],
 		},
 	],
 };
-const kingRules = {
-	moves: [
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 0,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 0,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: 1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 0,
-				moveY: -1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: 1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: -1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: 1,
-				moveY: -1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-		{
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			validMove: true,
-			moveDefinition: {
-				moveX: -1,
-				moveY: 1,
-				range: 1,
-				moveStopConditions: [],
-			},
-			chainedMoves: [],
-		},
-	],
-};
-const defaultPieceRules: PieceRuleset = {
+
+const defaultPieceRuleset: PieceRuleset = {
 	whitePawn: {
-		moves: [
+		moveset: [
 			{
-				forMovement: true,
-				forCapture: false,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: 0,
-					moveY: 1,
-					range: 1,
-					moveStopConditions: ["inside_piece"],
-				},
+				moveName: "white_pawn_forward",
 				chainedMoves: [
-					{
-						forMovement: true,
-						forCapture: false,
-						conditions: ["has_not_moved"],
-						validMove: true,
-						moveDefinition: {
-							moveX: 0,
-							moveY: 1,
-							range: 1,
-							moveStopConditions: [],
-						},
-						chainedMoves: [],
-					},
+					["white_pawn_double_step"]
 				],
 			},
 			{
-				forMovement: false,
-				forCapture: true,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: 1,
-					moveY: 1,
-					range: 1,
-					moveStopConditions: [],
-				},
+				moveName: "white_pawn_capture_east",
 				chainedMoves: [],
 			},
 			{
-				forMovement: false,
-				forCapture: true,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: -1,
-					moveY: 1,
-					range: 1,
-					moveStopConditions: [],
-				},
+				moveName: "white_pawn_capture_west",
 				chainedMoves: [],
-			},
-		],
+			}
+		]
 	},
 
 	blackPawn: {
-		moves: [
+		moveset: [
 			{
-				forMovement: true,
-				forCapture: false,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: 0,
-					moveY: -1,
-					range: 1,
-					moveStopConditions: [],
-				},
+				moveName: "black_pawn_forward",
 				chainedMoves: [
-					{
-						forMovement: true,
-						forCapture: false,
-						conditions: ["has_not_moved"],
-						validMove: true,
-						moveDefinition: {
-							moveX: 0,
-							moveY: -1,
-							range: 1,
-							moveStopConditions: [],
-						},
-						chainedMoves: [],
-					},
+					["black_forward_double_step"]
 				],
 			},
 			{
-				forMovement: false,
-				forCapture: true,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: 1,
-					moveY: -1,
-					range: 1,
-					moveStopConditions: [],
-				},
+				moveName: "black_pawn_capture_east",
 				chainedMoves: [],
 			},
 			{
-				forMovement: false,
-				forCapture: true,
-				conditions: [],
-				validMove: true,
-				moveDefinition: {
-					moveX: -1,
-					moveY: -1,
-					range: 1,
-					moveStopConditions: [],
-				},
+				moveName: "black_pawn_capture_west",
 				chainedMoves: [],
-			},
+			}
 		],
 	},
+
 	whiteQueen: queenRules,
 	blackQueen: queenRules,
 
@@ -572,4 +209,4 @@ const defaultPieceRules: PieceRuleset = {
 	blackKing: kingRules,
 };
 
-export { defaultPieceRules };
+export { defaultPieceRuleset };
