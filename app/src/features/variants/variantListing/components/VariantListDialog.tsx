@@ -86,9 +86,10 @@ function VariantListDialog() {
 					{selectedVariantId && (
 						<DialogFooter>
 							<Button
-								onClick={() =>
-									navigate(`variants/${selectedVariantId}`)
-								}
+								onClick={() => {
+									closeVariantListDialog();
+									navigate(`variants/${selectedVariantId}`);
+								}}
 								className="px-4"
 								type="button"
 							>
