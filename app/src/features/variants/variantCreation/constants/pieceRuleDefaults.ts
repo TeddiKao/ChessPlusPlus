@@ -1,6 +1,6 @@
 import type {
 	PieceRules,
-	PiecesRules,
+	PieceRuleset,
 } from "@/features/variants/common/types/pieceRules";
 
 const queenRules: PieceRules = {
@@ -440,7 +440,7 @@ const kingRules = {
 		},
 	],
 };
-const defaultPieceRules: PiecesRules = {
+const defaultPieceRules: PieceRuleset = {
 	whitePawn: {
 		moves: [
 			{

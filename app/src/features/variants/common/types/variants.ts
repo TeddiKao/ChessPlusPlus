@@ -1,9 +1,9 @@
 import type { SetupRules } from "@/features/variants/common/types/setupRules";
-import type { PiecesRules } from "@/features/variants/common/types/pieceRules";
+import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
 
 type VariantRules = {
 	setupRules: SetupRules;
-	piecesRules: PiecesRules;
+	piecesRules: PieceRuleset;
 };
 
 type VariantInfo = {
