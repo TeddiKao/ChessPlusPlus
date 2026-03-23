@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type MovementsEditorChanges = {
+	movementName: string;
 	forMovement: boolean;
 	forCapture: boolean;
 	offsetX: number;
