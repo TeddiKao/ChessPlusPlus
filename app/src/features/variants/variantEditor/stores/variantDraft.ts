@@ -1,8 +1,6 @@
 import type { SetupRules } from "@/features/variants/common/types/setupRules";
 import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
-import type {
-	MovementRules,
-} from "@/features/variants/common/types/movementRules";
+import type { MovementRules } from "@/features/variants/common/types/movementRules";
 import { create } from "zustand";
 
 type VariantDraftStore = {
@@ -35,12 +33,12 @@ const useVariantDraftStore = create<VariantDraftStore>((set) => ({
 
 	pieceRulesetDraft: null,
 	updatePieceRulesetDraft: (newDraft) => set({ pieceRulesetDraft: newDraft }),
-	clearPieceRulesDraft: () => set({ setupRulesDraft: null }),
+	clearPieceRulesDraft: () => set({ pieceRulesetDraft: null }),
 
 	movementRulesDraft: null,
 	updateMovementRulesDraft: (newDraft) =>
 		set({ movementRulesDraft: newDraft }),
-	clearMovementRulesDraft: () => set({ setupRulesDraft: null }),
+	clearMovementRulesDraft: () => set({ movementRulesDraft: null }),
 }));
 
 export default useVariantDraftStore;
