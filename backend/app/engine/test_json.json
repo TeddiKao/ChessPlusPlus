@@ -540,51 +540,41 @@
   "pieces": {
     "white_pawn": {
       "moveset": [
+        [
+          {
+            "move_name": "white_pawn_forward",
+            "valid_move": true
+          },
+          {
+            "move_name": "white_pawn_double_step",
+            "valid_move": true
+          }
+        ],
         {
-          "move_name": "white_pawn_forward",
-          "chained_moves": [
-            {
-              "move_name": "white_pawn_double_step",
-              "chained_moves": [],
-              "valid_move": true
-            }
-          ],
-          "valid_move": true
+          "move_name": "white_pawn_capture_east"
         },
         {
-          "move_name": "white_pawn_capture_east",
-          "chained_moves": [],
-          "valid_move": true
-        },
-        {
-          "move_name": "white_pawn_capture_west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "white_pawn_capture_west"
         }
       ]
     },
     "black_pawn": {
       "moveset": [
+        [
+          {
+            "move_name": "black_pawn_forward",
+            "valid_move": true
+          },
+          {
+            "move_name": "black_pawn_double_step",
+            "valid_move": true
+          }
+        ],
         {
-          "move_name": "black_pawn_forward",
-          "chained_moves": [
-            {
-              "move_name": "black_forward_double_step",
-              "chained_moves": [],
-              "valid_move": true
-            }
-          ],
-          "valid_move": true
+          "move_name": "black_pawn_capture_east"
         },
         {
-          "move_name": "black_pawn_capture_east",
-          "chained_moves": [],
-          "valid_move": true
-        },
-        {
-          "move_name": "black_pawn_capture_west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "black_pawn_capture_west"
         }
       ]
     },
