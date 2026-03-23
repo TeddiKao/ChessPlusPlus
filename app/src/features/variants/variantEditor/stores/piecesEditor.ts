@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type PieceEditorChanges = {
+	pieceName: string;
 	activePieceMovements: string[];
 };
 
@@ -20,6 +21,12 @@ type PiecesEditorStore = {
 	addMovementToActivePiece: (movementName: string) => void;
 	removeMovementFromActivePiece: (movementToRemove: string) => void;
 	clearMovementsFromActivePiece: () => void;
+
+	pieceName: string | null;
+	updatePieceName: (newPieceName: string) => void;
+	clearPieceName: () => void;
+
+	commitToDraft: () => void;
 };
 
 const usePiecesEditorStore = create<PiecesEditorStore>((set) => ({
@@ -64,6 +71,12 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set) => ({
 	clearMovementsFromActivePiece: () => {
 		set({ activePieceMovements: [] });
 	},
+
+	pieceName: null,
+	updatePieceName: (newPieceName) => set({ pieceName: newPieceName }),
+	clearPieceName: () => set({ pieceName: null }),
+
+	commitToDraft: () => {},
 }));
 
 export default usePiecesEditorStore;
