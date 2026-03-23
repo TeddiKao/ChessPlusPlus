@@ -1,5 +1,5 @@
-from json_validator_helper_functions import *
-from json_validator_error_messages import *
+from backend.app.engine.json_validator.json_validator_helper_functions import *
+from backend.app.engine.json_validator.json_validator_error_messages import *
 
 def check_keys(check_dict, correct_keys: set, location: str):
     if get_if_wrong_data_type(check_dict, dict):
