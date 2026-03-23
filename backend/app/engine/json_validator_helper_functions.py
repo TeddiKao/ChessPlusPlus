@@ -10,7 +10,13 @@ def get_invalid(all_data: set, test_data: set):
     invalid = test_data.difference(all_data)
     return invalid
 
-def get_if_wrong_data_type(value, correct_type):
+def get_if_wrong_data_type(value, correct_type, multiple_types: bool = False):
+    if multiple_types == True:
+        for each_ct in correct_type:
+            if isinstance(value, each_ct):
+                return False
+        else:
+            return True
     if isinstance(value, correct_type):
         return False
     return True

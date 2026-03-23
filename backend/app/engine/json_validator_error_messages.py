@@ -5,7 +5,9 @@ def get_wrong_keys_error_message(missing_and_invalid: tuple, location: str):
 def get_wrong_values_error_message(wrong_values: set, location: str, extra: str = ""):
     return f"Invalid values detected. Wrong values: {wrong_values}. Location: {location}. {extra}."
 
-def get_wrong_data_type_error_message(current_type, correct_type, location: str):
+def get_wrong_data_type_error_message(current_type, correct_type, location: str, multiple_types: bool = False):
+    if multiple_types == True:
+        return f"Invalid data type detected. Current type: {current_type.__name__}; Correct types: {list(ctype.__name__ for ctype in correct_type)}. Location: {location}. "
     return f"Invalid data type detected. Current type: {current_type.__name__}; Correct type: {correct_type.__name__}. Location: {location}. "
 
 def get_out_of_range_error_message(min_int: float, max_int: float, location: str):
