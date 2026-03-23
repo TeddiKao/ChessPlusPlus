@@ -354,3 +354,5 @@ const defaultMovementRules: MovementRules = {
         }
     }
 }
+
+export { defaultMovementRules };
