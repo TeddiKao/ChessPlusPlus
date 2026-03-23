@@ -83,7 +83,7 @@ function VariantListDialog() {
 						)}
 					</div>
 
-					{selectedVariantId && (
+					{selectedVariantId && variants[selectedVariantId] && (
 						<DialogFooter>
 							<Button
 								onClick={() => {
