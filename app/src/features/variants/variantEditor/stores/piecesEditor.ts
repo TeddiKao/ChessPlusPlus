@@ -115,32 +115,37 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			const originalPieceName = get().pieceName;
 			if (!originalPieceName) return;
 
+			const originalWhitePieceRules =
+				updatedPieceRulesetDraft[`white_${originalPieceName}`];
+			if (!originalWhitePieceRules) return;
+
+			const originalBlackPieceRules =
+				updatedPieceRulesetDraft[`black_${originalPieceName}`];
+			if (!originalBlackPieceRules) return;
+
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(pieceEditorChanges).filter(
+					([key]) => key !== "pieceName",
+				),
+			);
+
+			const newWhitePieceInfo = {
+				...originalWhitePieceRules,
+				...nonNameChanges,
+			};
+
+			const newBlackPieceInfo = {
+				...originalBlackPieceRules,
+				...nonNameChanges,
+			};
+
+			updatedPieceRulesetDraft[`white_${originalPieceName}`] =
+				newWhitePieceInfo;
+			updatedPieceRulesetDraft[`black_${originalPieceName}`] =
+				newBlackPieceInfo;
+
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
-
-				const originalWhitePieceRules =
-					updatedPieceRulesetDraft[`white_${originalPieceName}`];
-				if (!originalWhitePieceRules) return;
-
-				const originalBlackPieceRules =
-					updatedPieceRulesetDraft[`white_${originalPieceName}`];
-				if (!originalBlackPieceRules) return;
-
-				const nonNameChanges = Object.fromEntries(
-					Object.entries(pieceEditorChanges).filter(
-						([key]) => key !== "pieceName",
-					),
-				);
-
-				const newWhitePieceInfo = {
-					...originalWhitePieceRules,
-					...nonNameChanges,
-				};
-
-				const newBlackPieceInfo = {
-					...originalBlackPieceRules,
-					...nonNameChanges,
-				};
 
 				delete updatedPieceRulesetDraft[`white_${originalPieceName}`];
 				delete updatedPieceRulesetDraft[`black_${originalPieceName}`];
@@ -201,6 +206,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				updateSetupRulesDraft(updatedSetupRulesDraft);
 				updatePieceRulesetDraft(updatedPieceRulesetDraft);
 			}
+
+			return;
 		}
 	},
 }));
