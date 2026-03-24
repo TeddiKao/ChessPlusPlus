@@ -1,7 +1,7 @@
 import json
 from json import JSONDecodeError
-import backend.app.engine.json_validator.json_validator as json_validator
-import backend.app.engine.legal_move_generator.legal_move_generator as lmg
+import app.engine.json_validator.json_validator as json_validator
+import app.engine.legal_move_generator.legal_move_generator as lmg
 
 def test_validate_json():
     try:
