@@ -8,6 +8,13 @@ type MoveDefinition = {
 	moveStopConditions: MoveStopConditions[];
 };
 
+type MoveDefinitionChanges = {
+	offsetX: number;
+	offsetY: number;
+	range: number | "inf";
+	moveStopConditions: MoveStopConditions[];
+};
+
 type MovementRule = {
 	forMovement: boolean;
 	forCapture: boolean;
@@ -18,4 +25,4 @@ type MovementRule = {
 
 type MovementRules = Record<string, MovementRule>;
 
-export type { MovementRule, MovementRules, MoveDefinition };
+export type { MovementRule, MovementRules, MoveDefinitionChanges };
