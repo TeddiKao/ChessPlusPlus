@@ -231,13 +231,27 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				),
 			);
 
+			const renamedMoveDefinitionChanges = Object.fromEntries(
+				Object.entries(moveDefinitionChanges).map(([key, value]) => {
+					if (key === "offsetX") {
+						return ["moveX", value];
+					}
+
+					if (key === "offsetY") {
+						return ["moveY", value];
+					}
+
+					return [key, value];
+				}),
+			);
+
 			const newMovementInfo = {
 				...originalMovementInfo,
 				...topLevelChanges,
 
 				moveDefinition: {
 					...originalMovementInfo.moveDefinition,
-					...moveDefinitionChanges,
+					...renamedMoveDefinitionChanges,
 				},
 			};
 
