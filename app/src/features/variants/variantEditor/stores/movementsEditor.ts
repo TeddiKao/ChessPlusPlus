@@ -201,6 +201,80 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					});
 				}
 			}
+		} else {
+			const changesToCommit = Object.fromEntries(
+				Object.entries(movementEditorChanges).filter(([key]) =>
+					keys.includes(key as keyof MovementsEditorChanges),
+				),
+			);
+
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(changesToCommit).filter(
+					([key]) => key !== "movementName",
+				),
+			);
+
+			const topLevelChanges = Object.fromEntries(
+				Object.entries(nonNameChanges).filter(
+					([key]) =>
+						!moveDefinitionChangeKeys.includes(
+							key as keyof MoveDefinitionChanges,
+						),
+				),
+			);
+
+			const moveDefinitionChanges = Object.fromEntries(
+				Object.entries(nonNameChanges).filter(([key]) =>
+					moveDefinitionChangeKeys.includes(
+						key as keyof MoveDefinitionChanges,
+					),
+				),
+			);
+
+			const newMovementInfo = {
+				...originalMovementInfo,
+				...topLevelChanges,
+
+				moveDefinition: {
+					...originalMovementInfo.moveDefinition,
+					...moveDefinitionChanges,
+				},
+			};
+
+			if (Object.keys(movementEditorChanges).includes("movementName")) {
+				if (!movementEditorChanges.movementName) return;
+
+				delete updatedMovementRulesDraft[originalMovementName];
+				updatedMovementRulesDraft[movementEditorChanges.movementName] =
+					newMovementInfo;
+
+				for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
+					updatedPieceRulesetDraft[pieceName].moveset.map((move) => {
+						if (Array.isArray(move)) {
+							return move.map((chainedMove) => {
+								if (
+									chainedMove.moveName !==
+									originalMovementName
+								)
+									return chainedMove;
+
+								return {
+									...move,
+									moveName:
+										movementEditorChanges.movementName,
+								};
+							});
+						}
+
+						if (move.moveName === originalMovementName) {
+							return {
+								...move,
+								moveName: movementEditorChanges.movementName,
+							};
+						}
+					});
+				}
+			}
 		}
 	},
 }));
