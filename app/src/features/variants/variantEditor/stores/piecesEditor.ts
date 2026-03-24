@@ -111,18 +111,18 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
 		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
 
+		const originalPieceName = get().pieceName;
+		if (!originalPieceName) return;
+
+		const originalWhitePieceRules =
+			updatedPieceRulesetDraft[`white_${originalPieceName}`];
+		if (!originalWhitePieceRules) return;
+
+		const originalBlackPieceRules =
+			updatedPieceRulesetDraft[`black_${originalPieceName}`];
+		if (!originalBlackPieceRules) return;
+
 		if (!keys) {
-			const originalPieceName = get().pieceName;
-			if (!originalPieceName) return;
-
-			const originalWhitePieceRules =
-				updatedPieceRulesetDraft[`white_${originalPieceName}`];
-			if (!originalWhitePieceRules) return;
-
-			const originalBlackPieceRules =
-				updatedPieceRulesetDraft[`black_${originalPieceName}`];
-			if (!originalBlackPieceRules) return;
-
 			const nonNameChanges = Object.fromEntries(
 				Object.entries(pieceEditorChanges).filter(
 					([key]) => key !== "pieceName",
@@ -207,7 +207,94 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				updatePieceRulesetDraft(updatedPieceRulesetDraft);
 			}
 
-			return;
+			get().clearPieceEditorChanges();
+		} else {
+			const changesToCommit = Object.fromEntries(
+				Object.entries(pieceEditorChanges).filter(([key]) =>
+					keys.includes(key as keyof PieceEditorChanges),
+				),
+			);
+
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(changesToCommit).filter(
+					([key]) => key !== "pieceName",
+				),
+			);
+
+			const newWhitePieceInfo = {
+				...originalWhitePieceRules,
+				...nonNameChanges,
+			};
+
+			const newBlackPieceInfo = {
+				...originalBlackPieceRules,
+				...nonNameChanges,
+			};
+
+			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
+				if (!pieceEditorChanges.pieceName) return;
+
+				delete updatedPieceRulesetDraft[`white_${originalPieceName}`];
+				delete updatedPieceRulesetDraft[`black_${originalPieceName}`];
+
+				updatedPieceRulesetDraft[
+					`white_${pieceEditorChanges.pieceName}`
+				] = newWhitePieceInfo;
+				updatedPieceRulesetDraft[
+					`black_${pieceEditorChanges.pieceName}`
+				] = newBlackPieceInfo;
+
+				const pieceOwnership = setupRulesDraft.pieceOwnership;
+				const startingPosition = setupRulesDraft.startingPosition;
+
+				updatedSetupRulesDraft.pieceOwnership.white =
+					pieceOwnership.white.map((pieceName) =>
+						pieceName === `white_${originalPieceName}`
+							? `white_${pieceEditorChanges.pieceName}`
+							: pieceName,
+					);
+
+				updatedSetupRulesDraft.pieceOwnership.black =
+					pieceOwnership.black.map((pieceName) =>
+						pieceName === `black_${originalPieceName}`
+							? `black_${pieceEditorChanges.pieceName}`
+							: pieceName,
+					);
+
+				updatedSetupRulesDraft.startingPosition = startingPosition.map(
+					(squareInfo) => {
+						if (
+							squareInfo.pieceName ===
+							`white_${originalPieceName}`
+						) {
+							return {
+								...squareInfo,
+								pieceName: `white_${pieceEditorChanges.pieceName}`,
+							};
+						} else if (
+							squareInfo.pieceName ===
+							`black_${originalPieceName}`
+						) {
+							return {
+								...squareInfo,
+								pieceName: `black_${pieceEditorChanges.pieceName}`,
+							};
+						} else {
+							return squareInfo;
+						}
+					},
+				);
+
+				const updateSetupRulesDraft =
+					useVariantDraftStore.getState().updateSetupRulesDraft;
+				const updatePieceRulesetDraft =
+					useVariantDraftStore.getState().updatePieceRulesetDraft;
+
+				updateSetupRulesDraft(updatedSetupRulesDraft);
+				updatePieceRulesetDraft(updatedPieceRulesetDraft);
+			}
+
+			get().removePieceEditorChanges(keys);
 		}
 	},
 }));
