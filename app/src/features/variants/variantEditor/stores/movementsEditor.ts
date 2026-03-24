@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 type MovementsEditorChanges = {
 	movementName: string;
@@ -13,6 +14,10 @@ type MovementsEditorStore = {
 	activeMovementName: string | null;
 	updateActiveMovementName: (newMovementName: string) => void;
 	clearActiveMovementName: () => void;
+
+	movementName: string | null;
+	updateMovementName: (newMovementName: string) => void;
+	clearMovementName: () => void;
 
 	movementsEditorChanges: Partial<MovementsEditorChanges>;
 	addMovementsEditorChanges: (
@@ -42,13 +47,20 @@ type MovementsEditorStore = {
 	range: number | "inf" | null;
 	updateRange: (newRange: number | "inf") => void;
 	clearRange: () => void;
+
+	commitToDraft: (keys?: (keyof MovementsEditorChanges)[]) => void;
 };
 
-const useMovementsEditorStore = create<MovementsEditorStore>((set) => ({
+const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 	activeMovementName: null,
 	updateActiveMovementName: (newMovementName) =>
 		set({ activeMovementName: newMovementName }),
 	clearActiveMovementName: () => set({ activeMovementName: null }),
+
+	movementName: null,
+	updateMovementName: (newMovementName) =>
+		set({ movementName: newMovementName }),
+	clearMovementName: () => set({ movementName: null }),
 
 	movementsEditorChanges: {},
 	addMovementsEditorChanges: (changes) =>
@@ -93,6 +105,74 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set) => ({
 	range: null,
 	updateRange: (newRange) => set({ range: newRange }),
 	clearRange: () => set({ range: null }),
+
+	commitToDraft: (keys) => {
+		const movementEditorChanges = get().movementsEditorChanges;
+		const movementRulesDraft =
+			useVariantDraftStore.getState().movementRulesDraft;
+		const pieceRulesetDraft =
+			useVariantDraftStore.getState().pieceRulesetDraft;
+
+		if (!movementRulesDraft) return;
+		if (!pieceRulesetDraft) return;
+
+		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+
+		const originalMovementName = get().movementName;
+		if (!originalMovementName) return;
+
+		const originalMovementInfo = movementRulesDraft[originalMovementName];
+		if (!originalMovementInfo) return;
+
+		if (!keys) {
+			const nonNameChanges = Object.fromEntries(
+				Object.entries(movementEditorChanges).filter(
+					([key]) => key !== "movementName",
+				),
+			);
+
+			const newMovementInfo = {
+				...originalMovementInfo,
+				...nonNameChanges,
+			};
+
+			if (Object.keys(movementEditorChanges).includes("movementName")) {
+				if (!movementEditorChanges.movementName) return;
+
+				delete updatedMovementRulesDraft[originalMovementName];
+				updatedMovementRulesDraft[movementEditorChanges.movementName] =
+					newMovementInfo;
+
+				for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
+					updatedPieceRulesetDraft[pieceName].moveset.map((move) => {
+						if (Array.isArray(move)) {
+							return move.map((chainedMove) => {
+								if (
+									chainedMove.moveName !==
+									originalMovementName
+								)
+									return chainedMove;
+
+								return {
+									...move,
+									moveName:
+										movementEditorChanges.movementName,
+								};
+							});
+						}
+
+						if (move.moveName === originalMovementName) {
+							return {
+								...move,
+								moveName: movementEditorChanges.movementName,
+							};
+						}
+					});
+				}
+			}
+		}
+	},
 }));
 
 export default useMovementsEditorStore;
