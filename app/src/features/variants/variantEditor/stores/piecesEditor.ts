@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
-import { handleNameUpdate } from "@/features/variants/variantEditor/utils/nameUpdateHandler";
+import { handlePieceNameUpdate } from "@/features/variants/variantEditor/utils/nameUpdateHandler";
 
 type PieceEditorChanges = {
 	pieceName: string;
@@ -148,7 +148,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
 
-				handleNameUpdate(
+				handlePieceNameUpdate(
 					originalPieceName,
 					updatedPieceRulesetDraft,
 					updatedSetupRulesDraft,
@@ -185,7 +185,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
 
-				handleNameUpdate(
+				handlePieceNameUpdate(
 					originalPieceName,
 					updatedPieceRulesetDraft,
 					updatedSetupRulesDraft,

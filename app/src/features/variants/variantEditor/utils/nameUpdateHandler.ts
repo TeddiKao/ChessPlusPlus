@@ -5,7 +5,7 @@ import type {
 } from "@/features/variants/common/types/pieceRules";
 import type { SetupRules } from "@/features/variants/common/types/setupRules";
 
-function handleNameUpdate(
+function handlePieceNameUpdate(
 	originalPieceName: string,
 	pieceRulesetDraft: PieceRuleset,
 	setupRulesDraft: SetupRules,
@@ -61,4 +61,4 @@ function handleNameUpdate(
 	updatePieceRulesetDraft(pieceRulesetDraft);
 }
 
-export { handleNameUpdate };
+export { handlePieceNameUpdate };
