@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
+import { handleNameUpdate } from "@/features/variants/variantEditor/utils/nameUpdateHandler";
 
 type PieceEditorChanges = {
 	pieceName: string;
@@ -147,64 +148,14 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
 
-				delete updatedPieceRulesetDraft[`white_${originalPieceName}`];
-				delete updatedPieceRulesetDraft[`black_${originalPieceName}`];
-
-				updatedPieceRulesetDraft[
-					`white_${pieceEditorChanges.pieceName}`
-				] = newWhitePieceInfo;
-				updatedPieceRulesetDraft[
-					`black_${pieceEditorChanges.pieceName}`
-				] = newBlackPieceInfo;
-
-				const pieceOwnership = setupRulesDraft.pieceOwnership;
-				const startingPosition = setupRulesDraft.startingPosition;
-
-				updatedSetupRulesDraft.pieceOwnership.white =
-					pieceOwnership.white.map((pieceName) =>
-						pieceName === `white_${originalPieceName}`
-							? `white_${pieceEditorChanges.pieceName}`
-							: pieceName,
-					);
-
-				updatedSetupRulesDraft.pieceOwnership.black =
-					pieceOwnership.black.map((pieceName) =>
-						pieceName === `black_${originalPieceName}`
-							? `black_${pieceEditorChanges.pieceName}`
-							: pieceName,
-					);
-
-				updatedSetupRulesDraft.startingPosition = startingPosition.map(
-					(squareInfo) => {
-						if (
-							squareInfo.pieceName ===
-							`white_${originalPieceName}`
-						) {
-							return {
-								...squareInfo,
-								pieceName: `white_${pieceEditorChanges.pieceName}`,
-							};
-						} else if (
-							squareInfo.pieceName ===
-							`black_${originalPieceName}`
-						) {
-							return {
-								...squareInfo,
-								pieceName: `black_${pieceEditorChanges.pieceName}`,
-							};
-						} else {
-							return squareInfo;
-						}
-					},
+				handleNameUpdate(
+					originalPieceName,
+					updatedPieceRulesetDraft,
+					updatedSetupRulesDraft,
+					newWhitePieceInfo,
+					newBlackPieceInfo,
+					pieceEditorChanges.pieceName,
 				);
-
-				const updateSetupRulesDraft =
-					useVariantDraftStore.getState().updateSetupRulesDraft;
-				const updatePieceRulesetDraft =
-					useVariantDraftStore.getState().updatePieceRulesetDraft;
-
-				updateSetupRulesDraft(updatedSetupRulesDraft);
-				updatePieceRulesetDraft(updatedPieceRulesetDraft);
 			}
 
 			get().clearPieceEditorChanges();
@@ -234,64 +185,14 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
 
-				delete updatedPieceRulesetDraft[`white_${originalPieceName}`];
-				delete updatedPieceRulesetDraft[`black_${originalPieceName}`];
-
-				updatedPieceRulesetDraft[
-					`white_${pieceEditorChanges.pieceName}`
-				] = newWhitePieceInfo;
-				updatedPieceRulesetDraft[
-					`black_${pieceEditorChanges.pieceName}`
-				] = newBlackPieceInfo;
-
-				const pieceOwnership = setupRulesDraft.pieceOwnership;
-				const startingPosition = setupRulesDraft.startingPosition;
-
-				updatedSetupRulesDraft.pieceOwnership.white =
-					pieceOwnership.white.map((pieceName) =>
-						pieceName === `white_${originalPieceName}`
-							? `white_${pieceEditorChanges.pieceName}`
-							: pieceName,
-					);
-
-				updatedSetupRulesDraft.pieceOwnership.black =
-					pieceOwnership.black.map((pieceName) =>
-						pieceName === `black_${originalPieceName}`
-							? `black_${pieceEditorChanges.pieceName}`
-							: pieceName,
-					);
-
-				updatedSetupRulesDraft.startingPosition = startingPosition.map(
-					(squareInfo) => {
-						if (
-							squareInfo.pieceName ===
-							`white_${originalPieceName}`
-						) {
-							return {
-								...squareInfo,
-								pieceName: `white_${pieceEditorChanges.pieceName}`,
-							};
-						} else if (
-							squareInfo.pieceName ===
-							`black_${originalPieceName}`
-						) {
-							return {
-								...squareInfo,
-								pieceName: `black_${pieceEditorChanges.pieceName}`,
-							};
-						} else {
-							return squareInfo;
-						}
-					},
+				handleNameUpdate(
+					originalPieceName,
+					updatedPieceRulesetDraft,
+					updatedSetupRulesDraft,
+					newWhitePieceInfo,
+					newBlackPieceInfo,
+					pieceEditorChanges.pieceName,
 				);
-
-				const updateSetupRulesDraft =
-					useVariantDraftStore.getState().updateSetupRulesDraft;
-				const updatePieceRulesetDraft =
-					useVariantDraftStore.getState().updatePieceRulesetDraft;
-
-				updateSetupRulesDraft(updatedSetupRulesDraft);
-				updatePieceRulesetDraft(updatedPieceRulesetDraft);
 			}
 
 			get().removePieceEditorChanges(keys);
