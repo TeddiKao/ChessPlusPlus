@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import type { MoveDefinitionChanges } from "@/features/variants/common/types/movementRules";
 
 type MovementsEditorChanges = {
 	movementName: string;
@@ -125,6 +126,13 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 		const originalMovementInfo = movementRulesDraft[originalMovementName];
 		if (!originalMovementInfo) return;
 
+		const moveDefinitionChangeKeys: (keyof MoveDefinitionChanges)[] = [
+			"moveStopConditions",
+			"offsetY",
+			"offsetX",
+			"range",
+		];
+
 		if (!keys) {
 			const nonNameChanges = Object.fromEntries(
 				Object.entries(movementEditorChanges).filter(
@@ -132,9 +140,31 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				),
 			);
 
+			const topLevelChanges = Object.fromEntries(
+				Object.entries(nonNameChanges).filter(
+					([key]) =>
+						!moveDefinitionChangeKeys.includes(
+							key as keyof MoveDefinitionChanges,
+						),
+				),
+			);
+
+			const moveDefinitionChanges = Object.fromEntries(
+				Object.entries(nonNameChanges).filter(([key]) =>
+					moveDefinitionChangeKeys.includes(
+						key as keyof MoveDefinitionChanges,
+					),
+				),
+			);
+
 			const newMovementInfo = {
 				...originalMovementInfo,
-				...nonNameChanges,
+				...topLevelChanges,
+
+				moveDefinition: {
+					...originalMovementInfo.moveDefinition,
+					...moveDefinitionChanges,
+				},
 			};
 
 			if (Object.keys(movementEditorChanges).includes("movementName")) {
