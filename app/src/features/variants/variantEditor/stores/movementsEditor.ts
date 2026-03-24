@@ -133,6 +133,11 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 			"range",
 		];
 
+		const updateMovementRulesDraft =
+			useVariantDraftStore.getState().updateMovementRulesDraft;
+		const updatePieceRulesetDraft =
+			useVariantDraftStore.getState().updatePieceRulesetDraft;
+
 		if (!keys) {
 			const nonNameChanges = Object.fromEntries(
 				Object.entries(movementEditorChanges).filter(
@@ -201,6 +206,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					});
 				}
 			}
+
+			get().clearMovementsEditorChanges();
 		} else {
 			const changesToCommit = Object.fromEntries(
 				Object.entries(movementEditorChanges).filter(([key]) =>
@@ -289,7 +296,12 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					});
 				}
 			}
+
+			get().removeMovementsEditorChanges(keys);
 		}
+
+		updateMovementRulesDraft(updatedMovementRulesDraft);
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
 	},
 }));
 
