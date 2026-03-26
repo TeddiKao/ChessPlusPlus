@@ -581,360 +581,232 @@
     "white_queen": {
       "moveset": [
         {
-          "move_name": "north",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north"
         },
         {
-          "move_name": "south",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south"
         },
         {
-          "move_name": "east",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east"
         },
         {
-          "move_name": "west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west"
         },
         {
-          "move_name": "northeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast"
         },
         {
-          "move_name": "northwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest"
         },
         {
-          "move_name": "southeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast"
         },
         {
-          "move_name": "southwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest"
         }
       ]
     },
     "black_queen": {
       "moveset": [
         {
-          "move_name": "north",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north"
         },
         {
-          "move_name": "south",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south"
         },
         {
-          "move_name": "east",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east"
         },
         {
-          "move_name": "west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west"
         },
         {
-          "move_name": "northeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast"
         },
         {
-          "move_name": "northwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest"
         },
         {
-          "move_name": "southeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast"
         },
         {
-          "move_name": "southwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest"
         }
       ]
     },
     "white_rook": {
       "moveset": [
         {
-          "move_name": "north",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north"
         },
         {
-          "move_name": "south",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south"
         },
         {
-          "move_name": "east",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east"
         },
         {
-          "move_name": "west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west"
         }
       ]
     },
     "black_rook": {
       "moveset": [
         {
-          "move_name": "north",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north"
         },
         {
-          "move_name": "south",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south"
         },
         {
-          "move_name": "east",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east"
         },
         {
-          "move_name": "west",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west"
         }
       ]
     },
     "white_bishop": {
       "moveset": [
         {
-          "move_name": "northeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast"
         },
         {
-          "move_name": "northwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest"
         },
         {
-          "move_name": "southeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast"
         },
         {
-          "move_name": "southwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest"
         }
       ]
     },
     "black_bishop": {
       "moveset": [
         {
-          "move_name": "northeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast"
         },
         {
-          "move_name": "northwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest"
         },
         {
-          "move_name": "southeast",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast"
         },
         {
-          "move_name": "southwest",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest"
         }
       ]
     },
     "white_knight": {
       "moveset": [
         {
-          "move_name": "knight_0201",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_0201"
         },
         {
-          "move_name": "knight_02m1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_02m1"
         },
         {
-          "move_name": "knight_m201",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m201"
         },
         {
-          "move_name": "knight_m2m1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m2m1"
         },
         {
-          "move_name": "knight_0102",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_0102"
         },
         {
-          "move_name": "knight_m102",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m102"
         },
         {
-          "move_name": "knight_01m2",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_01m2"
         },
         {
-          "move_name": "knight_m1m2",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m1m2"
         }
       ]
     },
     "black_knight": {
       "moveset": [
         {
-          "move_name": "knight_0201",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_0201"
         },
         {
-          "move_name": "knight_02m1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_02m1"
         },
         {
-          "move_name": "knight_m201",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m201"
         },
         {
-          "move_name": "knight_m2m1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m2m1"
         },
         {
-          "move_name": "knight_0102",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_0102"
         },
         {
-          "move_name": "knight_m102",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m102"
         },
         {
-          "move_name": "knight_01m2",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_01m2"
         },
         {
-          "move_name": "knight_m1m2",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "knight_m1m2"
         }
       ]
     },
     "white_king": {
       "moveset": [
         {
-          "move_name": "north_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north_1"
         },
         {
-          "move_name": "south_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south_1"
         },
         {
-          "move_name": "east_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east_1"
         },
         {
-          "move_name": "west_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west_1"
         },
         {
-          "move_name": "northeast_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast_1"
         },
         {
-          "move_name": "northwest_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest_1"
         },
         {
-          "move_name": "southeast_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast_1"
         },
         {
-          "move_name": "southwest_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest_1"
         }
       ]
     },
     "black_king": {
       "moveset": [
         {
-          "move_name": "north_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "north_1"
         },
         {
-          "move_name": "south_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "south_1"
         },
         {
-          "move_name": "east_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "east_1"
         },
         {
-          "move_name": "west_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "west_1"
         },
         {
-          "move_name": "northeast_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northeast_1"
         },
         {
-          "move_name": "northwest_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "northwest_1"
         },
         {
-          "move_name": "southeast_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southeast_1"
         },
         {
-          "move_name": "southwest_1",
-          "chained_moves": [],
-          "valid_move": true
+          "move_name": "southwest_1"
         }
       ]
     }
