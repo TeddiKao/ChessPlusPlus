@@ -23,10 +23,11 @@ function VariantEditorPage() {
 
 	return (
 		<div className="flex flex-col gap-2">
-			<div className="flex flex-row px-4 py-4 items-center">
+			<div className="flex flex-row gap-2 px-4 py-4 items-center">
 				<Button
 					onClick={handleNavigationToHomePage}
 					size="xs"
+					className="p-0"
 					data-icon="inline-start"
 					variant="ghost"
 					aria-label="Back to home page"
