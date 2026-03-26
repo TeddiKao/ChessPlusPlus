@@ -52,7 +52,11 @@ function handlePieceNameUpdate(
 	});
 }
 
-function handleMovementNameUpdate(pieceRulesetDraft: PieceRuleset, originalMovementName: string, newMovementName: string) {
+function handleMovementNameUpdate(
+	pieceRulesetDraft: PieceRuleset,
+	originalMovementName: string,
+	newMovementName: string,
+) {
 	for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
 		pieceRulesetDraft[pieceName].moveset.map((move) => {
 			if (Array.isArray(move)) {
@@ -74,7 +78,7 @@ function handleMovementNameUpdate(pieceRulesetDraft: PieceRuleset, originalMovem
 				};
 			}
 		});
-	};
+	}
 }
 
 export { handlePieceNameUpdate, handleMovementNameUpdate };
