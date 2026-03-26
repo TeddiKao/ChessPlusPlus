@@ -1,4 +1,8 @@
-function ChessboardGridIcon() {
+type ChessboardGridIconProps = {
+	className?: string;
+};
+
+function ChessboardGridIcon({ className = "" }: ChessboardGridIconProps) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +11,7 @@ function ChessboardGridIcon() {
 			id="Checkerboard-Fill--Streamline-Phosphor-Fill"
 			height={16}
 			width={16}
+			className={className}
 		>
 			<desc>
 				{
