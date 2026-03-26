@@ -19,7 +19,7 @@ function Sidebar() {
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button variant="ghost" className="p-1">
-						<ChessKnightIcon className="size-6" />
+						<ChessKnightIcon strokeWidth={1.5} className="size-6" />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent side="left" sideOffset={8}>Pieces</TooltipContent>
@@ -28,7 +28,7 @@ function Sidebar() {
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button variant="ghost" className="p-1">
-						<IconArrowsMove className="size-6" />
+						<IconArrowsMove strokeWidth={1.5} className="size-6" />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent side="left" sideOffset={8}>Movements</TooltipContent>
