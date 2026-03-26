@@ -1,19 +1,28 @@
 type MoveConditions = "has_not_moved";
 type MoveStopConditions = "inside_piece";
 
+type MoveDefinition = {
+	moveX: number;
+	moveY: number;
+	range: number | "inf";
+	moveStopConditions: MoveStopConditions[];
+};
+
+type MoveDefinitionChanges = {
+	offsetX: number;
+	offsetY: number;
+	range: number | "inf";
+	moveStopConditions: MoveStopConditions[];
+};
+
 type MovementRule = {
 	forMovement: boolean;
 	forCapture: boolean;
 	conditions: MoveConditions[];
 
-	moveDefinition: {
-		moveX: number;
-		moveY: number;
-		range: number | "inf";
-		moveStopConditions: MoveStopConditions[];
-	};
+	moveDefinition: MoveDefinition;
 };
 
 type MovementRules = Record<string, MovementRule>;
 
-export type { MovementRule, MovementRules };
+export type { MovementRule, MovementRules, MoveDefinitionChanges };

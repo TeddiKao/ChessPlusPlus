@@ -1,12 +1,13 @@
-type PieceMove = {
+type ChainedMoveSequence = { moveName: string; validMove: boolean }[];
+
+type RegularMove = {
 	moveName: string;
-	chainedMoves: string[][];
 };
 
 type PieceRules = {
-	moveset: PieceMove[];
+	moveset: (RegularMove | ChainedMoveSequence)[];
 };
 
 type PieceRuleset = Record<string, PieceRules>;
 
-export type { PieceRuleset, PieceMove, PieceRules };
+export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence };
