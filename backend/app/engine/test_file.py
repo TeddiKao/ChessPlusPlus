@@ -75,3 +75,7 @@ if tvj_output[0]:
 
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1])
+
+    game.get_legal_moves((0, 0))
+
+    print(game.get_game_state())
