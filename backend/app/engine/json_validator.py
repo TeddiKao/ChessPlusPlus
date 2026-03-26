@@ -1,6 +1,6 @@
-from json_validator_components import *
-import move_conditions as mc
-import move_stop_conditions as msc
+from app.engine.json_validator_components import *
+import app.engine.move_conditions as mc
+import app.engine.move_stop_conditions as msc
 
 def validate_json(data: dict):
 
