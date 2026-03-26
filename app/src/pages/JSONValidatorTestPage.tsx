@@ -28,10 +28,18 @@ function JSONValidatorTestPage() {
 		const file = e.target.files[0];
 		if (!file) return;
 
-		const fileText = await file.text();
-		const json = JSON.parse(fileText);
+		try {
+			const fileText = await file.text();
+			const parsedJSON = JSON.parse(fileText);
 
-		setJSON(json);
+			if (typeof parsedJSON !== "object") return;
+			if (parsedJSON === null) return;
+			if (Array.isArray(parsedJSON)) return;
+
+			setJSON(parsedJSON);
+		} catch (error) {
+			console.error("Failed to parse JSON file", error);
+		}
 	}
 
 	return (
