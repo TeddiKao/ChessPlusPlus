@@ -2,6 +2,7 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
+import Sidebar from "@/features/variants/variantEditor/components/Sidebar";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -22,22 +23,26 @@ function VariantEditorPage() {
 	}
 
 	return (
-		<div className="flex flex-col gap-2">
-			<div className="flex flex-row gap-2 px-4 py-4 items-center">
-				<Button
-					onClick={handleNavigationToHomePage}
-					size="xs"
-					className="p-0"
-					data-icon="inline-start"
-					variant="ghost"
-					aria-label="Back to home page"
-				>
-					<IconChevronLeft className="size-5" />
-				</Button>
+		<>
+			<div className="flex flex-col gap-2">
+				<div className="flex flex-row gap-2 px-4 py-4 items-center">
+					<Button
+						onClick={handleNavigationToHomePage}
+						size="xs"
+						className="p-0"
+						data-icon="inline-start"
+						variant="ghost"
+						aria-label="Back to home page"
+					>
+						<IconChevronLeft className="size-5" />
+					</Button>
 
-				<span>{variantName}</span>
+					<span>{variantName}</span>
+				</div>
 			</div>
-		</div>
+
+			<Sidebar />
+		</>
 	);
 }
 
