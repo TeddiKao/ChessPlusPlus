@@ -1,0 +1,3 @@
+function validateJSON() {}
+
+export { validateJSON };
