@@ -195,16 +195,16 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				);
 			}
 
-			const updateSetupRulesDraft =
-				useVariantDraftStore.getState().updateSetupRulesDraft;
-			const updatePieceRulesetDraft =
-				useVariantDraftStore.getState().updatePieceRulesetDraft;
-
-			updateSetupRulesDraft(setupRulesDraft);
-			updatePieceRulesetDraft(pieceRulesetDraft);
-
 			get().removePieceEditorChanges(keys);
 		}
+
+		const updateSetupRulesDraft =
+			useVariantDraftStore.getState().updateSetupRulesDraft;
+		const updatePieceRulesetDraft =
+			useVariantDraftStore.getState().updatePieceRulesetDraft;
+
+		updateSetupRulesDraft(setupRulesDraft);
+		updatePieceRulesetDraft(pieceRulesetDraft);
 	},
 }));
 
