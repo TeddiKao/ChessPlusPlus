@@ -1,4 +1,3 @@
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import type {
 	PieceRules,
 	PieceRuleset,
@@ -51,14 +50,31 @@ function handlePieceNameUpdate(
 			return squareInfo;
 		}
 	});
-
-	const updateSetupRulesDraft =
-		useVariantDraftStore.getState().updateSetupRulesDraft;
-	const updatePieceRulesetDraft =
-		useVariantDraftStore.getState().updatePieceRulesetDraft;
-
-	updateSetupRulesDraft(setupRulesDraft);
-	updatePieceRulesetDraft(pieceRulesetDraft);
 }
 
-export { handlePieceNameUpdate };
+function handleMovementNameUpdate(pieceRulesetDraft: PieceRuleset, originalMovementName: string, newMovementName: string) {
+	for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
+		pieceRulesetDraft[pieceName].moveset.map((move) => {
+			if (Array.isArray(move)) {
+				return move.map((chainedMove) => {
+					if (chainedMove.moveName !== originalMovementName)
+						return chainedMove;
+
+					return {
+						...move,
+						moveName: newMovementName,
+					};
+				});
+			}
+
+			if (move.moveName === originalMovementName) {
+				return {
+					...move,
+					moveName: newMovementName,
+				};
+			}
+		});
+	};
+}
+
+export { handlePieceNameUpdate, handleMovementNameUpdate };

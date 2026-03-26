@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import type { MoveDefinitionChanges } from "@/features/variants/common/types/movementRules";
+import { handleMovementNameUpdate } from "@/features/variants/variantEditor/utils/nameUpdateHandler";
 
 type MovementsEditorChanges = {
 	movementName: string;
@@ -179,32 +180,11 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				updatedMovementRulesDraft[movementEditorChanges.movementName] =
 					newMovementInfo;
 
-				for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
-					updatedPieceRulesetDraft[pieceName].moveset.map((move) => {
-						if (Array.isArray(move)) {
-							return move.map((chainedMove) => {
-								if (
-									chainedMove.moveName !==
-									originalMovementName
-								)
-									return chainedMove;
-
-								return {
-									...move,
-									moveName:
-										movementEditorChanges.movementName,
-								};
-							});
-						}
-
-						if (move.moveName === originalMovementName) {
-							return {
-								...move,
-								moveName: movementEditorChanges.movementName,
-							};
-						}
-					});
-				}
+				handleMovementNameUpdate(
+					updatedPieceRulesetDraft,
+					originalMovementName,
+					movementEditorChanges.movementName,
+				);
 			}
 
 			get().clearMovementsEditorChanges();
@@ -269,32 +249,11 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				updatedMovementRulesDraft[movementEditorChanges.movementName] =
 					newMovementInfo;
 
-				for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
-					updatedPieceRulesetDraft[pieceName].moveset.map((move) => {
-						if (Array.isArray(move)) {
-							return move.map((chainedMove) => {
-								if (
-									chainedMove.moveName !==
-									originalMovementName
-								)
-									return chainedMove;
-
-								return {
-									...move,
-									moveName:
-										movementEditorChanges.movementName,
-								};
-							});
-						}
-
-						if (move.moveName === originalMovementName) {
-							return {
-								...move,
-								moveName: movementEditorChanges.movementName,
-							};
-						}
-					});
-				}
+				handleMovementNameUpdate(
+					updatedPieceRulesetDraft,
+					originalMovementName,
+					movementEditorChanges.movementName,
+				);
 			}
 
 			get().removeMovementsEditorChanges(keys);
