@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage";
 
 import "./global.css";
 import TestPage from "@/pages/TestPage";
+import JSONValidatorTestPage from "@/pages/JSONValidatorTestPage";
 
 function App() {
 	return (
@@ -10,6 +11,10 @@ function App() {
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/test" element={<TestPage />} />
+				<Route
+					path="/json-validator-test"
+					element={<JSONValidatorTestPage />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
