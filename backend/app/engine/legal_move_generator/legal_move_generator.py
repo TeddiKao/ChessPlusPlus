@@ -1,3 +1,4 @@
+from custom_errors import *
 
 class Piece:
     def __init__(self, piece_id: int, piece_name: str, data: dict):
@@ -5,7 +6,8 @@ class Piece:
         self.piece_name = piece_name
         self.data = data
 
-    # add __repr__
+    def __repr__(self):
+        return f"PieceObject={{piece_id: {self.piece_id}, piece_name: {self.piece_name}, data: {self.data}}}"
 
 class Game:
     def __init__(self, rules: dict):
@@ -30,15 +32,26 @@ class Game:
     def update_game_state(self, piece_start_postion: tuple, piece_end_postion: tuple):
         self._game_state[piece_end_postion] = self._game_state.pop(piece_start_postion)
 
-    def _loop_moves(self, start_pos: tuple, move_name: str):
+    def _check_condition(self, condition_name: str, piece_position: tuple):
+        piece_object = self._game_state[piece_position]
+        match condition_name:
+            case "has_not_moved":
+                if piece_object.data["has_not_moved"] == True:
+                    return True
+                else:
+                    return False
+        raise InvalidConditionError
+
+    def _loop_moves(self, start_position: tuple, move_name: str):
         legal_moves = []
         move_definition = self._rules["moves"][move_name]
 
         if move_definition["conditions"] != []:
             for condition in move_definition["conditions"]:
-                match condition:
-                    case "has_not_moved":
-                        pass
+                if self._check_condition(condition, start_position) == False:
+                    break
+            else:
+                return []
 
     def get_legal_moves(self, piece_position: tuple):
         piece_name = self._game_state[piece_position].piece_name

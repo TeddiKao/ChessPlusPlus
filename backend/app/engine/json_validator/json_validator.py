@@ -1,4 +1,4 @@
-from app.engine.json_validator.json_validator_components import *
+from app.engine.json_validator.components import *
 import app.engine.json_validator.move_conditions as mc
 import app.engine.json_validator.move_stop_conditions as msc
 
