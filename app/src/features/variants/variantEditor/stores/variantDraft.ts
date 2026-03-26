@@ -128,6 +128,8 @@ const useVariantDraftStore = create<VariantDraftStore>((set, get) => ({
 
 		const originalVariantInfo =
 			useVariantsStore.getState().variants[currentVariantId];
+		if (!originalVariantInfo) return;
+
 		const updateVariant = useVariantsStore.getState().updateVariant;
 
 		updateVariant(currentVariantId, {
