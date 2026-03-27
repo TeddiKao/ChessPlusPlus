@@ -16,6 +16,7 @@ function Sidebar() {
 					<Button
 						variant="ghost"
 						className="p-1 hover:bg-(--sidebar-primary-hover)"
+						aria-label="Board settings"
 					>
 						<ChessboardGridIcon className="size-5" />
 					</Button>
@@ -30,6 +31,7 @@ function Sidebar() {
 					<Button
 						variant="ghost"
 						className="p-1 hover:bg-(--sidebar-primary-hover)"
+						aria-label="Pieces"
 					>
 						<ChessKnightIcon strokeWidth={1.5} className="size-6" />
 					</Button>
@@ -44,6 +46,7 @@ function Sidebar() {
 					<Button
 						variant="ghost"
 						className="p-1 hover:bg-(--sidebar-primary-hover)"
+						aria-label="Movements"
 					>
 						<IconArrowsMove strokeWidth={1.5} className="size-6" />
 					</Button>
