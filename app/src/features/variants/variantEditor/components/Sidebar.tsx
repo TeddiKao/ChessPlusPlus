@@ -7,7 +7,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import BoardSettingsMenu from "./BoardSettingsMenu";
 
 function Sidebar() {
@@ -15,8 +15,8 @@ function Sidebar() {
 		<div className="flex flex-col gap-4 items-center absolute right-0 top-0 h-screen bg-sidebar-primary-foreground p-3">
 			<Popover>
 				<Tooltip>
-					<PopoverTrigger asChild>
-						<TooltipTrigger asChild>
+					<TooltipTrigger asChild>
+						<PopoverTrigger asChild>
 							<Button
 								variant="ghost"
 								className="p-1 hover:bg-(--sidebar-primary-hover)"
@@ -24,17 +24,15 @@ function Sidebar() {
 							>
 								<ChessboardGridIcon className="size-5" />
 							</Button>
-						</TooltipTrigger>
-					</PopoverTrigger>
-					
+						</PopoverTrigger>
+					</TooltipTrigger>
+
 					<TooltipContent side="left" sideOffset={8}>
 						Board settings
 					</TooltipContent>
 				</Tooltip>
 
-				<PopoverContent>
-					<BoardSettingsMenu />
-				</PopoverContent>
+				<BoardSettingsMenu />
 			</Popover>
 
 			<Tooltip>
