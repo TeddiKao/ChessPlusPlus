@@ -4,28 +4,48 @@ import { Input } from "@/components/ui/input";
 import { PopoverContent } from "@/components/ui/popover";
 
 function BoardSettingsMenu() {
-    return (
-        <PopoverContent side="left" sideOffset={8}>
-            <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-2 gap-4">
-                    <p>Board setup</p>
-                    <Button>Edit setup</Button>
-                </div>
+	return (
+		<PopoverContent side="left" sideOffset={8} align="start">
+			<div className="flex flex-col gap-4">
+				<h1 className="text-base font-semibold">Board settings</h1>
 
-                <FieldSet className="flex flex-col gap-4">
-                    <Field>
-                        <FieldLabel htmlFor="boardWidthInput">Board width</FieldLabel>
-                        <Input id="boardWidthInput" type="number" placeholder="Board width" />
-                    </Field>
+				<div className="grid grid-cols-2 gap-4 items-center">
+					<p>Board setup</p>
+					<Button>Edit setup</Button>
+				</div>
 
-                    <Field>
-                        <FieldLabel htmlFor="boardHeightInput">Board height</FieldLabel>
-                        <Input id="boardHeightInput" type="number" placeholder="Board height" />
-                    </Field>
-                </FieldSet>
-            </div>
-        </PopoverContent>
-    )
+				<FieldSet className="flex flex-col gap-4">
+					<Field
+						className="grid grid-cols-2 gap-4 items-center"
+						orientation="horizontal"
+					>
+						<FieldLabel htmlFor="boardWidthInput">
+							Board width
+						</FieldLabel>
+						<Input
+							id="boardWidthInput"
+							type="number"
+							placeholder="Width"
+						/>
+					</Field>
+
+					<Field
+						className="grid grid-cols-2 gap-4 items-center"
+						orientation="horizontal"
+					>
+						<FieldLabel htmlFor="boardHeightInput">
+							Board height
+						</FieldLabel>
+						<Input
+							id="boardHeightInput"
+							type="number"
+							placeholder="Height"
+						/>
+					</Field>
+				</FieldSet>
+			</div>
+		</PopoverContent>
+	);
 }
 
 export default BoardSettingsMenu;
