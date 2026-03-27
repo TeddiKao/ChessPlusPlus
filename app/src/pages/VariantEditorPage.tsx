@@ -25,7 +25,7 @@ function VariantEditorPage() {
 	return (
 		<div className="relative min-h-screen">
 			<div className="flex flex-col gap-2">
-				<div className="flex flex-row gap-2 px-4 py-4 items-center">
+				<div className="flex flex-row gap-2 px-4 py-4 items-center p-12">
 					<Button
 						onClick={handleNavigationToHomePage}
 						size="xs"
