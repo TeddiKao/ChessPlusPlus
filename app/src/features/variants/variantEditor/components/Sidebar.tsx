@@ -43,7 +43,7 @@ function Sidebar() {
 				<TooltipTrigger asChild>
 					<Button
 						variant="ghost"
-						className="p-1 hover:bg-[var(--sidebar-primary-hover)]"
+						className="p-1 hover:bg-(--sidebar-primary-hover)"
 					>
 						<IconArrowsMove strokeWidth={1.5} className="size-6" />
 					</Button>
