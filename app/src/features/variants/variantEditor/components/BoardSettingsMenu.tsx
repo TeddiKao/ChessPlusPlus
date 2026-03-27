@@ -3,7 +3,7 @@ import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PopoverContent } from "@/components/ui/popover";
 import useSetupSettingsEditorStore from "@/features/variants/variantEditor/stores/setupSettingsEditor";
-import { useEffect } from "react";
+import { type ChangeEvent, useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function BoardSettingsMenu() {
@@ -26,6 +26,24 @@ function BoardSettingsMenu() {
 
 	if (!boardXSize) return null;
 	if (!boardYSize) return null;
+
+	function handleBoardXSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
+		const newBoardXSize = e.target.valueAsNumber;
+
+		if (Number.isNaN(newBoardXSize)) return;
+		if (!Number.isFinite(newBoardXSize)) return;
+
+		updateBoardXSize(newBoardXSize);
+	}
+
+	function handleBoardYSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
+		const newBoardYSize = e.target.valueAsNumber;
+
+		if (Number.isNaN(newBoardYSize)) return;
+		if (!Number.isFinite(newBoardYSize)) return;
+
+		updateBoardXSize(newBoardYSize);
+	}
 
 	return (
 		<PopoverContent side="left" sideOffset={8} align="start">
@@ -50,6 +68,7 @@ function BoardSettingsMenu() {
 							type="number"
 							placeholder="Width"
 							value={boardXSize}
+							onChange={handleBoardXSizeInputChange}
 						/>
 					</Field>
 
@@ -65,6 +84,7 @@ function BoardSettingsMenu() {
 							type="number"
 							placeholder="Height"
 							value={boardYSize}
+							onChange={handleBoardYSizeInputChange}
 						/>
 					</Field>
 				</FieldSet>
