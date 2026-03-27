@@ -12,53 +12,60 @@ def test_validate_json():
     output = json_validator.validate_json(test_data)
     return output
 
-def display_game_state(board_size: tuple, game_state: dict):
+def display_game_state(board_size: tuple, game_state: dict, show_coords: bool = False):
     print("\nGame state:")
     for y in range(board_size[1]):
         print("+", end="")
         print("----+" * board_size[0])
         print("|", end="")
         for x in range(board_size[0]):
-            print(" ", end="")
-
-            # print(f"{x},{y}", end="")
-            if (x, y) in game_state:
-                print_piece = "#"
-
-                match game_state[(x, y)]:
-                    case "white_pawn":
-                        print_piece = "P"
-                    case "black_pawn":
-                        print_piece = "p"
-                    case "white_knight":
-                        print_piece = "N"
-                    case "black_knight":
-                        print_piece = "n"
-                    case "white_queen":
-                        print_piece = "Q"
-                    case "black_queen":
-                        print_piece = "q"
-                    case "white_king":
-                        print_piece = "K"
-                    case "black_king":
-                        print_piece = "k"
-                    case "white_rook":
-                        print_piece = "R"
-                    case "black_rook":
-                        print_piece = "r"
-                    case "white_bishop":
-                        print_piece = "B"
-                    case "black_bishop":
-                        print_piece = "b"
-
-                print(print_piece, end=" ")
+            if show_coords:
+                if (x, y) in game_state:
+                    print("*", end="")
+                else:
+                    print(" ", end="")
+                print(f"{x},{y}", end="")
             else:
-                print("  ", end="")
+                print(" ", end="")
+                if (x, y) in game_state:
+                    print_piece = "#"
 
-            print(" |", end="")
+                    match game_state[(x, y)].piece_name:
+                        case "white_pawn":
+                            print_piece = "P"
+                        case "black_pawn":
+                            print_piece = "p"
+                        case "white_knight":
+                            print_piece = "N"
+                        case "black_knight":
+                            print_piece = "n"
+                        case "white_queen":
+                            print_piece = "Q"
+                        case "black_queen":
+                            print_piece = "q"
+                        case "white_king":
+                            print_piece = "K"
+                        case "black_king":
+                            print_piece = "k"
+                        case "white_rook":
+                            print_piece = "R"
+                        case "black_rook":
+                            print_piece = "r"
+                        case "white_bishop":
+                            print_piece = "B"
+                        case "black_bishop":
+                            print_piece = "b"
+
+                    print(print_piece, end=" ")
+                else:
+                    print("  ", end="")
+
+            print("|", end="")
         print()
     print("+", end="")
     print("----+" * board_size[0])
+
+SHOW_COORDS = True
 
 tvj_output = test_validate_json()
 print("JSON Validation:")
@@ -69,13 +76,13 @@ if tvj_output[0]:
     game = lmg.Game(json.load(open("test_json.json")))
 
     game_state = game.get_game_state(True)
-    display_game_state(game_state[0], game_state[1])
+    display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
     game.update_game_state((3, 1), (3, 3))
 
     game_state = game.get_game_state(True)
-    display_game_state(game_state[0], game_state[1])
+    display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-    game.get_legal_moves((0, 0))
+    # game.get_legal_moves((0, 0))
 
-    print(game.get_game_state())
+    print(game._loop_move((3, 0), "north"))

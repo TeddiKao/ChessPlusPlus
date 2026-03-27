@@ -1,5 +1,4 @@
-from custom_errors import *
-
+from app.engine.legal_move_generator.custom_errors import *
 
 class Piece:
     def __init__(self, piece_id: int, piece_name: str, data: dict):
@@ -25,7 +24,6 @@ class Game:
             self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece(self._id_counter,
                                                                                          starting_piece["piece_name"],
                                                                                          piece_default_start_data)
-
             self._id_counter += 1
 
     def get_game_state(self, include_size: bool = False):
@@ -35,7 +33,7 @@ class Game:
 
     def update_game_state(self, piece_start_postion: tuple, piece_end_postion: tuple):
 
-        if piece_end_postion == piece_end_postion:
+        if piece_start_postion == piece_end_postion:
             raise StationaryMoveError
 
         piece_object = self._game_state[piece_start_postion]
@@ -43,6 +41,7 @@ class Game:
             piece_object.data["has_not_moved"] = False
 
         self._game_state[piece_end_postion] = piece_object
+        self._game_state.pop(piece_start_postion)
 
     def _check_condition(self, condition_name: str, piece_position: tuple):
         piece_object = self._game_state[piece_position]
@@ -79,7 +78,9 @@ class Game:
                     return False
         raise InvalidConditionError
 
-    def _loop_moves(self, start_position: tuple, move_name: str):
+    def _loop_move(self, start_position: tuple, move_name: str):
+        print(f"Start: {start_position}")
+
         legal_moves = []
         move_definition = self._rules["moves"][move_name]
 
@@ -90,43 +91,56 @@ class Game:
                     pass_conditions = False
                     break
             if pass_conditions == False:
+                # print("Failed conditions")
                 return []
 
         move_x = move_definition["move_definition"]["move_x"]
         move_y = move_definition["move_definition"]["move_y"]
         move_range = move_definition["move_definition"]["range"]
 
-        move_stop_conditions = move_definition["move_stop_conditions"]
+        move_stop_conditions = move_definition["move_definition"]["move_stop_conditions"]
         for_movement = move_definition["for_movement"]
         for_capture = move_definition["for_capture"]
 
         current_position = start_position
         range_counter = 0
         while True:
+            print(f"Moved from {current_position} to ", end="")
             current_position = list(current_position)
             current_position[0] += move_x
             current_position[1] += move_y
             current_position = tuple(current_position)
+            print(current_position)
 
-            if self._position_within_board(current_position):
+            if not self._position_within_board(current_position):
+                print("Outside board: break")
                 break
-            if range_counter == move_range:
-                break
-            range_counter += 1
-            pass_conditions = True
-            for move_stop_condition in move_stop_conditions:
-                if self._check_move_stop_condition(move_stop_condition, current_position) == False:
-                    pass_conditions = False
-            if pass_conditions == False:
-                break
+            else:
+                stop_loop = False
+                if not move_range == "inf":
+                    if range_counter == move_range:
+                        print("Reached max range: break")
+                        stop_loop = True
+                    range_counter += 1
+                pass_conditions = True
+                print(f"Checking move_stop_conditions at {current_position}")
+                for move_stop_condition in move_stop_conditions:
+                    if self._check_move_stop_condition(move_stop_condition, current_position):
+                        pass_conditions = False
+                if pass_conditions == False:
+                    print("Failed conditions: break")
+                    stop_loop = True
+
+                if stop_loop == True:
+                    if self._inside_piece(current_position) and for_capture:
+                        legal_moves.append(current_position)
+                    break
 
             if for_movement:
                 if not self._inside_piece(current_position):
                     legal_moves.append(current_position)
-            elif for_capture:
-                if self._inside_piece(current_position):
-                    legal_moves.append(current_position)
 
+        print(f"Returned at {current_position}")
         return legal_moves
 
     def get_legal_moves(self, piece_position: tuple):
@@ -137,8 +151,8 @@ class Game:
         piece_move_names = self._rules["pieces"][piece_name]["moveset"]
         for move_group in piece_move_names:
             if isinstance(move_group, dict):
-                legal_move_group = self._loop_moves(piece_position, move_group["move_name"])
-                legal_moves[move_group] = legal_move_group
+                legal_move_group = self._loop_move(piece_position, move_group["move_name"])
+                legal_moves[move_group["move_name"]] = legal_move_group
 
             elif isinstance(move_group, list):
                 starting_positions = {piece_position}
@@ -147,7 +161,7 @@ class Game:
                     valid_move = each_move["valid_move"]
 
                     for starting_position in starting_positions:
-                        legal_move_group = self._loop_moves(starting_position, each_move["move_name"])
+                        legal_move_group = self._loop_move(starting_position, each_move["move_name"])
                         if valid_move:
                             all_legal_moves.update(legal_move_group)
                         starting_positions.update(legal_move_group)
