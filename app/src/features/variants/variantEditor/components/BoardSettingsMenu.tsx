@@ -7,8 +7,14 @@ import { type ChangeEvent, useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function BoardSettingsMenu() {
-	const { updateBoardXSize, boardXSize, updateBoardYSize, boardYSize } =
-		useSetupSettingsEditorStore();
+	const {
+		updateBoardXSize,
+		boardXSize,
+		updateBoardYSize,
+		boardYSize,
+		commitToDraft,
+		addSetupSettingsChanges,
+	} = useSetupSettingsEditorStore();
 	const { setupRulesDraft } = useVariantDraftStore();
 
 	useEffect(() => {
@@ -34,6 +40,7 @@ function BoardSettingsMenu() {
 		if (!Number.isFinite(newBoardXSize)) return;
 
 		updateBoardXSize(newBoardXSize);
+		addSetupSettingsChanges({ boardXSize: newBoardXSize });
 	}
 
 	function handleBoardYSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -43,6 +50,15 @@ function BoardSettingsMenu() {
 		if (!Number.isFinite(newBoardYSize)) return;
 
 		updateBoardYSize(newBoardYSize);
+		addSetupSettingsChanges({ boardYSize: newBoardYSize });
+	}
+
+	function handleBoardXSizeInputBlur() {
+		commitToDraft(["boardXSize"]);
+	}
+
+	function handleBoardYSizeInputBlur() {
+		commitToDraft(["boardYSize"]);
 	}
 
 	return (
@@ -69,6 +85,7 @@ function BoardSettingsMenu() {
 							placeholder="Width"
 							value={boardXSize}
 							onChange={handleBoardXSizeInputChange}
+							onBlur={handleBoardXSizeInputBlur}
 						/>
 					</Field>
 
@@ -85,6 +102,7 @@ function BoardSettingsMenu() {
 							placeholder="Height"
 							value={boardYSize}
 							onChange={handleBoardYSizeInputChange}
+							onBlur={handleBoardYSizeInputBlur}
 						/>
 					</Field>
 				</FieldSet>
