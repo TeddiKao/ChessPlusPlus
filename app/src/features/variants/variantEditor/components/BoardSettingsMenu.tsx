@@ -5,7 +5,7 @@ import { PopoverContent } from "@/components/ui/popover";
 
 function BoardSettingsMenu() {
     return (
-        <PopoverContent>
+        <PopoverContent side="left" sideOffset={8}>
             <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                     <p>Board setup</p>
