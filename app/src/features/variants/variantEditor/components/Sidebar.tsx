@@ -12,17 +12,21 @@ import BoardSettingsMenu from "./BoardSettingsMenu";
 import useSidebarStore from "../stores/sidebar";
 
 function Sidebar() {
-	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } = useSidebarStore();
+	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
+		useSidebarStore();
 
 	return (
 		<div className="flex flex-col gap-4 items-center absolute right-0 top-0 h-screen bg-sidebar-primary-foreground p-3">
-			<Popover open={currentOpenMenu === "boardSettings"} onOpenChange={(open) => {
-				if (open) {
-					updateCurrentOpenMenu("boardSettings");
-				} else {
-					clearCurrentOpenMenu();
-				}
-			}}>
+			<Popover
+				open={currentOpenMenu === "boardSettings"}
+				onOpenChange={(open) => {
+					if (open) {
+						updateCurrentOpenMenu("boardSettings");
+					} else {
+						clearCurrentOpenMenu();
+					}
+				}}
+			>
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<PopoverTrigger asChild>
