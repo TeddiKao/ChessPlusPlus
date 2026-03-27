@@ -42,7 +42,7 @@ function BoardSettingsMenu() {
 		if (Number.isNaN(newBoardYSize)) return;
 		if (!Number.isFinite(newBoardYSize)) return;
 
-		updateBoardXSize(newBoardYSize);
+		updateBoardYSize(newBoardYSize);
 	}
 
 	return (
