@@ -51,6 +51,7 @@ export function MovementEditorScreen() {
 		if (!activeMovementName) return;
 
 		const initialMovement = movementRulesDraft[activeMovementName];
+
 		if (!initialMovement) return;
 
 		const initialRange = initialMovement.moveDefinition.range;
@@ -59,6 +60,7 @@ export function MovementEditorScreen() {
 		const initialForMovement = initialMovement.forMovement;
 		const initialForCapture = initialMovement.forCapture;
 
+		updateMovementName(activeMovementName);
 		updateRange(initialRange);
 		updateOffsetX(initialOffsetX);
 		updateOffsetY(initialOffsetY);
@@ -72,15 +74,16 @@ export function MovementEditorScreen() {
 		updateOffsetY,
 		updateForMovement,
 		updateForCapture,
+		updateMovementName
 	]);
 
 	if (!activeMovementName) return null;
 	if (!movementName) return null;
-	if (!forMovement) return null;
-	if (!forCapture) return null;
+	if (isNullOrUndefined(forMovement)) return null;
+	if (isNullOrUndefined(forCapture)) return null;
 	if (isNullOrUndefined(range)) return null;
-	if (!offsetX) return null;
-	if (!offsetY) return null;
+	if (isNullOrUndefined(offsetX)) return null;
+	if (isNullOrUndefined(offsetY)) return null;
 
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
