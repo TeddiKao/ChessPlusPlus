@@ -10,8 +10,8 @@ import {
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
 import { Button } from "@/components/ui/button";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
-import useMovementsEditorSheetStore from "../stores/movementsEditorSheet";
-import useMovementsEditorStore from "../stores/movementsEditor";
+import useMovementsEditorSheetStore from "../../stores/movementsEditorSheet";
+import useMovementsEditorStore from "../../stores/movementsEditor";
 import { IconChevronLeft } from "@tabler/icons-react";
 
 function MovementSelectionScreen() {

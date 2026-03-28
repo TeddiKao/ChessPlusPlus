@@ -12,7 +12,7 @@ import BoardSettingsMenu from "./BoardSettingsMenu";
 import useSidebarStore from "../stores/sidebar";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import useSetupSettingsEditorStore from "@/features/variants/variantEditor/stores/setupSettingsEditor";
-import MovementsEditorSheet from "@/features/variants/variantEditor/components/MovementsEditorSheet";
+import MovementsEditorSheet from "@/features/variants/variantEditor/components/MovementsEditorSheet/MovementsEditorSheet";
 
 function Sidebar() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
