@@ -16,14 +16,80 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import type { ChangeEvent } from "react";
+import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 
 export function MovementEditorScreen() {
-	const { activeMovementName } = useMovementsEditorStore();
+	const {
+		activeMovementName,
+
+		movementName,
+		updateMovementName,
+		forMovement,
+		toggleForMovement,
+		forCapture,
+		toggleForCapture,
+		range,
+		updateRange,
+		offsetX,
+		updateOffsetX,
+		offsetY,
+		updateOffsetY,
+
+		addMovementsEditorChanges
+	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
+
+	
+	if (!activeMovementName) return null;
+	if (!movementName) return null;
+	if (!forMovement) return null;
+	if (!forCapture) return null;
+	if (isNullOrUndefined(range)) return null;
+	if (!offsetX) return null;
+	if (!offsetY) return null;
+
 
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
 	}
+
+	
+	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateMovementName(e.target.value);
+		addMovementsEditorChanges({ movementName: e.target.value });
+	}
+
+	function handleForMovementInputChange(checked: boolean) {
+		toggleForMovement();
+		addMovementsEditorChanges({ forMovement: checked });
+	}
+
+	function handleForCaptureInputChange(checked: boolean) {
+		toggleForCapture();
+		addMovementsEditorChanges({ forCapture: checked });
+	}
+
+	function handleRangeInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateRange(e.target.valueAsNumber);
+		addMovementsEditorChanges({ range: e.target.valueAsNumber });
+	}
+	
+	function handleUnlimitedRangeInputChange(checked: boolean) {
+		updateRange(checked ? "inf" : 1);
+		addMovementsEditorChanges({ range: checked ? "inf" : 1 });
+	}
+
+	function handleOffsetXInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateOffsetX(e.target.valueAsNumber);
+		addMovementsEditorChanges({ offsetX: e.target.valueAsNumber });
+	}
+
+	function handleOffsetYInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateOffsetY(e.target.valueAsNumber);
+		addMovementsEditorChanges({ offsetY: e.target.valueAsNumber });
+	}
+
 
 	return (
 		<>
@@ -62,6 +128,8 @@ export function MovementEditorScreen() {
 							id="movementNameInput"
 							type="text"
 							placeholder="Movement name"
+							value={movementName}
+							onChange={handleMovementNameInputChange}
 						/>
 					</Field>
 				</FieldSet>
@@ -74,6 +142,8 @@ export function MovementEditorScreen() {
 							<Checkbox
 								className="bg-background"
 								id="isMovementAllowed"
+								checked={forMovement ?? false}
+								onCheckedChange={handleForMovementInputChange}
 							/>
 							<FieldLabel htmlFor="isMovementAllowed">
 								Movement
@@ -83,6 +153,8 @@ export function MovementEditorScreen() {
 							<Checkbox
 								className="bg-background"
 								id="isCaptureAllowed"
+								checked={forCapture ?? false}
+								onCheckedChange={handleForCaptureInputChange}
 							/>
 							<FieldLabel htmlFor="isCaptureAllowed">
 								Capture
@@ -95,24 +167,33 @@ export function MovementEditorScreen() {
 					<FieldLegend>Move definition</FieldLegend>
 					<Field className="grid grid-cols-2 items-center">
 						<FieldLabel>Offsets</FieldLabel>
-						
+
 						<div className="grid grid-cols-2 gap-2 items-center">
 							<Input
 								className="bg-background"
 								type="text"
 								placeholder="X"
+								value={offsetX}
+								onChange={handleOffsetXInputChange}
 							/>
 							<Input
 								className="bg-background"
 								type="text"
 								placeholder="Y"
+								value={offsetY}
+								onChange={handleOffsetYInputChange}
 							/>
 						</div>
 					</Field>
 
 					<FieldSet className="gap-2">
-						<FieldLegend className="data-[variant=legend]:text-sm">Range settings</FieldLegend>
-						<Field className="grid grid-cols-2 items-center" orientation="horizontal">
+						<FieldLegend className="data-[variant=legend]:text-sm">
+							Range settings
+						</FieldLegend>
+						<Field
+							className="grid grid-cols-2 items-center"
+							orientation="horizontal"
+						>
 							<FieldLabel htmlFor="movementRangeInput">
 								Range
 							</FieldLabel>
@@ -121,6 +202,8 @@ export function MovementEditorScreen() {
 								id="movementRangeInput"
 								type="number"
 								placeholder="Range"
+								value={range}
+								onChange={handleRangeInputChange}
 							/>
 						</Field>
 
@@ -128,6 +211,8 @@ export function MovementEditorScreen() {
 							<Checkbox
 								className="bg-background"
 								id="hasUnlimitedRange"
+								checked={range === "inf"}
+								onCheckedChange={handleUnlimitedRangeInputChange}
 							/>
 							<FieldLabel htmlFor="hasUnlimitedRange">
 								Unlimited
