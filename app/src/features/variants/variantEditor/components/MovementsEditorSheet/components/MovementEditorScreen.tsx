@@ -110,7 +110,7 @@ export function MovementEditorScreen() {
 						</div>
 					</Field>
 
-					<FieldSet>
+					<FieldSet className="gap-2">
 						<FieldLegend className="data-[variant=legend]:text-sm">Range settings</FieldLegend>
 						<Field className="grid grid-cols-2 items-center" orientation="horizontal">
 							<FieldLabel htmlFor="movementRangeInput">
