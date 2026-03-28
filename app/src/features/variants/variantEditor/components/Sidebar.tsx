@@ -81,6 +81,7 @@ function Sidebar() {
 							variant="ghost"
 							className="p-1 hover:bg-(--sidebar-primary-hover)"
 							aria-label="Movements"
+							onClick={() => updateCurrentOpenMenu("movements")}
 						>
 							<IconArrowsMove
 								strokeWidth={1.5}
