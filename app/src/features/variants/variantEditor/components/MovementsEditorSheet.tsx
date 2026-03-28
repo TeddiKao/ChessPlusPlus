@@ -72,7 +72,7 @@ function MovementEditorScreen() {
 				</div>
 
 				<SheetDescription>
-					You are currently editing the movement rule "{activeMovementName}"
+					You are currently editing the movement rule "{activeMovementName}". Click on the back arrow to change your selection.
 				</SheetDescription>
 			</SheetHeader>
 
