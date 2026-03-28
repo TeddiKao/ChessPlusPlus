@@ -1,4 +1,4 @@
-function isNullOrUndefined(value: never) {
+function isNullOrUndefined(value: unknown) {
 	return value === null || value === undefined;
 }
 
