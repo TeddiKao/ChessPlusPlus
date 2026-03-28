@@ -8,6 +8,14 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { IconChevronLeft } from "@tabler/icons-react";
+import {
+	Field,
+	FieldLabel,
+	FieldLegend,
+	FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function MovementEditorScreen() {
 	const { activeMovementName } = useMovementsEditorStore();
@@ -38,6 +46,51 @@ export function MovementEditorScreen() {
 					your selection.
 				</SheetDescription>
 			</SheetHeader>
+
+			<div className="px-4 flex flex-col gap-4">
+				<FieldSet>
+					<FieldLegend>Basic information</FieldLegend>
+					<Field
+						className="grid grid-cols-2"
+						orientation="horizontal"
+					>
+						<FieldLabel htmlFor="movementNameInput">
+							Name
+						</FieldLabel>
+						<Input
+							className="bg-background"
+							id="movementNameInput"
+							type="text"
+							placeholder="Movement name"
+						/>
+					</Field>
+				</FieldSet>
+
+				<FieldSet>
+					<FieldLegend>Allowed move types</FieldLegend>
+
+					<div className="flex flex-col gap-2">
+						<Field orientation="horizontal">
+							<Checkbox
+								className="bg-background"
+								id="isMovementAllowed"
+							/>
+							<FieldLabel htmlFor="isMovementAllowed">
+								Movement
+							</FieldLabel>
+						</Field>
+						<Field orientation="horizontal">
+							<Checkbox
+								className="bg-background"
+								id="isCaptureAllowed"
+							/>
+							<FieldLabel htmlFor="isCaptureAllowed">
+								Capture
+							</FieldLabel>
+						</Field>
+					</div>
+				</FieldSet>
+			</div>
 
 			<SheetFooter>
 				<Button variant="destructive">Delete movement</Button>
