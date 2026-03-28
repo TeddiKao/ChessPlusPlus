@@ -31,8 +31,8 @@ function BoardSettingsMenu() {
 		updateBoardYSize(initialBoardYSize);
 	}, [setupRulesDraft, updateBoardXSize, updateBoardYSize]);
 
-	if (!boardXSize) return null;
-	if (!boardYSize) return null;
+	if (isNullOrUndefined(boardXSize)) return null;
+	if (isNullOrUndefined(boardYSize)) return null;
 
 	function handleBoardXSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
 		const newBoardXSize = e.target.valueAsNumber;
