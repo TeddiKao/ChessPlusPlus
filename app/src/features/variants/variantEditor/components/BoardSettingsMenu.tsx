@@ -5,6 +5,7 @@ import { PopoverContent } from "@/components/ui/popover";
 import useSetupSettingsEditorStore from "@/features/variants/variantEditor/stores/setupSettingsEditor";
 import { type ChangeEvent, useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 
 function BoardSettingsMenu() {
 	const {
@@ -21,10 +22,10 @@ function BoardSettingsMenu() {
 		if (!setupRulesDraft) return;
 
 		const initialBoardXSize = setupRulesDraft.boardXSize;
-		if (!initialBoardXSize) return;
+		if (isNullOrUndefined(initialBoardXSize)) return;
 
 		const initialBoardYSize = setupRulesDraft.boardYSize;
-		if (!initialBoardYSize) return;
+		if (isNullOrUndefined(initialBoardYSize)) return;
 
 		updateBoardXSize(initialBoardXSize);
 		updateBoardYSize(initialBoardYSize);
