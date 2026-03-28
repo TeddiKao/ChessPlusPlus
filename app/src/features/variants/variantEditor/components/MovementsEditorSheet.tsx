@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import useMovementsEditorSheetStore from "../stores/movementsEditorSheet";
 import useMovementsEditorStore from "../stores/movementsEditor";
+import { IconChevronLeft } from "@tabler/icons-react";
 
 function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
@@ -57,12 +58,21 @@ function MovementSelectionScreen() {
 }
 
 function MovementEditorScreen() {
+	const { activeMovementName } = useMovementsEditorStore();
+
 	return (
 		<>
 			<SheetHeader>
-				<SheetTitle>Movement editor</SheetTitle>
+				<div className="flex flex-row gap-2 items-center">
+					<Button className="p-0 hover:bg-(--sidebar-primary-hover)" variant="ghost">
+						<IconChevronLeft className="size-5" />
+					</Button>
+
+					<SheetTitle>Movement editor</SheetTitle>
+				</div>
+
 				<SheetDescription>
-					Edit movement rules here
+					You are currently editing the movement rule "{activeMovementName}"
 				</SheetDescription>
 			</SheetHeader>
 
