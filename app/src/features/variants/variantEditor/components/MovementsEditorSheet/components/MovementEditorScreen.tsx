@@ -90,6 +90,26 @@ export function MovementEditorScreen() {
 						</Field>
 					</div>
 				</FieldSet>
+
+				<FieldSet>
+					<FieldLegend>Move definition</FieldLegend>
+					<Field className="grid grid-cols-2">
+						<FieldLabel>Offsets</FieldLabel>
+						
+						<div className="grid grid-cols-2 gap-2">
+							<Input
+								className="bg-background"
+								type="text"
+								placeholder="X"
+							/>
+							<Input
+								className="bg-background"
+								type="text"
+								placeholder="Y"
+							/>
+						</div>
+					</Field>
+				</FieldSet>
 			</div>
 
 			<SheetFooter>
