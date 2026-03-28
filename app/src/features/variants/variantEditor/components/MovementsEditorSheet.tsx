@@ -1,4 +1,5 @@
 import {
+	Sheet,
 	SheetClose,
 	SheetContent,
 	SheetDescription,
@@ -6,21 +7,36 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
 
 function MovementsEditorSheet() {
-	return (
-		<SheetContent showCloseButton={false}>
-			<SheetHeader>
-				<SheetTitle>Movements editor</SheetTitle>
-				<SheetDescription>
-					Edit piece movement rules here
-				</SheetDescription>
-			</SheetHeader>
+	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
+		useSidebarStore();
 
-			<SheetFooter>
-				<SheetClose>Close</SheetClose>
-			</SheetFooter>
-		</SheetContent>
+	return (
+		<Sheet
+			open={currentOpenMenu === "movements"}
+			onOpenChange={(open) => {
+				if (open) {
+					updateCurrentOpenMenu("movements");
+				} else {
+					clearCurrentOpenMenu();
+				}
+			}}
+		>
+			<SheetContent showCloseButton={false}>
+				<SheetHeader>
+					<SheetTitle>Movements editor</SheetTitle>
+					<SheetDescription>
+						Edit piece movement rules here
+					</SheetDescription>
+				</SheetHeader>
+
+				<SheetFooter>
+					<SheetClose>Close</SheetClose>
+				</SheetFooter>
+			</SheetContent>
+		</Sheet>
 	);
 }
 
