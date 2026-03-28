@@ -43,7 +43,7 @@ export function MovementEditorScreen() {
 		commitToDraft,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
-	const { movementRulesDraft } = useVariantDraftStore();
+	const { movementRulesDraft, syncMovementRulesDraftToDB } = useVariantDraftStore();
 
 	const previousRangeInputRef = useRef<number | null>(null);
 
@@ -88,6 +88,7 @@ export function MovementEditorScreen() {
 
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
+		syncMovementRulesDraftToDB();
 	}
 
 	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
