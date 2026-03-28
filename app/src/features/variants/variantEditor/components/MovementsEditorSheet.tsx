@@ -10,10 +10,20 @@ import {
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
 import { Button } from "@/components/ui/button";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useMovementsEditorSheetStore from "../stores/movementsEditorSheet";
+import useMovementsEditorStore from "../stores/movementsEditor";
 
 function PieceSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
+	const { updateCurrentMode } = useMovementsEditorSheetStore();
+	const { updateActiveMovementName } = useMovementsEditorStore();
+
 	if (!movementRulesDraft) return null;
+
+	function handlePieceMovementClick(movementName: string) {
+		updateCurrentMode("movementEditing");
+		updateActiveMovementName(movementName);
+	}
 
 	return (
 		<>
@@ -29,6 +39,7 @@ function PieceSelectionScreen() {
 					<Button
 						className="p-0 px-1 text-left justify-start hover:bg-(--sidebar-primary-hover)"
 						variant="ghost"
+						onClick={() => handlePieceMovementClick(movementName)}
 					>
 						{movementName}
 					</Button>
@@ -48,6 +59,7 @@ function PieceSelectionScreen() {
 function MovementsEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
 		useSidebarStore();
+	const { currentMode } = useMovementsEditorSheetStore();
 
 	return (
 		<Sheet
@@ -64,7 +76,11 @@ function MovementsEditorSheet() {
 				className="bg-sidebar-primary-foreground"
 				showCloseButton={false}
 			>
-				<PieceSelectionScreen />
+				{currentMode === "movementSelection" ? (
+					<PieceSelectionScreen />
+				) : (
+					<div>TODO: Movement editing screen</div>
+				)}
 			</SheetContent>
 		</Sheet>
 	);
