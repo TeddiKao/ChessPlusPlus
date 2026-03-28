@@ -27,7 +27,7 @@ function MovementSelectionScreen() {
 
 	return (
 		<>
-			<SheetHeader className="px-4 pt-4">
+			<SheetHeader>
 				<SheetTitle>Movements editor</SheetTitle>
 				<SheetDescription>
 					Edit piece movement rules here
@@ -46,7 +46,7 @@ function MovementSelectionScreen() {
 				))}
 			</div>
 
-			<SheetFooter className="px-4 pb-4">
+			<SheetFooter>
 				<Button>Create movement</Button>
 				<SheetClose asChild>
 					<Button variant="outline">Close</Button>
@@ -59,14 +59,14 @@ function MovementSelectionScreen() {
 function MovementEditorScreen() {
 	return (
 		<>
-			<SheetHeader className="px-4 pt-4">
+			<SheetHeader>
 				<SheetTitle>Movement editor</SheetTitle>
 				<SheetDescription>
 					Edit movement rules here
 				</SheetDescription>
 			</SheetHeader>
 
-			<SheetFooter className="px-4 pb-4">
+			<SheetFooter>
 				<Button variant="destructive">Delete movement</Button>
 			</SheetFooter>
 		</>
