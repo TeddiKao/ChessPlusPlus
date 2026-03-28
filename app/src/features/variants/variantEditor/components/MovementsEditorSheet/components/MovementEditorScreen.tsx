@@ -245,7 +245,7 @@ export function MovementEditorScreen() {
 						<div className="grid grid-cols-2 gap-2 items-center">
 							<Input
 								className="bg-background"
-								type="text"
+								type="number"
 								placeholder="X"
 								value={offsetX}
 								onChange={handleOffsetXInputChange}
@@ -253,7 +253,7 @@ export function MovementEditorScreen() {
 							/>
 							<Input
 								className="bg-background"
-								type="text"
+								type="number"
 								placeholder="Y"
 								value={offsetY}
 								onChange={handleOffsetYInputChange}
