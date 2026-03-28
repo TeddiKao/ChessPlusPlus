@@ -3,12 +3,39 @@ import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import Sidebar from "@/features/variants/variantEditor/components/Sidebar";
+import { useEffect } from "react";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
 	const { variants, hasHydrated } = useVariantsStore();
+	const {
+		updateCurrentVariantId,
+		updateSetupRulesDraft,
+		updateMovementRulesDraft,
+		updatePieceRulesetDraft,
+	} = useVariantDraftStore();
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!variantId) return;
+
+		const selectedVariant = variants[variantId];
+		if (!selectedVariant) return;
+
+		updateCurrentVariantId(variantId);
+		updateSetupRulesDraft(selectedVariant.variantRules.setupRules);
+		updateMovementRulesDraft(selectedVariant.variantRules.movementRules);
+		updatePieceRulesetDraft(selectedVariant.variantRules.pieceRuleset);
+	}, [
+		updateCurrentVariantId,
+		updateMovementRulesDraft,
+		updatePieceRulesetDraft,
+		updateSetupRulesDraft,
+		variantId,
+		variants,
+	]);
 
 	if (!variantId) return null;
 	if (!hasHydrated) return null;
