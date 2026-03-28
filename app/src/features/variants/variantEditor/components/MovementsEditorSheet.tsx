@@ -24,7 +24,10 @@ function MovementsEditorSheet() {
 				}
 			}}
 		>
-			<SheetContent showCloseButton={false}>
+			<SheetContent
+				className="bg-sidebar-primary-foreground"
+				showCloseButton={false}
+			>
 				<SheetHeader>
 					<SheetTitle>Movements editor</SheetTitle>
 					<SheetDescription>
