@@ -123,6 +123,16 @@ export function MovementEditorScreen() {
 								placeholder="Range"
 							/>
 						</Field>
+
+						<Field orientation="horizontal">
+							<Checkbox
+								className="bg-background"
+								id="hasUnlimitedRange"
+							/>
+							<FieldLabel htmlFor="hasUnlimitedRange">
+								Unlimited
+							</FieldLabel>
+						</Field>
 					</FieldSet>
 				</FieldSet>
 			</div>
