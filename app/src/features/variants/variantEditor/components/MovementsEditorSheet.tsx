@@ -54,6 +54,7 @@ function MovementsEditorSheet() {
 				</div>
 
 				<SheetFooter className="px-4 pb-4">
+					<Button>Create movement</Button>
 					<SheetClose asChild>
 						<Button variant="outline">Close</Button>
 					</SheetClose>
