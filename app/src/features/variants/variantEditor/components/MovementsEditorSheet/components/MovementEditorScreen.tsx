@@ -51,7 +51,7 @@ export function MovementEditorScreen() {
 				<FieldSet>
 					<FieldLegend>Basic information</FieldLegend>
 					<Field
-						className="grid grid-cols-2"
+						className="grid grid-cols-2 items-center"
 						orientation="horizontal"
 					>
 						<FieldLabel htmlFor="movementNameInput">
@@ -93,10 +93,10 @@ export function MovementEditorScreen() {
 
 				<FieldSet>
 					<FieldLegend>Move definition</FieldLegend>
-					<Field className="grid grid-cols-2">
+					<Field className="grid grid-cols-2 items-center">
 						<FieldLabel>Offsets</FieldLabel>
 						
-						<div className="grid grid-cols-2 gap-2">
+						<div className="grid grid-cols-2 gap-2 items-center">
 							<Input
 								className="bg-background"
 								type="text"
@@ -109,6 +109,21 @@ export function MovementEditorScreen() {
 							/>
 						</div>
 					</Field>
+
+					<FieldSet>
+						<FieldLegend className="data-[variant=legend]:text-sm">Range settings</FieldLegend>
+						<Field className="grid grid-cols-2 items-center" orientation="horizontal">
+							<FieldLabel htmlFor="movementRangeInput">
+								Range
+							</FieldLabel>
+							<Input
+								className="bg-background"
+								id="movementRangeInput"
+								type="number"
+								placeholder="Range"
+							/>
+						</Field>
+					</FieldSet>
 				</FieldSet>
 			</div>
 
