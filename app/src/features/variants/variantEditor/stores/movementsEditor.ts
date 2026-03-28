@@ -32,10 +32,12 @@ type MovementsEditorStore = {
 
 	forMovement: boolean | null;
 	toggleForMovement: () => void;
+	updateForMovement: (newForMovement: boolean) => void;
 	clearForMovement: () => void;
 
 	forCapture: boolean | null;
 	toggleForCapture: () => void;
+	updateForCapture: (newForCapture: boolean) => void;
 	clearForCapture: () => void;
 
 	offsetX: number | null;
@@ -90,10 +92,12 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 	forMovement: null,
 	toggleForMovement: () =>
 		set((state) => ({ forMovement: !state.forMovement })),
+	updateForMovement: (newForMovement) => set({ forMovement: newForMovement }),
 	clearForMovement: () => set({ forMovement: null }),
 
 	forCapture: null,
 	toggleForCapture: () => set((state) => ({ forCapture: !state.forCapture })),
+	updateForCapture: (newForCapture) => set({ forCapture: newForCapture }),
 	clearForCapture: () => set({ forCapture: null }),
 
 	offsetX: null,
