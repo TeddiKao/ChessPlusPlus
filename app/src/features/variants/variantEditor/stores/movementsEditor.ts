@@ -9,7 +9,7 @@ type MovementsEditorChanges = {
 	forCapture: boolean;
 	offsetX: number;
 	offsetY: number;
-	range: number;
+	range: number | "inf";
 };
 
 type MovementsEditorStore = {
