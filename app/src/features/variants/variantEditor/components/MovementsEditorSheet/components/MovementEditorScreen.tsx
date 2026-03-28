@@ -209,6 +209,8 @@ export function MovementEditorScreen() {
 								placeholder="Range"
 								value={range}
 								onChange={handleRangeInputChange}
+								disabled={range === "inf"}
+								aria-disabled={range === "inf"}
 							/>
 						</Field>
 
