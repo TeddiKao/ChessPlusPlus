@@ -40,6 +40,7 @@ export function MovementEditorScreen() {
 		updateOffsetY,
 
 		addMovementsEditorChanges,
+		commitToDraft,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { movementRulesDraft } = useVariantDraftStore();
@@ -131,6 +132,36 @@ export function MovementEditorScreen() {
 		addMovementsEditorChanges({ offsetY: e.target.valueAsNumber });
 	}
 
+	
+	function handleMovementNameInputBlur() {
+		commitToDraft(["movementName"]);
+	}
+
+	function handleForMovementInputBlur() {
+		commitToDraft(["forMovement"]);
+	}
+
+	function handleForCaptureInputBlur() {
+		commitToDraft(["forCapture"]);
+	}
+
+	function handleRangeInputBlur() {
+		commitToDraft(["range"]);
+	}
+
+	function handleOffsetXInputBlur() {
+		commitToDraft(["offsetX"]);
+	}
+
+	function handleOffsetYInputBlur() {
+		commitToDraft(["offsetY"]);
+	}
+
+	function handleUnlimitedRangeInputBlur() {
+		commitToDraft(["range"]);
+	}
+	
+
 	return (
 		<>
 			<SheetHeader>
@@ -170,6 +201,7 @@ export function MovementEditorScreen() {
 							placeholder="Movement name"
 							value={movementName}
 							onChange={handleMovementNameInputChange}
+							onBlur={handleMovementNameInputBlur}
 						/>
 					</Field>
 				</FieldSet>
@@ -184,6 +216,7 @@ export function MovementEditorScreen() {
 								id="isMovementAllowed"
 								checked={forMovement ?? false}
 								onCheckedChange={handleForMovementInputChange}
+								onBlur={handleForMovementInputBlur}
 							/>
 							<FieldLabel htmlFor="isMovementAllowed">
 								Movement
@@ -195,6 +228,7 @@ export function MovementEditorScreen() {
 								id="isCaptureAllowed"
 								checked={forCapture ?? false}
 								onCheckedChange={handleForCaptureInputChange}
+								onBlur={handleForCaptureInputBlur}
 							/>
 							<FieldLabel htmlFor="isCaptureAllowed">
 								Capture
@@ -215,6 +249,7 @@ export function MovementEditorScreen() {
 								placeholder="X"
 								value={offsetX}
 								onChange={handleOffsetXInputChange}
+								onBlur={handleOffsetXInputBlur}
 							/>
 							<Input
 								className="bg-background"
@@ -222,6 +257,7 @@ export function MovementEditorScreen() {
 								placeholder="Y"
 								value={offsetY}
 								onChange={handleOffsetYInputChange}
+								onBlur={handleOffsetYInputBlur}
 							/>
 						</div>
 					</Field>
@@ -246,6 +282,7 @@ export function MovementEditorScreen() {
 								onChange={handleRangeInputChange}
 								disabled={range === "inf"}
 								aria-disabled={range === "inf"}
+								onBlur={handleRangeInputBlur}
 							/>
 						</Field>
 
@@ -257,6 +294,7 @@ export function MovementEditorScreen() {
 								onCheckedChange={
 									handleUnlimitedRangeInputChange
 								}
+								onBlur={handleUnlimitedRangeInputBlur}
 							/>
 							<FieldLabel htmlFor="hasUnlimitedRange">
 								Unlimited
