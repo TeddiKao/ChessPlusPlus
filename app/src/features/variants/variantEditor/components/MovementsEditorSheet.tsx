@@ -59,12 +59,21 @@ function MovementSelectionScreen() {
 
 function MovementEditorScreen() {
 	const { activeMovementName } = useMovementsEditorStore();
+	const { updateCurrentMode } = useMovementsEditorSheetStore();
+
+	function handleBackClick() {
+		updateCurrentMode("movementSelection");
+	}
 
 	return (
 		<>
 			<SheetHeader>
 				<div className="flex flex-row gap-2 items-center">
-					<Button className="p-0 hover:bg-(--sidebar-primary-hover)" variant="ghost">
+					<Button
+						className="p-0 hover:bg-(--sidebar-primary-hover)"
+						variant="ghost"
+						onClick={handleBackClick}
+					>
 						<IconChevronLeft className="size-5" />
 					</Button>
 
@@ -72,7 +81,9 @@ function MovementEditorScreen() {
 				</div>
 
 				<SheetDescription>
-					You are currently editing the movement rule "{activeMovementName}". Click on the back arrow to change your selection.
+					You are currently editing the movement rule "
+					{activeMovementName}". Click on the back arrow to change
+					your selection.
 				</SheetDescription>
 			</SheetHeader>
 
