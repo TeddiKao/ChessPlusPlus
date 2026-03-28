@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 
 export function MovementEditorScreen() {
@@ -36,11 +36,12 @@ export function MovementEditorScreen() {
 		offsetY,
 		updateOffsetY,
 
-		addMovementsEditorChanges
+		addMovementsEditorChanges,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 
-	
+	const previousRangeInputRef = useRef<number | null>(null);
+
 	if (!activeMovementName) return null;
 	if (!movementName) return null;
 	if (!forMovement) return null;
@@ -49,12 +50,10 @@ export function MovementEditorScreen() {
 	if (!offsetX) return null;
 	if (!offsetY) return null;
 
-
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
 	}
 
-	
 	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updateMovementName(e.target.value);
 		addMovementsEditorChanges({ movementName: e.target.value });
@@ -71,13 +70,20 @@ export function MovementEditorScreen() {
 	}
 
 	function handleRangeInputChange(e: ChangeEvent<HTMLInputElement>) {
-		updateRange(e.target.valueAsNumber);
-		addMovementsEditorChanges({ range: e.target.valueAsNumber });
+		const newRange = e.target.valueAsNumber;
+		if (Number.isNaN(newRange)) return;
+		if (!Number.isFinite(newRange)) return;
+
+		updateRange(newRange);
+		previousRangeInputRef.current = newRange;
+		addMovementsEditorChanges({ range: newRange });
 	}
-	
+
 	function handleUnlimitedRangeInputChange(checked: boolean) {
-		updateRange(checked ? "inf" : 1);
-		addMovementsEditorChanges({ range: checked ? "inf" : 1 });
+		updateRange(checked ? "inf" : (previousRangeInputRef.current ?? 1));
+		addMovementsEditorChanges({
+			range: checked ? "inf" : (previousRangeInputRef.current ?? 1),
+		});
 	}
 
 	function handleOffsetXInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -89,7 +95,6 @@ export function MovementEditorScreen() {
 		updateOffsetY(e.target.valueAsNumber);
 		addMovementsEditorChanges({ offsetY: e.target.valueAsNumber });
 	}
-
 
 	return (
 		<>
@@ -212,7 +217,9 @@ export function MovementEditorScreen() {
 								className="bg-background"
 								id="hasUnlimitedRange"
 								checked={range === "inf"}
-								onCheckedChange={handleUnlimitedRangeInputChange}
+								onCheckedChange={
+									handleUnlimitedRangeInputChange
+								}
 							/>
 							<FieldLabel htmlFor="hasUnlimitedRange">
 								Unlimited
