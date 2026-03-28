@@ -16,8 +16,9 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRef, type ChangeEvent } from "react";
+import { useEffect, useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
+import useVariantDraftStore from "../../../stores/variantDraft";
 
 export function MovementEditorScreen() {
 	const {
@@ -26,8 +27,10 @@ export function MovementEditorScreen() {
 		movementName,
 		updateMovementName,
 		forMovement,
+		updateForMovement,
 		toggleForMovement,
 		forCapture,
+		updateForCapture,
 		toggleForCapture,
 		range,
 		updateRange,
@@ -39,8 +42,37 @@ export function MovementEditorScreen() {
 		addMovementsEditorChanges,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
+	const { movementRulesDraft } = useVariantDraftStore();
 
 	const previousRangeInputRef = useRef<number | null>(null);
+
+	useEffect(() => {
+		if (!movementRulesDraft) return;
+		if (!activeMovementName) return;
+
+		const initialMovement = movementRulesDraft[activeMovementName];
+		if (!initialMovement) return;
+
+		const initialRange = initialMovement.moveDefinition.range;
+		const initialOffsetX = initialMovement.moveDefinition.moveX;
+		const initialOffsetY = initialMovement.moveDefinition.moveY;
+		const initialForMovement = initialMovement.forMovement;
+		const initialForCapture = initialMovement.forCapture;
+
+		updateRange(initialRange);
+		updateOffsetX(initialOffsetX);
+		updateOffsetY(initialOffsetY);
+		updateForMovement(initialForMovement);
+		updateForCapture(initialForCapture);
+	}, [
+		activeMovementName,
+		movementRulesDraft,
+		updateRange,
+		updateOffsetX,
+		updateOffsetY,
+		updateForMovement,
+		updateForCapture,
+	]);
 
 	if (!activeMovementName) return null;
 	if (!movementName) return null;
