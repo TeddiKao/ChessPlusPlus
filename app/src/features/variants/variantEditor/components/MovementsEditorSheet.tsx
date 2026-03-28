@@ -13,7 +13,7 @@ import useVariantDraftStore from "@/features/variants/variantEditor/stores/varia
 import useMovementsEditorSheetStore from "../stores/movementsEditorSheet";
 import useMovementsEditorStore from "../stores/movementsEditor";
 
-function PieceSelectionScreen() {
+function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { updateActiveMovementName } = useMovementsEditorStore();
@@ -56,6 +56,23 @@ function PieceSelectionScreen() {
 	);
 }
 
+function MovementEditorScreen() {
+	return (
+		<>
+			<SheetHeader className="px-4 pt-4">
+				<SheetTitle>Movement editor</SheetTitle>
+				<SheetDescription>
+					Edit movement rules here
+				</SheetDescription>
+			</SheetHeader>
+
+			<SheetFooter className="px-4 pb-4">
+				<Button variant="destructive">Delete movement</Button>
+			</SheetFooter>
+		</>
+	);
+}
+
 function MovementsEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
 		useSidebarStore();
@@ -77,9 +94,9 @@ function MovementsEditorSheet() {
 				showCloseButton={false}
 			>
 				{currentMode === "movementSelection" ? (
-					<PieceSelectionScreen />
+					<MovementSelectionScreen />
 				) : (
-					<div>TODO: Movement editing screen</div>
+					<MovementEditorScreen />
 				)}
 			</SheetContent>
 		</Sheet>
