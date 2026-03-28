@@ -8,6 +8,7 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
+import { Button } from "@/components/ui/button";
 
 function MovementsEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
@@ -36,7 +37,9 @@ function MovementsEditorSheet() {
 				</SheetHeader>
 
 				<SheetFooter>
-					<SheetClose>Close</SheetClose>
+					<SheetClose asChild>
+						<Button variant="outline">Close</Button>
+					</SheetClose>
 				</SheetFooter>
 			</SheetContent>
 		</Sheet>
