@@ -1,8 +1,8 @@
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
-import useMovementsEditorSheetStore from "../../stores/movementsEditorSheet";
 import { MovementSelectionScreen } from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementSelectionScreen";
 import { MovementEditorScreen } from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementEditorScreen";
+import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stores/movementsEditorSheet";
 
 function MovementsEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =

@@ -8,7 +8,8 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import MovementCreationDialog from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementCreationDialog";
 
 export function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
@@ -24,31 +25,39 @@ export function MovementSelectionScreen() {
 
 	return (
 		<>
-			<SheetHeader>
-				<SheetTitle>Movements editor</SheetTitle>
-				<SheetDescription>
-					Edit piece movement rules here
-				</SheetDescription>
-			</SheetHeader>
+			<>
+				<SheetHeader>
+					<SheetTitle>Movements editor</SheetTitle>
+					<SheetDescription>
+						Edit piece movement rules here
+					</SheetDescription>
+				</SheetHeader>
 
-			<div className="flex flex-col overflow-y-auto px-3">
-				{Object.entries(movementRulesDraft).map(([movementName]) => (
-					<Button
-						className="p-0 px-1 text-left justify-start hover:bg-(--sidebar-primary-hover)"
-						variant="ghost"
-						onClick={() => handlePieceMovementClick(movementName)}
-					>
-						{movementName}
-					</Button>
-				))}
-			</div>
+				<div className="flex flex-col overflow-y-auto px-3">
+					{Object.entries(movementRulesDraft).map(
+						([movementName]) => (
+							<Button
+								className="p-0 px-1 text-left justify-start hover:bg-(--sidebar-primary-hover)"
+								variant="ghost"
+								onClick={() =>
+									handlePieceMovementClick(movementName)
+								}
+							>
+								{movementName}
+							</Button>
+						),
+					)}
+				</div>
 
-			<SheetFooter>
-				<Button>Create movement</Button>
-				<SheetClose asChild>
-					<Button variant="outline">Close</Button>
-				</SheetClose>
-			</SheetFooter>
+				<SheetFooter>
+					<Button>Create movement</Button>
+					<SheetClose asChild>
+						<Button variant="outline">Close</Button>
+					</SheetClose>
+				</SheetFooter>
+			</>
+
+			<MovementCreationDialog />
 		</>
 	);
 }

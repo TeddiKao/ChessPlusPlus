@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import useVariantDraftStore from "../../../stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 export function MovementEditorScreen() {
 	const {

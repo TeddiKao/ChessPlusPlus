@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "../pages/HomePage";
 
 import "./global.css";
 import TestPage from "@/pages/TestPage";
 import JSONValidatorTestPage from "@/pages/JSONValidatorTestPage";
 import VariantEditorPage from "@/pages/VariantEditorPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import HomePage from "@/pages/HomePage";
 
 function App() {
 	return (
