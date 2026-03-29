@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import useDeleteMovementAlertStore from "@/features/variants/variantEditor/stores/deleteMovementAlert";
+import useMovementsEditorStore from "@/features/variants/variantEditor/stores/movementsEditor";
+import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stores/movementsEditorSheet";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function MovementDeletionAlert() {
@@ -17,10 +19,12 @@ function MovementDeletionAlert() {
 		openDeleteMovementAlert,
 		closeDeleteMovementAlert,
 		movementToDelete,
-        clearMovementToDelete
+		clearMovementToDelete,
 	} = useDeleteMovementAlertStore();
 	const { movementRulesDraft, updateMovementRulesDraft } =
 		useVariantDraftStore();
+	const { updateCurrentMode } = useMovementsEditorSheetStore();
+	const { resetMovementsEditorState } = useMovementsEditorStore();
 
 	if (!movementRulesDraft) return null;
 
@@ -33,6 +37,9 @@ function MovementDeletionAlert() {
 
 		updateMovementRulesDraft(newMovementRulesDraft);
 		closeDeleteMovementAlert();
+
+		updateCurrentMode("movementSelection");
+		resetMovementsEditorState();
 	}
 
 	return (
