@@ -9,7 +9,7 @@ type MovementsEditorChanges = {
 	forCapture: boolean;
 	offsetX: number;
 	offsetY: number;
-	range: number;
+	range: number | "inf";
 };
 
 type MovementsEditorStore = {
@@ -32,10 +32,12 @@ type MovementsEditorStore = {
 
 	forMovement: boolean | null;
 	toggleForMovement: () => void;
+	updateForMovement: (newForMovement: boolean) => void;
 	clearForMovement: () => void;
 
 	forCapture: boolean | null;
 	toggleForCapture: () => void;
+	updateForCapture: (newForCapture: boolean) => void;
 	clearForCapture: () => void;
 
 	offsetX: number | null;
@@ -51,9 +53,10 @@ type MovementsEditorStore = {
 	clearRange: () => void;
 
 	commitToDraft: (keys?: (keyof MovementsEditorChanges)[]) => void;
+	resetMovementsEditorState: () => void;
 };
 
-const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
+const useMovementsEditorStore = create<MovementsEditorStore>((set, get, store) => ({
 	activeMovementName: null,
 	updateActiveMovementName: (newMovementName) =>
 		set({ activeMovementName: newMovementName }),
@@ -90,10 +93,12 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 	forMovement: null,
 	toggleForMovement: () =>
 		set((state) => ({ forMovement: !state.forMovement })),
+	updateForMovement: (newForMovement) => set({ forMovement: newForMovement }),
 	clearForMovement: () => set({ forMovement: null }),
 
 	forCapture: null,
 	toggleForCapture: () => set((state) => ({ forCapture: !state.forCapture })),
+	updateForCapture: (newForCapture) => set({ forCapture: newForCapture }),
 	clearForCapture: () => set({ forCapture: null }),
 
 	offsetX: null,
@@ -121,7 +126,7 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
 
-		const originalMovementName = get().movementName;
+		const originalMovementName = get().activeMovementName;
 		if (!originalMovementName) return;
 
 		const originalMovementInfo = movementRulesDraft[originalMovementName];
@@ -172,6 +177,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					...moveDefinitionChanges,
 				},
 			};
+
+			updatedMovementRulesDraft[originalMovementName] = newMovementInfo;
 
 			if (Object.keys(movementEditorChanges).includes("movementName")) {
 				if (!movementEditorChanges.movementName) return;
@@ -242,6 +249,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				},
 			};
 
+			updatedMovementRulesDraft[originalMovementName] = newMovementInfo;
+
 			if (Object.keys(movementEditorChanges).includes("movementName")) {
 				if (!movementEditorChanges.movementName) return;
 
@@ -261,6 +270,10 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+	},
+
+	resetMovementsEditorState: () => {
+		set(store.getInitialState());
 	},
 }));
 

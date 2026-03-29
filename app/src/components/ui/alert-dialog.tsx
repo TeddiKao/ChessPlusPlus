@@ -153,7 +153,7 @@ function AlertDialogDescription({
 
 function AlertDialogAction({
 	className,
-	variant = "default",
+	variant = "destructive",
 	size = "default",
 	...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Action> &
