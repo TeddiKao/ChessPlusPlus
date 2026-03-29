@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 
 function MovementCreationDialog() {
     return (
-        <Dialog>
+        <Dialog open={true}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Create Movement</DialogTitle>
