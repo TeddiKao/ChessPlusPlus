@@ -1,8 +1,21 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+
 function MovementCreationDialog() {
     return (
-        <div>
-            <h2>Movement Creation Dialog</h2>
-        </div>
+        <Dialog>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Create Movement</DialogTitle>
+                </DialogHeader>
+
+                <Field>
+                    <FieldLabel htmlFor="movementNameInput">Movement Name</FieldLabel>
+                    <Input id="movementNameInput" type="text" placeholder="Enter movement name" />
+                </Field>
+            </DialogContent>
+        </Dialog>
     );
 }
 
