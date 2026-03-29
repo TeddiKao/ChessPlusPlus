@@ -11,7 +11,7 @@ function MovementCreationDialog() {
                     <DialogTitle>Create Movement</DialogTitle>
                 </DialogHeader>
 
-                <Field>
+                <Field className="gap-2">
                     <FieldLabel htmlFor="movementNameInput">Movement Name</FieldLabel>
                     <Input id="movementNameInput" type="text" placeholder="Enter movement name" />
                 </Field>
