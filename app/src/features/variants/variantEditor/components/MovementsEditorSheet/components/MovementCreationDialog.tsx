@@ -27,7 +27,7 @@ function MovementCreationDialog() {
 		clearMovementNameErrors,
 	} = useCreateMovementDialogStore();
 
-	const { movementRulesDraft, updateMovementRulesDraft } =
+	const { movementRulesDraft, updateMovementRulesDraft, syncMovementRulesDraftToDB } =
 		useVariantDraftStore();
 
 	if (!movementRulesDraft) return null;
@@ -56,6 +56,8 @@ function MovementCreationDialog() {
 		);
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
+		syncMovementRulesDraftToDB();
+		
 		closeCreateMovementDialog();
 	}
 
