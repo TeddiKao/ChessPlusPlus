@@ -58,14 +58,14 @@ function handleMovementNameUpdate(
 	newMovementName: string,
 ) {
 	for (const [pieceName] of Object.entries(pieceRulesetDraft)) {
-		pieceRulesetDraft[pieceName].moveset.map((move) => {
+		pieceRulesetDraft[pieceName].moveset = pieceRulesetDraft[pieceName].moveset.map((move) => {
 			if (Array.isArray(move)) {
 				return move.map((chainedMove) => {
 					if (chainedMove.moveName !== originalMovementName)
 						return chainedMove;
 
 					return {
-						...move,
+						...chainedMove,
 						moveName: newMovementName,
 					};
 				});
@@ -76,7 +76,9 @@ function handleMovementNameUpdate(
 					...move,
 					moveName: newMovementName,
 				};
-			}
+			} 
+
+			return move;
 		});
 	}
 }
