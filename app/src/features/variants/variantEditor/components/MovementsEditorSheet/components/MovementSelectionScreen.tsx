@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import MovementCreationDialog from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementCreationDialog";
+import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
 
 export function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { updateActiveMovementName } = useMovementsEditorStore();
+	const { openCreateMovementDialog } = useCreateMovementDialogStore();
 
 	if (!movementRulesDraft) return null;
 
@@ -50,7 +52,7 @@ export function MovementSelectionScreen() {
 				</div>
 
 				<SheetFooter>
-					<Button>Create movement</Button>
+					<Button onClick={openCreateMovementDialog}>Create movement</Button>
 					<SheetClose asChild>
 						<Button variant="outline">Close</Button>
 					</SheetClose>
