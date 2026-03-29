@@ -9,14 +9,61 @@ import {
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function MovementCreationDialog() {
 	const {
 		isCreateMovementDialogOpen,
 		openCreateMovementDialog,
 		closeCreateMovementDialog,
+
+		movementName,
+		updateMovementName,
+		clearMovementName,
+
 		movementNameErrors,
+		updateMovementNameErrors,
+		clearMovementNameErrors,
 	} = useCreateMovementDialogStore();
+
+	const { movementRulesDraft, updateMovementRulesDraft } =
+		useVariantDraftStore();
+
+	if (!movementRulesDraft) return null;
+
+	function handleMovementCreation() {
+		if (!movementRulesDraft) return;
+
+		if (movementName.trim() === "") {
+			updateMovementNameErrors(["Movement name cannot be empty"]);
+			return;
+		}
+
+		const sameMovementNames = Object.entries(movementRulesDraft).filter(
+			([key]) => key === movementName,
+		);
+
+		if (sameMovementNames.length > 0) {
+			updateMovementNameErrors(["Movement name already exists"]);
+			return;
+		}
+
+		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
+
+		updatedMovementRulesDraft[movementName] = {
+			forMovement: true,
+			forCapture: true,
+			conditions: [],
+			moveDefinition: {
+				moveX: 0,
+				moveY: 0,
+				range: 1,
+				moveStopConditions: [],
+			},
+		};
+
+		updateMovementRulesDraft(updatedMovementRulesDraft);
+	}
 
 	return (
 		<Dialog
@@ -25,6 +72,8 @@ function MovementCreationDialog() {
 				if (open) {
 					openCreateMovementDialog();
 				} else {
+					clearMovementName();
+					clearMovementNameErrors();
 					closeCreateMovementDialog();
 				}
 			}}
@@ -34,7 +83,10 @@ function MovementCreationDialog() {
 					<DialogTitle>Create Movement</DialogTitle>
 				</DialogHeader>
 
-				<Field data-invalid={movementNameErrors.length > 0} className="gap-2">
+				<Field
+					data-invalid={movementNameErrors.length > 0}
+					className="gap-2"
+				>
 					<FieldLabel htmlFor="movementNameInput">
 						Movement Name
 					</FieldLabel>
@@ -42,6 +94,8 @@ function MovementCreationDialog() {
 						id="movementNameInput"
 						type="text"
 						placeholder="Enter movement name"
+						value={movementName}
+						onChange={(e) => updateMovementName(e.target.value)}
 						aria-invalid={movementNameErrors.length > 0}
 					/>
 					<FieldError
@@ -52,7 +106,9 @@ function MovementCreationDialog() {
 				</Field>
 
 				<DialogFooter>
-					<Button className="px-4">Create</Button>
+					<Button className="px-4" onClick={handleMovementCreation}>
+						Create
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
