@@ -53,9 +53,10 @@ type MovementsEditorStore = {
 	clearRange: () => void;
 
 	commitToDraft: (keys?: (keyof MovementsEditorChanges)[]) => void;
+	resetMovementsEditorState: () => void;
 };
 
-const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
+const useMovementsEditorStore = create<MovementsEditorStore>((set, get, store) => ({
 	activeMovementName: null,
 	updateActiveMovementName: (newMovementName) =>
 		set({ activeMovementName: newMovementName }),
@@ -271,6 +272,10 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+	},
+
+	resetMovementsEditorState: () => {
+		set(store.getInitialState());
 	},
 }));
 
