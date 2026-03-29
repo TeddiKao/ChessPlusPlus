@@ -202,8 +202,6 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get, store) =
 				),
 			);
 
-			console.log(changesToCommit);
-
 			const nonNameChanges = Object.fromEntries(
 				Object.entries(changesToCommit).filter(
 					([key]) => key !== "movementName",
