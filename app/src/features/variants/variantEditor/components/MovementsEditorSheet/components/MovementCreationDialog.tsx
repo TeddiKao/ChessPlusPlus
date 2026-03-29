@@ -40,7 +40,7 @@ function MovementCreationDialog() {
 		}
 
 		const sameMovementNames = Object.entries(movementRulesDraft).filter(
-			([key]) => key === movementName,
+			([key]) => key === movementName.trim(),
 		);
 
 		if (sameMovementNames.length > 0) {
@@ -50,7 +50,7 @@ function MovementCreationDialog() {
 
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 
-		updatedMovementRulesDraft[movementName] = {
+		updatedMovementRulesDraft[movementName.trim()] = {
 			forMovement: true,
 			forCapture: true,
 			conditions: [],
@@ -63,6 +63,7 @@ function MovementCreationDialog() {
 		};
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
+		closeCreateMovementDialog();
 	}
 
 	return (
