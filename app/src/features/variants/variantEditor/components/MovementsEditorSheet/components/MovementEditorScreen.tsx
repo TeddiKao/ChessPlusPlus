@@ -20,6 +20,7 @@ import { useEffect, useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import MovementDeletionAlert from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementDeletionAlert";
+import useDeleteMovementAlertStore from "@/features/variants/variantEditor/stores/deleteMovementAlert";
 
 export function MovementEditorScreen() {
 	const {
@@ -46,6 +47,8 @@ export function MovementEditorScreen() {
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { movementRulesDraft, syncMovementRulesDraftToDB } =
 		useVariantDraftStore();
+
+	const { openDeleteMovementAlert, updateMovementToDelete } = useDeleteMovementAlertStore();
 
 	const previousRangeInputRef = useRef<number | null>(null);
 
@@ -87,6 +90,13 @@ export function MovementEditorScreen() {
 	if (isNullOrUndefined(range)) return null;
 	if (isNullOrUndefined(offsetX)) return null;
 	if (isNullOrUndefined(offsetY)) return null;
+
+	function handleDeleteMovementButtonClick() {
+		if (!activeMovementName) return;
+
+		updateMovementToDelete(activeMovementName);
+		openDeleteMovementAlert();
+	}
 
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
@@ -313,7 +323,7 @@ export function MovementEditorScreen() {
 				</div>
 
 				<SheetFooter>
-					<Button variant="destructive">Delete movement</Button>
+					<Button onClick={handleDeleteMovementButtonClick} variant="destructive">Delete movement</Button>
 				</SheetFooter>
 			</>
 
