@@ -13,8 +13,8 @@ function MovementDeletionAlert() {
                 </AlertDialogHeader>
                 
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Delete</AlertDialogAction>
+                    <AlertDialogCancel className="px-4">Cancel</AlertDialogCancel>
+                    <AlertDialogAction className="px-4">Delete</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
