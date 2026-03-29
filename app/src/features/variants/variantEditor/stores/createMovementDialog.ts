@@ -8,6 +8,10 @@ type CreateMovementDialogStore = {
     movementName: string;
     updateMovementName: (movementName: string) => void;
     clearMovementName: () => void;
+
+    movementNameErrors: string[];
+    updateMovementNameErrors: (movementNameErrors: string[]) => void;
+    clearMovementNameErrors: () => void;
 }
 
 const useCreateMovementDialogStore = create<CreateMovementDialogStore>((set) => ({
@@ -18,6 +22,10 @@ const useCreateMovementDialogStore = create<CreateMovementDialogStore>((set) => 
     movementName: "",
     updateMovementName: (movementName: string) => set({ movementName }),
     clearMovementName: () => set({ movementName: "" }),
+    
+    movementNameErrors: [],
+    updateMovementNameErrors: (movementNameErrors: string[]) => set({ movementNameErrors }),
+    clearMovementNameErrors: () => set({ movementNameErrors: [] }),
 }));
 
 export default useCreateMovementDialogStore;
