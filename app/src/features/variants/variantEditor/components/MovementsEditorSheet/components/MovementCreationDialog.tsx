@@ -51,7 +51,9 @@ function MovementCreationDialog() {
 
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 
-		updatedMovementRulesDraft[movementName.trim()] = newMovementDefaults;
+		updatedMovementRulesDraft[movementName.trim()] = structuredClone(
+			newMovementDefaults,
+		);
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
 		closeCreateMovementDialog();
