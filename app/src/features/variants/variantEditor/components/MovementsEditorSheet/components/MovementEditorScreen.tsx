@@ -88,6 +88,8 @@ export function MovementEditorScreen() {
 
 	function handleBackClick() {
 		updateCurrentMode("movementSelection");
+
+		commitToDraft();
 		syncMovementRulesDraftToDB();
 	}
 
