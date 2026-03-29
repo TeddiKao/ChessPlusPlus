@@ -39,6 +39,7 @@ export function MovementSelectionScreen() {
 					{Object.entries(movementRulesDraft).map(
 						([movementName]) => (
 							<Button
+								key={movementName}
 								className="p-0 px-1 text-left justify-start hover:bg-(--sidebar-primary-hover)"
 								variant="ghost"
 								onClick={() =>
