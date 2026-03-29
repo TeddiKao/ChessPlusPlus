@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import MovementDeletionAlert from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementDeletionAlert";
 
 export function MovementEditorScreen() {
 	const {
@@ -43,7 +44,8 @@ export function MovementEditorScreen() {
 		commitToDraft,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
-	const { movementRulesDraft, syncMovementRulesDraftToDB } = useVariantDraftStore();
+	const { movementRulesDraft, syncMovementRulesDraftToDB } =
+		useVariantDraftStore();
 
 	const previousRangeInputRef = useRef<number | null>(null);
 
@@ -75,7 +77,7 @@ export function MovementEditorScreen() {
 		updateOffsetY,
 		updateForMovement,
 		updateForCapture,
-		updateMovementName
+		updateMovementName,
 	]);
 
 	if (!activeMovementName) return null;
@@ -135,7 +137,6 @@ export function MovementEditorScreen() {
 		addMovementsEditorChanges({ offsetY: e.target.valueAsNumber });
 	}
 
-	
 	function handleMovementNameInputBlur() {
 		commitToDraft(["movementName"]);
 	}
@@ -163,153 +164,160 @@ export function MovementEditorScreen() {
 	function handleUnlimitedRangeInputBlur() {
 		commitToDraft(["range"]);
 	}
-	
 
 	return (
 		<>
-			<SheetHeader>
-				<div className="flex flex-row gap-2 items-center">
-					<Button
-						className="p-0 hover:bg-(--sidebar-primary-hover)"
-						variant="ghost"
-						onClick={handleBackClick}
-					>
-						<IconChevronLeft className="size-5" />
-					</Button>
+			<>
+				<SheetHeader>
+					<div className="flex flex-row gap-2 items-center">
+						<Button
+							className="p-0 hover:bg-(--sidebar-primary-hover)"
+							variant="ghost"
+							onClick={handleBackClick}
+						>
+							<IconChevronLeft className="size-5" />
+						</Button>
 
-					<SheetTitle>Movement editor</SheetTitle>
-				</div>
-
-				<SheetDescription>
-					You are currently editing the movement rule "
-					{activeMovementName}". Click on the back arrow to change
-					your selection.
-				</SheetDescription>
-			</SheetHeader>
-
-			<div className="px-4 flex flex-col gap-4">
-				<FieldSet>
-					<FieldLegend>Basic information</FieldLegend>
-					<Field
-						className="grid grid-cols-2 items-center"
-						orientation="horizontal"
-					>
-						<FieldLabel htmlFor="movementNameInput">
-							Name
-						</FieldLabel>
-						<Input
-							className="bg-background"
-							id="movementNameInput"
-							type="text"
-							placeholder="Movement name"
-							value={movementName}
-							onChange={handleMovementNameInputChange}
-							onBlur={handleMovementNameInputBlur}
-						/>
-					</Field>
-				</FieldSet>
-
-				<FieldSet>
-					<FieldLegend>Allowed move types</FieldLegend>
-
-					<div className="flex flex-col gap-2">
-						<Field orientation="horizontal">
-							<Checkbox
-								className="bg-background"
-								id="isMovementAllowed"
-								checked={forMovement ?? false}
-								onCheckedChange={handleForMovementInputChange}
-								onBlur={handleForMovementInputBlur}
-							/>
-							<FieldLabel htmlFor="isMovementAllowed">
-								Movement
-							</FieldLabel>
-						</Field>
-						<Field orientation="horizontal">
-							<Checkbox
-								className="bg-background"
-								id="isCaptureAllowed"
-								checked={forCapture ?? false}
-								onCheckedChange={handleForCaptureInputChange}
-								onBlur={handleForCaptureInputBlur}
-							/>
-							<FieldLabel htmlFor="isCaptureAllowed">
-								Capture
-							</FieldLabel>
-						</Field>
+						<SheetTitle>Movement editor</SheetTitle>
 					</div>
-				</FieldSet>
 
-				<FieldSet>
-					<FieldLegend>Move definition</FieldLegend>
-					<Field className="grid grid-cols-2 items-center">
-						<FieldLabel>Offsets</FieldLabel>
+					<SheetDescription>
+						You are currently editing the movement rule "
+						{activeMovementName}". Click on the back arrow to change
+						your selection.
+					</SheetDescription>
+				</SheetHeader>
 
-						<div className="grid grid-cols-2 gap-2 items-center">
-							<Input
-								className="bg-background"
-								type="number"
-								placeholder="X"
-								value={offsetX}
-								onChange={handleOffsetXInputChange}
-								onBlur={handleOffsetXInputBlur}
-							/>
-							<Input
-								className="bg-background"
-								type="number"
-								placeholder="Y"
-								value={offsetY}
-								onChange={handleOffsetYInputChange}
-								onBlur={handleOffsetYInputBlur}
-							/>
-						</div>
-					</Field>
-
-					<FieldSet className="gap-2">
-						<FieldLegend className="data-[variant=legend]:text-sm">
-							Range settings
-						</FieldLegend>
+				<div className="px-4 flex flex-col gap-4">
+					<FieldSet>
+						<FieldLegend>Basic information</FieldLegend>
 						<Field
 							className="grid grid-cols-2 items-center"
 							orientation="horizontal"
 						>
-							<FieldLabel htmlFor="movementRangeInput">
-								Range
+							<FieldLabel htmlFor="movementNameInput">
+								Name
 							</FieldLabel>
 							<Input
 								className="bg-background"
-								id="movementRangeInput"
-								type="number"
-								placeholder="Range"
-								value={range}
-								onChange={handleRangeInputChange}
-								disabled={range === "inf"}
-								aria-disabled={range === "inf"}
-								onBlur={handleRangeInputBlur}
+								id="movementNameInput"
+								type="text"
+								placeholder="Movement name"
+								value={movementName}
+								onChange={handleMovementNameInputChange}
+								onBlur={handleMovementNameInputBlur}
 							/>
-						</Field>
-
-						<Field orientation="horizontal">
-							<Checkbox
-								className="bg-background"
-								id="hasUnlimitedRange"
-								checked={range === "inf"}
-								onCheckedChange={
-									handleUnlimitedRangeInputChange
-								}
-								onBlur={handleUnlimitedRangeInputBlur}
-							/>
-							<FieldLabel htmlFor="hasUnlimitedRange">
-								Unlimited
-							</FieldLabel>
 						</Field>
 					</FieldSet>
-				</FieldSet>
-			</div>
 
-			<SheetFooter>
-				<Button variant="destructive">Delete movement</Button>
-			</SheetFooter>
+					<FieldSet>
+						<FieldLegend>Allowed move types</FieldLegend>
+
+						<div className="flex flex-col gap-2">
+							<Field orientation="horizontal">
+								<Checkbox
+									className="bg-background"
+									id="isMovementAllowed"
+									checked={forMovement ?? false}
+									onCheckedChange={
+										handleForMovementInputChange
+									}
+									onBlur={handleForMovementInputBlur}
+								/>
+								<FieldLabel htmlFor="isMovementAllowed">
+									Movement
+								</FieldLabel>
+							</Field>
+							<Field orientation="horizontal">
+								<Checkbox
+									className="bg-background"
+									id="isCaptureAllowed"
+									checked={forCapture ?? false}
+									onCheckedChange={
+										handleForCaptureInputChange
+									}
+									onBlur={handleForCaptureInputBlur}
+								/>
+								<FieldLabel htmlFor="isCaptureAllowed">
+									Capture
+								</FieldLabel>
+							</Field>
+						</div>
+					</FieldSet>
+
+					<FieldSet>
+						<FieldLegend>Move definition</FieldLegend>
+						<Field className="grid grid-cols-2 items-center">
+							<FieldLabel>Offsets</FieldLabel>
+
+							<div className="grid grid-cols-2 gap-2 items-center">
+								<Input
+									className="bg-background"
+									type="number"
+									placeholder="X"
+									value={offsetX}
+									onChange={handleOffsetXInputChange}
+									onBlur={handleOffsetXInputBlur}
+								/>
+								<Input
+									className="bg-background"
+									type="number"
+									placeholder="Y"
+									value={offsetY}
+									onChange={handleOffsetYInputChange}
+									onBlur={handleOffsetYInputBlur}
+								/>
+							</div>
+						</Field>
+
+						<FieldSet className="gap-2">
+							<FieldLegend className="data-[variant=legend]:text-sm">
+								Range settings
+							</FieldLegend>
+							<Field
+								className="grid grid-cols-2 items-center"
+								orientation="horizontal"
+							>
+								<FieldLabel htmlFor="movementRangeInput">
+									Range
+								</FieldLabel>
+								<Input
+									className="bg-background"
+									id="movementRangeInput"
+									type="number"
+									placeholder="Range"
+									value={range}
+									onChange={handleRangeInputChange}
+									disabled={range === "inf"}
+									aria-disabled={range === "inf"}
+									onBlur={handleRangeInputBlur}
+								/>
+							</Field>
+
+							<Field orientation="horizontal">
+								<Checkbox
+									className="bg-background"
+									id="hasUnlimitedRange"
+									checked={range === "inf"}
+									onCheckedChange={
+										handleUnlimitedRangeInputChange
+									}
+									onBlur={handleUnlimitedRangeInputBlur}
+								/>
+								<FieldLabel htmlFor="hasUnlimitedRange">
+									Unlimited
+								</FieldLabel>
+							</Field>
+						</FieldSet>
+					</FieldSet>
+				</div>
+
+				<SheetFooter>
+					<Button variant="destructive">Delete movement</Button>
+				</SheetFooter>
+			</>
+
+			<MovementDeletionAlert />
 		</>
 	);
 }
