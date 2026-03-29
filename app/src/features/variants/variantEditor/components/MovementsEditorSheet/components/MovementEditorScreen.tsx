@@ -138,13 +138,21 @@ export function MovementEditorScreen() {
 	}
 
 	function handleOffsetXInputChange(e: ChangeEvent<HTMLInputElement>) {
-		updateOffsetX(e.target.valueAsNumber);
-		addMovementsEditorChanges({ offsetX: e.target.valueAsNumber });
+		const newOffsetX = e.target.valueAsNumber;
+		if (Number.isNaN(newOffsetX)) return;
+		if (!Number.isFinite(newOffsetX)) return;
+
+		updateOffsetX(newOffsetX);
+		addMovementsEditorChanges({ offsetX: newOffsetX });
 	}
 
 	function handleOffsetYInputChange(e: ChangeEvent<HTMLInputElement>) {
-		updateOffsetY(e.target.valueAsNumber);
-		addMovementsEditorChanges({ offsetY: e.target.valueAsNumber });
+		const newOffsetY = e.target.valueAsNumber;
+		if (Number.isNaN(newOffsetY)) return;
+		if (!Number.isFinite(newOffsetY)) return;
+
+		updateOffsetY(newOffsetY);
+		addMovementsEditorChanges({ offsetY: newOffsetY });
 	}
 
 	function handleMovementNameInputBlur() {
