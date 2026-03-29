@@ -177,6 +177,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 				},
 			};
 
+			updatedMovementRulesDraft[originalMovementName] = newMovementInfo;
+
 			if (Object.keys(movementEditorChanges).includes("movementName")) {
 				if (!movementEditorChanges.movementName) return;
 
@@ -245,6 +247,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					...renamedMoveDefinitionChanges,
 				},
 			};
+
+			updatedMovementRulesDraft[originalMovementName] = newMovementInfo;
 
 			if (Object.keys(movementEditorChanges).includes("movementName")) {
 				if (!movementEditorChanges.movementName) return;
