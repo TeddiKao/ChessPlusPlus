@@ -2,10 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
 
 function MovementCreationDialog() {
+    const { isCreateMovementDialogOpen, openCreateMovementDialog, closeCreateMovementDialog } = useCreateMovementDialogStore();
+
     return (
-        <Dialog open={true}>
+        <Dialog open={isCreateMovementDialogOpen} onOpenChange={(open) => {
+            if (open) {
+                openCreateMovementDialog();
+            } else {
+                closeCreateMovementDialog();
+            }
+        }}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Create Movement</DialogTitle>
