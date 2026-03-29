@@ -23,8 +23,11 @@ function MovementDeletionAlert() {
 	} = useDeleteMovementAlertStore();
 	const {
 		movementRulesDraft,
+		pieceRulesetDraft,
 		updateMovementRulesDraft,
+		updatePieceRulesetDraft,
 		syncMovementRulesDraftToDB,
+		syncPieceRulesetDraftToDB,
 	} = useVariantDraftStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { resetMovementsEditorState } = useMovementsEditorStore();
@@ -35,11 +38,30 @@ function MovementDeletionAlert() {
 		if (!movementRulesDraft) return;
 		if (!movementToDelete) return;
 
+		if (!pieceRulesetDraft) return;
+
 		const newMovementRulesDraft = structuredClone(movementRulesDraft);
 		delete newMovementRulesDraft[movementToDelete];
 
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+		
+		for (const [pieceName] of Object.entries(updatedPieceRulesetDraft)) {
+			updatedPieceRulesetDraft[pieceName].moveset = pieceRulesetDraft[pieceName].moveset.map((move) => {
+				if (Array.isArray(move)) {
+					return move.filter((chainedMove) => chainedMove.moveName !== movementToDelete);
+				}
+				if (move.moveName === movementToDelete) {
+					return null;
+				}
+				return move;
+			}).filter((move) => move !== null);
+		}
+		
+
 		updateMovementRulesDraft(newMovementRulesDraft);
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
 		syncMovementRulesDraftToDB();
+		syncPieceRulesetDraftToDB();
 
 		closeDeleteMovementAlert();
 
