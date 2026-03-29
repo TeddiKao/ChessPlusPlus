@@ -304,7 +304,7 @@ export function MovementEditorScreen() {
 									id="movementRangeInput"
 									type="number"
 									placeholder="Range"
-									value={range}
+									value={range === "inf" ? "" : range}
 									onChange={handleRangeInputChange}
 									disabled={range === "inf"}
 									aria-disabled={range === "inf"}
