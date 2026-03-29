@@ -21,8 +21,11 @@ function MovementDeletionAlert() {
 		movementToDelete,
 		clearMovementToDelete,
 	} = useDeleteMovementAlertStore();
-	const { movementRulesDraft, updateMovementRulesDraft } =
-		useVariantDraftStore();
+	const {
+		movementRulesDraft,
+		updateMovementRulesDraft,
+		syncMovementRulesDraftToDB,
+	} = useVariantDraftStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
 	const { resetMovementsEditorState } = useMovementsEditorStore();
 
@@ -36,6 +39,8 @@ function MovementDeletionAlert() {
 		delete newMovementRulesDraft[movementToDelete];
 
 		updateMovementRulesDraft(newMovementRulesDraft);
+		syncMovementRulesDraftToDB();
+
 		closeDeleteMovementAlert();
 
 		updateCurrentMode("movementSelection");
