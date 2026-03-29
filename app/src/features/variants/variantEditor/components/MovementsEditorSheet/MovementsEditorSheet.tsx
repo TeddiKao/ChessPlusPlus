@@ -7,7 +7,7 @@ import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stor
 function MovementsEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
 		useSidebarStore();
-	const { currentMode } = useMovementsEditorSheetStore();
+	const { currentMode, updateCurrentMode } = useMovementsEditorSheetStore();
 
 	return (
 		<Sheet
@@ -17,6 +17,7 @@ function MovementsEditorSheet() {
 					updateCurrentOpenMenu("movements");
 				} else {
 					clearCurrentOpenMenu();
+					updateCurrentMode("movementSelection");
 				}
 			}}
 		>
