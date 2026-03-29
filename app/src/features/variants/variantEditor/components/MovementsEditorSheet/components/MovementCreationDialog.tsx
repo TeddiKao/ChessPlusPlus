@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { newMovementDefaults } from "@/features/variants/variantEditor/constants/newMovementDefaults";
 import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
@@ -50,17 +51,7 @@ function MovementCreationDialog() {
 
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 
-		updatedMovementRulesDraft[movementName.trim()] = {
-			forMovement: true,
-			forCapture: true,
-			conditions: [],
-			moveDefinition: {
-				moveX: 0,
-				moveY: 0,
-				range: 1,
-				moveStopConditions: [],
-			},
-		};
+		updatedMovementRulesDraft[movementName.trim()] = newMovementDefaults;
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
 		closeCreateMovementDialog();
