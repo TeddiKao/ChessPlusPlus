@@ -125,7 +125,7 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
 
-		const originalMovementName = get().movementName;
+		const originalMovementName = get().activeMovementName;
 		if (!originalMovementName) return;
 
 		const originalMovementInfo = movementRulesDraft[originalMovementName];
@@ -200,6 +200,8 @@ const useMovementsEditorStore = create<MovementsEditorStore>((set, get) => ({
 					keys.includes(key as keyof MovementsEditorChanges),
 				),
 			);
+
+			console.log(changesToCommit);
 
 			const nonNameChanges = Object.fromEntries(
 				Object.entries(changesToCommit).filter(
