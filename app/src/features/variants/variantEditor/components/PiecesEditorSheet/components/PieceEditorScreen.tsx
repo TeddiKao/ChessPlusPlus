@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
 	SheetDescription,
+	SheetFooter,
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
@@ -38,6 +39,10 @@ function PieceEditorScreen() {
 					back arrow to change your selection.
 				</SheetDescription>
 			</SheetHeader>
+
+			<SheetFooter>
+				<Button variant="destructive">Delete piece</Button>
+			</SheetFooter>
 		</>
 	);
 }
