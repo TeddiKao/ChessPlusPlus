@@ -153,7 +153,7 @@ function PieceEditorScreen() {
 							</CollapsibleTrigger>
 						</div>
 
-						<CollapsibleContent className="flex flex-col overflow-y-scroll">
+						<CollapsibleContent className="flex flex-col overflow-y-auto">
 							{activePieceMovements.map((movement) => (
 								<div
 									className="flex flex-row items-center justify-between"
