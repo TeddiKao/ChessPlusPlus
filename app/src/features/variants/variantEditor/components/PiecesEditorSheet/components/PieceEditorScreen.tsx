@@ -13,24 +13,46 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { RegularMove } from "@/features/variants/common/types/pieceRules";
 import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import {
 	IconChevronDown,
 	IconChevronLeft,
 	IconChevronUp,
 	IconUpload,
 } from "@tabler/icons-react";
+import { useEffect } from "react";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
+	const { pieceRulesetDraft } = useVariantDraftStore();
 	const {
 		activePiece,
 		activePieceMovements,
 		isMovementsExpanded,
 		expandMovements,
 		collapseMovements,
+
+		updatePieceName,
+		updateMovementsInActivePiece,
 	} = usePiecesEditorStore();
+
+	useEffect(() => {
+		if (!pieceRulesetDraft) return;
+		if (!activePiece) return;
+
+		const activePieceInfo = pieceRulesetDraft[activePiece];
+		if (!activePieceInfo) return;
+
+		const activePieceMovements = activePieceInfo.moveset;;
+
+		const regularMoves = activePieceMovements.filter((move) => !Array.isArray(move));
+
+		updateMovementsInActivePiece(regularMoves as RegularMove[]);
+		updatePieceName(activePiece);
+	}, [pieceRulesetDraft, activePiece, updateMovementsInActivePiece, updatePieceName]);
 
 	if (!activePiece) return null;
 
