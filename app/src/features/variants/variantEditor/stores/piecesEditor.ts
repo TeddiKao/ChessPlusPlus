@@ -20,18 +20,9 @@ type PiecesEditorStore = {
 	) => void;
 	clearPieceEditorChanges: () => void;
 
-	activePieceMovements: {
-		white: RegularMove[];
-		black: RegularMove[];
-	};
-	addMovementToActivePiece: (
-		color: "white" | "black",
-		movementName: string,
-	) => void;
-	removeMovementFromActivePiece: (
-		color: "white" | "black",
-		movementToRemove: string,
-	) => void;
+	activePieceMovements: RegularMove[];
+	addMovementToActivePiece: (movement: RegularMove) => void;
+	removeMovementFromActivePiece: (movementName: string) => void;
 	clearMovementsFromActivePiece: () => void;
 
 	pieceName: string | null;
@@ -68,33 +59,18 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 
 	clearPieceEditorChanges: () => set({ piecesEditorChanges: {} }),
 
-	activePieceMovements: { white: [], black: [] },
-	addMovementToActivePiece: (color, movementName) =>
+	activePieceMovements: [],
+	addMovementToActivePiece: (movement) =>
 		set((state) => ({
-			activePieceMovements: {
-				...state.activePieceMovements,
-				[color]: {
-					...state.activePieceMovements[color],
-					movementName,
-				},
-			},
+			activePieceMovements: [...state.activePieceMovements, movement],
 		})),
-	removeMovementFromActivePiece: (color, movementToRemove) =>
+	removeMovementFromActivePiece: (movementName) =>
 		set((state) => ({
-			activePieceMovements: {
-				...state.activePieceMovements,
-				[color]: {
-					...state.activePieceMovements[color].filter(
-						(movementInfo) =>
-							movementInfo.moveName !== movementToRemove,
-					),
-				},
-			},
+			activePieceMovements: state.activePieceMovements.filter(
+				(movement) => movement.moveName !== movementName,
+			),
 		})),
-
-	clearMovementsFromActivePiece: () => {
-		set({ activePieceMovements: { white: [], black: [] } });
-	},
+	clearMovementsFromActivePiece: () => set({ activePieceMovements: [] }),
 
 	pieceName: null,
 	updatePieceName: (newPieceName) => set({ pieceName: newPieceName }),
