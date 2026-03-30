@@ -49,11 +49,18 @@ function PieceEditorScreen() {
 
 		const activePieceMovements = activePieceInfo.moveset;
 
-		const regularMoves = activePieceMovements.filter((move) => !Array.isArray(move));
+		const regularMoves = activePieceMovements.filter(
+			(move) => !Array.isArray(move),
+		);
 
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
 		updatePieceName(activePiece);
-	}, [pieceRulesetDraft, activePiece, updateMovementsInActivePiece, updatePieceName]);
+	}, [
+		pieceRulesetDraft,
+		activePiece,
+		updateMovementsInActivePiece,
+		updatePieceName,
+	]);
 
 	if (!activePiece) return null;
 
@@ -160,6 +167,7 @@ function PieceEditorScreen() {
 			</Tabs>
 
 			<SheetFooter>
+				<Button>Add movement</Button>
 				<Button variant="destructive">Delete piece</Button>
 			</SheetFooter>
 		</>
