@@ -8,15 +8,12 @@ function handlePieceNameUpdate(
 	originalPieceName: string,
 	pieceRulesetDraft: PieceRuleset,
 	setupRulesDraft: SetupRules,
-	whitePieceInfo: PieceRules,
-	blackPieceInfo: PieceRules,
+	pieceInfo: PieceRules,
 	newName: string,
 ) {
-	delete pieceRulesetDraft[`white_${originalPieceName}`];
-	delete pieceRulesetDraft[`black_${originalPieceName}`];
+	delete pieceRulesetDraft[originalPieceName];
 
-	pieceRulesetDraft[`white_${newName}`] = whitePieceInfo;
-	pieceRulesetDraft[`black_${newName}`] = blackPieceInfo;
+	pieceRulesetDraft[newName] = pieceInfo;
 
 	const pieceOwnership = setupRulesDraft.pieceOwnership;
 	const startingPosition = setupRulesDraft.startingPosition;
@@ -36,15 +33,10 @@ function handlePieceNameUpdate(
 	);
 
 	setupRulesDraft.startingPosition = startingPosition.map((squareInfo) => {
-		if (squareInfo.pieceName === `white_${originalPieceName}`) {
+		if (squareInfo.pieceName === originalPieceName) {
 			return {
 				...squareInfo,
-				pieceName: `white_${newName}`,
-			};
-		} else if (squareInfo.pieceName === `black_${originalPieceName}`) {
-			return {
-				...squareInfo,
-				pieceName: `black_${newName}`,
+				pieceName: newName,
 			};
 		} else {
 			return squareInfo;
