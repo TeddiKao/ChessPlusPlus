@@ -14,6 +14,7 @@ import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/
 import {
 	IconChevronDown,
 	IconChevronLeft,
+	IconChevronUp,
 	IconUpload,
 } from "@tabler/icons-react";
 
@@ -84,11 +85,13 @@ function PieceEditorScreen() {
 				<TabsContent value="movements">
 					<Collapsible
 						open={isMovementsExpanded}
-						onOpenChange={
-							isMovementsExpanded
-								? expandMovements
-								: collapseMovements
-						}
+						onOpenChange={(open) => {
+							if (open) {
+								expandMovements();
+							} else {
+								collapseMovements();
+							}
+						}}
 					>
 						<div className="flex flex-row justify-between">
 							<p className="font-semibold">Movements</p>
@@ -98,7 +101,11 @@ function PieceEditorScreen() {
 									variant="ghost"
 									className="p-0 px-1 hover:bg-(--sidebar-primary-hover) hover:aria-expanded:bg-(--sidebar-primary-hover)"
 								>
-									<IconChevronDown className="size-5" />
+									{isMovementsExpanded ? (
+										<IconChevronUp className="size-5" />
+									) : (
+										<IconChevronDown className="size-5" />
+									)}
 								</Button>
 							</CollapsibleTrigger>
 						</div>
