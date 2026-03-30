@@ -21,6 +21,7 @@ import {
 	IconChevronDown,
 	IconChevronLeft,
 	IconChevronUp,
+	IconDotsVertical,
 	IconUpload,
 } from "@tabler/icons-react";
 import { useEffect } from "react";
@@ -46,7 +47,7 @@ function PieceEditorScreen() {
 		const activePieceInfo = pieceRulesetDraft[activePiece];
 		if (!activePieceInfo) return;
 
-		const activePieceMovements = activePieceInfo.moveset;;
+		const activePieceMovements = activePieceInfo.moveset;
 
 		const regularMoves = activePieceMovements.filter((move) => !Array.isArray(move));
 
@@ -111,6 +112,7 @@ function PieceEditorScreen() {
 
 				<TabsContent value="movements">
 					<Collapsible
+						className="flex flex-col gap-1"
 						open={isMovementsExpanded}
 						onOpenChange={(open) => {
 							if (open) {
@@ -137,9 +139,20 @@ function PieceEditorScreen() {
 							</CollapsibleTrigger>
 						</div>
 
-						<CollapsibleContent className="flex flex-col gap-2">
+						<CollapsibleContent className="flex flex-col">
 							{activePieceMovements.map((movement) => (
-								<p key={movement.moveName}>{movement.moveName}</p>
+								<div
+									className="flex flex-row justify-between"
+									key={movement.moveName}
+								>
+									<p>{movement.moveName}</p>
+									<Button
+										variant="ghost"
+										className="p-0 px-1 hover:bg-(--sidebar-primary-hover)"
+									>
+										<IconDotsVertical className="size-5" />
+									</Button>
+								</div>
 							))}
 						</CollapsibleContent>
 					</Collapsible>
