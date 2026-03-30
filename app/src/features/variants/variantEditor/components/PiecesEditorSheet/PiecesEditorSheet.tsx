@@ -8,10 +8,14 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
+import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 
 function PiecesEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
 		useSidebarStore();
+
+	const { pieceRulesetDraft } = useVariantDraftStore();
+	if (!pieceRulesetDraft) return null;
 
 	return (
 		<Sheet
@@ -31,6 +35,12 @@ function PiecesEditorSheet() {
 						Edit the pieces in this variant.
 					</SheetDescription>
 				</SheetHeader>
+
+				<div className="flex flex-col px-3">
+					{Object.keys(pieceRulesetDraft).map((piece) => (
+						<Button className="p-0 px-1 justify-start hover:bg-(--sidebar-primary-hover)" variant="ghost" key={piece}>{piece}</Button>
+					))}
+				</div>
 
 				<SheetFooter>
 					<Button>Create piece</Button>
