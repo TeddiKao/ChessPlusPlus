@@ -24,7 +24,7 @@ function PiecesEditorSheet() {
 				}
 			}}
 		>
-			<SheetContent>
+			<SheetContent showCloseButton={false}>
 				<SheetHeader>
 					<SheetTitle>Pieces Editor</SheetTitle>
 					<SheetDescription>
