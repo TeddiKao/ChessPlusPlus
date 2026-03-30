@@ -1,5 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,6 +26,7 @@ function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
 	const {
 		activePiece,
+		activePieceMovements,
 		isMovementsExpanded,
 		expandMovements,
 		collapseMovements,
@@ -109,6 +114,12 @@ function PieceEditorScreen() {
 								</Button>
 							</CollapsibleTrigger>
 						</div>
+
+						<CollapsibleContent>
+							{activePieceMovements.map((movement) => (
+								<p key={movement.moveName}>{movement.moveName}</p>
+							))}
+						</CollapsibleContent>
 					</Collapsible>
 				</TabsContent>
 			</Tabs>
