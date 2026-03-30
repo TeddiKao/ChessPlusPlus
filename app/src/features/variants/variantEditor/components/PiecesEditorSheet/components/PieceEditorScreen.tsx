@@ -41,7 +41,7 @@ function PieceEditorScreen() {
 				</SheetDescription>
 			</SheetHeader>
 
-			<Tabs className="px-4">
+			<Tabs defaultValue="appearance" className="px-4">
 				<TabsList variant="line">
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="movements">Movements</TabsTrigger>
