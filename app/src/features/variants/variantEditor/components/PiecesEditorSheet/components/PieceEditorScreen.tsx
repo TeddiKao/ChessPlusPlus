@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
 	SheetDescription,
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
-import { IconChevronLeft } from "@tabler/icons-react";
+import { IconChevronLeft, IconUpload } from "@tabler/icons-react";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -46,8 +48,32 @@ function PieceEditorScreen() {
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="movements">Movements</TabsTrigger>
 				</TabsList>
+
+				<TabsContent className="flex flex-col gap-4" value="appearance">
+					<Field className="grid grid-cols-2 gap-4">
+						<FieldLabel htmlFor="pieceNameInput">
+							Piece name
+						</FieldLabel>
+						<Input
+							id="pieceNameInput"
+							type="text"
+							placeholder="Piece name"
+							className="bg-background"
+						/>
+					</Field>
+
+					<div className="grid grid-cols-2 gap-4">
+						<p>Piece image</p>
+						<Button data-icon="inline-start" variant="outline">
+							<IconUpload className="size-5" />
+							<span>Upload image</span>
+						</Button>
+					</div>
+				</TabsContent>
+
+				<TabsContent value="movements"></TabsContent>
 			</Tabs>
-			
+
 			<SheetFooter>
 				<Button variant="destructive">Delete piece</Button>
 			</SheetFooter>
