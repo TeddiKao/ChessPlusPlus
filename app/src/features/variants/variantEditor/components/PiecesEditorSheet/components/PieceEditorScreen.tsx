@@ -5,6 +5,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
 import { IconChevronLeft } from "@tabler/icons-react";
@@ -40,6 +41,13 @@ function PieceEditorScreen() {
 				</SheetDescription>
 			</SheetHeader>
 
+			<Tabs>
+				<TabsList variant="line">
+					<TabsTrigger value="appearance">Appearance</TabsTrigger>
+					<TabsTrigger value="movements">Movements</TabsTrigger>
+				</TabsList>
+			</Tabs>
+			
 			<SheetFooter>
 				<Button variant="destructive">Delete piece</Button>
 			</SheetFooter>
