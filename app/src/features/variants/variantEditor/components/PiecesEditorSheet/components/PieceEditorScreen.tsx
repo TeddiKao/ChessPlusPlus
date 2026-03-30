@@ -31,13 +31,14 @@ import {
 	IconTrash,
 	IconUpload,
 } from "@tabler/icons-react";
-import { useEffect } from "react";
+import { useEffect, type ChangeEvent } from "react";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
 	const { pieceRulesetDraft } = useVariantDraftStore();
 	const {
 		activePiece,
+		pieceName,
 		activePieceMovements,
 		isMovementsExpanded,
 		expandMovements,
@@ -70,9 +71,14 @@ function PieceEditorScreen() {
 	]);
 
 	if (!activePiece) return null;
+	if (!pieceName) return null;
 
 	function handleBackClick() {
 		updateCurrentMode("pieceSelection");
+	}
+
+	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updatePieceName(e.target.value);
 	}
 
 	return (
@@ -112,6 +118,8 @@ function PieceEditorScreen() {
 							type="text"
 							placeholder="Piece name"
 							className="bg-background"
+							value={pieceName}
+							onChange={handlePieceNameInputChange}
 						/>
 					</Field>
 
