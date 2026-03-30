@@ -91,13 +91,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		const originalPieceName = get().pieceName;
 		if (!originalPieceName) return;
 
-		const originalWhitePieceRules =
-			updatedPieceRulesetDraft[`white_${originalPieceName}`];
-		if (!originalWhitePieceRules) return;
-
-		const originalBlackPieceRules =
-			updatedPieceRulesetDraft[`black_${originalPieceName}`];
-		if (!originalBlackPieceRules) return;
+		const originalPieceRules = updatedPieceRulesetDraft[originalPieceName];
+		if (!originalPieceRules) return;
 
 		if (!keys) {
 			const nonNameChanges = Object.fromEntries(
@@ -106,20 +101,12 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				),
 			);
 
-			const newWhitePieceInfo = {
-				...originalWhitePieceRules,
+			const newPieceInfo = {
+				...originalPieceRules,
 				...nonNameChanges,
 			};
 
-			const newBlackPieceInfo = {
-				...originalBlackPieceRules,
-				...nonNameChanges,
-			};
-
-			updatedPieceRulesetDraft[`white_${originalPieceName}`] =
-				newWhitePieceInfo;
-			updatedPieceRulesetDraft[`black_${originalPieceName}`] =
-				newBlackPieceInfo;
+			updatedPieceRulesetDraft[originalPieceName] = newPieceInfo;
 
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
@@ -128,8 +115,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 					originalPieceName,
 					updatedPieceRulesetDraft,
 					updatedSetupRulesDraft,
-					newWhitePieceInfo,
-					newBlackPieceInfo,
+					newPieceInfo,
 					pieceEditorChanges.pieceName,
 				);
 			}
@@ -148,13 +134,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				),
 			);
 
-			const newWhitePieceInfo = {
-				...originalWhitePieceRules,
-				...nonNameChanges,
-			};
-
-			const newBlackPieceInfo = {
-				...originalBlackPieceRules,
+			const newPieceInfo = {
+				...originalPieceRules,
 				...nonNameChanges,
 			};
 
@@ -165,8 +146,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 					originalPieceName,
 					updatedPieceRulesetDraft,
 					updatedSetupRulesDraft,
-					newWhitePieceInfo,
-					newBlackPieceInfo,
+					newPieceInfo,
 					pieceEditorChanges.pieceName,
 				);
 			}
