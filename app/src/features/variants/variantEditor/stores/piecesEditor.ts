@@ -13,6 +13,9 @@ type PiecesEditorStore = {
 	updateActivePiece: (newActivePiece: string) => void;
 	clearActivePiece: () => void;
 
+	isMovementsExpanded: boolean;
+	toggleMovementsExpanded: () => void;
+
 	piecesEditorChanges: Partial<PieceEditorChanges>;
 	addPieceEditorChanges: (changes: Partial<PieceEditorChanges>) => void;
 	removePieceEditorChanges: (
@@ -36,6 +39,9 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	activePiece: null,
 	updateActivePiece: (newPiece) => set({ activePiece: newPiece }),
 	clearActivePiece: () => set({ activePiece: null }),
+
+	isMovementsExpanded: false,
+	toggleMovementsExpanded: () => set((state) => ({ isMovementsExpanded: !state.isMovementsExpanded })),
 
 	piecesEditorChanges: {},
 	addPieceEditorChanges: (changes) =>
