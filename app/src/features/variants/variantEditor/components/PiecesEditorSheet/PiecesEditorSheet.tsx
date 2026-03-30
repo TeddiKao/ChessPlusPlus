@@ -4,6 +4,7 @@ import {
 	SheetContent,
 	SheetDescription,
 	SheetFooter,
+	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
@@ -24,16 +25,18 @@ function PiecesEditorSheet() {
 			}}
 		>
 			<SheetContent>
-				<SheetTitle>Pieces Editor</SheetTitle>
-				<SheetDescription>
-					Edit the pieces in this variant.
-				</SheetDescription>
-			</SheetContent>
+				<SheetHeader>
+					<SheetTitle>Pieces Editor</SheetTitle>
+					<SheetDescription>
+						Edit the pieces in this variant.
+					</SheetDescription>
+				</SheetHeader>
 
-			<SheetFooter>
-				<Button>Create piece</Button>
-				<Button variant="outline">Close</Button>
-			</SheetFooter>
+				<SheetFooter>
+					<Button>Create piece</Button>
+					<Button variant="outline">Close</Button>
+				</SheetFooter>
+			</SheetContent>
 		</Sheet>
 	);
 }
