@@ -137,7 +137,7 @@ function PieceEditorScreen() {
 							</CollapsibleTrigger>
 						</div>
 
-						<CollapsibleContent>
+						<CollapsibleContent className="flex flex-col gap-2">
 							{activePieceMovements.map((movement) => (
 								<p key={movement.moveName}>{movement.moveName}</p>
 							))}
