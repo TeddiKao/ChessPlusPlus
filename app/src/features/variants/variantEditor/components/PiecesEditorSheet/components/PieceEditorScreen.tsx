@@ -19,7 +19,12 @@ import {
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
-	const { activePiece } = usePiecesEditorStore();
+	const {
+		activePiece,
+		isMovementsExpanded,
+		expandMovements,
+		collapseMovements,
+	} = usePiecesEditorStore();
 
 	if (!activePiece) return null;
 
@@ -77,7 +82,14 @@ function PieceEditorScreen() {
 				</TabsContent>
 
 				<TabsContent value="movements">
-					<Collapsible>
+					<Collapsible
+						open={isMovementsExpanded}
+						onOpenChange={
+							isMovementsExpanded
+								? expandMovements
+								: collapseMovements
+						}
+					>
 						<div className="flex flex-row justify-between">
 							<p className="font-semibold">Movements</p>
 
