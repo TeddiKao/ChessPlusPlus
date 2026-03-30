@@ -13,6 +13,7 @@ import useSetupSettingsEditorStore from "@/features/variants/variantEditor/store
 import MovementsEditorSheet from "@/features/variants/variantEditor/components/MovementsEditorSheet/MovementsEditorSheet";
 import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
 import BoardSettingsMenu from "@/features/variants/variantEditor/components/BoardSettingsMenu";
+import PiecesEditorSheet from "@/features/variants/variantEditor/components/PiecesEditorSheet/PiecesEditorSheet";
 
 function Sidebar() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
@@ -63,6 +64,7 @@ function Sidebar() {
 							variant="ghost"
 							className="p-1 hover:bg-(--sidebar-primary-hover)"
 							aria-label="Pieces"
+							onClick={() => updateCurrentOpenMenu("pieces")}
 						>
 							<ChessKnightIcon
 								strokeWidth={1.5}
@@ -96,6 +98,7 @@ function Sidebar() {
 			</div>
 
 			<MovementsEditorSheet />
+			<PiecesEditorSheet />
 		</>
 	);
 }
