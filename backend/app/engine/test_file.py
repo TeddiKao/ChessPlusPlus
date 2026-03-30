@@ -75,14 +75,22 @@ print(f"\tMessage: {tvj_output[1]}")
 if tvj_output[0]:
     game = lmg.Game(json.load(open("test_json.json")))
 
+    # PROBLEM: UPDATING THE GAME STATE SETS ALL THE "has_not_moved" to False
+
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1], SHOW_COORDS)
+
+    legal_moves = game.get_legal_moves((2, 1))
+    for legal_move in legal_moves.items():
+        print(legal_move)
 
     game.update_game_state((3, 1), (3, 3))
 
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
+    # print(game._loop_move((0, 0), "north"))
+
     # game.get_legal_moves((0, 0))
 
-    print(game._loop_move((3, 0), "north"))
+    # print(game.get_game_state())
