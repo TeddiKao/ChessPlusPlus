@@ -4,6 +4,12 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,6 +28,7 @@ import {
 	IconChevronLeft,
 	IconChevronUp,
 	IconDotsVertical,
+	IconTrash,
 	IconUpload,
 } from "@tabler/icons-react";
 import { useEffect } from "react";
@@ -129,7 +136,7 @@ function PieceEditorScreen() {
 							}
 						}}
 					>
-						<div className="flex flex-row justify-between">
+						<div className="flex flex-row items-center justify-between">
 							<p className="font-semibold">Movements</p>
 
 							<CollapsibleTrigger asChild>
@@ -146,19 +153,31 @@ function PieceEditorScreen() {
 							</CollapsibleTrigger>
 						</div>
 
-						<CollapsibleContent className="flex flex-col">
+						<CollapsibleContent className="flex flex-col overflow-y-scroll">
 							{activePieceMovements.map((movement) => (
 								<div
-									className="flex flex-row justify-between"
+									className="flex flex-row items-center justify-between"
 									key={movement.moveName}
 								>
 									<p>{movement.moveName}</p>
-									<Button
-										variant="ghost"
-										className="p-0 px-1 hover:bg-(--sidebar-primary-hover)"
-									>
-										<IconDotsVertical className="size-5" />
-									</Button>
+
+									<DropdownMenu>
+										<DropdownMenuTrigger asChild>
+											<Button
+												variant="ghost"
+												className="p-0 hover:bg-(--sidebar-primary-hover)"
+											>
+												<IconDotsVertical className="size-5" />
+											</Button>
+										</DropdownMenuTrigger>
+
+										<DropdownMenuContent side="left">
+											<DropdownMenuItem variant="destructive">
+												<IconTrash className="size-5" />
+												Delete
+											</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
 								</div>
 							))}
 						</CollapsibleContent>
