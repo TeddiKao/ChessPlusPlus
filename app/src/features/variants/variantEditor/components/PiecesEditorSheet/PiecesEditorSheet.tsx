@@ -24,7 +24,7 @@ function PiecesEditorSheet() {
 				}
 			}}
 		>
-			<SheetContent showCloseButton={false}>
+			<SheetContent className="bg-sidebar-primary-foreground" showCloseButton={false}>
 				<SheetHeader>
 					<SheetTitle>Pieces Editor</SheetTitle>
 					<SheetDescription>
