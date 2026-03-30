@@ -27,6 +27,7 @@ type PiecesEditorStore = {
 	activePieceMovements: RegularMove[];
 	addMovementToActivePiece: (movement: RegularMove) => void;
 	removeMovementFromActivePiece: (movementName: string) => void;
+	updateMovementsInActivePiece: (movements: RegularMove[]) => void;
 	clearMovementsFromActivePiece: () => void;
 
 	pieceName: string | null;
@@ -78,6 +79,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				(movement) => movement.moveName !== movementName,
 			),
 		})),
+	updateMovementsInActivePiece: (movements) =>
+		set({ activePieceMovements: movements }),
 	clearMovementsFromActivePiece: () => set({ activePieceMovements: [] }),
 
 	pieceName: null,
