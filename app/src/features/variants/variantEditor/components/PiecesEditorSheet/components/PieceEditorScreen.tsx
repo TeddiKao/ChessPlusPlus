@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,7 +11,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
-import { IconChevronLeft, IconUpload } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconChevronLeft,
+	IconUpload,
+} from "@tabler/icons-react";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -71,7 +76,22 @@ function PieceEditorScreen() {
 					</div>
 				</TabsContent>
 
-				<TabsContent value="movements"></TabsContent>
+				<TabsContent value="movements">
+					<Collapsible>
+						<div className="flex flex-row justify-between">
+							<p className="font-semibold">Movements</p>
+
+							<CollapsibleTrigger asChild>
+								<Button
+									variant="ghost"
+									className="p-0 px-1 hover:bg-(--sidebar-primary-hover) hover:aria-expanded:bg-(--sidebar-primary-hover)"
+								>
+									<IconChevronDown className="size-5" />
+								</Button>
+							</CollapsibleTrigger>
+						</div>
+					</Collapsible>
+				</TabsContent>
 			</Tabs>
 
 			<SheetFooter>
