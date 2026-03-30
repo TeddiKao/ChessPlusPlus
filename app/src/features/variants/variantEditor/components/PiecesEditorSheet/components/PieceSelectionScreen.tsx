@@ -6,10 +6,20 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
+import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
 
 export function PieceSelectionScreen() {
 	const { pieceRulesetDraft } = useVariantDraftStore();
+	const { updateCurrentMode } = usePiecesEditorSheetStore();
+	const { updateActivePiece } = usePiecesEditorStore();
+
 	if (!pieceRulesetDraft) return null;
+
+	function handlePieceClick(pieceName: string) {
+		updateActivePiece(pieceName);
+		updateCurrentMode("pieceEditing");
+	}
 
 	return (
 		<>
@@ -26,6 +36,7 @@ export function PieceSelectionScreen() {
 						className="p-0 px-1 justify-start hover:bg-(--sidebar-primary-hover)"
 						variant="ghost"
 						key={piece}
+						onClick={() => handlePieceClick(piece)}
 					>
 						{piece}
 					</Button>
