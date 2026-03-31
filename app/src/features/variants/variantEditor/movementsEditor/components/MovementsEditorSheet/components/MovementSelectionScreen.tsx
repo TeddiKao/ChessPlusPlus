@@ -9,8 +9,8 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import MovementCreationDialog from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementCreationDialog";
 import useCreateMovementDialogStore from "@/features/variants/variantEditor/movementsEditor/stores/createMovementDialog";
+import MovementCreationDialog from "@/features/variants/variantEditor/movementsEditor/components/MovementsEditorSheet/components/MovementCreationDialog";
 
 export function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
