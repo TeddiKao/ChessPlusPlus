@@ -18,7 +18,7 @@ function PieceCreationDialog() {
 		pieceNameErrors,
 	} = usePieceCreationDialogStore();
 
-	const { pieceRulesetDraft, updatePieceRulesetDraft } = useVariantDraftStore();
+	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } = useVariantDraftStore();
 
 	if (!pieceRulesetDraft) return null;
 
@@ -45,6 +45,7 @@ function PieceCreationDialog() {
 		};
 
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+		syncPieceRulesetDraftToDB();
 
 		closePieceCreationDialog();
 	}
