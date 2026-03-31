@@ -14,6 +14,8 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { AppearanceTab } from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/AppearanceTab";
 import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab";
+import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceDeletionAlert";
+import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -24,6 +26,9 @@ function PieceEditorScreen() {
 		updatePieceName,
 		updateMovementsInActivePiece,
 	} = usePiecesEditorStore();
+	
+	const { openPieceDeletionAlert } = usePieceDeletionAlertStore();
+
 
 	useEffect(() => {
 		if (!pieceRulesetDraft) return;
@@ -56,39 +61,43 @@ function PieceEditorScreen() {
 
 	return (
 		<>
-			<SheetHeader>
-				<div className="flex flex-row gap-2 items-center">
-					<Button
-						className="p-0 hover:bg-(--sidebar-primary-hover)"
-						variant="ghost"
-						onClick={handleBackClick}
-					>
-						<IconChevronLeft className="size-5" />
-					</Button>
+			<>
+				<SheetHeader>
+					<div className="flex flex-row gap-2 items-center">
+						<Button
+							className="p-0 hover:bg-(--sidebar-primary-hover)"
+							variant="ghost"
+							onClick={handleBackClick}
+						>
+							<IconChevronLeft className="size-5" />
+						</Button>
 
-					<SheetTitle>Piece editor</SheetTitle>
-				</div>
+						<SheetTitle>Piece editor</SheetTitle>
+					</div>
 
-				<SheetDescription>
-					You are currently editing the {activePiece}. Click on the
-					back arrow to change your selection.
-				</SheetDescription>
-			</SheetHeader>
+					<SheetDescription>
+						You are currently editing the {activePiece}. Click on
+						the back arrow to change your selection.
+					</SheetDescription>
+				</SheetHeader>
 
-			<Tabs defaultValue="appearance" className="px-4">
-				<TabsList variant="line">
-					<TabsTrigger value="appearance">Appearance</TabsTrigger>
-					<TabsTrigger value="movements">Movements</TabsTrigger>
-				</TabsList>
+				<Tabs defaultValue="appearance" className="px-4">
+					<TabsList variant="line">
+						<TabsTrigger value="appearance">Appearance</TabsTrigger>
+						<TabsTrigger value="movements">Movements</TabsTrigger>
+					</TabsList>
 
-				<AppearanceTab />
-				<MovementsTab />
-			</Tabs>
+					<AppearanceTab />
+					<MovementsTab />
+				</Tabs>
 
-			<SheetFooter>
-				<Button>Add movement</Button>
-				<Button variant="destructive">Delete piece</Button>
-			</SheetFooter>
+				<SheetFooter>
+					<Button>Add movement</Button>
+					<Button variant="destructive" onClick={openPieceDeletionAlert}>Delete piece</Button>
+				</SheetFooter>
+			</>
+
+			<PieceDeletionAlert />
 		</>
 	);
 }
