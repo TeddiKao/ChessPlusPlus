@@ -23,7 +23,7 @@ class Game:
         }
 
         for starting_piece in rules["setup"]["starting_position"]:
-            self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece((starting_piece["x_pos"], starting_piece["y_pos"]), self._id_counter, starting_piece["piece_name"], piece_default_start_data)
+            self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece((starting_piece["x_pos"], starting_piece["y_pos"]), self._id_counter, starting_piece["piece_name"], copy.deepcopy(piece_default_start_data))
             self._id_counter += 1
 
     def get_game_state(self, include_size: bool = False):
