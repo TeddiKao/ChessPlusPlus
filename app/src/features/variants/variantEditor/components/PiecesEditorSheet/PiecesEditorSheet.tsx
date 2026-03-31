@@ -3,7 +3,7 @@ import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
 import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
 import { PieceSelectionScreen } from "@/features/variants/variantEditor/components/PiecesEditorSheet/components/PieceSelectionScreen";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
-import PieceEditorScreen from "@/features/variants/variantEditor/components/PiecesEditorSheet/components/PieceEditorScreen";
+import PieceEditorScreen from "@/features/variants/variantEditor/components/PiecesEditorSheet/components/PieceEditorScreen/PieceEditorScreen";
 
 function PiecesEditorSheet() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =
