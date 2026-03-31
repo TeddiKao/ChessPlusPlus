@@ -27,7 +27,7 @@ function PieceEditorScreen() {
 		updateMovementsInActivePiece,
 	} = usePiecesEditorStore();
 	
-	const { openPieceDeletionAlert } = usePieceDeletionAlertStore();
+	const { openPieceDeletionAlert, updatePieceToDelete } = usePieceDeletionAlertStore();
 
 
 	useEffect(() => {
@@ -93,7 +93,10 @@ function PieceEditorScreen() {
 
 				<SheetFooter>
 					<Button>Add movement</Button>
-					<Button variant="destructive" onClick={openPieceDeletionAlert}>Delete piece</Button>
+					<Button variant="destructive" onClick={() => {
+						openPieceDeletionAlert();
+						updatePieceToDelete(activePiece);
+					}}>Delete piece</Button>
 				</SheetFooter>
 			</>
 
