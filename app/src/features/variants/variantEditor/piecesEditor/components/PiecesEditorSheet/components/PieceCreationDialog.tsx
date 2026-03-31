@@ -51,7 +51,7 @@ function PieceCreationDialog() {
 				</Field>
 
 				<DialogFooter>
-					<Button>Create piece</Button>
+					<Button className="px-4">Create</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
