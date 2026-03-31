@@ -28,8 +28,8 @@ import {
 	IconChevronLeft,
 	IconChevronUp,
 	IconDotsVertical,
-	IconTrash,
 	IconUpload,
+	IconX,
 } from "@tabler/icons-react";
 import { useEffect, type ChangeEvent } from "react";
 
@@ -181,8 +181,8 @@ function PieceEditorScreen() {
 
 										<DropdownMenuContent side="left">
 											<DropdownMenuItem variant="destructive">
-												<IconTrash className="size-5" />
-												<span>Remove from piece</span>
+												<IconX className="size-4" />
+												Remove
 											</DropdownMenuItem>
 										</DropdownMenuContent>
 									</DropdownMenu>
