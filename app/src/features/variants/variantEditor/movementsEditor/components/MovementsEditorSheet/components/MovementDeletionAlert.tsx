@@ -8,10 +8,10 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { AlertDialog } from "@/components/ui/alert-dialog";
-import useDeleteMovementAlertStore from "@/features/variants/variantEditor/stores/deleteMovementAlert";
-import useMovementsEditorStore from "@/features/variants/variantEditor/stores/movementsEditor";
-import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stores/movementsEditorSheet";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useDeleteMovementAlertStore from "@/features/variants/variantEditor/movementsEditor/stores/deleteMovementAlert";
+import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
+import useMovementsEditorSheetStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditorSheet";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 function MovementDeletionAlert() {
 	const {
@@ -44,19 +44,25 @@ function MovementDeletionAlert() {
 		delete newMovementRulesDraft[movementToDelete];
 
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
-		
+
 		for (const [pieceName] of Object.entries(updatedPieceRulesetDraft)) {
-			updatedPieceRulesetDraft[pieceName].moveset = pieceRulesetDraft[pieceName].moveset.map((move) => {
-				if (Array.isArray(move)) {
-					return move.filter((chainedMove) => chainedMove.moveName !== movementToDelete);
-				}
-				if (move.moveName === movementToDelete) {
-					return null;
-				}
-				return move;
-			}).filter((move) => move !== null);
+			updatedPieceRulesetDraft[pieceName].moveset = pieceRulesetDraft[
+				pieceName
+			].moveset
+				.map((move) => {
+					if (Array.isArray(move)) {
+						return move.filter(
+							(chainedMove) =>
+								chainedMove.moveName !== movementToDelete,
+						);
+					}
+					if (move.moveName === movementToDelete) {
+						return null;
+					}
+					return move;
+				})
+				.filter((move) => move !== null);
 		}
-		
 
 		updateMovementRulesDraft(newMovementRulesDraft);
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);

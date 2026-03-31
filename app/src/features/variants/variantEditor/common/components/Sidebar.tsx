@@ -8,12 +8,12 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
-import useSetupSettingsEditorStore from "@/features/variants/variantEditor/stores/setupSettingsEditor";
-import MovementsEditorSheet from "@/features/variants/variantEditor/components/MovementsEditorSheet/MovementsEditorSheet";
-import useSidebarStore from "@/features/variants/variantEditor/stores/sidebar";
-import BoardSettingsMenu from "@/features/variants/variantEditor/components/BoardSettingsMenu";
-import PiecesEditorSheet from "@/features/variants/variantEditor/components/PiecesEditorSheet/PiecesEditorSheet";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import useSetupSettingsEditorStore from "@/features/variants/variantEditor/boardSettingsMenu/stores/setupSettingsEditor";
+import MovementsEditorSheet from "@/features/variants/variantEditor/movementsEditor/components/MovementsEditorSheet/MovementsEditorSheet";
+import useSidebarStore from "@/features/variants/variantEditor/common/stores/sidebar";
+import BoardSettingsMenu from "@/features/variants/variantEditor/boardSettingsMenu/components/BoardSettingsMenu";
+import PiecesEditorSheet from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/PiecesEditorSheet";
 
 function Sidebar() {
 	const { currentOpenMenu, updateCurrentOpenMenu, clearCurrentOpenMenu } =

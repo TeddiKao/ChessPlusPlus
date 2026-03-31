@@ -1,4 +1,4 @@
-import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { Button } from "@/components/ui/button";
 import {
 	IconChevronDown,

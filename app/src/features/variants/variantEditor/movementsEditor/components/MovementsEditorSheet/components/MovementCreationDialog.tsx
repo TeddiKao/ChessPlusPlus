@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { newMovementDefaults } from "@/features/variants/variantEditor/constants/newMovementDefaults";
-import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import { newMovementDefaults } from "@/features/variants/variantEditor/piecesEditor/constants/newMovementDefaults";
+import useCreateMovementDialogStore from "@/features/variants/variantEditor/movementsEditor/stores/createMovementDialog";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 function MovementCreationDialog() {
 	const {
@@ -27,8 +27,11 @@ function MovementCreationDialog() {
 		clearMovementNameErrors,
 	} = useCreateMovementDialogStore();
 
-	const { movementRulesDraft, updateMovementRulesDraft, syncMovementRulesDraftToDB } =
-		useVariantDraftStore();
+	const {
+		movementRulesDraft,
+		updateMovementRulesDraft,
+		syncMovementRulesDraftToDB,
+	} = useVariantDraftStore();
 
 	if (!movementRulesDraft) return null;
 
@@ -51,13 +54,12 @@ function MovementCreationDialog() {
 
 		const updatedMovementRulesDraft = structuredClone(movementRulesDraft);
 
-		updatedMovementRulesDraft[movementName.trim()] = structuredClone(
-			newMovementDefaults,
-		);
+		updatedMovementRulesDraft[movementName.trim()] =
+			structuredClone(newMovementDefaults);
 
 		updateMovementRulesDraft(updatedMovementRulesDraft);
 		syncMovementRulesDraftToDB();
-		
+
 		closeCreateMovementDialog();
 	}
 

@@ -1,5 +1,5 @@
-import useMovementsEditorStore from "@/features/variants/variantEditor/stores/movementsEditor";
-import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stores/movementsEditorSheet";
+import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
+import useMovementsEditorSheetStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditorSheet";
 import {
 	SheetDescription,
 	SheetFooter,
@@ -18,9 +18,9 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useRef, type ChangeEvent } from "react";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
-import MovementDeletionAlert from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementDeletionAlert";
-import useDeleteMovementAlertStore from "@/features/variants/variantEditor/stores/deleteMovementAlert";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import MovementDeletionAlert from "@/features/variants/variantEditor/movementsEditor/components/MovementsEditorSheet/components/MovementDeletionAlert";
+import useDeleteMovementAlertStore from "@/features/variants/variantEditor/movementsEditor/stores/deleteMovementAlert";
 
 export function MovementEditorScreen() {
 	const {
@@ -48,7 +48,8 @@ export function MovementEditorScreen() {
 	const { movementRulesDraft, syncMovementRulesDraftToDB } =
 		useVariantDraftStore();
 
-	const { openDeleteMovementAlert, updateMovementToDelete } = useDeleteMovementAlertStore();
+	const { openDeleteMovementAlert, updateMovementToDelete } =
+		useDeleteMovementAlertStore();
 
 	const previousRangeInputRef = useRef<number | null>(null);
 
@@ -331,7 +332,12 @@ export function MovementEditorScreen() {
 				</div>
 
 				<SheetFooter>
-					<Button onClick={handleDeleteMovementButtonClick} variant="destructive">Delete movement</Button>
+					<Button
+						onClick={handleDeleteMovementButtonClick}
+						variant="destructive"
+					>
+						Delete movement
+					</Button>
 				</SheetFooter>
 			</>
 

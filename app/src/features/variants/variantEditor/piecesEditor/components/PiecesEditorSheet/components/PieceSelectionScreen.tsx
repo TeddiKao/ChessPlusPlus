@@ -1,4 +1,4 @@
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import {
 	SheetDescription,
 	SheetFooter,
@@ -6,8 +6,8 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
-import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
+import usePiecesEditorSheetStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditorSheet";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 
 export function PieceSelectionScreen() {
 	const { pieceRulesetDraft } = useVariantDraftStore();

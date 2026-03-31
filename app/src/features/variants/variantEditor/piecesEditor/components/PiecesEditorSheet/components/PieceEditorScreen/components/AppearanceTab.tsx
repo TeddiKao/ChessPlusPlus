@@ -1,4 +1,4 @@
-import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import type { ChangeEvent } from "react";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";

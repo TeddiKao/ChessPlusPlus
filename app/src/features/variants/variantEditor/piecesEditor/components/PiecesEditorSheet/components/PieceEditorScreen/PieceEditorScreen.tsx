@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
-import usePiecesEditorStore from "@/features/variants/variantEditor/stores/piecesEditor";
-import usePiecesEditorSheetStore from "@/features/variants/variantEditor/stores/piecesEditorSheet";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import usePiecesEditorSheetStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditorSheet";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { useEffect } from "react";
-import { AppearanceTab } from "@/features/variants/variantEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/AppearanceTab";
-import { MovementsTab } from "@/features/variants/variantEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab";
+import { AppearanceTab } from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/AppearanceTab";
+import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();

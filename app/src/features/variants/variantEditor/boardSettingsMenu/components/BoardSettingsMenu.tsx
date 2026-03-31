@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PopoverContent } from "@/components/ui/popover";
-import useSetupSettingsEditorStore from "@/features/variants/variantEditor/stores/setupSettingsEditor";
+import useSetupSettingsEditorStore from "@/features/variants/variantEditor/boardSettingsMenu/stores/setupSettingsEditor";
 import { type ChangeEvent, useEffect } from "react";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 
 function BoardSettingsMenu() {

@@ -1,6 +1,6 @@
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
-import useMovementsEditorSheetStore from "@/features/variants/variantEditor/stores/movementsEditorSheet";
-import useMovementsEditorStore from "@/features/variants/variantEditor/stores/movementsEditor";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import useMovementsEditorSheetStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditorSheet";
+import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
 import {
 	SheetClose,
 	SheetDescription,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import MovementCreationDialog from "@/features/variants/variantEditor/components/MovementsEditorSheet/components/MovementCreationDialog";
-import useCreateMovementDialogStore from "@/features/variants/variantEditor/stores/createMovementDialog";
+import useCreateMovementDialogStore from "@/features/variants/variantEditor/movementsEditor/stores/createMovementDialog";
 
 export function MovementSelectionScreen() {
 	const { movementRulesDraft } = useVariantDraftStore();
@@ -53,7 +53,9 @@ export function MovementSelectionScreen() {
 				</div>
 
 				<SheetFooter>
-					<Button onClick={openCreateMovementDialog}>Create movement</Button>
+					<Button onClick={openCreateMovementDialog}>
+						Create movement
+					</Button>
 					<SheetClose asChild>
 						<Button variant="outline">Close</Button>
 					</SheetClose>

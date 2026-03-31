@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 type SetupSettingsChanges = {
 	boardXSize: number;

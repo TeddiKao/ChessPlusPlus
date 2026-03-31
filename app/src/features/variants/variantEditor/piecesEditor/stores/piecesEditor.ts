@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
-import { handlePieceNameUpdate } from "@/features/variants/variantEditor/utils/nameUpdateHandler";
+import { handlePieceNameUpdate } from "@/features/variants/variantEditor/common/utils/nameUpdateHandler";
 
 type PieceEditorChanges = {
 	pieceName: string;
