@@ -1,5 +1,5 @@
 type PieceImage = {
-	image: Blob | null;
+	image: Blob;
 }
 
 export type { PieceImage }
