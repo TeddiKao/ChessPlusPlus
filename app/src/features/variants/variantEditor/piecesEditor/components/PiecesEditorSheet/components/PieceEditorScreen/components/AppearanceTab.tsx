@@ -43,7 +43,7 @@ export function AppearanceTab() {
 					<span>Upload image</span>
 				</Button>
 
-				<Input type="file" ref={fileUploadInputRef} className="hidden" />
+				<Input accept="image/*" type="file" ref={fileUploadInputRef} className="hidden" />
 			</div>
 		</TabsContent>
 	);
