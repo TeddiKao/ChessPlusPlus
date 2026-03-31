@@ -153,9 +153,9 @@ function PieceEditorScreen() {
 									className="p-0 px-1 hover:bg-(--sidebar-primary-hover) hover:aria-expanded:bg-(--sidebar-primary-hover)"
 								>
 									{isMovementsExpanded ? (
-										<IconChevronUp className="size-5" />
+										<IconChevronUp className="size-4" />
 									) : (
-										<IconChevronDown className="size-5" />
+										<IconChevronDown className="size-4" />
 									)}
 								</Button>
 							</CollapsibleTrigger>
