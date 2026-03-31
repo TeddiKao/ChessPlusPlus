@@ -182,7 +182,7 @@ function PieceEditorScreen() {
 										<DropdownMenuContent side="left">
 											<DropdownMenuItem variant="destructive">
 												<IconTrash className="size-5" />
-												Delete
+												<span>Remove from piece</span>
 											</DropdownMenuItem>
 										</DropdownMenuContent>
 									</DropdownMenu>
