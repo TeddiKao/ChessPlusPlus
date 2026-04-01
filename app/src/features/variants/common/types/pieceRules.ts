@@ -6,6 +6,7 @@ type RegularMove = {
 
 type PieceRules = {
 	moveset: (RegularMove | ChainedMoveSequence)[];
+	imageId?: string;
 };
 
 type PieceRuleset = Record<string, PieceRules>;
