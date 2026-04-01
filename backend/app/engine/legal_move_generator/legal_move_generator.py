@@ -28,7 +28,7 @@ class Game:
 
     def get_game_state(self, include_size: bool = False):
         if include_size:
-            return (self._rules["setup"]["board_x_size"], self._rules["setup"]["board_x_size"]), self._game_state
+            return (self._rules["setup"]["board_x_size"], self._rules["setup"]["board_y_size"]), self._game_state
         return self._game_state
 
     def update_game_state(self, piece_start_postion: tuple, piece_end_postion: tuple):
@@ -187,7 +187,7 @@ class Game:
                         each_piece_object.position = each_legal_moves[-1]
                         print(each_piece_object.data)
 
-                    if each_legal_moves_both[1]:
+                    if each_legal_moves_both[1] and each_move["terminate_on_stop"]:
                         break
 
         return legal_moves

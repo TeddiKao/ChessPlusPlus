@@ -98,7 +98,7 @@ def validate_json(data: dict):
                 for cindex, cmove in enumerate(move):
                     if get_if_wrong_data_type(cmove, dict):
                         return False, get_wrong_data_type_error_message(type(cmove), dict, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}] (value)")
-                    if not (temp := check_keys(cmove, {"move_name", "valid_move"}, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]"))[0]:
+                    if not (temp := check_keys(cmove, {"move_name", "valid_move", "terminate_on_stop"}, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]"))[0]:
                         return temp
                     if get_if_wrong_data_type(cmove["move_name"], str):
                         return False, get_wrong_data_type_error_message(type(cmove["move_name"]), str, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]/move_name (value)")
@@ -106,6 +106,8 @@ def validate_json(data: dict):
                         return False, f"\"{cmove["move_name"]}\" does not exist in \"main/moves\". Location: main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]/move_name (value)"
                     if get_if_wrong_data_type(cmove["valid_move"], bool):
                         return False, get_wrong_data_type_error_message(type(cmove["valid_move"]), bool, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]/valid_move (value)")
+                    if get_if_wrong_data_type(cmove["terminate_on_stop"], bool):
+                        return False, f"main/pieces/{piece_name}/moveset/[{index}]/[{cindex}]/terminate_on_stop (value)"
                     if cmove["valid_move"] == True:
                         has_valid_move = True
                 if has_valid_move == False:

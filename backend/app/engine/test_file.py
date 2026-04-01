@@ -75,31 +75,12 @@ print(f"\tMessage: {tvj_output[1]}")
 if tvj_output[0]:
     game = lmg.Game(json.load(open("test_json.json")))
 
-    for piece in game.get_game_state().values():
-        print(id(piece.data))
-
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1], SHOW_COORDS)
-
-    # legal_moves = game.get_legal_moves((2, 1))
-    # for legal_move in legal_moves.items():
-    #     print(legal_move)
-
-    game_state = game.get_game_state()
-    for piece in game_state.values():
-        print(piece)
 
     game.update_game_state((3, 1), (3, 3))
 
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-    game_state = game.get_game_state()
-    for piece in game_state.values():
-        print(piece)
-
-    # print(game._loop_move((0, 0), "north"))
-
-    # game.get_legal_moves((0, 0))
-
-    # print(game.get_game_state())
+    print(game.get_legal_moves((1, 0)))
