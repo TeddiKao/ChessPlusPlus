@@ -27,8 +27,8 @@ function BoardSettingsMenu() {
 		const initialBoardYSize = setupRulesDraft.boardYSize;
 		if (isNullOrUndefined(initialBoardYSize)) return;
 
-		updateBoardXSize(initialBoardXSize);
-		updateBoardYSize(initialBoardYSize);
+		updateBoardXSize(initialBoardXSize.toString());
+		updateBoardYSize(initialBoardYSize.toString());
 	}, [setupRulesDraft, updateBoardXSize, updateBoardYSize]);
 
 	if (isNullOrUndefined(boardXSize)) return null;
@@ -37,20 +37,22 @@ function BoardSettingsMenu() {
 	function handleBoardXSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
 		const newBoardXSize = e.target.valueAsNumber;
 
+		updateBoardXSize(e.target.value);
+
 		if (Number.isNaN(newBoardXSize)) return;
 		if (!Number.isFinite(newBoardXSize)) return;
 
-		updateBoardXSize(newBoardXSize);
 		addSetupSettingsChanges({ boardXSize: newBoardXSize });
 	}
 
 	function handleBoardYSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
 		const newBoardYSize = e.target.valueAsNumber;
 
+		updateBoardYSize(e.target.value);
+
 		if (Number.isNaN(newBoardYSize)) return;
 		if (!Number.isFinite(newBoardYSize)) return;
 
-		updateBoardYSize(newBoardYSize);
 		addSetupSettingsChanges({ boardYSize: newBoardYSize });
 	}
 

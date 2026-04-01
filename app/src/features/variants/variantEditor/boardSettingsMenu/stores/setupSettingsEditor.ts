@@ -7,12 +7,12 @@ type SetupSettingsChanges = {
 };
 
 type SetupSettingsEditorStore = {
-	boardXSize: number | null;
-	updateBoardXSize: (newSize: number) => void;
+	boardXSize: string | null;
+	updateBoardXSize: (newSize: string) => void;
 	clearBoardXSize: () => void;
 
-	boardYSize: number | null;
-	updateBoardYSize: (newSize: number) => void;
+	boardYSize: string | null;
+	updateBoardYSize: (newSize: string) => void;
 	clearBoardYSize: () => void;
 
 	setupSettingsChanges: Partial<SetupSettingsChanges>;
