@@ -89,6 +89,7 @@ function BoardSettingsMenu() {
 							value={boardXSize}
 							onChange={handleBoardXSizeInputChange}
 							onBlur={handleBoardXSizeInputBlur}
+							min={1}
 						/>
 					</Field>
 
@@ -106,6 +107,7 @@ function BoardSettingsMenu() {
 							value={boardYSize}
 							onChange={handleBoardYSizeInputChange}
 							onBlur={handleBoardYSizeInputBlur}
+							min={1}
 						/>
 					</Field>
 				</FieldSet>
