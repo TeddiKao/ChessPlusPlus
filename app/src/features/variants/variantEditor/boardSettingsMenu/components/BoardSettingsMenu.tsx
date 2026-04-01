@@ -41,6 +41,7 @@ function BoardSettingsMenu() {
 
 		if (Number.isNaN(newBoardXSize)) return;
 		if (!Number.isFinite(newBoardXSize)) return;
+		if (newBoardXSize < 1) return;
 
 		addSetupSettingsChanges({ boardXSize: newBoardXSize });
 	}
@@ -52,6 +53,7 @@ function BoardSettingsMenu() {
 
 		if (Number.isNaN(newBoardYSize)) return;
 		if (!Number.isFinite(newBoardYSize)) return;
+		if (newBoardYSize < 1) return;
 
 		addSetupSettingsChanges({ boardYSize: newBoardYSize });
 	}
