@@ -16,26 +16,35 @@ import { AppearanceTab } from "@/features/variants/variantEditor/piecesEditor/co
 import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab";
 import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceDeletionAlert";
 import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
+import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
+	const { images, hasHydrated } = usePieceImagesStore();
 	const { pieceRulesetDraft } = useVariantDraftStore();
 	const {
 		activePiece,
 		pieceName,
 		updatePieceName,
 		updateMovementsInActivePiece,
+		updatePieceImage,
 	} = usePiecesEditorStore();
 	
 	const { openPieceDeletionAlert, updatePieceToDelete } = usePieceDeletionAlertStore();
 
-
 	useEffect(() => {
+		if (!hasHydrated) return;
 		if (!pieceRulesetDraft) return;
 		if (!activePiece) return;
 
 		const activePieceInfo = pieceRulesetDraft[activePiece];
 		if (!activePieceInfo) return;
+	
+		const imageId = activePieceInfo.imageId;
+		if (!imageId) return;
+
+		const pieceImage = images[imageId];
+		if (!pieceImage) return;
 
 		const activePieceMovements = activePieceInfo.moveset;
 
@@ -45,11 +54,15 @@ function PieceEditorScreen() {
 
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
 		updatePieceName(activePiece);
+		updatePieceImage(pieceImage.image);
 	}, [
+		images,
+		hasHydrated,
 		pieceRulesetDraft,
 		activePiece,
 		updateMovementsInActivePiece,
 		updatePieceName,
+		updatePieceImage,
 	]);
 
 	if (!activePiece) return null;
