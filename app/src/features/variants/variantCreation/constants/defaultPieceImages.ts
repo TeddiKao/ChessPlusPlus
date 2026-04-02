@@ -1,17 +1,17 @@
 import type { PieceImage } from "@/features/variants/common/types/pieceImages";
 
-import whitePawnSvg from "@/features/variants/variantCreation/assets/white_pawn?raw";
-import blackPawnSvg from "@/features/variants/variantCreation/assets/black_pawn?raw";
-import whiteQueenSvg from "@/features/variants/variantCreation/assets/white_queen?raw";
-import blackQueenSvg from "@/features/variants/variantCreation/assets/black_queen?raw";
-import whiteRookSvg from "@/features/variants/variantCreation/assets/white_rook?raw";
-import blackRookSvg from "@/features/variants/variantCreation/assets/black_rook?raw";
-import whiteBishopSvg from "@/features/variants/variantCreation/assets/white_bishop?raw";
-import blackBishopSvg from "@/features/variants/variantCreation/assets/black_bishop?raw";
-import whiteKnightSvg from "@/features/variants/variantCreation/assets/white_knight?raw";
-import blackKnightSvg from "@/features/variants/variantCreation/assets/black_knight?raw";
-import whiteKingSvg from "@/features/variants/variantCreation/assets/white_king?raw";
-import blackKingSvg from "@/features/variants/variantCreation/assets/black_king?raw";
+import whitePawnSvg from "@/features/variants/common/assets/wP.svg?raw";
+import blackPawnSvg from "@/features/variants/common/assets/bP.svg?raw";
+import whiteQueenSvg from "@/features/variants/common/assets/wQ.svg?raw";
+import blackQueenSvg from "@/features/variants/common/assets/bQ.svg?raw";
+import whiteRookSvg from "@/features/variants/common/assets/wR.svg?raw";
+import blackRookSvg from "@/features/variants/common/assets/bR.svg?raw";
+import whiteBishopSvg from "@/features/variants/common/assets/wB.svg?raw";
+import blackBishopSvg from "@/features/variants/common/assets/bB.svg?raw";
+import whiteKnightSvg from "@/features/variants/common/assets/wN.svg?raw";
+import blackKnightSvg from "@/features/variants/common/assets/bN.svg?raw";
+import whiteKingSvg from "@/features/variants/common/assets/wK.svg?raw";
+import blackKingSvg from "@/features/variants/common/assets/bK.svg?raw";
 
 const defaultPieceImages: Record<string, PieceImage> = {
 	white_pawn: {
