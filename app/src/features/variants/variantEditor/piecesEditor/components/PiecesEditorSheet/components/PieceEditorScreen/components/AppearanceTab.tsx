@@ -60,7 +60,7 @@ export function AppearanceTab() {
 					<img
 						src={URL.createObjectURL(pieceImage)}
 						alt={pieceName}
-						className="w-1/2"
+						className="w-1/2 select-none"
 					/>
 				</div>
 			)}
