@@ -1,4 +1,4 @@
-import ChessboardGridIcon from "@/features/variants/icons/ChessboardGridIcon";
+import ChessboardGridIcon from "@/features/variants/common/icons/ChessboardGridIcon";
 import { ChessKnightIcon } from "lucide-react";
 import { IconArrowsMove } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
