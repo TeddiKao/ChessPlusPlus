@@ -7,7 +7,7 @@ import { IconUpload } from "@tabler/icons-react";
 import { TabsContent } from "@/components/ui/tabs";
 
 export function AppearanceTab() {
-	const { pieceName, updatePieceName } = usePiecesEditorStore();
+	const { pieceName, updatePieceName, pieceImage } = usePiecesEditorStore();
 	const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
 	if (!pieceName) return null;
@@ -38,13 +38,32 @@ export function AppearanceTab() {
 
 			<div className="grid grid-cols-2 gap-4">
 				<p>Piece image</p>
-				<Button data-icon="inline-start" variant="outline" onClick={handleUploadImageButtonClick}>
+				<Button
+					data-icon="inline-start"
+					variant="outline"
+					onClick={handleUploadImageButtonClick}
+				>
 					<IconUpload className="size-5" />
 					<span>Upload image</span>
 				</Button>
 
-				<Input accept="image/*" type="file" ref={fileUploadInputRef} className="hidden" />
+				<Input
+					accept="image/*"
+					type="file"
+					ref={fileUploadInputRef}
+					className="hidden"
+				/>
 			</div>
+
+			{pieceImage && (
+				<div className="flex items-center justify-center">
+					<img
+						src={URL.createObjectURL(pieceImage)}
+						alt={pieceName}
+						className="w-1/2"
+					/>
+				</div>
+			)}
 		</TabsContent>
 	);
 }
