@@ -57,7 +57,7 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 
 		{
 			name: "pieceImages",
-			storage: createIndexedDBStorage("chessPlusPlusDB", "pieceImages"),
+			storage: createIndexedDBStorage("chessPlusPlusPieceImagesDB", "pieceImages"),
 			partialize: (state) => ({ images: state.images }),
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {
