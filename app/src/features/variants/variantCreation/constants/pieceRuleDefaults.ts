@@ -30,6 +30,7 @@ const queenRules: PieceRules = {
 			moveName: "southwest",
 		},
 	],
+	imageId: "white_queen",
 };
 
 const rookRules: PieceRules = {
@@ -47,6 +48,7 @@ const rookRules: PieceRules = {
 			moveName: "west",
 		},
 	],
+	imageId: "white_rook",
 };
 const bishopRules: PieceRules = {
 	moveset: [
@@ -63,6 +65,7 @@ const bishopRules: PieceRules = {
 			moveName: "southwest",
 		},
 	],
+	imageId: "white_bishop",
 };
 const knightRules: PieceRules = {
 	moveset: [
@@ -91,6 +94,7 @@ const knightRules: PieceRules = {
 			moveName: "knight_m1m2",
 		},
 	],
+	imageId: "white_king",
 };
 
 const kingRules: PieceRules = {
@@ -120,6 +124,7 @@ const kingRules: PieceRules = {
 			moveName: "southwest_1",
 		},
 	],
+	imageId: "black_pawn",
 };
 
 const defaultPieceRuleset: PieceRuleset = {
@@ -136,6 +141,7 @@ const defaultPieceRuleset: PieceRuleset = {
 				moveName: "white_pawn_capture_west",
 			},
 		],
+		imageId: "white_pawn",
 	},
 
 	black_pawn: {
@@ -151,6 +157,7 @@ const defaultPieceRuleset: PieceRuleset = {
 				moveName: "black_pawn_capture_west",
 			},
 		],
+		imageId: "black_pawn",
 	},
 
 	white_queen: queenRules,
