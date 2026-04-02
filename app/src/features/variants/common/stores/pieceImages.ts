@@ -7,6 +7,7 @@ import { persist } from "zustand/middleware";
 type PieceImagesStore = {
 	images: Record<string, PieceImage>;
 	addImage: (imageBlob: Blob) => void;
+	updateImages: (images: Record<string, PieceImage>) => void;
 	removeImage: (imageId: string) => void;
 
 	defaultImagesCreated: boolean;
@@ -33,6 +34,10 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 				}));
 			},
 		
+			updateImages: (images) => {
+				set({ images });
+			},
+
 			removeImage: (imageId: string) => {
 				set((state) => {
 					const updatedImages = structuredClone(state.images);
