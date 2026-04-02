@@ -9,6 +9,10 @@ type PieceImagesStore = {
 	addImage: (imageBlob: Blob) => void;
 	removeImage: (imageId: string) => void;
 
+	defaultImagesCreated: boolean;
+	markAsDefaultImagesCreated: () => void;
+	resetDefaultImagesCreationState: () => void;
+
 	hasHydrated: boolean;
 	markAsHydrated: () => void;
 	resetHydrationState: () => void;
@@ -36,6 +40,10 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 					return { images: updatedImages };
 				});
 			},
+
+			defaultImagesCreated: false,
+			markAsDefaultImagesCreated: () => set({ defaultImagesCreated: true }),
+			resetDefaultImagesCreationState: () => set({ defaultImagesCreated: false }),
 
 			hasHydrated: false,
 			markAsHydrated: () => set({ hasHydrated: true }),
