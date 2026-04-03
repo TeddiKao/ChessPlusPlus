@@ -18,6 +18,7 @@ import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/c
 import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import MovementAddDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementAddDialog";
+import useMovementAddDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementAddDialog";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -34,6 +35,7 @@ function PieceEditorScreen() {
 	} = usePiecesEditorStore();
 	
 	const { openPieceDeletionAlert, updatePieceToDelete } = usePieceDeletionAlertStore();
+	const { openMovementAddDialog } = useMovementAddDialogStore();
 
 	useEffect(() => {
 		if (!hasHydrated) return;
@@ -75,6 +77,10 @@ function PieceEditorScreen() {
 		syncSetupRulesDraftToDB();
 	}
 
+	function handleAddMovementButtonClick() {
+		openMovementAddDialog();
+	}
+
 	return (
 		<>
 			<>
@@ -108,7 +114,7 @@ function PieceEditorScreen() {
 				</Tabs>
 
 				<SheetFooter>
-					<Button>Add movement</Button>
+					<Button onClick={handleAddMovementButtonClick}>Add movement</Button>
 					<Button variant="destructive" onClick={() => {
 						openPieceDeletionAlert();
 						updatePieceToDelete(activePiece);
