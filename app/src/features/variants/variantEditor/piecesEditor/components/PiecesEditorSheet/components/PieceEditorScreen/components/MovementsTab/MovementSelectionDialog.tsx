@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -11,14 +12,27 @@ import {
 	InputGroupInput,
 } from "@/components/ui/input-group";
 import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch, IconX } from "@tabler/icons-react";
 
 function MovementSelectionDialog() {
 	const {
 		isMovementSelectionDialogOpen,
 		openMovementSelectionDialog,
 		closeMovementSelectionDialog,
+		searchQuery,
+		updateSearchQuery,
+		clearSearchQuery,
 	} = useMovementSelectionDialogStore();
+
+	function handleClearSearchQueryButtonClick() {
+		clearSearchQuery();
+	}
+
+	function handleSearchQueryInputChange(
+		e: React.ChangeEvent<HTMLInputElement>,
+	) {
+		updateSearchQuery(e.target.value);
+	}
 
 	return (
 		<Dialog
@@ -44,10 +58,25 @@ function MovementSelectionDialog() {
 						<InputGroupInput
 							type="text"
 							placeholder="Search movements"
+							value={searchQuery}
+							onChange={handleSearchQueryInputChange}
 						/>
+
 						<InputGroupAddon align="inline-start">
 							<IconSearch />
 						</InputGroupAddon>
+
+						{searchQuery.length > 0 && (
+							<InputGroupAddon align="inline-end">
+								<Button
+									variant="ghost"
+									className="stroke-muted-foreground p-0 px-1"
+									onClick={handleClearSearchQueryButtonClick}
+								>
+									<IconX />
+								</Button>
+							</InputGroupAddon>
+						)}
 					</InputGroup>
 				</div>
 			</DialogContent>
