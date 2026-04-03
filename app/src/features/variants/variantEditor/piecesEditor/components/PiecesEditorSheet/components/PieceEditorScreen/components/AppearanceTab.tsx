@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { IconUpload } from "@tabler/icons-react";
 import { TabsContent } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 export function AppearanceTab() {
 	const { pieceName, updatePieceName, pieceImageId, addPieceEditorChanges, commitToDraft } = usePiecesEditorStore();
-	const { images, updateImage } = usePieceImagesStore();
+	const { images, updateImageForVariantId } = usePieceImagesStore();
+	const { currentVariantId } = useVariantDraftStore();
 	const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
 	if (!pieceName) return null;
@@ -35,9 +37,11 @@ export function AppearanceTab() {
 
 		const file = e.target.files[0];
 		if (!file) return;
-		if (!pieceImageId) return;
 
-		updateImage(pieceImageId, file);
+		if (!pieceImageId) return;
+		if (!currentVariantId) return;
+
+		updateImageForVariantId(pieceImageId, currentVariantId, file);
 	}
 
 	return (
