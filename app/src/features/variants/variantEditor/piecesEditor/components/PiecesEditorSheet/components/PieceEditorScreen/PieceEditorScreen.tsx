@@ -131,9 +131,11 @@ function PieceEditorScreen() {
 				</Tabs>
 
 				<SheetFooter>
-					<Button onClick={handleAddMovementButtonClick}>
-						Add movement
-					</Button>
+					{currentTab === "movements" && (
+						<Button onClick={handleAddMovementButtonClick}>
+							Add movement
+						</Button>
+					)}
 					<Button
 						variant="destructive"
 						onClick={() => {
