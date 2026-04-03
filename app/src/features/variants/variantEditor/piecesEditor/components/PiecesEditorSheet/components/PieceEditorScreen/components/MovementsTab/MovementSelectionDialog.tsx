@@ -3,6 +3,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
@@ -109,7 +110,19 @@ function MovementSelectionDialog() {
 									movementName.includes(searchQuery),
 								)
 								.map(([movementName, movementRule]) => (
-									<div className="flex flex-row items-center justify-between gap-2">
+									<div
+										role="button"
+										aria-label="Select or deselect movement"
+										className={clsx(
+											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
+											regularMoves.some(
+												(move) =>
+													(move as RegularMove)
+														.moveName ===
+													movementName,
+											) && "bg-sidebar-primary-foreground",
+										)}
+									>
 										<div className="flex flex-col gap-1">
 											<p>{movementName}</p>
 											<div className="flex flex-row items-center gap-4">
@@ -183,7 +196,7 @@ function MovementSelectionDialog() {
 										) && (
 											<div className="flex flex-row items-center justify-center">
 												<IconCheck
-													className="size-5"
+													className="size-5 stroke-primary"
 													stroke={1.5}
 												/>
 											</div>
@@ -193,6 +206,10 @@ function MovementSelectionDialog() {
 						</div>
 					</ScrollArea>
 				</div>
+
+				<DialogFooter>
+					<Button className="px-4">Save</Button>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
