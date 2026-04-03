@@ -96,10 +96,12 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	clearPieceName: () => set({ pieceName: null }),
 
 	commitToDraft: (keys) => {
-		const pieceEditorChanges = get().piecesEditorChanges;
+		console.log("Commiting changes to draft");
+
+;		const pieceEditorChanges = get().piecesEditorChanges;
 		const pieceRulesetDraft =
 			useVariantDraftStore.getState().pieceRulesetDraft;
-		const setupRulesDraft = useVariantDraftStore.getState().setupRulesDraft;
+		const setupRulesDraft = useVariantDraftStore.getState().setupRulesDraft
 
 		if (!pieceRulesetDraft) return;
 		if (!setupRulesDraft) return;
@@ -107,7 +109,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
 		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
 
-		const originalPieceName = get().pieceName;
+		const originalPieceName = get().activePiece;
 		if (!originalPieceName) return;
 
 		const originalPieceRules = updatedPieceRulesetDraft[originalPieceName];
@@ -157,6 +159,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				...originalPieceRules,
 				...nonNameChanges,
 			};
+
+			console.log(pieceEditorChanges);
 
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
