@@ -45,7 +45,7 @@ export function MovementEditorScreen() {
 		commitToDraft,
 	} = useMovementsEditorStore();
 	const { updateCurrentMode } = useMovementsEditorSheetStore();
-	const { movementRulesDraft, syncMovementRulesDraftToDB } =
+	const { movementRulesDraft, syncMovementRulesDraftToDB, syncPieceRulesetDraftToDB } =
 		useVariantDraftStore();
 
 	const { openDeleteMovementAlert, updateMovementToDelete } =
@@ -104,6 +104,7 @@ export function MovementEditorScreen() {
 
 		commitToDraft();
 		syncMovementRulesDraftToDB();
+		syncPieceRulesetDraftToDB();
 	}
 
 	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
