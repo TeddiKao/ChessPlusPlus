@@ -142,14 +142,16 @@ function MovementSelectionDialog() {
 										}
 										aria-label="Select or deselect movement"
 										className={clsx(
-											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg hover:bg-muted",
+											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
 											regularMoves.some(
 												(move) =>
 													(move as RegularMove)
 														.moveName ===
 													movementName,
-											) &&
-												"bg-sidebar-primary-foreground",
+											) ?
+												"bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
+											:
+												"hover:bg-muted",
 										)}
 									>
 										<div className="flex flex-col gap-1">
