@@ -42,8 +42,6 @@ function handlePieceNameUpdate(
 			return squareInfo;
 		}
 	});
-
-	console.log(setupRulesDraft);
 }
 
 function handleMovementNameUpdate(
