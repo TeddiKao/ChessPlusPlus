@@ -13,6 +13,9 @@ type PiecesEditorStore = {
 	updateActivePiece: (newActivePiece: string) => void;
 	clearActivePiece: () => void;
 
+	currentTab: "appearance" | "movements";
+	updateCurrentTab: (newCurrentTab: "appearance" | "movements") => void;
+
 	isMovementsExpanded: boolean;
 	expandMovements: () => void;
 	collapseMovements: () => void;
@@ -45,6 +48,9 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	activePiece: null,
 	updateActivePiece: (newPiece) => set({ activePiece: newPiece }),
 	clearActivePiece: () => set({ activePiece: null }),
+
+	currentTab: "appearance",
+	updateCurrentTab: (newCurrentTab) => set({ currentTab: newCurrentTab }),
 
 	isMovementsExpanded: false,
 	expandMovements: () => set({ isMovementsExpanded: true }),
