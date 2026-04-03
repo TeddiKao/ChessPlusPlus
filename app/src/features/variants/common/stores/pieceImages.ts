@@ -7,6 +7,7 @@ import { persist } from "zustand/middleware";
 type PieceImagesStore = {
 	images: Record<string, PieceImage>;
 	addImage: (imageBlob: Blob) => void;
+	updateImage: (imageId: string, imageBlob: Blob) => void;
 	updateImages: (images: Record<string, PieceImage>) => void;
 	removeImage: (imageId: string) => void;
 
@@ -34,6 +35,14 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 				}));
 			},
 		
+			updateImage: (imageId, imageBlob) => {
+				set((state) => ({
+					images: {
+						...state.images,
+						[imageId]: { image: imageBlob }
+					},
+				}));
+			},
 			updateImages: (images) => {
 				set({ images });
 			},
