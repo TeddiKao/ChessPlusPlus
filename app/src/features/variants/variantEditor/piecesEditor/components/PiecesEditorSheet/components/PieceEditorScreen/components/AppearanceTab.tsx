@@ -13,7 +13,6 @@ export function AppearanceTab() {
 	const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
 	if (!pieceName) return null;
-	if (!pieceImageId) return null;
 	if (!images) return null;
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
