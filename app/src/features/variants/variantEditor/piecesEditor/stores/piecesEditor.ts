@@ -96,8 +96,6 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	clearPieceName: () => set({ pieceName: null }),
 
 	commitToDraft: (keys) => {
-		console.log("Commiting changes to draft");
-
 ;		const pieceEditorChanges = get().piecesEditorChanges;
 		const pieceRulesetDraft =
 			useVariantDraftStore.getState().pieceRulesetDraft;
@@ -159,8 +157,6 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				...originalPieceRules,
 				...nonNameChanges,
 			};
-
-			console.log(pieceEditorChanges);
 
 			if (Object.keys(pieceEditorChanges).includes("pieceName")) {
 				if (!pieceEditorChanges.pieceName) return;
