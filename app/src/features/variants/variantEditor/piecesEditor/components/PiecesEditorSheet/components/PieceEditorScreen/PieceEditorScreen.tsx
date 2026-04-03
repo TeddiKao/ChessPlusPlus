@@ -17,7 +17,7 @@ import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/com
 import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceDeletionAlert";
 import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
-import useMovementAddDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementAddDialog";
+import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -38,7 +38,8 @@ function PieceEditorScreen() {
 
 	const { openPieceDeletionAlert, updatePieceToDelete } =
 		usePieceDeletionAlertStore();
-	const { openMovementAddDialog } = useMovementAddDialogStore();
+
+	const { openMovementSelectionDialog } = useMovementSelectionDialogStore();
 
 	useEffect(() => {
 		if (!hasHydrated) return;
@@ -81,7 +82,7 @@ function PieceEditorScreen() {
 	}
 
 	function handleAddMovementButtonClick() {
-		openMovementAddDialog();
+		openMovementSelectionDialog();
 	}
 
 	return (

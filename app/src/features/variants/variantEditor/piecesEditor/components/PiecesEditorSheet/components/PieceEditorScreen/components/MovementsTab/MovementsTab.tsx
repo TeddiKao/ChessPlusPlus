@@ -18,7 +18,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import MovementAddDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementAddDialog";
+import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementSelectionDialog";
 
 export function MovementsTab() {
 	const {
@@ -90,7 +90,7 @@ export function MovementsTab() {
 				</Collapsible>
 			</TabsContent>
 
-			<MovementAddDialog />
+			<MovementSelectionDialog />
 		</>
 	);
 }
