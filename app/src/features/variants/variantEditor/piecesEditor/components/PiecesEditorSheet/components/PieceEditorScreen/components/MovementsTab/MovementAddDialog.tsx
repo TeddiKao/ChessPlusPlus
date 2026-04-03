@@ -9,6 +9,10 @@ function MovementAddDialog() {
 					<DialogTitle>Add movements</DialogTitle>
 				</DialogHeader>
 
+				<div className="flex flex-col gap-2">
+					<p className="font-semibold text-muted-foreground">Movements</p>
+				</div>
+
 				<DialogFooter>
 					<Button>Add movements</Button>
 				</DialogFooter>
