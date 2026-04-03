@@ -39,7 +39,7 @@ function PieceEditorScreen() {
 	const { openPieceDeletionAlert, updatePieceToDelete } =
 		usePieceDeletionAlertStore();
 
-	const { openMovementSelectionDialog } = useMovementSelectionDialogStore();
+	const { openMovementSelectionDialog, updatePieceName: updateMovementSelectionDialogPieceName } = useMovementSelectionDialogStore();
 
 	useEffect(() => {
 		if (!hasHydrated) return;
@@ -82,7 +82,10 @@ function PieceEditorScreen() {
 	}
 
 	function handleAddMovementButtonClick() {
+		if (!activePiece) return;
+
 		openMovementSelectionDialog();
+		updateMovementSelectionDialogPieceName(activePiece);
 	}
 
 	return (
