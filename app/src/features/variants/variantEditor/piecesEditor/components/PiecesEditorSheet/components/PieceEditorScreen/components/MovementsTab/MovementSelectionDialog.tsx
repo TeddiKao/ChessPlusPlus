@@ -13,16 +13,7 @@ import {
 } from "@/components/ui/input-group";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
-import {
-	IconArrowsMove,
-	IconCheck,
-	IconLetterX,
-	IconLetterY,
-	IconRadar,
-	IconSearch,
-	IconSword,
-	IconX,
-} from "@tabler/icons-react";
+import { IconCheck, IconSearch, IconX } from "@tabler/icons-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import clsx from "clsx";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
@@ -134,7 +125,7 @@ function MovementSelectionDialog() {
 								.filter(([movementName]) =>
 									movementName.includes(searchQuery),
 								)
-								.map(([movementName, movementRule]) => (
+								.map(([movementName]) => (
 									<div
 										role="button"
 										onClick={() =>
@@ -148,76 +139,34 @@ function MovementSelectionDialog() {
 													(move as RegularMove)
 														.moveName ===
 													movementName,
-											) ?
-												"bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
-											:
-												"hover:bg-muted",
+											)
+												? "bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
+												: "hover:bg-muted",
 										)}
 									>
 										<div className="flex flex-col gap-1">
 											<p>{movementName}</p>
-											<div className="flex flex-row items-center gap-4">
-												<div className="flex flex-row items-center gap-2">
-													<IconRadar
-														className="size-5"
-														stroke={1.5}
-													/>
-													<p>
-														{
-															movementRule
-																.moveDefinition
-																.range
-														}
-													</p>
-												</div>
-
-												<div className="flex flex-row items-center gap-2">
-													<IconLetterX
-														className="size-5"
-														stroke={1.5}
-													/>
-													<p>
-														{
-															movementRule
-																.moveDefinition
-																.moveX
-														}
-													</p>
-												</div>
-
-												<div className="flex flex-row items-center gap-2">
-													<IconLetterY
-														className="size-5"
-														stroke={1.5}
-													/>
-													<p>
-														{
-															movementRule
-																.moveDefinition
-																.moveY
-														}
-													</p>
-												</div>
-
-												<div className="flex flex-row items-center">
-													<IconArrowsMove
-														className={clsx(
-															"size-5",
-															!movementRule.forMovement &&
-																"text-muted-foreground/50",
-														)}
-														stroke={1.5}
-													/>
-													<IconSword
-														className={clsx(
-															"size-5",
-															!movementRule.forCapture &&
-																"text-muted-foreground/50",
-														)}
-														stroke={1.5}
-													/>
-												</div>
-											</div>
+											<p className="text-muted-foreground">
+												{
+													regularMoves.filter(
+														(move) =>
+															(
+																move as RegularMove
+															).moveName ===
+															movementName,
+													).length
+												}{" "}
+												
+												{regularMoves.filter(
+													(move) =>
+														(move as RegularMove)
+															.moveName ===
+															movementName,
+													).length === 1
+														? "usage"
+														: "usages"
+												}
+											</p>
 										</div>
 
 										{regularMoves.some(
