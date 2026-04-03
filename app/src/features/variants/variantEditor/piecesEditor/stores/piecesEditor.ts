@@ -178,8 +178,8 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		const updatePieceRulesetDraft =
 			useVariantDraftStore.getState().updatePieceRulesetDraft;
 
-		updateSetupRulesDraft(setupRulesDraft);
-		updatePieceRulesetDraft(pieceRulesetDraft);
+		updateSetupRulesDraft(updatedSetupRulesDraft);
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
 	},
 }));
 
