@@ -17,6 +17,7 @@ import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/com
 import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceDeletionAlert";
 import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
+import MovementAddDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementAddDialog";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
@@ -116,6 +117,7 @@ function PieceEditorScreen() {
 			</>
 
 			<PieceDeletionAlert />
+			<MovementAddDialog />
 		</>
 	);
 }
