@@ -9,6 +9,7 @@ import {
 import useMovementAddDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementAddDialog";
 import { Badge } from "@/components/ui/badge";
 import { IconPlus } from "@tabler/icons-react";
+import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
 
 function MovementAddDialog() {
 	const {
@@ -17,6 +18,12 @@ function MovementAddDialog() {
 		closeMovementAddDialog,
 		movementsAdded,
 	} = useMovementAddDialogStore();
+
+	const { openMovementSelectionDialog } = useMovementSelectionDialogStore();
+
+	function handleMovementAddButtonClick() {
+		openMovementSelectionDialog();
+	}
 
 	return (
 		<Dialog
@@ -40,7 +47,11 @@ function MovementAddDialog() {
 							Movements
 						</p>
 
-						<Button variant="ghost" className="stroke-muted-foreground p-0 px-1">
+						<Button
+							variant="ghost"
+							className="stroke-muted-foreground p-0 px-1"
+							onClick={handleMovementAddButtonClick}
+						>
 							<IconPlus className="size-4" />
 						</Button>
 					</div>
