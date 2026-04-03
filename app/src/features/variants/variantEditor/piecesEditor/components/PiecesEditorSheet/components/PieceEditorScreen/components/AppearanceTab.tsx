@@ -16,6 +16,13 @@ export function AppearanceTab() {
 
 	if (!pieceName) return null;
 	if (!images) return null;
+	
+	function getPieceImageToDisplay() {
+		if (!pieceImageId) return;
+		if (!currentVariantId) return;
+
+		return images[pieceImageId][currentVariantId] ?? images[pieceImageId].image 
+	}
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
@@ -82,7 +89,7 @@ export function AppearanceTab() {
 			{pieceImageId && (
 				<div className="flex items-center justify-center">
 					<img
-						src={URL.createObjectURL(images[pieceImageId].image)}
+						src={URL.createObjectURL(getPieceImageToDisplay()!)}
 						alt={pieceName}
 						className="w-1/2 select-none"
 					/>
