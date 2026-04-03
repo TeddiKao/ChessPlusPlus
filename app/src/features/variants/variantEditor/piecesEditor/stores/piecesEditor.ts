@@ -34,9 +34,9 @@ type PiecesEditorStore = {
 	updatePieceName: (newPieceName: string) => void;
 	clearPieceName: () => void;
 
-	pieceImage: Blob | null;	
-	updatePieceImage: (newPieceImage: Blob) => void;
-	clearPieceImage: () => void;
+	pieceImageId: string | null;
+	updatePieceImageId: (newPieceImageId: string) => void;
+	clearPieceImageId: () => void;
 
 	commitToDraft: (keys?: (keyof PieceEditorChanges)[]) => void;
 };
@@ -87,9 +87,9 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		set({ activePieceMovements: movements }),
 	clearMovementsFromActivePiece: () => set({ activePieceMovements: [] }),
 
-	pieceImage: null,
-	updatePieceImage: (newPieceImage) => set({ pieceImage: newPieceImage }),
-	clearPieceImage: () => set({ pieceImage: null }),
+	pieceImageId: null,
+	updatePieceImageId: (newPieceImageId) => set({ pieceImageId: newPieceImageId }),
+	clearPieceImageId: () => set({ pieceImageId: null }),
 
 	pieceName: null,
 	updatePieceName: (newPieceName) => set({ pieceName: newPieceName }),
