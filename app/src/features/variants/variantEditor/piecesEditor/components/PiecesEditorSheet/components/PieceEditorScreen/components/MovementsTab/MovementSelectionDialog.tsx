@@ -3,7 +3,6 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
@@ -39,7 +38,9 @@ function MovementSelectionDialog() {
 		pieceName,
 	} = useMovementSelectionDialogStore();
 
-	const { movementRulesDraft, pieceRulesetDraft } = useVariantDraftStore();
+	const { movementRulesDraft, pieceRulesetDraft, updatePieceRulesetDraft } =
+		useVariantDraftStore();
+
 	if (!movementRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
 	if (!pieceName) return null;
@@ -58,6 +59,29 @@ function MovementSelectionDialog() {
 		updateSearchQuery(e.target.value);
 	}
 
+	function handleMovementClick(movementName: string) {
+		if (!pieceRulesetDraft) return;
+		if (!pieceName) return;
+
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+
+		if (
+			updatedPieceRulesetDraft[pieceName].moveset
+				.filter((move) => !Array.isArray(move))
+				.some((move) => (move as RegularMove).moveName === movementName)
+		) {
+			updatedPieceRulesetDraft[pieceName].moveset =
+				updatedPieceRulesetDraft[pieceName].moveset.filter(
+					(move) => (move as RegularMove).moveName !== movementName,
+				);
+		} else {
+			updatedPieceRulesetDraft[pieceName].moveset.push({
+				moveName: movementName,
+			});
+		}
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+	}
+
 	return (
 		<Dialog
 			open={isMovementSelectionDialogOpen}
@@ -74,6 +98,7 @@ function MovementSelectionDialog() {
 					<DialogTitle>Select movements</DialogTitle>
 					<DialogDescription>
 						Select the movements you want to add to the piece.
+						Changes are saved automatically.
 					</DialogDescription>
 				</DialogHeader>
 
@@ -112,15 +137,19 @@ function MovementSelectionDialog() {
 								.map(([movementName, movementRule]) => (
 									<div
 										role="button"
+										onClick={() =>
+											handleMovementClick(movementName)
+										}
 										aria-label="Select or deselect movement"
 										className={clsx(
-											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
+											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg hover:bg-muted",
 											regularMoves.some(
 												(move) =>
 													(move as RegularMove)
 														.moveName ===
 													movementName,
-											) && "bg-sidebar-primary-foreground",
+											) &&
+												"bg-sidebar-primary-foreground",
 										)}
 									>
 										<div className="flex flex-col gap-1">
@@ -206,10 +235,6 @@ function MovementSelectionDialog() {
 						</div>
 					</ScrollArea>
 				</div>
-
-				<DialogFooter>
-					<Button className="px-4">Save</Button>
-				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
