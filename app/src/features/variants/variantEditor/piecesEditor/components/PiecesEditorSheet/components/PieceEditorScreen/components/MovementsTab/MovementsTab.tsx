@@ -19,14 +19,43 @@ import {
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementSelectionDialog";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 export function MovementsTab() {
 	const {
 		activePieceMovements,
+		activePiece,
 		isMovementsExpanded,
 		expandMovements,
 		collapseMovements,
 	} = usePiecesEditorStore();
+
+	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } =
+		useVariantDraftStore();
+
+	function handleRegularMovementRemoveButtonClick(movementName: string) {
+		if (!pieceRulesetDraft) return;
+		if (!activePiece) return;
+
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+
+		updatedPieceRulesetDraft[activePiece].moveset = pieceRulesetDraft[
+			activePiece
+		].moveset.filter((move) => {
+			if (Array.isArray(move)) {
+				return true;
+			}
+
+			if (move.moveName === movementName) {
+				return false;
+			}
+
+			return true;
+		});
+
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+		syncPieceRulesetDraftToDB();
+	}
 
 	return (
 		<>
@@ -78,7 +107,14 @@ export function MovementsTab() {
 									</DropdownMenuTrigger>
 
 									<DropdownMenuContent side="left">
-										<DropdownMenuItem variant="destructive">
+										<DropdownMenuItem
+											variant="destructive"
+											onClick={() =>
+												handleRegularMovementRemoveButtonClick(
+													movement.moveName,
+												)
+											}
+										>
 											<IconX className="size-4" />
 											Remove
 										</DropdownMenuItem>
