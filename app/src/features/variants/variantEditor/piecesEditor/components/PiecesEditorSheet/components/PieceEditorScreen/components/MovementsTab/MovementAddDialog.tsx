@@ -51,7 +51,7 @@ function MovementAddDialog() {
 				</div>
 
 				<DialogFooter>
-					<Button>Add movements</Button>
+					<Button className="px-4">Add movements</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
