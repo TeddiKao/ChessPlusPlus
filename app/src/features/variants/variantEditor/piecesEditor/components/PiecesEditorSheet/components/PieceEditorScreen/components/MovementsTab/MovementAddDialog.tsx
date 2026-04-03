@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import useMovementAddDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementAddDialog";
 import { Badge } from "@/components/ui/badge";
+import { IconPlus } from "@tabler/icons-react";
 
 function MovementAddDialog() {
 	const {
@@ -34,16 +35,19 @@ function MovementAddDialog() {
 				</DialogHeader>
 
 				<div className="flex flex-col gap-2">
-					<p className="font-semibold text-muted-foreground">
-						Movements
-					</p>
+					<div className="flex flex-row justify-between items-center">
+						<p className="font-semibold text-muted-foreground">
+							Movements
+						</p>
+
+						<Button variant="ghost" className="stroke-muted-foreground p-0 px-1">
+							<IconPlus className="size-4" />
+						</Button>
+					</div>
 
 					<div className="flex flex-row">
 						{movementsAdded.map((movementName) => (
-							<Badge
-								key={movementName}
-								variant="outline"
-							>
+							<Badge key={movementName} variant="outline">
 								{movementName}
 							</Badge>
 						))}
