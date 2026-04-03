@@ -102,7 +102,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	clearPieceName: () => set({ pieceName: null }),
 
 	commitToDraft: (keys) => {
-;		const pieceEditorChanges = get().piecesEditorChanges;
+		const pieceEditorChanges = get().piecesEditorChanges;
 		const pieceRulesetDraft =
 			useVariantDraftStore.getState().pieceRulesetDraft;
 		const setupRulesDraft = useVariantDraftStore.getState().setupRulesDraft
