@@ -8,7 +8,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 
 export function AppearanceTab() {
-	const { pieceName, updatePieceName, pieceImageId } = usePiecesEditorStore();
+	const { pieceName, updatePieceName, pieceImageId, addPieceEditorChanges, commitToDraft } = usePiecesEditorStore();
 	const { images, updateImage } = usePieceImagesStore();
 	const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
@@ -18,8 +18,13 @@ export function AppearanceTab() {
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
+		addPieceEditorChanges({ pieceName: e.target.value });
 	}
 
+	function handlePieceNameInputBlur() {
+		commitToDraft(["pieceName"]);
+	}
+	
 	function handleUploadImageButtonClick() {
 		if (!fileUploadInputRef.current) return;
 
@@ -47,6 +52,7 @@ export function AppearanceTab() {
 					className="bg-background"
 					value={pieceName}
 					onChange={handlePieceNameInputChange}
+					onBlur={handlePieceNameInputBlur}
 				/>
 			</Field>
 
