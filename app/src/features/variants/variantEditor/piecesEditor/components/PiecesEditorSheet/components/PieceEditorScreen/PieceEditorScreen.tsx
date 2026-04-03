@@ -21,7 +21,9 @@ import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
 	const { images, hasHydrated } = usePieceImagesStore();
+	const { syncPieceRulesetDraftToDB, syncSetupRulesDraftToDB } = useVariantDraftStore();
 	const { pieceRulesetDraft } = useVariantDraftStore();
+
 	const {
 		activePiece,
 		pieceName,
@@ -67,6 +69,9 @@ function PieceEditorScreen() {
 
 	function handleBackClick() {
 		updateCurrentMode("pieceSelection");
+
+		syncPieceRulesetDraftToDB();
+		syncSetupRulesDraftToDB();
 	}
 
 	return (
