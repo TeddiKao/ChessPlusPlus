@@ -20,15 +20,15 @@ function handlePieceNameUpdate(
 
 	setupRulesDraft.pieceOwnership.white = pieceOwnership.white.map(
 		(pieceName) =>
-			pieceName === `white_${originalPieceName}`
-				? `white_${newName}`
+			pieceName === originalPieceName
+				? newName
 				: pieceName,
 	);
 
 	setupRulesDraft.pieceOwnership.black = pieceOwnership.black.map(
 		(pieceName) =>
-			pieceName === `black_${originalPieceName}`
-				? `black_${newName}`
+			pieceName === originalPieceName
+				? newName
 				: pieceName,
 	);
 
@@ -42,6 +42,8 @@ function handlePieceNameUpdate(
 			return squareInfo;
 		}
 	});
+
+	console.log(setupRulesDraft);
 }
 
 function handleMovementNameUpdate(
