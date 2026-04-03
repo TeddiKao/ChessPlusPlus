@@ -8,6 +8,7 @@ type PieceImagesStore = {
 	images: Record<string, PieceImage>;
 	addImage: (imageBlob: Blob) => void;
 	updateImage: (imageId: string, imageBlob: Blob) => void;
+	updateImageForVariantId: (imageId: string, variantId: string, newImage: Blob) => void;
 	updateImages: (images: Record<string, PieceImage>) => void;
 	removeImage: (imageId: string) => void;
 
@@ -43,6 +44,19 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 					},
 				}));
 			},
+
+			updateImageForVariantId: (imageId, variantId, newImage) => {
+				set((state) => ({
+					images: {
+						...state.images,
+						[imageId]: {
+							...state.images[imageId],
+							[variantId]: newImage
+						}
+					}
+				}))
+			},
+
 			updateImages: (images) => {
 				set({ images });
 			},
