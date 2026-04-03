@@ -49,9 +49,6 @@ function PieceEditorScreen() {
 		const activePieceInfo = pieceRulesetDraft[activePiece];
 		if (!activePieceInfo) return;
 
-		const imageId = activePieceInfo.imageId;
-		if (!imageId) return;
-
 		const activePieceMovements = activePieceInfo.moveset;
 
 		const regularMoves = activePieceMovements.filter(
@@ -60,6 +57,10 @@ function PieceEditorScreen() {
 
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
 		updatePieceName(activePiece);
+
+		const imageId = activePieceInfo.imageId;
+		if (!imageId) return;
+
 		updatePieceImageId(imageId);
 	}, [
 		images,
