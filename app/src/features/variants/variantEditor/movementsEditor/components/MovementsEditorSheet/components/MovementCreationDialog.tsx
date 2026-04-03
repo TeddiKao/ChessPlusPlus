@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { newMovementDefaults } from "@/features/variants/variantEditor/piecesEditor/constants/newMovementDefaults";
+import { newMovementDefaults } from "@/features/variants/variantEditor/movementsEditor/constants/newMovementDefaults";
 import useCreateMovementDialogStore from "@/features/variants/variantEditor/movementsEditor/stores/createMovementDialog";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
