@@ -9,6 +9,10 @@ type MovementSelectionDialogStore = {
 	selectMovement: (movement: string) => void;
 	deselectMovement: (movement: string) => void;
 	clearSelectedMovements: () => void;
+
+	searchQuery: string;
+	updateSearchQuery: (query: string) => void;
+	clearSearchQuery: () => void;
 }
 
 const useMovementSelectionDialogStore = create<MovementSelectionDialogStore>((set) => ({
@@ -20,6 +24,10 @@ const useMovementSelectionDialogStore = create<MovementSelectionDialogStore>((se
 	selectMovement: (movement: string) => set((state) => ({ selectedMovements: [...state.selectedMovements, movement] })),
 	deselectMovement: (movement: string) => set((state) => ({ selectedMovements: state.selectedMovements.filter((m) => m !== movement) })),
 	clearSelectedMovements: () => set({ selectedMovements: [] }),
+
+	searchQuery: "",
+	updateSearchQuery: (query: string) => set({ searchQuery: query }),
+	clearSearchQuery: () => set({ searchQuery: "" }),
 }))
 
 export default useMovementSelectionDialogStore;
