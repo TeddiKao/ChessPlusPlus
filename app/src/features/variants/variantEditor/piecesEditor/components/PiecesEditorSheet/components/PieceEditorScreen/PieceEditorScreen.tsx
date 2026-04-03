@@ -17,13 +17,13 @@ import { MovementsTab } from "@/features/variants/variantEditor/piecesEditor/com
 import PieceDeletionAlert from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceDeletionAlert";
 import usePieceDeletionAlertStore from "@/features/variants/variantEditor/piecesEditor/stores/pieceDeletionAlert";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
-import MovementAddDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementAddDialog";
 import useMovementAddDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementAddDialog";
 
 function PieceEditorScreen() {
 	const { updateCurrentMode } = usePiecesEditorSheetStore();
 	const { images, hasHydrated } = usePieceImagesStore();
-	const { syncPieceRulesetDraftToDB, syncSetupRulesDraftToDB } = useVariantDraftStore();
+	const { syncPieceRulesetDraftToDB, syncSetupRulesDraftToDB } =
+		useVariantDraftStore();
 	const { pieceRulesetDraft } = useVariantDraftStore();
 
 	const {
@@ -32,9 +32,12 @@ function PieceEditorScreen() {
 		updatePieceName,
 		updateMovementsInActivePiece,
 		updatePieceImageId,
+		currentTab,
+		updateCurrentTab,
 	} = usePiecesEditorStore();
-	
-	const { openPieceDeletionAlert, updatePieceToDelete } = usePieceDeletionAlertStore();
+
+	const { openPieceDeletionAlert, updatePieceToDelete } =
+		usePieceDeletionAlertStore();
 	const { openMovementAddDialog } = useMovementAddDialogStore();
 
 	useEffect(() => {
@@ -44,7 +47,7 @@ function PieceEditorScreen() {
 
 		const activePieceInfo = pieceRulesetDraft[activePiece];
 		if (!activePieceInfo) return;
-	
+
 		const imageId = activePieceInfo.imageId;
 		if (!imageId) return;
 
@@ -103,10 +106,24 @@ function PieceEditorScreen() {
 					</SheetDescription>
 				</SheetHeader>
 
-				<Tabs defaultValue="appearance" className="px-4">
+				<Tabs
+					value={currentTab}
+					onValueChange={(value) =>
+						updateCurrentTab(value as "appearance" | "movements")
+					}
+					className="px-4"
+				>
 					<TabsList variant="line">
-						<TabsTrigger value="appearance">Appearance</TabsTrigger>
-						<TabsTrigger value="movements">Movements</TabsTrigger>
+						<TabsTrigger
+							value="appearance"
+						>
+							Appearance
+						</TabsTrigger>
+						<TabsTrigger
+							value="movements"
+						>
+							Movements
+						</TabsTrigger>
 					</TabsList>
 
 					<AppearanceTab />
@@ -114,16 +131,22 @@ function PieceEditorScreen() {
 				</Tabs>
 
 				<SheetFooter>
-					<Button onClick={handleAddMovementButtonClick}>Add movement</Button>
-					<Button variant="destructive" onClick={() => {
-						openPieceDeletionAlert();
-						updatePieceToDelete(activePiece);
-					}}>Delete piece</Button>
+					<Button onClick={handleAddMovementButtonClick}>
+						Add movement
+					</Button>
+					<Button
+						variant="destructive"
+						onClick={() => {
+							openPieceDeletionAlert();
+							updatePieceToDelete(activePiece);
+						}}
+					>
+						Delete piece
+					</Button>
 				</SheetFooter>
 			</>
 
 			<PieceDeletionAlert />
-			<MovementAddDialog />
 		</>
 	);
 }
