@@ -26,20 +26,20 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 			images: {},
 			addImage: (imageBlob) => {
 				const generatedImageId = generateId();
-		
+
 				set((state) => ({
 					images: {
 						...state.images,
-						[generatedImageId]: { image: imageBlob }
+						[generatedImageId]: { image: imageBlob },
 					},
 				}));
 			},
-		
+
 			updateImage: (imageId, imageBlob) => {
 				set((state) => ({
 					images: {
 						...state.images,
-						[imageId]: { image: imageBlob }
+						[imageId]: { image: imageBlob },
 					},
 				}));
 			},
@@ -56,8 +56,10 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 			},
 
 			defaultImagesCreated: false,
-			markAsDefaultImagesCreated: () => set({ defaultImagesCreated: true }),
-			resetDefaultImagesCreationState: () => set({ defaultImagesCreated: false }),
+			markAsDefaultImagesCreated: () =>
+				set({ defaultImagesCreated: true }),
+			resetDefaultImagesCreationState: () =>
+				set({ defaultImagesCreated: false }),
 
 			hasHydrated: false,
 			markAsHydrated: () => set({ hasHydrated: true }),
@@ -66,8 +68,14 @@ const usePieceImagesStore = create<PieceImagesStore>()(
 
 		{
 			name: "pieceImages",
-			storage: createIndexedDBStorage("chessPlusPlusPieceImagesDB", "pieceImages"),
-			partialize: (state) => ({ images: state.images }),
+			storage: createIndexedDBStorage(
+				"chessPlusPlusPieceImagesDB",
+				"pieceImages",
+			),
+			partialize: (state) => ({
+				images: state.images,
+				defaultImagesCreated: state.defaultImagesCreated,
+			}),
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {
 					console.error("Error rehydrating piece images:", error);
