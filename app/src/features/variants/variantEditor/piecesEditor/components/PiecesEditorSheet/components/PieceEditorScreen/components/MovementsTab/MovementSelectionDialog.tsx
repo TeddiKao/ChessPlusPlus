@@ -13,7 +13,17 @@ import {
 } from "@/components/ui/input-group";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
-import { IconSearch, IconX } from "@tabler/icons-react";
+import {
+	IconArrowsMove,
+	IconLetterX,
+	IconLetterY,
+	IconRadar,
+	IconSearch,
+	IconSword,
+	IconX,
+} from "@tabler/icons-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import clsx from "clsx";
 
 function MovementSelectionDialog() {
 	const {
@@ -49,7 +59,7 @@ function MovementSelectionDialog() {
 				}
 			}}
 		>
-			<DialogContent className="max-h-[90vh]">
+			<DialogContent className="h-[90vh]">
 				<DialogHeader>
 					<DialogTitle>Select movements</DialogTitle>
 					<DialogDescription>
@@ -57,7 +67,7 @@ function MovementSelectionDialog() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-4 min-h-0">
 					<InputGroup>
 						<InputGroupInput
 							type="text"
@@ -83,13 +93,75 @@ function MovementSelectionDialog() {
 						)}
 					</InputGroup>
 
-					<div className="flex flex-col gap-2 overflow-y-auto">
-						{Object.entries(movementRulesDraft).map(([movementName]) => (
-							<div key={movementName} className="flex flex-row items-center justify-between">
-								<p>{movementName}</p>
-							</div>
-						))}
-					</div>
+					<ScrollArea className="min-h-0">
+						<div className="grid grid-cols-7 gap-x-4 gap-y-2">
+							{Object.entries(movementRulesDraft).map(
+								([movementName, movementRule]) => (
+									<>
+										<p className="col-span-7">
+											{movementName}
+										</p>
+
+										<div className="flex flex-row gap-2 items-center">
+											<IconRadar
+												className="size-5"
+												stroke={1.5}
+											/>
+											<p>
+												{
+													movementRule.moveDefinition
+														.range
+												}
+											</p>
+										</div>
+
+										<div className="flex flex-row gap-2 items-center">
+											<IconLetterX
+												className="size-5"
+												stroke={1.5}
+											/>
+											<p>
+												{
+													movementRule.moveDefinition
+														.moveX
+												}
+											</p>
+										</div>
+
+										<div className="flex flex-row gap-2 items-center">
+											<IconLetterY
+												className="size-5"
+												stroke={1.5}
+											/>
+											<p>
+												{
+													movementRule.moveDefinition
+														.moveY
+												}
+											</p>
+										</div>
+
+										<div className="flex flex-row gap-2 items-center">
+											<IconArrowsMove
+												className={clsx(
+													"size-5",
+													!movementRule.forMovement && "text-muted-foreground/50"
+												)}
+												stroke={1.5}
+											/>
+											<IconSword
+												className={clsx(
+													"size-5",
+													!movementRule.forCapture && "text-muted-foreground/50"
+												)}
+												stroke={1.5}
+											/>
+										</div>
+									</>
+								),
+							)}
+						</div>
+					</ScrollArea>
 				</div>
 			</DialogContent>
 		</Dialog>
