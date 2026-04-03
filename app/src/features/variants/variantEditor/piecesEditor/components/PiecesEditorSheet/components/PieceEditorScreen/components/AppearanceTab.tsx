@@ -5,12 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IconUpload } from "@tabler/icons-react";
 import { TabsContent } from "@/components/ui/tabs";
+import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 
 export function AppearanceTab() {
-	const { pieceName, updatePieceName, pieceImage } = usePiecesEditorStore();
+	const { pieceName, updatePieceName, pieceImageId } = usePiecesEditorStore();
+	const { images, updateImage } = usePieceImagesStore();
 	const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
 	if (!pieceName) return null;
+	if (!pieceImageId) return null;
+	if (!images) return null;
 
 	function handlePieceNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updatePieceName(e.target.value);
@@ -20,6 +24,16 @@ export function AppearanceTab() {
 		if (!fileUploadInputRef.current) return;
 
 		fileUploadInputRef.current.click();
+	}
+
+	function handleFileUploadInputChange(e: ChangeEvent<HTMLInputElement>) {
+		if (!e.target.files) return;
+
+		const file = e.target.files[0];
+		if (!file) return;
+		if (!pieceImageId) return;
+
+		updateImage(pieceImageId, file);
 	}
 
 	return (
@@ -52,13 +66,14 @@ export function AppearanceTab() {
 					type="file"
 					ref={fileUploadInputRef}
 					className="hidden"
+					onChange={handleFileUploadInputChange}
 				/>
 			</div>
 
-			{pieceImage && (
+			{pieceImageId && (
 				<div className="flex items-center justify-center">
 					<img
-						src={URL.createObjectURL(pieceImage)}
+						src={URL.createObjectURL(images[pieceImageId].image)}
 						alt={pieceName}
 						className="w-1/2 select-none"
 					/>
