@@ -11,6 +11,7 @@ import {
 	InputGroupAddon,
 	InputGroupInput,
 } from "@/components/ui/input-group";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
 import { IconSearch, IconX } from "@tabler/icons-react";
 
@@ -23,6 +24,9 @@ function MovementSelectionDialog() {
 		updateSearchQuery,
 		clearSearchQuery,
 	} = useMovementSelectionDialogStore();
+
+	const { movementRulesDraft } = useVariantDraftStore();
+	if (!movementRulesDraft) return null;
 
 	function handleClearSearchQueryButtonClick() {
 		clearSearchQuery();
@@ -45,7 +49,7 @@ function MovementSelectionDialog() {
 				}
 			}}
 		>
-			<DialogContent>
+			<DialogContent className="max-h-[90vh]">
 				<DialogHeader>
 					<DialogTitle>Select movements</DialogTitle>
 					<DialogDescription>
@@ -53,7 +57,7 @@ function MovementSelectionDialog() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex flex-col">
+				<div className="flex flex-col gap-4">
 					<InputGroup>
 						<InputGroupInput
 							type="text"
@@ -78,6 +82,14 @@ function MovementSelectionDialog() {
 							</InputGroupAddon>
 						)}
 					</InputGroup>
+
+					<div className="flex flex-col gap-2 overflow-y-auto">
+						{Object.entries(movementRulesDraft).map(([movementName]) => (
+							<div key={movementName} className="flex flex-row items-center justify-between">
+								<p>{movementName}</p>
+							</div>
+						))}
+					</div>
 				</div>
 			</DialogContent>
 		</Dialog>
