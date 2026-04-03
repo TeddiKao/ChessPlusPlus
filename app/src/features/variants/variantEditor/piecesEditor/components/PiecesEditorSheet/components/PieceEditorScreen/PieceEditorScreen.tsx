@@ -27,7 +27,7 @@ function PieceEditorScreen() {
 		pieceName,
 		updatePieceName,
 		updateMovementsInActivePiece,
-		updatePieceImage,
+		updatePieceImageId,
 	} = usePiecesEditorStore();
 	
 	const { openPieceDeletionAlert, updatePieceToDelete } = usePieceDeletionAlertStore();
@@ -43,9 +43,6 @@ function PieceEditorScreen() {
 		const imageId = activePieceInfo.imageId;
 		if (!imageId) return;
 
-		const pieceImage = images[imageId];
-		if (!pieceImage) return;
-
 		const activePieceMovements = activePieceInfo.moveset;
 
 		const regularMoves = activePieceMovements.filter(
@@ -54,7 +51,7 @@ function PieceEditorScreen() {
 
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
 		updatePieceName(activePiece);
-		updatePieceImage(pieceImage.image);
+		updatePieceImageId(imageId);
 	}, [
 		images,
 		hasHydrated,
@@ -62,7 +59,7 @@ function PieceEditorScreen() {
 		activePiece,
 		updateMovementsInActivePiece,
 		updatePieceName,
-		updatePieceImage,
+		updatePieceImageId,
 	]);
 
 	if (!activePiece) return null;
