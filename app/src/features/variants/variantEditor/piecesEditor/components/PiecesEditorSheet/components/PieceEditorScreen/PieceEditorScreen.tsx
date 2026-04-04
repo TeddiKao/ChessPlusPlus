@@ -6,7 +6,7 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { RegularMove } from "@/features/variants/common/types/pieceRules";
+import type { ChainedMoveSequence, RegularMove } from "@/features/variants/common/types/pieceRules";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditorSheet";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
@@ -34,6 +34,7 @@ function PieceEditorScreen() {
 		updatePieceImageId,
 		currentTab,
 		updateCurrentTab,
+		updateChainedMoveSequences,
 	} = usePiecesEditorStore();
 
 	const { openPieceDeletionAlert, updatePieceToDelete } =
@@ -55,7 +56,12 @@ function PieceEditorScreen() {
 			(move) => !Array.isArray(move),
 		);
 
+		const chainedMoveSequences = activePieceMovements.filter(
+			(move) => Array.isArray(move),
+		) as ChainedMoveSequence[];
+
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
+		updateChainedMoveSequences(chainedMoveSequences);
 		updatePieceName(activePiece);
 
 		const imageId = activePieceInfo.imageId;
@@ -70,6 +76,7 @@ function PieceEditorScreen() {
 		updateMovementsInActivePiece,
 		updatePieceName,
 		updatePieceImageId,
+		updateChainedMoveSequences,
 	]);
 
 	if (!activePiece) return null;
