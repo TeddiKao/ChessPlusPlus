@@ -136,6 +136,7 @@ const defaultPieceRuleset: PieceRuleset = {
 				moveName: "white_pawn_capture_west",
 			},
 		],
+		imageId: "white_pawn",
 	},
 
 	black_pawn: {
@@ -151,22 +152,23 @@ const defaultPieceRuleset: PieceRuleset = {
 				moveName: "black_pawn_capture_west",
 			},
 		],
+		imageId: "black_pawn",
 	},
 
-	white_queen: queenRules,
-	black_queen: queenRules,
+	white_queen: { ...queenRules, imageId: "white_queen" },
+	black_queen: { ...queenRules, imageId: "black_queen" },
 
-	white_rook: rookRules,
-	black_rook: rookRules,
+	white_rook: { ...rookRules, imageId: "white_rook" },	
+	black_rook: { ...rookRules, imageId: "black_rook" },
 
-	white_bishop: bishopRules,
-	black_bishop: bishopRules,
+	white_bishop: { ...bishopRules, imageId: "white_bishop" },
+	black_bishop: { ...bishopRules, imageId: "black_bishop" },	
 
-	white_knight: knightRules,
-	black_knight: knightRules,
+	white_knight: { ...knightRules, imageId: "white_knight" },
+	black_knight: { ...knightRules, imageId: "black_knight" },
 
-	white_king: kingRules,
-	black_king: kingRules,
+	white_king: { ...kingRules, imageId: "white_king" },
+	black_king: { ...kingRules, imageId: "black_king" },
 };
 
 export { defaultPieceRuleset };

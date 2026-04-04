@@ -1,7 +1,7 @@
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { generateVariantId } from "@/features/variants/common/utils/idGeneration";
+import { generateId } from "@/shared/utils/idGeneration";
 import { createIndexedDBStorage } from "zustand-indexeddb";
 
 type VariantsStore = {
@@ -22,7 +22,7 @@ const useVariantsStore = create<VariantsStore>()(
 			variants: {},
 
 			createVariant: (variantInfo) => {
-				const generatedVariantId = generateVariantId();
+				const generatedVariantId = generateId();
 
 				set((state) => ({
 					variants: {
@@ -56,7 +56,7 @@ const useVariantsStore = create<VariantsStore>()(
 		}),
 		{
 			name: "variants",
-			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
+			storage: createIndexedDBStorage("chessPlusPlusVariantsDB", "variants"),
 			partialize: (state) => ({ variants: state.variants }),
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {

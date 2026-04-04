@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { defaultVariantRules } from "@/features/variants/variantCreation/constants/newVariantDefaults";
+import { defaultPieceImages } from "@/features/variants/variantCreation/constants/defaultPieceImages";
+import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 
 function CreateVariantDialog() {
 	const {
@@ -25,6 +27,11 @@ function CreateVariantDialog() {
 	} = useCreateVariantDialogStore();
 
 	const { createVariant, hasHydrated } = useVariantsStore();
+	const {
+		defaultImagesCreated,
+		markAsDefaultImagesCreated,
+		updateImages,
+	} = usePieceImagesStore();
 
 	if (!hasHydrated) return null;
 
@@ -44,6 +51,11 @@ function CreateVariantDialog() {
 
 		clearVariantName();
 		closeDialog();
+
+		if (defaultImagesCreated) return;
+
+		updateImages(defaultPieceImages);
+		markAsDefaultImagesCreated();
 	}
 
 	return (

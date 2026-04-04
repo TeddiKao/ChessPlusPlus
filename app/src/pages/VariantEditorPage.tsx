@@ -2,9 +2,9 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import Sidebar from "@/features/variants/variantEditor/components/Sidebar";
+import Sidebar from "@/features/variants/variantEditor/common/components/Sidebar";
 import { useEffect } from "react";
-import useVariantDraftStore from "@/features/variants/variantEditor/stores/variantDraft";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
