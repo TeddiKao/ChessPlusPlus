@@ -136,7 +136,7 @@ export function MovementsTab() {
 					</CollapsibleContent>
 				</Collapsible>
 
-				<div className="grid grid-cols-[6fr_4fr] items-center">
+				<div className="grid grid-cols-[65fr_35fr] items-center">
 					<p>Chained moves</p>
 					<Button onClick={handleChainedMovesButtonClick} className="px-4" variant="outline">View</Button>
 				</div>
