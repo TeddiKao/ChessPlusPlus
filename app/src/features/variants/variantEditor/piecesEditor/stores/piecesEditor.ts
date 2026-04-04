@@ -37,14 +37,14 @@ type PiecesEditorStore = {
 	updateMovementsInActivePiece: (movements: RegularMove[]) => void;
 	clearMovementsFromActivePiece: () => void;
 
-	chainedMoveSequences: [number | null, ChainedMoveSequence][];
+	chainedMoveSequences: [(number | null), ChainedMoveSequence][];
 	addChainedMoveSequence: (sequence: ChainedMoveSequence) => void;
 	removeChainedMoveSequence: (sequenceIndex: number) => void;
 	updateChainedMoveSequence: (
 		sequenceIndex: number,
 		newSequence: ChainedMoveSequence,
 	) => void;
-	updateChainedMoveSequences: (newSequences: ChainedMoveSequence[]) => void;
+	updateChainedMoveSequences: (newSequences: [(number | null), ChainedMoveSequence][]) => void;
 	clearChainedMoveSequences: () => void;
 
 	addChainedMoveToSequence: (
@@ -150,10 +150,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 
 	updateChainedMoveSequences: (newSequences) =>
 		set({
-			chainedMoveSequences: newSequences.map((sequence, index) => [
-				index,
-				sequence,
-			]),
+			chainedMoveSequences: newSequences,
 		}),
 	clearChainedMoveSequences: () => set({ chainedMoveSequences: [] }),
 
