@@ -1,4 +1,9 @@
-type ChainedMoveSequence = { moveName: string; validMove: boolean }[];
+type ChainedMoveNode = {
+	moveName: string;
+	validMove: boolean;
+};
+
+type ChainedMoveSequence = ChainedMoveNode[];
 
 type RegularMove = {
 	moveName: string;
