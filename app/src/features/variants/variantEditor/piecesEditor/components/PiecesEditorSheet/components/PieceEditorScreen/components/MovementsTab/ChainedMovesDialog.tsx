@@ -66,9 +66,9 @@ function ChainedMovesDialog() {
 														key={nodeIndex}
 														className="flex flex-row items-center"
 													>
-														<p className="px-4 py-2 rounded-md bg-muted">
+														<Button variant="ghost" className="px-4 py-2 rounded-md bg-muted">
 															{node.moveName}
-														</p>
+														</Button>
 
 														{nodeIndex <
 															sequence.length -
