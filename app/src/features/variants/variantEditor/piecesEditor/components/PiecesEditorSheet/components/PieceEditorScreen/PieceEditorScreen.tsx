@@ -6,7 +6,10 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { ChainedMoveSequence, RegularMove } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMoveSequence,
+	RegularMove,
+} from "@/features/variants/common/types/pieceRules";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import usePiecesEditorSheetStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditorSheet";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
@@ -40,7 +43,10 @@ function PieceEditorScreen() {
 	const { openPieceDeletionAlert, updatePieceToDelete } =
 		usePieceDeletionAlertStore();
 
-	const { openMovementSelectionDialog, updatePieceName: updateMovementSelectionDialogPieceName } = useMovementSelectionDialogStore();
+	const {
+		openMovementSelectionDialog,
+		updatePieceName: updateMovementSelectionDialogPieceName,
+	} = useMovementSelectionDialogStore();
 
 	useEffect(() => {
 		if (!hasHydrated) return;
@@ -56,12 +62,14 @@ function PieceEditorScreen() {
 			(move) => !Array.isArray(move),
 		);
 
-		const chainedMoveSequences = activePieceMovements.filter(
-			(move) => Array.isArray(move),
-		) as ChainedMoveSequence[];
+		const chainedMoveSequences = activePieceMovements
+			.map((move, index) => ({ move, index }))
+			.filter(({ move }) => Array.isArray(move));
 
 		updateMovementsInActivePiece(regularMoves as RegularMove[]);
-		updateChainedMoveSequences(chainedMoveSequences);
+		updateChainedMoveSequences(
+			chainedMoveSequences.map(({ move, index }) => [index, move as ChainedMoveSequence]),
+		);
 		updatePieceName(activePiece);
 
 		const imageId = activePieceInfo.imageId;
@@ -126,16 +134,8 @@ function PieceEditorScreen() {
 					className="px-4"
 				>
 					<TabsList variant="line">
-						<TabsTrigger
-							value="appearance"
-						>
-							Appearance
-						</TabsTrigger>
-						<TabsTrigger
-							value="movements"
-						>
-							Movements
-						</TabsTrigger>
+						<TabsTrigger value="appearance">Appearance</TabsTrigger>
+						<TabsTrigger value="movements">Movements</TabsTrigger>
 					</TabsList>
 
 					<AppearanceTab />
