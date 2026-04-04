@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementSelectionDialog";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
+import ChainedMovesDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/ChainedMovesDialog";
 
 export function MovementsTab() {
 	const {
@@ -29,6 +31,8 @@ export function MovementsTab() {
 		expandMovements,
 		collapseMovements,
 	} = usePiecesEditorStore();
+
+	const { openChainedMovesDialog, updateActivePiece } = useChainedMovesDialogStore();
 
 	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } =
 		useVariantDraftStore();
@@ -55,6 +59,13 @@ export function MovementsTab() {
 
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
 		syncPieceRulesetDraftToDB();
+	}
+
+	function handleChainedMovesButtonClick() {
+		if (!activePiece) return;
+
+		openChainedMovesDialog();
+		updateActivePiece(activePiece);
 	}
 
 	return (
@@ -127,11 +138,12 @@ export function MovementsTab() {
 
 				<div className="grid grid-cols-[6fr_4fr] items-center">
 					<p>Chained moves</p>
-					<Button className="px-4" variant="outline">View</Button>
+					<Button onClick={handleChainedMovesButtonClick} className="px-4" variant="outline">View</Button>
 				</div>
 			</TabsContent>
 
 			<MovementSelectionDialog />
+			<ChainedMovesDialog />
 		</>
 	);
 }
