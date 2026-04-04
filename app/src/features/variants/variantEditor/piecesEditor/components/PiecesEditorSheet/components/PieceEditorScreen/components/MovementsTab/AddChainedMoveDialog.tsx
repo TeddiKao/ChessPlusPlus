@@ -15,11 +15,13 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { Field } from "@/components/ui/field";
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
+import { FieldLabel } from "@/components/ui/field";
 import type { ChangeEvent } from "react";
 
 function AddChainedMoveDialog() {
@@ -80,40 +82,56 @@ function AddChainedMoveDialog() {
 				</DialogHeader>
 
 				<div className="flex flex-col gap-2">
-					<Combobox
-						modal={true}
-						items={Object.entries(movementRulesDraft)}
-						itemToStringValue={(
-							movementEntry: [string, MovementRule],
-						) => movementEntry[0]}
-					>
-						<ComboboxInput
-							value={movementToAdd}
-							onChange={handleMovementNameInputChange}
-							placeholder="Select a move"
-						/>
-						<ComboboxContent
-							onWheel={(e) => e.stopPropagation()}
-							className="pointer-events-auto"
+					<Field>
+						<FieldLabel htmlFor="movementNameComboboxInput">Movement name</FieldLabel>
+						<Combobox
+							id="movementNameComboboxInput"
+							modal={true}
+							items={Object.entries(movementRulesDraft)}
+							itemToStringValue={(
+								movementEntry: [string, MovementRule],
+							) => movementEntry[0]}
 						>
-							<ComboboxEmpty>No movements found</ComboboxEmpty>
-							<ComboboxList>
-								{(movementEntry: [string, MovementRule]) => (
-									<ComboboxItem
-										onClick={() => handleComboboxItemSelect(movementEntry[0])}
-										key={movementEntry[0]}
-										value={movementEntry[0]}
-									>
-										{movementEntry[0]}
-									</ComboboxItem>
-								)}
-							</ComboboxList>
-						</ComboboxContent>
-					</Combobox>
+							<ComboboxInput
+								value={movementToAdd}
+								onChange={handleMovementNameInputChange}
+								placeholder="Select a move"
+							/>
+							<ComboboxContent
+								onWheel={(e) => e.stopPropagation()}
+								className="pointer-events-auto"
+							>
+								<ComboboxEmpty>
+									No movements found
+								</ComboboxEmpty>
+								<ComboboxList>
+									{(
+										movementEntry: [string, MovementRule],
+									) => (
+										<ComboboxItem
+											onClick={() =>
+												handleComboboxItemSelect(
+													movementEntry[0],
+												)
+											}
+											key={movementEntry[0]}
+											value={movementEntry[0]}
+										>
+											{movementEntry[0]}
+										</ComboboxItem>
+									)}
+								</ComboboxList>
+							</ComboboxContent>
+						</Combobox>
+					</Field>
 				</div>
 
 				<DialogFooter>
-					<Button onClick={handleAddChainedMoveButtonClick} className="w-full" variant="default">
+					<Button
+						onClick={handleAddChainedMoveButtonClick}
+						className="w-full"
+						variant="default"
+					>
 						Add chained move
 					</Button>
 				</DialogFooter>
