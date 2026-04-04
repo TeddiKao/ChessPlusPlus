@@ -123,6 +123,8 @@ function ChainedMovesDialog() {
 								</Button>
 							</div>
 						))}
+
+						<Button className="w-full">Add sequence</Button>
 					</div>
 				</DialogContent>
 			</Dialog>
