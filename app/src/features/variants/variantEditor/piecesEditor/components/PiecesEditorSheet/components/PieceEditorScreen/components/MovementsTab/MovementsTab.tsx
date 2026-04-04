@@ -59,7 +59,7 @@ export function MovementsTab() {
 
 	return (
 		<>
-			<TabsContent value="movements">
+			<TabsContent value="movements"  className="flex flex-col gap-4">
 				<Collapsible
 					className="flex flex-col gap-1"
 					open={isMovementsExpanded}
@@ -124,6 +124,11 @@ export function MovementsTab() {
 						))}
 					</CollapsibleContent>
 				</Collapsible>
+
+				<div className="grid grid-cols-[6fr_4fr] items-center">
+					<p>Chained moves</p>
+					<Button className="px-4" variant="outline">View</Button>
+				</div>
 			</TabsContent>
 
 			<MovementSelectionDialog />
