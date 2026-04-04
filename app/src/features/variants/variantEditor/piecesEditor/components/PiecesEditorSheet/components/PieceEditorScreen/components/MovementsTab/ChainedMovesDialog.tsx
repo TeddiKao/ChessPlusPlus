@@ -7,10 +7,12 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/AddChainedMoveDialog";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPlus } from "@tabler/icons-react";
 
 function ChainedMovesDialog() {
@@ -18,9 +20,12 @@ function ChainedMovesDialog() {
 		isChainedMovesDialogOpen,
 		openChainedMovesDialog,
 		closeChainedMovesDialog,
-		clearActivePiece,
+		activePiece,
+		clearActivePiece
 	} = useChainedMovesDialogStore();
 	const { chainedMoveSequences } = usePiecesEditorStore();
+	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } =
+		useVariantDraftStore();
 
 	const { openChainedMoveDialog, updateChainedMoveSequenceIndex } =
 		useAddChainedMoveDialogStore();
@@ -28,6 +33,25 @@ function ChainedMovesDialog() {
 	function handleAddChainedMoveButtonClick(chainedMoveSequenceIndex: number) {
 		updateChainedMoveSequenceIndex(chainedMoveSequenceIndex);
 		openChainedMoveDialog();
+	}
+
+	function saveChainedMoveSequences() {
+		if (!pieceRulesetDraft) return;
+		if (!activePiece) return;
+
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);;
+
+		chainedMoveSequences.forEach((sequence) => {
+			const indexToUpdate = sequence[0];
+			if (isNullOrUndefined(indexToUpdate)) {
+				updatedPieceRulesetDraft[activePiece].moveset.push(sequence[1]);
+			} else {
+				updatedPieceRulesetDraft[activePiece].moveset[indexToUpdate] = sequence[1];
+			}
+		});
+
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+		syncPieceRulesetDraftToDB();
 	}
 
 	return (
@@ -39,6 +63,7 @@ function ChainedMovesDialog() {
 						openChainedMovesDialog();
 					} else {
 						closeChainedMovesDialog();
+						saveChainedMoveSequences();
 						clearActivePiece();
 					}
 				}}
@@ -60,13 +85,16 @@ function ChainedMovesDialog() {
 								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground">
 									<ScrollArea className="min-w-0 w-full">
 										<div className="flex min-w-0 flex-row items-center p-4">
-											{sequence.map((node, nodeIndex) => {
+											{sequence[1].map((node, nodeIndex) => {
 												return (
 													<div
 														key={nodeIndex}
 														className="flex flex-row items-center"
 													>
-														<Button variant="ghost" className="px-4 py-2 rounded-md bg-muted">
+														<Button
+															variant="ghost"
+															className="px-4 py-2 rounded-md bg-muted"
+														>
 															{node.moveName}
 														</Button>
 
