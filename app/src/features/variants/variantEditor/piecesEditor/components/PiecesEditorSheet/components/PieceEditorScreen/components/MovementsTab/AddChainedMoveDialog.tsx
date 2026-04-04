@@ -53,6 +53,11 @@ function AddChainedMoveDialog() {
 		closeChainedMoveDialog();
 	}
 
+	function handleComboboxItemSelect(movementName: string) {
+		console.log("item selected", movementName);
+		updateMovementToAdd(movementName);
+	}
+
 	return (
 		<Dialog
 			modal={true}
@@ -95,6 +100,7 @@ function AddChainedMoveDialog() {
 							<ComboboxList>
 								{(movementEntry: [string, MovementRule]) => (
 									<ComboboxItem
+										onClick={() => handleComboboxItemSelect(movementEntry[0])}
 										key={movementEntry[0]}
 										value={movementEntry[0]}
 									>
