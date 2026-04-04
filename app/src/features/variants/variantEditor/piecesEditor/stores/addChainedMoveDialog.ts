@@ -8,6 +8,10 @@ type AddChainedMoveDialogStore = {
 	chainedMoveSequenceIndex: number | null;
 	updateChainedMoveSequenceIndex: (index: number) => void;
 	clearChainedMoveSequenceIndex: () => void;
+
+	movementToAdd: string;
+	updateMovementToAdd: (movement: string) => void;
+	clearMovementToAdd: () => void;
 }
 
 const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>((set) => ({
@@ -18,6 +22,10 @@ const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>((set) => 
 	chainedMoveSequenceIndex: null,
 	updateChainedMoveSequenceIndex: (index) => set({ chainedMoveSequenceIndex: index }),
 	clearChainedMoveSequenceIndex: () => set({ chainedMoveSequenceIndex: null }),
+
+	movementToAdd: "",
+	updateMovementToAdd: (movement) => set({ movementToAdd: movement }),
+	clearMovementToAdd: () => set({ movementToAdd: "" }),
 }));
 
 export default useAddChainedMoveDialogStore;
