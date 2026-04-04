@@ -19,6 +19,7 @@ import type { MovementRule } from "@/features/variants/common/types/movementRule
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import type { ChangeEvent } from "react";
 
 function AddChainedMoveDialog() {
@@ -42,7 +43,7 @@ function AddChainedMoveDialog() {
 	}
 
 	function handleAddChainedMoveButtonClick() {
-		if (!chainedMoveSequenceIndex) return;
+		if (isNullOrUndefined(chainedMoveSequenceIndex)) return;
 
 		addChainedMoveToSequence(chainedMoveSequenceIndex, "end", {
 			moveName: movementToAdd,
@@ -54,7 +55,6 @@ function AddChainedMoveDialog() {
 	}
 
 	function handleComboboxItemSelect(movementName: string) {
-		console.log("item selected", movementName);
 		updateMovementToAdd(movementName);
 	}
 
