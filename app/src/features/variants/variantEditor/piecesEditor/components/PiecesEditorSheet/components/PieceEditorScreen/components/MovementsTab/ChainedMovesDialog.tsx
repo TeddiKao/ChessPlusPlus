@@ -99,7 +99,7 @@ function ChainedMovesDialog() {
 														</Button>
 
 														{nodeIndex <
-															sequence.length -
+															sequence[1].length -
 																1 && (
 															<IconArrowRight />
 														)}
