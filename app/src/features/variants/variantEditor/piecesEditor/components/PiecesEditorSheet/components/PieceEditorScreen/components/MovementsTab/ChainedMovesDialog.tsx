@@ -11,7 +11,7 @@ import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piec
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { IconArrowRight, IconPlus } from "@tabler/icons-react";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Fragment } from "react/jsx-runtime";
 
 function ChainedMovesDialog() {
 	const {
@@ -53,44 +53,44 @@ function ChainedMovesDialog() {
 
 					<div className="flex flex-col gap-2">
 						{chainedMoveSequences.map((sequence, index) => (
-							<div
-								className="flex flex-row items-center justify-between p-4 rounded-lg border-muted-foreground border-2 border-dashed"
-								key={index}
-							>
-								<ScrollArea>
-									<div className="flex flex-row items-center">
-										{sequence.map((node, nodeIndex) => {
-											return (
-												<div
-													key={nodeIndex}
-													className="flex flex-row items-center"
-												>
-													<p className="px-4 py-2 rounded-md bg-muted">
-														{node.moveName}
-													</p>
+							<Fragment key={index}>
+								<div className="flex flex-row items-center gap-4">
+									<div className="flex flex-row items-center justify-between p-4 rounded-lg border-muted-foreground border-2 border-dashed">
+										<div className="flex flex-row items-center">
+											{sequence.map((node, nodeIndex) => {
+												return (
+													<div
+														key={nodeIndex}
+														className="flex flex-row items-center"
+													>
+														<p className="px-4 py-2 rounded-md bg-muted">
+															{node.moveName}
+														</p>
 
-													{nodeIndex <
-														sequence.length - 1 && (
-														<IconArrowRight />
-													)}
-												</div>
-											);
-										})}
+														{nodeIndex <
+															sequence.length -
+																1 && (
+															<IconArrowRight />
+														)}
+													</div>
+												);
+											})}
+										</div>
 									</div>
 
-									<ScrollBar orientation="horizontal" />
-								</ScrollArea>
-
-								<Button
-									onClick={() =>
-										handleAddChainedMoveButtonClick(index)
-									}
-									variant="outline"
-									size="icon-sm"
-								>
-									<IconPlus />
-								</Button>
-							</div>
+									<Button
+										onClick={() =>
+											handleAddChainedMoveButtonClick(
+												index,
+											)
+										}
+										variant="outline"
+										size="icon-sm"
+									>
+										<IconPlus />
+									</Button>
+								</div>
+							</Fragment>
 						))}
 					</div>
 				</DialogContent>
