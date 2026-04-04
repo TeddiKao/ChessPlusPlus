@@ -49,13 +49,13 @@ function CreateVariantDialog() {
 
 		createVariant(defaultVariant);
 
+		clearVariantName();
+		closeDialog();
+
 		if (defaultImagesCreated) return;
 
 		updateImages(defaultPieceImages);
 		markAsDefaultImagesCreated();
-
-		clearVariantName();
-		closeDialog();
 	}
 
 	return (
