@@ -18,9 +18,12 @@ import {
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
+import type { ChangeEvent } from "react";
 
 function AddChainedMoveDialog() {
 	const { movementRulesDraft } = useVariantDraftStore();
+	const { movementToAdd, updateMovementToAdd, clearMovementToAdd } =
+		useAddChainedMoveDialogStore();
 	const {
 		isChainedMoveDialogOpen,
 		openChainedMoveDialog,
@@ -28,6 +31,10 @@ function AddChainedMoveDialog() {
 	} = useAddChainedMoveDialogStore();
 
 	if (!movementRulesDraft) return null;
+
+	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
+		updateMovementToAdd(e.target.value);
+	}
 
 	return (
 		<Dialog
@@ -38,6 +45,7 @@ function AddChainedMoveDialog() {
 					openChainedMoveDialog();
 				} else {
 					closeChainedMoveDialog();
+					clearMovementToAdd();
 				}
 			}}
 		>
@@ -57,8 +65,15 @@ function AddChainedMoveDialog() {
 							movementEntry: [string, MovementRule],
 						) => movementEntry[0]}
 					>
-						<ComboboxInput placeholder="Select a move" />
-						<ComboboxContent onWheel={(e) => e.stopPropagation()} className="pointer-events-auto">
+						<ComboboxInput
+							value={movementToAdd}
+							onChange={handleMovementNameInputChange}
+							placeholder="Select a move"
+						/>
+						<ComboboxContent
+							onWheel={(e) => e.stopPropagation()}
+							className="pointer-events-auto"
+						>
 							<ComboboxEmpty>No movements found</ComboboxEmpty>
 							<ComboboxList>
 								{(movementEntry: [string, MovementRule]) => (
