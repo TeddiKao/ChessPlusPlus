@@ -57,9 +57,9 @@ function ChainedMovesDialog() {
 								key={index}
 								className="flex min-w-0 flex-row items-center gap-4 w-full"
 							>
-								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground p-4">
+								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground">
 									<ScrollArea className="min-w-0 w-full">
-										<div className="flex min-w-0 flex-row items-center">
+										<div className="flex min-w-0 flex-row items-center p-4">
 											{sequence.map((node, nodeIndex) => {
 												return (
 													<div
