@@ -76,7 +76,7 @@ function ChainedMovesDialog() {
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className="flex min-w-0 flex-col gap-2 w-full">
+					<div className="flex min-w-0 flex-col gap-4 w-full">
 						{chainedMoveSequences.map((sequence, index) => (
 							<div
 								key={index}
