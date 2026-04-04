@@ -81,6 +81,7 @@ function MovementSelectionDialog() {
 					openMovementSelectionDialog();
 				} else {
 					closeMovementSelectionDialog();
+					clearSearchQuery();
 				}
 			}}
 		>
