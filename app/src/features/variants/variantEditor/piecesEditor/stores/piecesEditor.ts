@@ -37,7 +37,7 @@ type PiecesEditorStore = {
 	updateMovementsInActivePiece: (movements: RegularMove[]) => void;
 	clearMovementsFromActivePiece: () => void;
 
-	chainedMoveSequences: ChainedMoveSequence[];
+	chainedMoveSequences: [number | null, ChainedMoveSequence][];
 	addChainedMoveSequence: (sequence: ChainedMoveSequence) => void;
 	removeChainedMoveSequence: (sequenceIndex: number) => void;
 	updateChainedMoveSequence: (
@@ -125,7 +125,10 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 	chainedMoveSequences: [],
 	addChainedMoveSequence: (sequence) =>
 		set({
-			chainedMoveSequences: [...get().chainedMoveSequences, sequence],
+			chainedMoveSequences: [
+				...get().chainedMoveSequences,
+				[null, sequence],
+			],
 		}),
 
 	removeChainedMoveSequence: (sequenceIndex) =>
@@ -139,11 +142,19 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		set({
 			chainedMoveSequences: get().chainedMoveSequences.map(
 				(sequence, index) =>
-					index === sequenceIndex ? newSequence : sequence,
+					index === sequenceIndex
+						? [sequence[0], newSequence]
+						: sequence,
 			),
 		}),
 
-	updateChainedMoveSequences: (newSequences) => set({ chainedMoveSequences: newSequences }),
+	updateChainedMoveSequences: (newSequences) =>
+		set({
+			chainedMoveSequences: newSequences.map((sequence, index) => [
+				index,
+				sequence,
+			]),
+		}),
 	clearChainedMoveSequences: () => set({ chainedMoveSequences: [] }),
 
 	addChainedMoveToSequence: (sequenceIndex, insertPos, move) => {
@@ -151,7 +162,9 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			set({
 				chainedMoveSequences: get().chainedMoveSequences.map(
 					(sequence, index) =>
-						index === sequenceIndex ? [...sequence, move] : sequence,
+						index === sequenceIndex
+							? [sequence[0], [...sequence[1], move]]
+							: sequence,
 				),
 			});
 		} else {
@@ -159,23 +172,19 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				chainedMoveSequences: get().chainedMoveSequences.map(
 					(sequence, index) =>
 						index === sequenceIndex
-							? [
-									...sequence.slice(0, insertPos),
-									move,
-									...sequence.slice(insertPos),
-								]
+							? [sequence[0], [...sequence[1].slice(0, insertPos), move, ...sequence[1].slice(insertPos)]]
 							: sequence,
 				),
-			})
+			});
 		}
 	},
-	
+
 	removeChainedMoveFromSequence: (sequenceIndex, moveIndex) =>
 		set({
 			chainedMoveSequences: get().chainedMoveSequences.map(
 				(sequence, index) =>
 					index === sequenceIndex
-						? sequence.filter((_, index) => index !== moveIndex)
+						? [sequence[0], sequence[1].filter((_, index) => index !== moveIndex)]
 						: sequence,
 			),
 		}),
@@ -184,9 +193,9 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			chainedMoveSequences: get().chainedMoveSequences.map(
 				(sequence, index) =>
 					index === sequenceIndex
-						? sequence.map((move, index) =>
+						? [sequence[0], sequence[1].map((move, index) =>
 								index === moveIndex ? newMove : move,
-							)
+							)]
 						: sequence,
 			),
 		}),
