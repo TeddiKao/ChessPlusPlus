@@ -44,6 +44,7 @@ type PiecesEditorStore = {
 		sequenceIndex: number,
 		newSequence: ChainedMoveSequence,
 	) => void;
+	updateChainedMoveSequences: (newSequences: ChainedMoveSequence[]) => void;
 	clearChainedMoveSequences: () => void;
 
 	addChainedMoveToSequence: (
@@ -142,6 +143,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			),
 		}),
 
+	updateChainedMoveSequences: (newSequences) => set({ chainedMoveSequences: newSequences }),
 	clearChainedMoveSequences: () => set({ chainedMoveSequences: [] }),
 
 	addChainedMoveToSequence: (sequenceIndex, insertPos, move) =>
