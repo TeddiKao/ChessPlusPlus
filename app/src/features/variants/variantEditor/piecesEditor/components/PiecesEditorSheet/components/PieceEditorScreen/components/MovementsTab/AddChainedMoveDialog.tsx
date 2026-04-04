@@ -18,22 +18,39 @@ import {
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import type { ChangeEvent } from "react";
 
 function AddChainedMoveDialog() {
 	const { movementRulesDraft } = useVariantDraftStore();
-	const { movementToAdd, updateMovementToAdd, clearMovementToAdd } =
-		useAddChainedMoveDialogStore();
 	const {
 		isChainedMoveDialogOpen,
 		openChainedMoveDialog,
 		closeChainedMoveDialog,
+		movementToAdd,
+		updateMovementToAdd,
+		clearMovementToAdd,
+
+		chainedMoveSequenceIndex,
 	} = useAddChainedMoveDialogStore();
+	const { addChainedMoveToSequence } = usePiecesEditorStore();
 
 	if (!movementRulesDraft) return null;
 
 	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
 		updateMovementToAdd(e.target.value);
+	}
+
+	function handleAddChainedMoveButtonClick() {
+		if (!chainedMoveSequenceIndex) return;
+
+		addChainedMoveToSequence(chainedMoveSequenceIndex, "end", {
+			moveName: movementToAdd,
+			validMove: true,
+		});
+
+		clearMovementToAdd();
+		closeChainedMoveDialog();
 	}
 
 	return (
@@ -90,7 +107,7 @@ function AddChainedMoveDialog() {
 				</div>
 
 				<DialogFooter>
-					<Button className="w-full" variant="default">
+					<Button onClick={handleAddChainedMoveButtonClick} className="w-full" variant="default">
 						Add chained move
 					</Button>
 				</DialogFooter>
