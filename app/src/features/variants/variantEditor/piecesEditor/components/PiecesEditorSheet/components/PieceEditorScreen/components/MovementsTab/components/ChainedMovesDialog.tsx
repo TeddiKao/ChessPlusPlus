@@ -58,6 +58,7 @@ function SequenceNodeCard({
 		chainedMoveSequences,
 		removeChainedMoveSequence,
 		removeChainedMoveFromSequence,
+		removeChainedMovesFromSequence,
 		addDeletedChainedMoveSequence,
 	} = usePiecesEditorStore();
 
@@ -85,6 +86,27 @@ function SequenceNodeCard({
 				chainedMoveSequences[sequenceIndex][1],
 			]);
 		}
+	}
+
+	function handleDeleteMovesBeforeButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+
+		removeChainedMovesFromSequence(
+			sequenceIndex,
+			Array.from({ length: nodeIndex }, (_, index) => index),
+		);
+	}
+
+	function handleDeleteMovesAfterButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+
+		removeChainedMovesFromSequence(
+			sequenceIndex,
+			Array.from(
+				{ length: sequenceLength - nodeIndex },
+				(_, index) => index + nodeIndex + 1,
+			),
+		);
 	}
 
 	return (
@@ -138,14 +160,14 @@ function SequenceNodeCard({
 								</DropdownMenuItem>
 
 								{nodeIndex > 0 && (
-									<DropdownMenuItem variant="destructive">
+									<DropdownMenuItem onClick={handleDeleteMovesBeforeButtonClick} variant="destructive">
 										<IconTrash />
 										Delete moves before
 									</DropdownMenuItem>
 								)}
 
 								{nodeIndex < sequenceLength - 1 && (
-									<DropdownMenuItem variant="destructive">
+									<DropdownMenuItem onClick={handleDeleteMovesAfterButtonClick} variant="destructive">
 										<IconTrash />
 										Delete moves after
 									</DropdownMenuItem>
