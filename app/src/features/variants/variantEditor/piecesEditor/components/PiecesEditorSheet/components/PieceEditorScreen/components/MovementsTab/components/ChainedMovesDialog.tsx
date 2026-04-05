@@ -36,22 +36,29 @@ import { type MouseEvent } from "react";
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
 	sequenceIndex: number;
+	indexInMoveset: number | null;
 };
 
 type ChainedMoveSequenceCardProps = {
 	sequence: ChainedMoveSequence;
 	sequenceIndex: number;
+	indexInMoveset: number | null;
 };
 
 function SequenceNodeCard({
 	chainedMoveNode,
 	sequenceIndex,
+	indexInMoveset,
 }: SequenceNodeCardProps) {
-	const { removeChainedMoveSequence } = usePiecesEditorStore();
+	const { chainedMoveSequences, removeChainedMoveSequence, addDeletedChainedMoveSequence } = usePiecesEditorStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
 		removeChainedMoveSequence(sequenceIndex);
+
+		if (isNullOrUndefined(indexInMoveset)) return;
+
+		addDeletedChainedMoveSequence([indexInMoveset, chainedMoveSequences[sequenceIndex][1]]);
 	}
 
 	return (
@@ -129,6 +136,7 @@ function SequenceNodeCard({
 function ChainedMoveSequenceCard({
 	sequence,
 	sequenceIndex,
+	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
 	return (
 		<ScrollArea className="min-w-0 w-full">
@@ -142,6 +150,7 @@ function ChainedMoveSequenceCard({
 							<SequenceNodeCard
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
+								indexInMoveset={indexInMoveset}
 							/>
 
 							{nodeIndex < sequence.length - 1 && (
@@ -238,6 +247,7 @@ function ChainedMovesDialog() {
 									<ChainedMoveSequenceCard
 										sequence={sequence[1]}
 										sequenceIndex={index}
+										indexInMoveset={sequence[0]}
 									/>
 								</div>
 
