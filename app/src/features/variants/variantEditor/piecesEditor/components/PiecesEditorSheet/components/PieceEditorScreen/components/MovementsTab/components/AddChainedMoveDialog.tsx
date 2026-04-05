@@ -59,17 +59,19 @@ function AddChainedMoveDialog() {
 
 		if (!movementRulesDraft) return;
 
-		if (movementToAdd.trim() === "") {
+		const trimmedMovementToAdd = movementToAdd.trim();
+
+		if (trimmedMovementToAdd === "") {
 			addErrors(["Movement name cannot be empty"]);
 			return;
 		}
 
-		if (!movementRulesDraft[movementToAdd.trim()]) {
+		if (!movementRulesDraft[trimmedMovementToAdd]) {
 			addErrors(["Movement name is not valid"]);
 			return;
 		}
 
-		onAddChainedMove(movementToAdd, additionalInfo);
+		onAddChainedMove(trimmedMovementToAdd, additionalInfo);
 
 		clearMovementToAdd();
 		closeChainedMoveDialog();
