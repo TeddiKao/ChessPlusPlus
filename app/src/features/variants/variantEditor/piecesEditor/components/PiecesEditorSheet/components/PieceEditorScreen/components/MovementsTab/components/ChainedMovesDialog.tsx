@@ -50,7 +50,11 @@ function SequenceNodeCard({
 	sequenceIndex,
 	indexInMoveset,
 }: SequenceNodeCardProps) {
-	const { chainedMoveSequences, removeChainedMoveSequence, addDeletedChainedMoveSequence } = usePiecesEditorStore();
+	const {
+		chainedMoveSequences,
+		removeChainedMoveSequence,
+		addDeletedChainedMoveSequence,
+	} = usePiecesEditorStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -58,7 +62,10 @@ function SequenceNodeCard({
 
 		if (isNullOrUndefined(indexInMoveset)) return;
 
-		addDeletedChainedMoveSequence([indexInMoveset, chainedMoveSequences[sequenceIndex][1]]);
+		addDeletedChainedMoveSequence([
+			indexInMoveset,
+			chainedMoveSequences[sequenceIndex][1],
+		]);
 	}
 
 	return (
@@ -174,7 +181,8 @@ function ChainedMovesDialog() {
 		activePiece,
 		clearActivePiece,
 	} = useChainedMovesDialogStore();
-	const { chainedMoveSequences } = usePiecesEditorStore();
+	const { chainedMoveSequences, deletedChainedMoveSequences } =
+		usePiecesEditorStore();
 	const {
 		pieceRulesetDraft,
 		updatePieceRulesetDraft,
@@ -205,6 +213,18 @@ function ChainedMovesDialog() {
 				updatedPieceRulesetDraft[activePiece].moveset[indexToUpdate] =
 					sequence[1];
 			}
+		});
+
+		deletedChainedMoveSequences.forEach((sequence) => {
+			const indexToUpdate = sequence[0];
+			if (isNullOrUndefined(indexToUpdate)) {
+				return;
+			}
+
+			updatedPieceRulesetDraft[activePiece].moveset =
+				updatedPieceRulesetDraft[activePiece].moveset.filter(
+					(_, index) => index !== indexToUpdate,
+				);
 		});
 
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
