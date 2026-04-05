@@ -17,7 +17,10 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import type { ChainedMoveNode, ChainedMoveSequence } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMoveNode,
+	ChainedMoveSequence,
+} from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
 import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
@@ -28,15 +31,29 @@ import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPlus, IconTrash } from "@tabler/icons-react";
 
+import { type MouseEvent } from "react";
+
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
+	sequenceIndex: number;
 };
 
 type ChainedMoveSequenceCardProps = {
 	sequence: ChainedMoveSequence;
+	sequenceIndex: number;
 };
 
-function SequenceNodeCard({ chainedMoveNode }: SequenceNodeCardProps) {
+function SequenceNodeCard({
+	chainedMoveNode,
+	sequenceIndex,
+}: SequenceNodeCardProps) {
+	const { removeChainedMoveSequence } = usePiecesEditorStore();
+
+	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+		removeChainedMoveSequence(sequenceIndex);
+	}
+
 	return (
 		<div className="flex flex-row items-center">
 			<DropdownMenu>
@@ -93,7 +110,10 @@ function SequenceNodeCard({ chainedMoveNode }: SequenceNodeCardProps) {
 									Delete moves after
 								</DropdownMenuItem>
 
-								<DropdownMenuItem variant="destructive">
+								<DropdownMenuItem
+									onClick={handleDeleteSequenceButtonClick}
+									variant="destructive"
+								>
 									<IconTrash />
 									Delete sequence
 								</DropdownMenuItem>
@@ -106,7 +126,10 @@ function SequenceNodeCard({ chainedMoveNode }: SequenceNodeCardProps) {
 	);
 }
 
-function ChainedMoveSequenceCard({ sequence }: ChainedMoveSequenceCardProps) {
+function ChainedMoveSequenceCard({
+	sequence,
+	sequenceIndex,
+}: ChainedMoveSequenceCardProps) {
 	return (
 		<ScrollArea className="min-w-0 w-full">
 			<div className="flex min-w-0 flex-row items-center p-4">
@@ -116,7 +139,10 @@ function ChainedMoveSequenceCard({ sequence }: ChainedMoveSequenceCardProps) {
 							key={nodeIndex}
 							className="flex flex-row items-center"
 						>
-							<SequenceNodeCard chainedMoveNode={node} />
+							<SequenceNodeCard
+								chainedMoveNode={node}
+								sequenceIndex={sequenceIndex}
+							/>
 
 							{nodeIndex < sequence.length - 1 && (
 								<IconArrowRight />
@@ -209,7 +235,10 @@ function ChainedMovesDialog() {
 								className="flex min-w-0 flex-row items-center gap-4 w-full"
 							>
 								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground">
-									<ChainedMoveSequenceCard sequence={sequence[1]} />
+									<ChainedMoveSequenceCard
+										sequence={sequence[1]}
+										sequenceIndex={index}
+									/>
 								</div>
 
 								<Button
