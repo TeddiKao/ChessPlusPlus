@@ -14,7 +14,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
@@ -37,6 +37,10 @@ function EditChainedMoveDialog() {
 
 		nodeIndex,
 		clearNodeIndex,
+
+		errors,
+		addErrors,
+		clearErrors,
 	} = useEditChainedMoveDialogStore();
 
 	const { movementRulesDraft } = useVariantDraftStore();
@@ -53,8 +57,15 @@ function EditChainedMoveDialog() {
 	}
 
 	function handleEditChainedMoveButtonClick() {
+		clearErrors();
+
 		if (isNullOrUndefined(sequenceIndex)) return;
 		if (isNullOrUndefined(nodeIndex)) return;
+
+		if (newMovementName.trim() === "") {
+			addErrors(["Movement name cannot be empty"]);
+			return;
+		}
 
 		replaceChainedMoveInSequence(sequenceIndex, nodeIndex, {
 			moveName: newMovementName,
@@ -65,6 +76,7 @@ function EditChainedMoveDialog() {
 		clearNewMovementName();
 		clearSequenceIndex();
 		clearNodeIndex();
+		clearErrors();
 	}
 
 	return (
@@ -78,6 +90,7 @@ function EditChainedMoveDialog() {
 					clearNewMovementName();
 					clearSequenceIndex();
 					clearNodeIndex();
+					clearErrors();
 				}
 			}}
 		>
@@ -125,6 +138,8 @@ function EditChainedMoveDialog() {
 							</ComboboxList>
 						</ComboboxContent>
 					</Combobox>
+
+					<FieldError errors={errors.map((error) => ({ message: error }))} />
 				</Field>
 
 				<DialogFooter>
