@@ -65,6 +65,10 @@ type PiecesEditorStore = {
 		sequenceIndex: number,
 		moveIndex: number,
 	) => void;
+	removeChainedMovesFromSequence: (
+		sequenceIndex: number,
+		moveIndices: number[],
+	) => void;
 	replaceChainedMoveInSequence: (
 		sequenceIndex: number,
 		moveIndex: number,
@@ -206,6 +210,17 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 						: sequence,
 			),
 		}),
+
+	removeChainedMovesFromSequence: (sequenceIndex, moveIndices) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) =>
+					index === sequenceIndex
+						? [sequence[0], sequence[1].filter((_, index) => !moveIndices.includes(index))]
+						: sequence,
+			),
+		}),
+
 	replaceChainedMoveInSequence: (sequenceIndex, moveIndex, newMove) =>
 		set({
 			chainedMoveSequences: get().chainedMoveSequences.map(
