@@ -17,9 +17,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import type {
-	ChainedMoveNode,
-} from "@/features/variants/common/types/pieceRules";
+import type { ChainedMoveNode, ChainedMoveSequence } from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
 import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
@@ -30,11 +28,15 @@ import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPlus, IconTrash } from "@tabler/icons-react";
 
-type SequenceCardProps = {
+type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
 };
 
-function SequenceNodeCard({ chainedMoveNode }: SequenceCardProps) {
+type ChainedMoveSequenceCardProps = {
+	sequence: ChainedMoveSequence;
+};
+
+function SequenceNodeCard({ chainedMoveNode }: SequenceNodeCardProps) {
 	return (
 		<div className="flex flex-row items-center">
 			<DropdownMenu>
@@ -101,6 +103,31 @@ function SequenceNodeCard({ chainedMoveNode }: SequenceCardProps) {
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</div>
+	);
+}
+
+function ChainedMoveSequenceCard({ sequence }: ChainedMoveSequenceCardProps) {
+	return (
+		<ScrollArea className="min-w-0 w-full">
+			<div className="flex min-w-0 flex-row items-center p-4">
+				{sequence.map((node, nodeIndex) => {
+					return (
+						<div
+							key={nodeIndex}
+							className="flex flex-row items-center"
+						>
+							<SequenceNodeCard chainedMoveNode={node} />
+
+							{nodeIndex < sequence.length - 1 && (
+								<IconArrowRight />
+							)}
+						</div>
+					);
+				})}
+			</div>
+
+			<ScrollBar orientation="horizontal" />
+		</ScrollArea>
 	);
 }
 
@@ -182,35 +209,7 @@ function ChainedMovesDialog() {
 								className="flex min-w-0 flex-row items-center gap-4 w-full"
 							>
 								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground">
-									<ScrollArea className="min-w-0 w-full">
-										<div className="flex min-w-0 flex-row items-center p-4">
-											{sequence[1].map(
-												(node, nodeIndex) => {
-													return (
-														<div
-															key={nodeIndex}
-															className="flex flex-row items-center"
-														>
-															<SequenceNodeCard
-																chainedMoveNode={
-																	node
-																}
-															/>
-
-															{nodeIndex <
-																sequence[1]
-																	.length -
-																	1 && (
-																<IconArrowRight />
-															)}
-														</div>
-													);
-												},
-											)}
-										</div>
-
-										<ScrollBar orientation="horizontal" />
-									</ScrollArea>
+									<ChainedMoveSequenceCard sequence={sequence[1]} />
 								</div>
 
 								<Button
