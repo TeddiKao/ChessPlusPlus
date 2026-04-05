@@ -36,8 +36,9 @@ const useChainedMoveSequenceCreationDialogStore =
 			set((state) => ({
 				selectedMovements: state.selectedMovements.filter(
 					(m) => m[1] !== movementName,
-				),
+				).map((m, index) => ([index, m[1]])),
 			})),
+			
 		clearSelectedMovements: () => set({ selectedMovements: [] }),
 	}));
 
