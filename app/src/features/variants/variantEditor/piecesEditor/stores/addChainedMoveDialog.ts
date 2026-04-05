@@ -24,6 +24,10 @@ type AddChainedMoveDialogStore = {
 	additionalInfo: Record<string, unknown>;
 	updateAdditionalInfo: (additionalInfo: Record<string, unknown>) => void;
 	clearAdditionalInfo: () => void;
+
+	errors: string[];
+	addErrors: (errors: string[]) => void;
+	clearErrors: () => void;
 };
 
 const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>(
@@ -49,6 +53,10 @@ const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>(
 		additionalInfo: {},
 		updateAdditionalInfo: (additionalInfo) => set({ additionalInfo }),
 		clearAdditionalInfo: () => set({ additionalInfo: {} }),
+
+		errors: [],
+		addErrors: (errors) => set((state) => ({ errors: [...state.errors, ...errors] })),
+		clearErrors: () => set({ errors: [] }),
 	}),
 );
 
