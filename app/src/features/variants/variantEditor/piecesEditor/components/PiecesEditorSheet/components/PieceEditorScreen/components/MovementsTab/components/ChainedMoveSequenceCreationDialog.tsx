@@ -5,6 +5,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogDescription,
+	DialogFooter,
 } from "@/components/ui/dialog";
 import {
 	InputGroup,
@@ -32,6 +33,7 @@ function ChainedMoveSequenceCreationDialog() {
 		selectedMovements,
 		selectMovement,
 		deselectMovement,
+		clearSelectedMovements,
 	} = useChainedMoveSequenceCreationDialogStore();
 
 	const { pieceRulesetDraft, movementRulesDraft } = useVariantDraftStore();
@@ -59,6 +61,10 @@ function ChainedMoveSequenceCreationDialog() {
 		} else {
 			selectMovement(movementName);
 		}
+	}
+
+	function handleClearSelectionButtonClick() {
+		clearSelectedMovements();
 	}
 
 	return (
@@ -165,6 +171,16 @@ function ChainedMoveSequenceCreationDialog() {
 						</div>
 					</ScrollArea>
 				</div>
+
+				<DialogFooter>
+					<Button
+						variant="destructive"
+						className="w-full"
+						onClick={handleClearSelectionButtonClick}
+					>
+						Clear selection
+					</Button>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
