@@ -36,7 +36,9 @@ import { type MouseEvent } from "react";
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
 	sequenceIndex: number;
-	indexInMoveset: number | null;
+	nodeIndex: number;
+	sequenceIndexInMoveset: number | null;
+	sequenceLength: number;
 };
 
 type ChainedMoveSequenceCardProps = {
@@ -48,7 +50,9 @@ type ChainedMoveSequenceCardProps = {
 function SequenceNodeCard({
 	chainedMoveNode,
 	sequenceIndex,
-	indexInMoveset,
+	nodeIndex,
+	sequenceIndexInMoveset,
+	sequenceLength,
 }: SequenceNodeCardProps) {
 	const {
 		chainedMoveSequences,
@@ -60,10 +64,10 @@ function SequenceNodeCard({
 		e.stopPropagation();
 		removeChainedMoveSequence(sequenceIndex);
 
-		if (isNullOrUndefined(indexInMoveset)) return;
+		if (isNullOrUndefined(sequenceIndexInMoveset)) return;
 
 		addDeletedChainedMoveSequence([
-			indexInMoveset,
+			sequenceIndexInMoveset,
 			chainedMoveSequences[sequenceIndex][1],
 		]);
 	}
@@ -114,15 +118,20 @@ function SequenceNodeCard({
 									<IconTrash />
 									Delete this move
 								</DropdownMenuItem>
-								<DropdownMenuItem variant="destructive">
-									<IconTrash />
-									Delete moves before
-								</DropdownMenuItem>
 
-								<DropdownMenuItem variant="destructive">
-									<IconTrash />
-									Delete moves after
-								</DropdownMenuItem>
+								{nodeIndex > 0 && (
+									<DropdownMenuItem variant="destructive">
+										<IconTrash />
+										Delete moves before
+									</DropdownMenuItem>
+								)}
+
+								{nodeIndex < sequenceLength - 1 && (
+										<DropdownMenuItem variant="destructive">
+										<IconTrash />
+										Delete moves after
+									</DropdownMenuItem>
+								)}
 
 								<DropdownMenuItem
 									onClick={handleDeleteSequenceButtonClick}
@@ -157,7 +166,9 @@ function ChainedMoveSequenceCard({
 							<SequenceNodeCard
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
-								indexInMoveset={indexInMoveset}
+								sequenceIndexInMoveset={indexInMoveset}
+								nodeIndex={nodeIndex}
+								sequenceLength={sequence.length}
 							/>
 
 							{nodeIndex < sequence.length - 1 && (
