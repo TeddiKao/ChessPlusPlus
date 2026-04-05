@@ -19,7 +19,6 @@ import { Field } from "@/components/ui/field";
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
-import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { FieldLabel } from "@/components/ui/field";
 import type { ChangeEvent } from "react";
@@ -35,8 +34,12 @@ function AddChainedMoveDialog() {
 		clearMovementToAdd,
 
 		chainedMoveSequenceIndex,
+
+		onAddChainedMove,
+		clearOnAddChainedMove,
+		additionalInfo,
+		clearAdditionalInfo,
 	} = useAddChainedMoveDialogStore();
-	const { addChainedMoveToSequence } = usePiecesEditorStore();
 
 	if (!movementRulesDraft) return null;
 
@@ -46,14 +49,14 @@ function AddChainedMoveDialog() {
 
 	function handleAddChainedMoveButtonClick() {
 		if (isNullOrUndefined(chainedMoveSequenceIndex)) return;
+		if (isNullOrUndefined(onAddChainedMove)) return;
 
-		addChainedMoveToSequence(chainedMoveSequenceIndex, "end", {
-			moveName: movementToAdd,
-			validMove: true,
-		});
+		onAddChainedMove(movementToAdd, additionalInfo);
 
 		clearMovementToAdd();
 		closeChainedMoveDialog();
+		clearOnAddChainedMove();
+		clearAdditionalInfo();
 	}
 
 	function handleComboboxItemSelect(movementName: string) {
