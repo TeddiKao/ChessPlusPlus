@@ -15,7 +15,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Field } from "@/components/ui/field";
+import { Field, FieldError } from "@/components/ui/field";
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
@@ -39,6 +39,10 @@ function AddChainedMoveDialog() {
 		clearOnAddChainedMove,
 		additionalInfo,
 		clearAdditionalInfo,
+
+		errors,
+		addErrors,
+		clearErrors,
 	} = useAddChainedMoveDialogStore();
 
 	if (!movementRulesDraft) return null;
@@ -48,8 +52,22 @@ function AddChainedMoveDialog() {
 	}
 
 	function handleAddChainedMoveButtonClick() {
+		clearErrors();
+
 		if (isNullOrUndefined(chainedMoveSequenceIndex)) return;
 		if (isNullOrUndefined(onAddChainedMove)) return;
+
+		if (!movementRulesDraft) return;
+
+		if (movementToAdd.trim() === "") {
+			addErrors(["Movement name cannot be empty"]);
+			return;
+		}
+
+		if (!movementRulesDraft[movementToAdd.trim()]) {
+			addErrors(["Movement name is not valid"]);
+			return;
+		}
 
 		onAddChainedMove(movementToAdd, additionalInfo);
 
@@ -57,6 +75,7 @@ function AddChainedMoveDialog() {
 		closeChainedMoveDialog();
 		clearOnAddChainedMove();
 		clearAdditionalInfo();
+		clearErrors();
 	}
 
 	function handleComboboxItemSelect(movementName: string) {
@@ -99,6 +118,8 @@ function AddChainedMoveDialog() {
 								value={movementToAdd}
 								onChange={handleMovementNameInputChange}
 								placeholder="Select a move"
+								data-invalid={errors.length > 0}
+								aria-invalid={errors.length > 0}
 							/>
 							<ComboboxContent
 								onWheel={(e) => e.stopPropagation()}
@@ -126,6 +147,8 @@ function AddChainedMoveDialog() {
 								</ComboboxList>
 							</ComboboxContent>
 						</Combobox>
+
+						<FieldError errors={errors.map((error) => ({ message: error }))} />
 					</Field>
 				</div>
 
