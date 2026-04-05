@@ -75,6 +75,9 @@ function ChainedMoveSequenceCreationDialog() {
 				moveName: move[1],
 			})),
 		);
+
+		closeChainedMoveSequenceCreationDialog();
+		clearSelectedMovements();
 	}
 
 	return (
