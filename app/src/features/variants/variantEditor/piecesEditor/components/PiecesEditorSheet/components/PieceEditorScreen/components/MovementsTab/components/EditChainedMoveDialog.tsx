@@ -1,7 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList } from "@/components/ui/combobox";
 import {
 	Dialog,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
@@ -34,6 +36,10 @@ function EditChainedMoveDialog() {
 
 	function handleComboboxItemSelect(movementName: string) {
 		updateNewMovementName(movementName);
+	}
+
+	function handleEditChainedMoveButtonClick() {
+
 	}
 
 	return (
@@ -95,6 +101,10 @@ function EditChainedMoveDialog() {
 						</ComboboxContent>
 					</Combobox>
 				</Field>
+
+				<DialogFooter>
+					<Button onClick={handleEditChainedMoveButtonClick} className="w-full">Save changes</Button>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
