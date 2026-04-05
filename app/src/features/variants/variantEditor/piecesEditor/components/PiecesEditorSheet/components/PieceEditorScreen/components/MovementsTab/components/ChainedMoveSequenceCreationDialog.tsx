@@ -5,7 +5,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogDescription,
-	DialogFooter,
 } from "@/components/ui/dialog";
 import {
 	InputGroup,
@@ -172,7 +171,8 @@ function ChainedMoveSequenceCreationDialog() {
 					</ScrollArea>
 				</div>
 
-				<DialogFooter>
+				<div className="flex flex-col gap-2">
+					<Button className="w-full">Create sequence</Button>
 					<Button
 						variant="destructive"
 						className="w-full"
@@ -180,7 +180,7 @@ function ChainedMoveSequenceCreationDialog() {
 					>
 						Clear selection
 					</Button>
-				</DialogFooter>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);
