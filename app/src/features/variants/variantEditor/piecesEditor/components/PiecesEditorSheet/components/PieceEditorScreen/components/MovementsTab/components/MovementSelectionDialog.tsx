@@ -147,24 +147,23 @@ function MovementSelectionDialog() {
 									const noun = usageCount === 1 ? "usage" : "usages";
 
 									return (
-										<div
-											role="button"
+										<Button
+											variant="ghost"
 											onClick={() =>
 												handleMovementClick(movementName)
 											}
-											aria-label="Select or deselect movement"
 											className={clsx(
-												"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
+												"font-normal text-left w-full h-auto flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
 												isMovementUsedInPiece
 													? "bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
 													: "hover:bg-muted",
 											)}
 										>
 											<div className="flex flex-col gap-1">
-												<p>{movementName}</p>
-												<p className="text-muted-foreground">
+												<span>{movementName}</span>
+												<span className="text-muted-foreground">
 													{usageCount} {noun}
-												</p>
+												</span>
 											</div>
 	
 											{isMovementUsedInPiece && (
@@ -175,7 +174,7 @@ function MovementSelectionDialog() {
 													/>
 												</div>
 											)}
-										</div>
+										</Button>
 									)
 								})}
 						</div>
