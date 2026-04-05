@@ -51,8 +51,10 @@ function MovementSelectionDialog() {
 			pieceRules.moveset
 				.filter((move) => Array.isArray(move))
 				.flatMap((chainedMove) =>
-					chainedMove.map((move) => (move as ChainedMoveNode).moveName)
-				)
+					chainedMove.map(
+						(move) => (move as ChainedMoveNode).moveName,
+					),
+				),
 	);
 
 	const pieceRuleset = pieceRulesetDraft[pieceName];
@@ -182,10 +184,32 @@ function MovementSelectionDialog() {
 											<div className="flex flex-col gap-1">
 												<span>{movementName}</span>
 												<span className="text-muted-foreground">
-													{regularMoveUsageCount}{" "}
-													regular •{" "}
-													{chainedMoveUsageCount}{" "}
-													chained
+													{regularMoveUsageCount >
+														0 && (
+														<span>
+															{
+																regularMoveUsageCount
+															}{" "}
+															regular
+														</span>
+													)}
+
+													{regularMoveUsageCount >
+														0 &&
+														chainedMoveUsageCount >
+															0 && (
+															<span>{" "}•{" "}</span>
+														)}
+
+													{chainedMoveUsageCount >
+														0 && (
+														<span>
+															{
+																chainedMoveUsageCount
+															}{" "}
+															chained
+														</span>
+													)}
 												</span>
 											</div>
 
