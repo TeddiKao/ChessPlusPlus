@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
-import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/AddChainedMoveDialog";
+import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
+import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
+import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPlus } from "@tabler/icons-react";
@@ -29,6 +31,7 @@ function ChainedMovesDialog() {
 
 	const { openChainedMoveDialog, updateChainedMoveSequenceIndex } =
 		useAddChainedMoveDialogStore();
+	const { openChainedMoveSequenceCreationDialog } = useChainedMoveSequenceCreationDialogStore();
 
 	function handleAddChainedMoveButtonClick(chainedMoveSequenceIndex: number) {
 		updateChainedMoveSequenceIndex(chainedMoveSequenceIndex);
@@ -52,6 +55,10 @@ function ChainedMovesDialog() {
 
 		updatePieceRulesetDraft(updatedPieceRulesetDraft);
 		syncPieceRulesetDraftToDB();
+	}
+
+	function handleAddSequenceButtonClick() {
+		openChainedMoveSequenceCreationDialog();
 	}
 
 	return (
@@ -124,12 +131,13 @@ function ChainedMovesDialog() {
 							</div>
 						))}
 
-						<Button className="w-full">Add sequence</Button>
+						<Button onClick={handleAddSequenceButtonClick} className="w-full">Add sequence</Button>
 					</div>
 				</DialogContent>
 			</Dialog>
 
 			<AddChainedMoveDialog />
+			<ChainedMoveSequenceCreationDialog />
 		</>
 	);
 }
