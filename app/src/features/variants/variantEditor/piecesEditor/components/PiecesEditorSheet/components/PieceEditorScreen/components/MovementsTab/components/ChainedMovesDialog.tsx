@@ -160,14 +160,24 @@ function SequenceNodeCard({
 								</DropdownMenuItem>
 
 								{nodeIndex > 0 && (
-									<DropdownMenuItem onClick={handleDeleteMovesBeforeButtonClick} variant="destructive">
+									<DropdownMenuItem
+										onClick={
+											handleDeleteMovesBeforeButtonClick
+										}
+										variant="destructive"
+									>
 										<IconTrash />
 										Delete moves before
 									</DropdownMenuItem>
 								)}
 
 								{nodeIndex < sequenceLength - 1 && (
-									<DropdownMenuItem onClick={handleDeleteMovesAfterButtonClick} variant="destructive">
+									<DropdownMenuItem
+										onClick={
+											handleDeleteMovesAfterButtonClick
+										}
+										variant="destructive"
+									>
 										<IconTrash />
 										Delete moves after
 									</DropdownMenuItem>
@@ -232,21 +242,41 @@ function ChainedMovesDialog() {
 		activePiece,
 		clearActivePiece,
 	} = useChainedMovesDialogStore();
-	const { chainedMoveSequences, deletedChainedMoveSequences } =
-		usePiecesEditorStore();
+	const {
+		chainedMoveSequences,
+		deletedChainedMoveSequences,
+		addChainedMoveToSequence,
+	} = usePiecesEditorStore();
 	const {
 		pieceRulesetDraft,
 		updatePieceRulesetDraft,
 		syncPieceRulesetDraftToDB,
 	} = useVariantDraftStore();
 
-	const { openChainedMoveDialog, updateChainedMoveSequenceIndex } =
-		useAddChainedMoveDialogStore();
+	const {
+		openChainedMoveDialog,
+		updateChainedMoveSequenceIndex,
+		updateAdditionalInfo,
+		updateOnAddChainedMove,
+	} = useAddChainedMoveDialogStore();
 	const { openChainedMoveSequenceCreationDialog } =
 		useChainedMoveSequenceCreationDialogStore();
 
 	function handleAddChainedMoveButtonClick(chainedMoveSequenceIndex: number) {
 		updateChainedMoveSequenceIndex(chainedMoveSequenceIndex);
+		updateAdditionalInfo({
+			chainedMoveSequenceIndex,
+		});
+
+		updateOnAddChainedMove((movementToAdd, additionalInfo) => {
+			const additionalInfoData = additionalInfo as { chainedMoveSequenceIndex: number };
+
+			addChainedMoveToSequence(additionalInfoData.chainedMoveSequenceIndex, "end", {
+				moveName: movementToAdd,
+				validMove: true,
+			});
+		});
+
 		openChainedMoveDialog();
 	}
 
