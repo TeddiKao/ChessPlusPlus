@@ -13,7 +13,7 @@ type EditChainedMoveDialogStore = {
 	updateNodeIndex: (nodeIndex: number) => void;
 	clearNodeIndex: () => void;
 
-	newMovementName: string | null;
+	newMovementName: string;
 	updateNewMovementName: (newMovementName: string) => void;
 	clearNewMovementName: () => void;
 };
@@ -31,9 +31,9 @@ const useEditChainedMoveDialogStore = create<EditChainedMoveDialogStore>((set) =
 	updateNodeIndex: (nodeIndex: number) => set({ nodeIndex }),
 	clearNodeIndex: () => set({ nodeIndex: null }),
 
-	newMovementName: null,
+	newMovementName: "",
 	updateNewMovementName: (newMovementName: string) => set({ newMovementName }),
-	clearNewMovementName: () => set({ newMovementName: null }),
+	clearNewMovementName: () => set({ newMovementName: "" }),
 }));
 
-export default useEditChainedMoveDialogStore;
+export default useEditChainedMoveDialogStore;	
