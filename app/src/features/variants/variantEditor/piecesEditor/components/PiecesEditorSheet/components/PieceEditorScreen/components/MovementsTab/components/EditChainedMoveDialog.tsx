@@ -115,6 +115,8 @@ function EditChainedMoveDialog() {
 							value={newMovementName}
 							onChange={handleMovementNameInputChange}
 							placeholder="Select a move"
+							data-invalid={errors.length > 0}
+							aria-invalid={errors.length > 0}
 						/>
 						<ComboboxContent
 							onWheel={(e) => e.stopPropagation()}
