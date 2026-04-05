@@ -64,18 +64,20 @@ function EditChainedMoveDialog() {
 
 		if (!movementRulesDraft) return;
 
-		if (newMovementName.trim() === "") {
+		const trimmedNewMovementName = newMovementName.trim();
+
+		if (trimmedNewMovementName === "") {
 			addErrors(["Movement name cannot be empty"]);
 			return;
 		}
 
-		if (!movementRulesDraft[newMovementName.trim()]) {
+		if (!movementRulesDraft[trimmedNewMovementName]) {
 			addErrors(["Movement name is not valid"]);
 			return;
 		}
 
 		replaceChainedMoveInSequence(sequenceIndex, nodeIndex, {
-			moveName: newMovementName,
+			moveName: trimmedNewMovementName,
 			validMove: true,
 		});
 
