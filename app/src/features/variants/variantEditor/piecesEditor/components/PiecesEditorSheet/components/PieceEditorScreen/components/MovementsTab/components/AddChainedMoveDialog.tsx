@@ -133,7 +133,6 @@ function AddChainedMoveDialog() {
 					<Button
 						onClick={handleAddChainedMoveButtonClick}
 						className="w-full"
-						variant="default"
 					>
 						Add chained move
 					</Button>
