@@ -10,9 +10,16 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuPortal,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import type {
+	ChainedMoveNode,
+} from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
 import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
@@ -22,6 +29,80 @@ import useChainedMoveSequenceCreationDialogStore from "@/features/variants/varia
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPlus, IconTrash } from "@tabler/icons-react";
+
+type SequenceCardProps = {
+	chainedMoveNode: ChainedMoveNode;
+};
+
+function SequenceCard({ chainedMoveNode }: SequenceCardProps) {
+	return (
+		<div className="flex flex-row items-center">
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button
+						variant="ghost"
+						className="px-4 py-2 rounded-md bg-muted"
+					>
+						{chainedMoveNode.moveName}
+					</Button>
+				</DropdownMenuTrigger>
+
+				<DropdownMenuContent className="w-max" side="bottom">
+					<DropdownMenuSub>
+						<DropdownMenuSubTrigger>
+							<IconPlus />
+							Add
+						</DropdownMenuSubTrigger>
+
+						<DropdownMenuPortal>
+							<DropdownMenuSubContent>
+								<DropdownMenuItem>
+									<IconPlus />
+									Add move before
+								</DropdownMenuItem>
+
+								<DropdownMenuItem>
+									<IconPlus />
+									Add move after
+								</DropdownMenuItem>
+							</DropdownMenuSubContent>
+						</DropdownMenuPortal>
+					</DropdownMenuSub>
+
+					<DropdownMenuSub>
+						<DropdownMenuSubTrigger variant="destructive">
+							<IconTrash />
+							Delete
+						</DropdownMenuSubTrigger>
+
+						<DropdownMenuPortal>
+							<DropdownMenuSubContent>
+								<DropdownMenuItem variant="destructive">
+									<IconTrash />
+									Delete this move
+								</DropdownMenuItem>
+								<DropdownMenuItem variant="destructive">
+									<IconTrash />
+									Delete moves before
+								</DropdownMenuItem>
+
+								<DropdownMenuItem variant="destructive">
+									<IconTrash />
+									Delete moves after
+								</DropdownMenuItem>
+
+								<DropdownMenuItem variant="destructive">
+									<IconTrash />
+									Delete sequence
+								</DropdownMenuItem>
+							</DropdownMenuSubContent>
+						</DropdownMenuPortal>
+					</DropdownMenuSub>
+				</DropdownMenuContent>
+			</DropdownMenu>
+		</div>
+	);
+}
 
 function ChainedMovesDialog() {
 	const {
@@ -110,45 +191,11 @@ function ChainedMovesDialog() {
 															key={nodeIndex}
 															className="flex flex-row items-center"
 														>
-															<DropdownMenu>
-																<DropdownMenuTrigger
-																	asChild
-																>
-																	<Button
-																		variant="ghost"
-																		className="px-4 py-2 rounded-md bg-muted"
-																	>
-																		{
-																			node.moveName
-																		}
-																	</Button>
-																</DropdownMenuTrigger>
-
-																<DropdownMenuContent side="bottom">
-																	<DropdownMenuItem variant="destructive">
-																		<IconTrash />
-																		Delete
-																		move
-																	</DropdownMenuItem>
-																	<DropdownMenuItem variant="destructive">
-																		<IconTrash />
-																		Delete
-																		moves
-																		before
-																	</DropdownMenuItem>
-																	<DropdownMenuItem variant="destructive">
-																		<IconTrash />
-																		Delete
-																		moves
-																		after
-																	</DropdownMenuItem>
-																	<DropdownMenuItem variant="destructive">
-																		<IconTrash />
-																		Delete
-																		sequence
-																	</DropdownMenuItem>
-																</DropdownMenuContent>
-															</DropdownMenu>
+															<SequenceCard
+																chainedMoveNode={
+																	node
+																}
+															/>
 
 															{nodeIndex <
 																sequence[1]
