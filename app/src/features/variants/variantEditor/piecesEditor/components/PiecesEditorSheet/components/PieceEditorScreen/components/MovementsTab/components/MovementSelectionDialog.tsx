@@ -16,7 +16,10 @@ import useMovementSelectionDialogStore from "@/features/variants/variantEditor/p
 import { IconCheck, IconSearch, IconX } from "@tabler/icons-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import clsx from "clsx";
-import type { RegularMove } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMoveNode,
+	RegularMove,
+} from "@/features/variants/common/types/pieceRules";
 
 function MovementSelectionDialog() {
 	const {
@@ -41,6 +44,15 @@ function MovementSelectionDialog() {
 			pieceRules.moveset
 				.filter((move) => !Array.isArray(move))
 				.map((regularMove) => (regularMove as RegularMove).moveName),
+	);
+
+	const allChainedMoves = Object.values(pieceRulesetDraft).flatMap(
+		(pieceRules) =>
+			pieceRules.moveset
+				.filter((move) => Array.isArray(move))
+				.flatMap((chainedMove) =>
+					chainedMove.map((move) => (move as ChainedMoveNode).moveName)
+				)
 	);
 
 	const pieceRuleset = pieceRulesetDraft[pieceName];
@@ -134,24 +146,31 @@ function MovementSelectionDialog() {
 									movementName.includes(searchQuery),
 								)
 								.map(([movementName]) => {
-									const isMovementUsedInPiece = regularMoves.some(
-										(move) =>
-											(move as RegularMove).moveName ===
-											movementName,
-									);
+									const isMovementUsedInPiece =
+										regularMoves.some(
+											(move) =>
+												(move as RegularMove)
+													.moveName === movementName,
+										);
 
-									const usageCount = allRegularMovements.filter(
-										(move) => move === movementName
-									).length;
+									const regularMoveUsageCount =
+										allRegularMovements.filter(
+											(move) => move === movementName,
+										).length;
 
-									const noun = usageCount === 1 ? "usage" : "usages";
+									const chainedMoveUsageCount =
+										allChainedMoves.filter(
+											(move) => move === movementName,
+										).length;
 
 									return (
 										<Button
 											key={movementName}
 											variant="ghost"
 											onClick={() =>
-												handleMovementClick(movementName)
+												handleMovementClick(
+													movementName,
+												)
 											}
 											className={clsx(
 												"font-normal text-left w-full h-auto flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
@@ -163,10 +182,13 @@ function MovementSelectionDialog() {
 											<div className="flex flex-col gap-1">
 												<span>{movementName}</span>
 												<span className="text-muted-foreground">
-													{usageCount} {noun}
+													{regularMoveUsageCount}{" "}
+													regular •{" "}
+													{chainedMoveUsageCount}{" "}
+													chained
 												</span>
 											</div>
-	
+
 											{isMovementUsedInPiece && (
 												<div className="flex flex-row items-center justify-center">
 													<IconCheck
@@ -176,7 +198,7 @@ function MovementSelectionDialog() {
 												</div>
 											)}
 										</Button>
-									)
+									);
 								})}
 						</div>
 					</ScrollArea>
