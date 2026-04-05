@@ -69,7 +69,7 @@ function EditChainedMoveDialog() {
 			return;
 		}
 
-		if (!movementRulesDraft[newMovementName]) {
+		if (!movementRulesDraft[newMovementName.trim()]) {
 			addErrors(["Movement name is not valid"]);
 			return;
 		}
