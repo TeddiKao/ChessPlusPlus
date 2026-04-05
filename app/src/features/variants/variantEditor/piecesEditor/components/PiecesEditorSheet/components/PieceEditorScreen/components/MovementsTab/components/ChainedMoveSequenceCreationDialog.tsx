@@ -15,7 +15,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
-import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import clsx from "clsx";
 import type { ChangeEvent } from "react";
@@ -115,13 +114,12 @@ function ChainedMoveSequenceCreationDialog() {
 									movementName.includes(searchQuery),
 								)
 								.map(([movementName]) => {
-									const isMoveementFound =
+									const foundMovement =
 										selectedMovements.find(
 											(move) => move[1] === movementName,
 										);
 
-									const isSelected = !!isMoveementFound;
-									const selectedIndex = isMoveementFound?.[0];
+									const isSelected = !!foundMovement;
 
 									const usageCount =
 										allRegularMovements.filter(
@@ -154,16 +152,13 @@ function ChainedMoveSequenceCreationDialog() {
 												</p>
 											</div>
 
-											{isSelected &&
-												!isNullOrUndefined(
-													selectedIndex,
-												) && (
-													<div className="flex flex-row items-center justify-center">
-														<span className="bg-primary text-primary-foreground p-2 rounded-full text-lg">
-															{selectedIndex + 1}
-														</span>
-													</div>
-												)}
+											{foundMovement && (
+												<div className="flex flex-row items-center justify-center">
+													<span className="bg-primary text-primary-foreground p-2 rounded-full text-lg">
+														{foundMovement[0] + 1}
+													</span>
+												</div>
+											)}
 										</div>
 									);
 								})}
