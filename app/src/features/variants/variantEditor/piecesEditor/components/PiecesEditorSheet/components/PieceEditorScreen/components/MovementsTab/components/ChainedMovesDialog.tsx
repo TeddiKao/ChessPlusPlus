@@ -34,7 +34,7 @@ type SequenceCardProps = {
 	chainedMoveNode: ChainedMoveNode;
 };
 
-function SequenceCard({ chainedMoveNode }: SequenceCardProps) {
+function SequenceNodeCard({ chainedMoveNode }: SequenceCardProps) {
 	return (
 		<div className="flex flex-row items-center">
 			<DropdownMenu>
@@ -191,7 +191,7 @@ function ChainedMovesDialog() {
 															key={nodeIndex}
 															className="flex flex-row items-center"
 														>
-															<SequenceCard
+															<SequenceNodeCard
 																chainedMoveNode={
 																	node
 																}
