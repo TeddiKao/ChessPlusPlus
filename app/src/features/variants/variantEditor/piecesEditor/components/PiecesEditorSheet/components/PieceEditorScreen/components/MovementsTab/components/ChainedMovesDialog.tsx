@@ -21,7 +21,7 @@ import useChainedMovesDialogStore from "@/features/variants/variantEditor/pieces
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import { IconArrowRight, IconPlus } from "@tabler/icons-react";
+import { IconArrowRight, IconPlus, IconTrash } from "@tabler/icons-react";
 
 function ChainedMovesDialog() {
 	const {
@@ -122,36 +122,40 @@ function ChainedMovesDialog() {
 																			node.moveName
 																		}
 																	</Button>
-
-																	{nodeIndex <
-																		sequence[1]
-																			.length -
-																			1 && (
-																		<IconArrowRight />
-																	)}
 																</DropdownMenuTrigger>
 
-																<DropdownMenuContent>
+																<DropdownMenuContent side="bottom">
 																	<DropdownMenuItem variant="destructive">
+																		<IconTrash />
 																		Delete
 																		move
 																	</DropdownMenuItem>
 																	<DropdownMenuItem variant="destructive">
+																		<IconTrash />
 																		Delete
 																		moves
 																		before
 																	</DropdownMenuItem>
 																	<DropdownMenuItem variant="destructive">
+																		<IconTrash />
 																		Delete
 																		moves
 																		after
 																	</DropdownMenuItem>
 																	<DropdownMenuItem variant="destructive">
+																		<IconTrash />
 																		Delete
 																		sequence
 																	</DropdownMenuItem>
 																</DropdownMenuContent>
 															</DropdownMenu>
+
+															{nodeIndex <
+																sequence[1]
+																	.length -
+																	1 && (
+																<IconArrowRight />
+															)}
 														</div>
 													);
 												},
