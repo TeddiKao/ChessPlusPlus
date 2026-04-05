@@ -12,20 +12,44 @@ type AddChainedMoveDialogStore = {
 	movementToAdd: string;
 	updateMovementToAdd: (movement: string) => void;
 	clearMovementToAdd: () => void;
-}
 
-const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>((set) => ({
-	isChainedMoveDialogOpen: false,
-	openChainedMoveDialog: () => set({ isChainedMoveDialogOpen: true }),
-	closeChainedMoveDialog: () => set({ isChainedMoveDialogOpen: false }),
+	onAddChainedMove:
+		| ((movementToAdd: string, additionalInfo: Record<string, unknown>) => void)
+		| null;
+	updateOnAddChainedMove: (
+		onAddChainedMove: (movementToAdd: string, additionalInfo: Record<string, unknown>) => void,
+	) => void;
+	clearOnAddChainedMove: () => void;
 
-	chainedMoveSequenceIndex: null,
-	updateChainedMoveSequenceIndex: (index) => set({ chainedMoveSequenceIndex: index }),
-	clearChainedMoveSequenceIndex: () => set({ chainedMoveSequenceIndex: null }),
+	additionalInfo: Record<string, unknown>;
+	updateAdditionalInfo: (additionalInfo: Record<string, unknown>) => void;
+	clearAdditionalInfo: () => void;
+};
 
-	movementToAdd: "",
-	updateMovementToAdd: (movement) => set({ movementToAdd: movement }),
-	clearMovementToAdd: () => set({ movementToAdd: "" }),
-}));
+const useAddChainedMoveDialogStore = create<AddChainedMoveDialogStore>(
+	(set) => ({
+		isChainedMoveDialogOpen: false,
+		openChainedMoveDialog: () => set({ isChainedMoveDialogOpen: true }),
+		closeChainedMoveDialog: () => set({ isChainedMoveDialogOpen: false }),
+
+		chainedMoveSequenceIndex: null,
+		updateChainedMoveSequenceIndex: (index) =>
+			set({ chainedMoveSequenceIndex: index }),
+		clearChainedMoveSequenceIndex: () =>
+			set({ chainedMoveSequenceIndex: null }),
+
+		movementToAdd: "",
+		updateMovementToAdd: (movement) => set({ movementToAdd: movement }),
+		clearMovementToAdd: () => set({ movementToAdd: "" }),
+
+		onAddChainedMove: null,
+		updateOnAddChainedMove: (onAddChainedMove) => set({ onAddChainedMove }),
+		clearOnAddChainedMove: () => set({ onAddChainedMove: null }),
+
+		additionalInfo: {},
+		updateAdditionalInfo: (additionalInfo) => set({ additionalInfo }),
+		clearAdditionalInfo: () => set({ additionalInfo: {} }),
+	}),
+);
 
 export default useAddChainedMoveDialogStore;
