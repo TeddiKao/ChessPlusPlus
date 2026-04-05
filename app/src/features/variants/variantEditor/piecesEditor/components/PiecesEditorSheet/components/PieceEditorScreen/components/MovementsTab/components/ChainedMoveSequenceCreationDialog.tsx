@@ -15,6 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { RegularMove } from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import clsx from "clsx";
 import type { ChangeEvent } from "react";
@@ -34,6 +35,7 @@ function ChainedMoveSequenceCreationDialog() {
 		deselectMovement,
 		clearSelectedMovements,
 	} = useChainedMoveSequenceCreationDialogStore();
+	const { addChainedMoveSequence } = usePiecesEditorStore();
 
 	const { pieceRulesetDraft, movementRulesDraft } = useVariantDraftStore();
 	if (!movementRulesDraft) return null;
@@ -64,6 +66,15 @@ function ChainedMoveSequenceCreationDialog() {
 
 	function handleClearSelectionButtonClick() {
 		clearSelectedMovements();
+	}
+
+	function handleCreateSequenceButtonClick() {
+		addChainedMoveSequence(
+			selectedMovements.map((move) => ({
+				validMove: true,
+				moveName: move[1],
+			})),
+		);
 	}
 
 	return (
@@ -172,7 +183,13 @@ function ChainedMoveSequenceCreationDialog() {
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<Button className="w-full">Create sequence</Button>
+					<Button
+						className="w-full"
+						onClick={handleCreateSequenceButtonClick}
+						disabled={selectedMovements.length === 0}
+					>
+						Create sequence
+					</Button>
 					<Button
 						variant="destructive"
 						className="w-full"
