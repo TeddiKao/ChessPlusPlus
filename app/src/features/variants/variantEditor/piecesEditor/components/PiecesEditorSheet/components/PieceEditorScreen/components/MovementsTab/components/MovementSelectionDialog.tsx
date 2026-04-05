@@ -133,58 +133,51 @@ function MovementSelectionDialog() {
 								.filter(([movementName]) =>
 									movementName.includes(searchQuery),
 								)
-								.map(([movementName]) => (
-									<div
-										role="button"
-										onClick={() =>
-											handleMovementClick(movementName)
-										}
-										aria-label="Select or deselect movement"
-										className={clsx(
-											"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
-											regularMoves.some(
-												(move) =>
-													(move as RegularMove)
-														.moveName ===
-													movementName,
-											)
-												? "bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
-												: "hover:bg-muted",
-										)}
-									>
-										<div className="flex flex-col gap-1">
-											<p>{movementName}</p>
-											<p className="text-muted-foreground">
-												{
-													allRegularMovements.filter(
-														(move) =>
-															move ===
-															movementName,
-													).length
-												}{" "}
-												{allRegularMovements.filter(
-													(move) =>
-														move === movementName,
-												).length === 1
-													? "usage"
-													: "usages"}
-											</p>
-										</div>
+								.map(([movementName]) => {
+									const isMovementUsedInPiece = regularMoves.some(
+										(move) =>
+											(move as RegularMove).moveName ===
+											movementName,
+									);
 
-										{regularMoves.some(
-											(move) =>
-												(move as RegularMove)
-													.moveName === movementName,
-										) && (
-											<div className="flex flex-row items-center justify-center">
-												<IconCheck
-													className="size-5 stroke-primary"
-													stroke={1.5}
-												/>
+									const usageCount = allRegularMovements.filter(
+										(move) => move === movementName
+									).length;
+
+									const noun = usageCount === 1 ? "usage" : "usages";
+
+									return (
+										<div
+											role="button"
+											onClick={() =>
+												handleMovementClick(movementName)
+											}
+											aria-label="Select or deselect movement"
+											className={clsx(
+												"flex flex-row items-center justify-between gap-2 p-2 rounded-lg",
+												isMovementUsedInPiece
+													? "bg-sidebar-primary-foreground hover:bg-(--sidebar-primary-hover)"
+													: "hover:bg-muted",
+											)}
+										>
+											<div className="flex flex-col gap-1">
+												<p>{movementName}</p>
+												<p className="text-muted-foreground">
+													{usageCount} {noun}
+												</p>
 											</div>
-										)}
-									</div>
-								))}
+	
+											{isMovementUsedInPiece && (
+												<div className="flex flex-row items-center justify-center">
+													<IconCheck
+														className="size-5 stroke-primary"
+														stroke={1.5}
+													/>
+												</div>
+											)}
+										</div>
+									)
+								})}
 						</div>
 					</ScrollArea>
 				</div>
