@@ -157,6 +157,10 @@ function SequenceNodeCard({
 				validMove: true,
 			});
 		});
+
+		updateChainedMoveSequenceIndex(sequenceIndex);
+
+		openChainedMoveDialog();
 	}
 
 	return (
