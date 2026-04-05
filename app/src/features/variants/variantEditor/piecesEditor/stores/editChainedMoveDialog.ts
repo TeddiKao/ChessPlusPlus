@@ -18,7 +18,7 @@ type EditChainedMoveDialogStore = {
 	clearNewMovementName: () => void;
 
 	errors: string[];
-	updateErrors: (errors: string[]) => void;
+	addErrors: (errors: string[]) => void;
 	clearErrors: () => void;
 };
 
@@ -40,7 +40,7 @@ const useEditChainedMoveDialogStore = create<EditChainedMoveDialogStore>((set) =
 	clearNewMovementName: () => set({ newMovementName: "" }),
 
 	errors: [],
-	updateErrors: (errors: string[]) => set({ errors }),
+	addErrors: (errors: string[]) => set((state) => ({ errors: [...state.errors, ...errors] })),
 	clearErrors: () => set({ errors: [] }),
 }));
 
