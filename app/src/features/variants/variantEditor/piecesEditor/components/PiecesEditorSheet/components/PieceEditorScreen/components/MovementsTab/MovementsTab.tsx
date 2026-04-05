@@ -18,8 +18,10 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/MovementSelectionDialog";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
+import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/MovementSelectionDialog";
+import ChainedMovesDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMovesDialog";
 
 export function MovementsTab() {
 	const {
@@ -29,6 +31,8 @@ export function MovementsTab() {
 		expandMovements,
 		collapseMovements,
 	} = usePiecesEditorStore();
+
+	const { openChainedMovesDialog, updateActivePiece } = useChainedMovesDialogStore();
 
 	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } =
 		useVariantDraftStore();
@@ -57,9 +61,16 @@ export function MovementsTab() {
 		syncPieceRulesetDraftToDB();
 	}
 
+	function handleChainedMovesButtonClick() {
+		if (!activePiece) return;
+
+		openChainedMovesDialog();
+		updateActivePiece(activePiece);
+	}
+
 	return (
 		<>
-			<TabsContent value="movements">
+			<TabsContent value="movements"  className="flex flex-col gap-4">
 				<Collapsible
 					className="flex flex-col gap-1"
 					open={isMovementsExpanded}
@@ -124,9 +135,15 @@ export function MovementsTab() {
 						))}
 					</CollapsibleContent>
 				</Collapsible>
+
+				<div className="grid grid-cols-[65fr_35fr] items-center">
+					<p>Chained moves</p>
+					<Button onClick={handleChainedMovesButtonClick} className="px-4" variant="outline">View</Button>
+				</div>
 			</TabsContent>
 
 			<MovementSelectionDialog />
+			<ChainedMovesDialog />
 		</>
 	);
 }

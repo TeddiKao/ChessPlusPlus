@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
-import type { RegularMove } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMoveNode,
+	ChainedMoveSequence,
+	RegularMove,
+} from "@/features/variants/common/types/pieceRules";
 import { handlePieceNameUpdate } from "@/features/variants/variantEditor/common/utils/nameUpdateHandler";
 
 type PieceEditorChanges = {
@@ -32,6 +36,44 @@ type PiecesEditorStore = {
 	removeMovementFromActivePiece: (movementName: string) => void;
 	updateMovementsInActivePiece: (movements: RegularMove[]) => void;
 	clearMovementsFromActivePiece: () => void;
+
+	chainedMoveSequences: [number | null, ChainedMoveSequence][];
+	addChainedMoveSequence: (sequence: ChainedMoveSequence) => void;
+	removeChainedMoveSequence: (sequenceIndex: number) => void;
+	updateChainedMoveSequence: (
+		sequenceIndex: number,
+		newSequence: ChainedMoveSequence,
+	) => void;
+	updateChainedMoveSequences: (
+		newSequences: [number | null, ChainedMoveSequence][],
+	) => void;
+	clearChainedMoveSequences: () => void;
+
+	deletedChainedMoveSequences: [number | null, ChainedMoveSequence][];
+	addDeletedChainedMoveSequence: (
+		sequence: [number | null, ChainedMoveSequence],
+	) => void;
+	removeDeletedChainedMoveSequence: (sequenceIndex: number) => void;
+	clearDeletedChainedMoveSequences: () => void;
+
+	addChainedMoveToSequence: (
+		sequenceIndex: number,
+		insertPos: number | "end",
+		move: ChainedMoveNode,
+	) => void;
+	removeChainedMoveFromSequence: (
+		sequenceIndex: number,
+		moveIndex: number,
+	) => void;
+	removeChainedMovesFromSequence: (
+		sequenceIndex: number,
+		moveIndices: number[],
+	) => void;
+	replaceChainedMoveInSequence: (
+		sequenceIndex: number,
+		moveIndex: number,
+		newMove: ChainedMoveNode,
+	) => void;
 
 	pieceName: string | null;
 	updatePieceName: (newPieceName: string) => void;
@@ -93,8 +135,128 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		set({ activePieceMovements: movements }),
 	clearMovementsFromActivePiece: () => set({ activePieceMovements: [] }),
 
+	chainedMoveSequences: [],
+	addChainedMoveSequence: (sequence) =>
+		set({
+			chainedMoveSequences: [
+				...get().chainedMoveSequences,
+				[null, sequence],
+			],
+		}),
+
+	removeChainedMoveSequence: (sequenceIndex) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.filter(
+				(_, index) => index !== sequenceIndex,
+			),
+		}),
+
+	updateChainedMoveSequence: (sequenceIndex, newSequence) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) =>
+					index === sequenceIndex
+						? [sequence[0], newSequence]
+						: sequence,
+			),
+		}),
+
+	updateChainedMoveSequences: (newSequences) =>
+		set({
+			chainedMoveSequences: newSequences,
+		}),
+	clearChainedMoveSequences: () => set({ chainedMoveSequences: [] }),
+
+	addChainedMoveToSequence: (sequenceIndex, insertPos, move) => {
+		if (insertPos === "end") {
+			set({
+				chainedMoveSequences: get().chainedMoveSequences.map(
+					(sequence, index) =>
+						index === sequenceIndex
+							? [sequence[0], [...sequence[1], move]]
+							: sequence,
+				),
+			});
+		} else {
+			set({
+				chainedMoveSequences: get().chainedMoveSequences.map(
+					(sequence, index) =>
+						index === sequenceIndex
+							? [
+									sequence[0],
+									[
+										...sequence[1].slice(0, insertPos),
+										move,
+										...sequence[1].slice(insertPos),
+									],
+								]
+							: sequence,
+				),
+			});
+		}
+	},
+
+	removeChainedMoveFromSequence: (sequenceIndex, moveIndex) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) =>
+					index === sequenceIndex
+						? [
+								sequence[0],
+								sequence[1].filter(
+									(_, index) => index !== moveIndex,
+								),
+							]
+						: sequence,
+			),
+		}),
+
+	removeChainedMovesFromSequence: (sequenceIndex, moveIndices) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) =>
+					index === sequenceIndex
+						? [sequence[0], sequence[1].filter((_, index) => !moveIndices.includes(index))]
+						: sequence,
+			),
+		}),
+
+	replaceChainedMoveInSequence: (sequenceIndex, moveIndex, newMove) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) =>
+					index === sequenceIndex
+						? [
+								sequence[0],
+								sequence[1].map((move, index) =>
+									index === moveIndex ? newMove : move,
+								),
+							]
+						: sequence,
+			),
+		}),
+
+	deletedChainedMoveSequences: [],
+	addDeletedChainedMoveSequence: (sequence) =>
+		set({
+			deletedChainedMoveSequences: [
+				...get().deletedChainedMoveSequences,
+				sequence,
+			],
+		}),
+	removeDeletedChainedMoveSequence: (sequenceIndex) =>
+		set({
+			deletedChainedMoveSequences:
+				get().deletedChainedMoveSequences.filter(
+					(_, index) => index !== sequenceIndex,
+				),
+		}),
+	clearDeletedChainedMoveSequences: () =>
+		set({ deletedChainedMoveSequences: [] }),
+
 	pieceImageId: null,
-	updatePieceImageId: (newPieceImageId) => set({ pieceImageId: newPieceImageId }),
+	updatePieceImageId: (newPieceImageId) =>
+		set({ pieceImageId: newPieceImageId }),
 	clearPieceImageId: () => set({ pieceImageId: null }),
 
 	pieceName: null,
@@ -105,7 +267,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 		const pieceEditorChanges = get().piecesEditorChanges;
 		const pieceRulesetDraft =
 			useVariantDraftStore.getState().pieceRulesetDraft;
-		const setupRulesDraft = useVariantDraftStore.getState().setupRulesDraft
+		const setupRulesDraft = useVariantDraftStore.getState().setupRulesDraft;
 
 		if (!pieceRulesetDraft) return;
 		if (!setupRulesDraft) return;
