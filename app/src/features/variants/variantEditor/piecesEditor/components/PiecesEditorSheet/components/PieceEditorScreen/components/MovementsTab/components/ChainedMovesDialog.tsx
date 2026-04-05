@@ -60,7 +60,11 @@ function SequenceNodeCard({
 		removeChainedMoveFromSequence,
 		removeChainedMovesFromSequence,
 		addDeletedChainedMoveSequence,
+		addChainedMoveToSequence,
 	} = usePiecesEditorStore();
+
+	const { updateAdditionalInfo, updateOnAddChainedMove } =
+		useAddChainedMoveDialogStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -109,6 +113,48 @@ function SequenceNodeCard({
 		);
 	}
 
+	function handleAddMoveBeforeButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+
+		updateAdditionalInfo({
+			sequenceIndex,
+			nodeIndex,
+		});
+
+		updateOnAddChainedMove((movementToAdd, additionalInfo) => {
+			const { sequenceIndex, nodeIndex } = additionalInfo as {
+				sequenceIndex: number;
+				nodeIndex: number;
+			};
+
+			addChainedMoveToSequence(sequenceIndex, nodeIndex - 1, {
+				moveName: movementToAdd,
+				validMove: true,
+			});
+		});
+	}
+
+	function handleAddMoveAfterButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+
+		updateAdditionalInfo({
+			sequenceIndex,
+			nodeIndex,
+		});
+
+		updateOnAddChainedMove((movementToAdd, additionalInfo) => {
+			const { sequenceIndex, nodeIndex } = additionalInfo as {
+				sequenceIndex: number;
+				nodeIndex: number;
+			};
+
+			addChainedMoveToSequence(sequenceIndex, nodeIndex + 1, {
+				moveName: movementToAdd,
+				validMove: true,
+			});
+		});
+	}
+
 	return (
 		<div className="flex flex-row items-center">
 			<DropdownMenu>
@@ -130,12 +176,12 @@ function SequenceNodeCard({
 
 						<DropdownMenuPortal>
 							<DropdownMenuSubContent>
-								<DropdownMenuItem>
+								<DropdownMenuItem onClick={handleAddMoveBeforeButtonClick}>
 									<IconPlus />
 									Add move before
 								</DropdownMenuItem>
 
-								<DropdownMenuItem>
+								<DropdownMenuItem onClick={handleAddMoveAfterButtonClick}>
 									<IconPlus />
 									Add move after
 								</DropdownMenuItem>
@@ -269,12 +315,18 @@ function ChainedMovesDialog() {
 		});
 
 		updateOnAddChainedMove((movementToAdd, additionalInfo) => {
-			const additionalInfoData = additionalInfo as { chainedMoveSequenceIndex: number };
+			const additionalInfoData = additionalInfo as {
+				chainedMoveSequenceIndex: number;
+			};
 
-			addChainedMoveToSequence(additionalInfoData.chainedMoveSequenceIndex, "end", {
-				moveName: movementToAdd,
-				validMove: true,
-			});
+			addChainedMoveToSequence(
+				additionalInfoData.chainedMoveSequenceIndex,
+				"end",
+				{
+					moveName: movementToAdd,
+					validMove: true,
+				},
+			);
 		});
 
 		openChainedMoveDialog();
