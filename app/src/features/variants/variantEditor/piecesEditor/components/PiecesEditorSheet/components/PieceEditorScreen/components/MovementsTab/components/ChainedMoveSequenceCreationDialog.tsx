@@ -153,8 +153,8 @@ function ChainedMoveSequenceCreationDialog() {
 											</div>
 
 											{foundMovement && (
-												<div className="flex flex-row items-center justify-center">
-													<span className="bg-primary text-primary-foreground p-2 rounded-full text-lg">
+												<div className="flex flex-row items-center justify-center p-2 bg-primary rounded-full aspect-square size-6">
+													<span className="text-primary-foreground text-sm">
 														{foundMovement[0] + 1}
 													</span>
 												</div>
