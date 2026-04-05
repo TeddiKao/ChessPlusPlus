@@ -29,7 +29,7 @@ import useChainedMovesDialogStore from "@/features/variants/variantEditor/pieces
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import { IconArrowRight, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconArrowRight, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 
 import { type MouseEvent } from "react";
 
@@ -63,8 +63,12 @@ function SequenceNodeCard({
 		addChainedMoveToSequence,
 	} = usePiecesEditorStore();
 
-	const { openChainedMoveDialog, updateChainedMoveSequenceIndex, updateAdditionalInfo, updateOnAddChainedMove } =
-		useAddChainedMoveDialogStore();
+	const {
+		openChainedMoveDialog,
+		updateChainedMoveSequenceIndex,
+		updateAdditionalInfo,
+		updateOnAddChainedMove,
+	} = useAddChainedMoveDialogStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -184,18 +188,27 @@ function SequenceNodeCard({
 
 						<DropdownMenuPortal>
 							<DropdownMenuSubContent>
-								<DropdownMenuItem onClick={handleAddMoveBeforeButtonClick}>
+								<DropdownMenuItem
+									onClick={handleAddMoveBeforeButtonClick}
+								>
 									<IconPlus />
 									Add move before
 								</DropdownMenuItem>
 
-								<DropdownMenuItem onClick={handleAddMoveAfterButtonClick}>
+								<DropdownMenuItem
+									onClick={handleAddMoveAfterButtonClick}
+								>
 									<IconPlus />
 									Add move after
 								</DropdownMenuItem>
 							</DropdownMenuSubContent>
 						</DropdownMenuPortal>
 					</DropdownMenuSub>
+
+					<DropdownMenuItem>
+						<IconPencil />
+						Edit
+					</DropdownMenuItem>
 
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger variant="destructive">
@@ -259,28 +272,30 @@ function ChainedMoveSequenceCard({
 	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
 	return (
-		<ScrollArea className="min-w-0 w-full">
-			<div className="flex min-w-0 flex-row items-center p-4">
-				{sequence.map((node, nodeIndex) => {
-					return (
-						<div
-							key={nodeIndex}
-							className="flex flex-row items-center"
-						>
-							<SequenceNodeCard
-								chainedMoveNode={node}
-								sequenceIndex={sequenceIndex}
-								sequenceIndexInMoveset={indexInMoveset}
-								nodeIndex={nodeIndex}
-								sequenceLength={sequence.length}
-							/>
+		<ScrollArea className="flex-1 min-w-0 overflow-x-auto">
+			<div className="w-full">
+				<div className="flex min-w-max w-max flex-row items-center p-4">
+					{sequence.map((node, nodeIndex) => {
+						return (
+							<div
+								key={nodeIndex}
+								className="flex flex-row items-center"
+							>
+								<SequenceNodeCard
+									chainedMoveNode={node}
+									sequenceIndex={sequenceIndex}
+									sequenceIndexInMoveset={indexInMoveset}
+									nodeIndex={nodeIndex}
+									sequenceLength={sequence.length}
+								/>
 
-							{nodeIndex < sequence.length - 1 && (
-								<IconArrowRight />
-							)}
-						</div>
-					);
-				})}
+								{nodeIndex < sequence.length - 1 && (
+									<IconArrowRight />
+								)}
+							</div>
+						);
+					})}
+				</div>
 			</div>
 
 			<ScrollBar orientation="horizontal" />
@@ -390,7 +405,7 @@ function ChainedMovesDialog() {
 					}
 				}}
 			>
-				<DialogContent className="min-w-[50vw] w-[50vw]">
+				<DialogContent className="min-w-[50vw] w-[50vw] h-[90vh] flex flex-col">
 					<DialogHeader>
 						<DialogTitle>Chained moves</DialogTitle>
 						<DialogDescription>
@@ -398,39 +413,45 @@ function ChainedMovesDialog() {
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className="flex min-w-0 flex-col gap-4 w-full">
-						{chainedMoveSequences.map((sequence, index) => (
-							<div
-								key={index}
-								className="flex min-w-0 flex-row items-center gap-4 w-full"
-							>
-								<div className="flex min-w-0 flex-1 flex-row items-center justify-between rounded-lg border-2 border-dashed border-muted-foreground">
-									<ChainedMoveSequenceCard
-										sequence={sequence[1]}
-										sequenceIndex={index}
-										indexInMoveset={sequence[0]}
-									/>
-								</div>
+					<ScrollArea className="min-h-0 flex-1 p-4">
+						<div className="flex flex-col gap-4">
+							<div className="flex flex-1 flex-col gap-4 w-full">
+								{chainedMoveSequences.map((sequence, index) => (
+									<div
+										key={index}
+										className="flex min-w-0 flex-row items-center gap-4 w-full"
+									>
+										<div className="flex min-w-0 flex-1 flex-row items-center rounded-lg border-2 border-dashed border-muted-foreground w-0">
+											<ChainedMoveSequenceCard
+												sequence={sequence[1]}
+												sequenceIndex={index}
+												indexInMoveset={sequence[0]}
+											/>
+										</div>
 
-								<Button
-									onClick={() =>
-										handleAddChainedMoveButtonClick(index)
-									}
-									variant="outline"
-									size="icon-sm"
-								>
-									<IconPlus />
-								</Button>
+										<Button
+											onClick={() =>
+												handleAddChainedMoveButtonClick(
+													index,
+												)
+											}
+											variant="outline"
+											size="icon-sm"
+										>
+											<IconPlus />
+										</Button>
+									</div>
+								))}
 							</div>
-						))}
 
-						<Button
-							onClick={handleAddSequenceButtonClick}
-							className="w-full"
-						>
-							Add sequence
-						</Button>
-					</div>
+							<Button
+								onClick={handleAddSequenceButtonClick}
+								className="w-full"
+							>
+								Add sequence
+							</Button>
+						</div>
+					</ScrollArea>
 				</DialogContent>
 			</Dialog>
 
