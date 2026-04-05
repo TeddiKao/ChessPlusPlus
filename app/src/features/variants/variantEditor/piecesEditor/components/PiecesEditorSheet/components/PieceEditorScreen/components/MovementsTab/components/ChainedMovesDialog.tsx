@@ -63,7 +63,7 @@ function SequenceNodeCard({
 		addChainedMoveToSequence,
 	} = usePiecesEditorStore();
 
-	const { updateAdditionalInfo, updateOnAddChainedMove } =
+	const { openChainedMoveDialog, updateChainedMoveSequenceIndex, updateAdditionalInfo, updateOnAddChainedMove } =
 		useAddChainedMoveDialogStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
@@ -127,11 +127,15 @@ function SequenceNodeCard({
 				nodeIndex: number;
 			};
 
-			addChainedMoveToSequence(sequenceIndex, nodeIndex - 1, {
+			addChainedMoveToSequence(sequenceIndex, nodeIndex, {
 				moveName: movementToAdd,
 				validMove: true,
 			});
 		});
+
+		updateChainedMoveSequenceIndex(sequenceIndex);
+
+		openChainedMoveDialog();
 	}
 
 	function handleAddMoveAfterButtonClick(e: MouseEvent<HTMLDivElement>) {
