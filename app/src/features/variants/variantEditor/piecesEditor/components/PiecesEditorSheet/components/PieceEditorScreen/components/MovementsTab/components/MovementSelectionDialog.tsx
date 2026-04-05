@@ -148,6 +148,7 @@ function MovementSelectionDialog() {
 
 									return (
 										<Button
+											key={movementName}
 											variant="ghost"
 											onClick={() =>
 												handleMovementClick(movementName)
