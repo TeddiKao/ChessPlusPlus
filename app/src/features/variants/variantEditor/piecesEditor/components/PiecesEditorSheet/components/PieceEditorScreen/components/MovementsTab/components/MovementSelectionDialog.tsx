@@ -36,6 +36,13 @@ function MovementSelectionDialog() {
 	if (!pieceRulesetDraft) return null;
 	if (!pieceName) return null;
 
+	const allRegularMovements = Object.values(pieceRulesetDraft).flatMap(
+		(pieceRules) =>
+			pieceRules.moveset
+				.filter((move) => !Array.isArray(move))
+				.map((regularMove) => (regularMove as RegularMove).moveName),
+	);
+
 	const pieceRuleset = pieceRulesetDraft[pieceName];
 	const pieceMoveset = pieceRuleset.moveset;
 	const regularMoves = pieceMoveset.filter((move) => !Array.isArray(move));
@@ -149,24 +156,18 @@ function MovementSelectionDialog() {
 											<p>{movementName}</p>
 											<p className="text-muted-foreground">
 												{
-													regularMoves.filter(
+													allRegularMovements.filter(
 														(move) =>
-															(
-																move as RegularMove
-															).moveName ===
+															move ===
 															movementName,
 													).length
 												}{" "}
-												
-												{regularMoves.filter(
+												{allRegularMovements.filter(
 													(move) =>
-														(move as RegularMove)
-															.moveName ===
-															movementName,
-													).length === 1
-														? "usage"
-														: "usages"
-												}
+														move === movementName,
+												).length === 1
+													? "usage"
+													: "usages"}
 											</p>
 										</div>
 
