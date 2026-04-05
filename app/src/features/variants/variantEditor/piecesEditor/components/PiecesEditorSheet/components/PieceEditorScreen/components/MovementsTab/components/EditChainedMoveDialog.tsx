@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList } from "@/components/ui/combobox";
+import {
+	Combobox,
+	ComboboxContent,
+	ComboboxEmpty,
+	ComboboxInput,
+	ComboboxItem,
+	ComboboxList,
+} from "@/components/ui/combobox";
 import {
 	Dialog,
 	DialogContent,
@@ -11,6 +18,8 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import type { MovementRule } from "@/features/variants/common/types/movementRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import type { ChangeEvent } from "react";
 
 function EditChainedMoveDialog() {
@@ -23,11 +32,16 @@ function EditChainedMoveDialog() {
 		updateNewMovementName,
 		clearNewMovementName,
 
+		sequenceIndex,
 		clearSequenceIndex,
+
+		nodeIndex,
 		clearNodeIndex,
 	} = useEditChainedMoveDialogStore();
 
 	const { movementRulesDraft } = useVariantDraftStore();
+	const { replaceChainedMoveInSequence } = usePiecesEditorStore();
+
 	if (!movementRulesDraft) return null;
 
 	function handleMovementNameInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -39,7 +53,18 @@ function EditChainedMoveDialog() {
 	}
 
 	function handleEditChainedMoveButtonClick() {
+		if (isNullOrUndefined(sequenceIndex)) return;
+		if (isNullOrUndefined(nodeIndex)) return;
 
+		replaceChainedMoveInSequence(sequenceIndex, nodeIndex, {
+			moveName: newMovementName,
+			validMove: true,
+		});
+
+		closeEditChainedMoveDialog();
+		clearNewMovementName();
+		clearSequenceIndex();
+		clearNodeIndex();
 	}
 
 	return (
@@ -103,7 +128,12 @@ function EditChainedMoveDialog() {
 				</Field>
 
 				<DialogFooter>
-					<Button onClick={handleEditChainedMoveButtonClick} className="w-full">Save changes</Button>
+					<Button
+						onClick={handleEditChainedMoveButtonClick}
+						className="w-full"
+					>
+						Save changes
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
