@@ -24,9 +24,11 @@ import type {
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
 import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
+import EditChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/EditChainedMoveDialog";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
+import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconArrowRight, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
@@ -69,6 +71,8 @@ function SequenceNodeCard({
 		updateAdditionalInfo,
 		updateOnAddChainedMove,
 	} = useAddChainedMoveDialogStore();
+
+	const { openEditChainedMoveDialog, updateSequenceIndex, updateNodeIndex, updateNewMovementName } = useEditChainedMoveDialogStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -167,6 +171,15 @@ function SequenceNodeCard({
 		openChainedMoveDialog();
 	}
 
+	function handleEditChainedMoveButtonClick(e: MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+
+		openEditChainedMoveDialog();
+		updateSequenceIndex(sequenceIndex);
+		updateNodeIndex(nodeIndex);
+		updateNewMovementName(chainedMoveNode.moveName);
+	}
+
 	return (
 		<div className="flex flex-row items-center">
 			<DropdownMenu>
@@ -205,7 +218,7 @@ function SequenceNodeCard({
 						</DropdownMenuPortal>
 					</DropdownMenuSub>
 
-					<DropdownMenuItem>
+					<DropdownMenuItem onClick={handleEditChainedMoveButtonClick}>
 						<IconPencil />
 						Edit
 					</DropdownMenuItem>
@@ -457,6 +470,7 @@ function ChainedMovesDialog() {
 
 			<AddChainedMoveDialog />
 			<ChainedMoveSequenceCreationDialog />
+			<EditChainedMoveDialog />
 		</>
 	);
 }
