@@ -62,8 +62,15 @@ function EditChainedMoveDialog() {
 		if (isNullOrUndefined(sequenceIndex)) return;
 		if (isNullOrUndefined(nodeIndex)) return;
 
+		if (!movementRulesDraft) return;
+
 		if (newMovementName.trim() === "") {
 			addErrors(["Movement name cannot be empty"]);
+			return;
+		}
+
+		if (!movementRulesDraft[newMovementName]) {
+			addErrors(["Movement name is not valid"]);
 			return;
 		}
 
@@ -141,7 +148,9 @@ function EditChainedMoveDialog() {
 						</ComboboxContent>
 					</Combobox>
 
-					<FieldError errors={errors.map((error) => ({ message: error }))} />
+					<FieldError
+						errors={errors.map((error) => ({ message: error }))}
+					/>
 				</Field>
 
 				<DialogFooter>
