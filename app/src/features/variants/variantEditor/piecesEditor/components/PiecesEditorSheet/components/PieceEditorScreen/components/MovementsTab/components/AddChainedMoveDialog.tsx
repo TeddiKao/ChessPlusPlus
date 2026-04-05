@@ -80,7 +80,7 @@ function AddChainedMoveDialog() {
 				<DialogHeader>
 					<DialogTitle>Add chained move</DialogTitle>
 					<DialogDescription>
-						Add a new chained move to the end of the sequence.
+						Add a new chained move.
 					</DialogDescription>
 				</DialogHeader>
 
