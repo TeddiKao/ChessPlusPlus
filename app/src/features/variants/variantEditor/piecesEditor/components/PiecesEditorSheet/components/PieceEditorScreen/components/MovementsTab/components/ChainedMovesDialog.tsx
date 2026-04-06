@@ -37,7 +37,7 @@ import {
 } from "@tabler/icons-react";
 import { type MouseEvent } from "react";
 
-import { useSortable } from "@dnd-kit/react/sortable";
+import { isSortable, useSortable } from "@dnd-kit/react/sortable";
 import { DragDropProvider } from "@dnd-kit/react";
 
 type SequenceNodeCardProps = {
@@ -311,7 +311,7 @@ function ChainedMoveSequenceCard({
 	sequenceIndex,
 	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
-	const { chainedMoveSequences, moveChainedMoveInSequence } =
+	const { moveChainedMoveInSequence } =
 		usePiecesEditorStore();
 
 	return (
@@ -321,27 +321,10 @@ function ChainedMoveSequenceCard({
 					const { operation } = event;
 
 					if (!operation.target) return;
+					if (!isSortable(operation.source)) return;
 
-					const startId = operation.source?.id;
-					if (!startId) return;
-
-					const endId = operation.target?.id;
-					if (!endId) return;
-
-					const endMoveName = endId.toString().split("-")[1];
-					const startMoveName = startId.toString().split("-")[1];
-
-					const startIndex = chainedMoveSequences[
-						sequenceIndex
-					][1].findIndex((node) => node.moveName === startMoveName);
-
-					if (startIndex === -1) return;
-
-					const endIndex = chainedMoveSequences[
-						sequenceIndex
-					][1].findIndex((node) => node.moveName === endMoveName);
-
-					if (endIndex === -1) return;
+					const { initialIndex: startIndex, index: endIndex } = operation.source;
+					if (startIndex === endIndex) return;			
 
 					moveChainedMoveInSequence(
 						sequenceIndex,
@@ -425,6 +408,8 @@ function ChainedMovesDialog() {
 		if (!activePiece) return;
 
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+
+		console.log(chainedMoveSequences);
 
 		chainedMoveSequences.forEach((sequence) => {
 			const indexToUpdate = sequence[0];
