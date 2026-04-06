@@ -20,4 +20,4 @@ type PieceRules = {
 
 type PieceRuleset = Record<string, PieceRules>;
 
-export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence, ChainedMoveNode };
+export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence, ChainedMoveNode, ChainedMoveNodeInput };
