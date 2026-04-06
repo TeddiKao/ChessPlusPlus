@@ -313,7 +313,7 @@ function ChainedMoveSequenceCard({
 }: ChainedMoveSequenceCardProps) {
 	const { moveChainedMoveInSequence } =
 		usePiecesEditorStore();
-
+	
 	return (
 		<div className="w-full">
 			<DragDropProvider
@@ -337,7 +337,7 @@ function ChainedMoveSequenceCard({
 					{sequence.map((node, nodeIndex) => {
 						return (
 							<SequenceNodeCard
-								key={nodeIndex}
+								key={`${node.moveName}-${nodeIndex}`}
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
 								sequenceIndexInMoveset={indexInMoveset}
@@ -408,8 +408,6 @@ function ChainedMovesDialog() {
 		if (!activePiece) return;
 
 		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
-
-		console.log(chainedMoveSequences);
 
 		chainedMoveSequences.forEach((sequence) => {
 			const indexToUpdate = sequence[0];
