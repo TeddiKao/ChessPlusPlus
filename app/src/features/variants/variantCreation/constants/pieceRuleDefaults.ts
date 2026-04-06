@@ -2,6 +2,7 @@ import type {
 	PieceRules,
 	PieceRuleset,
 } from "@/features/variants/common/types/pieceRules";
+import { generateId } from "@/shared/utils/idGeneration";
 
 const queenRules: PieceRules = {
 	moveset: [
@@ -126,8 +127,8 @@ const defaultPieceRuleset: PieceRuleset = {
 	white_pawn: {
 		moveset: [
 			[
-				{ moveName: "white_pawn_forward", validMove: true },
-				{ moveName: "white_pawn_double_step", validMove: true },
+				{ moveName: "white_pawn_forward", validMove: true, nodeId: generateId() },
+				{ moveName: "white_pawn_double_step", validMove: true, nodeId: generateId() },
 			],
 			{
 				moveName: "white_pawn_capture_east",
@@ -142,8 +143,8 @@ const defaultPieceRuleset: PieceRuleset = {
 	black_pawn: {
 		moveset: [
 			[
-				{ moveName: "black_pawn_forward", validMove: true },
-				{ moveName: "black_forward_double_step", validMove: true },
+				{ moveName: "black_pawn_forward", validMove: true, nodeId: generateId() },
+				{ moveName: "black_forward_double_step", validMove: true, nodeId: generateId() },
 			],
 			{
 				moveName: "black_pawn_capture_east",
