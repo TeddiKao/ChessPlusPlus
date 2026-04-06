@@ -181,12 +181,12 @@ function SequenceNodeCard({
 	}
 
 	return (
-		<div className="flex flex-row items-center">
+		<div className="flex flex-row items-center w-full">
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="ghost"
-						className="px-4 py-2 rounded-md bg-muted"
+						className="px-4 py-2 rounded-md bg-muted w-full"
 					>
 						{chainedMoveNode.moveName}
 					</Button>
@@ -287,12 +287,12 @@ function ChainedMoveSequenceCard({
 	return (
 		<ScrollArea className="flex-1 min-w-0 overflow-x-auto">
 			<div className="w-full">
-				<div className="flex min-w-max w-max flex-col p-4">
+				<div className="flex min-w-max w-full flex-col gap-2 p-4">
 					{sequence.map((node, nodeIndex) => {
 						return (
 							<div
 								key={nodeIndex}
-								className="flex flex-col"
+								className="flex flex-col w-full"
 							>
 								<SequenceNodeCard
 									chainedMoveNode={node}
