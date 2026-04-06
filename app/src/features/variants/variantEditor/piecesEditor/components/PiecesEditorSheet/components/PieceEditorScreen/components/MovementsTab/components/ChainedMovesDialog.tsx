@@ -31,7 +31,7 @@ import useChainedMoveSequenceCreationDialogStore from "@/features/variants/varia
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import { IconArrowRight, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 
 import { type MouseEvent } from "react";
 
@@ -287,12 +287,12 @@ function ChainedMoveSequenceCard({
 	return (
 		<ScrollArea className="flex-1 min-w-0 overflow-x-auto">
 			<div className="w-full">
-				<div className="flex min-w-max w-max flex-row items-center p-4">
+				<div className="flex min-w-max w-max flex-col p-4">
 					{sequence.map((node, nodeIndex) => {
 						return (
 							<div
 								key={nodeIndex}
-								className="flex flex-row items-center"
+								className="flex flex-col"
 							>
 								<SequenceNodeCard
 									chainedMoveNode={node}
@@ -301,10 +301,6 @@ function ChainedMoveSequenceCard({
 									nodeIndex={nodeIndex}
 									sequenceLength={sequence.length}
 								/>
-
-								{nodeIndex < sequence.length - 1 && (
-									<IconArrowRight />
-								)}
 							</div>
 						);
 					})}
