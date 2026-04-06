@@ -16,7 +16,7 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type {
 	ChainedMoveNode,
 	ChainedMoveSequence,
@@ -72,7 +72,12 @@ function SequenceNodeCard({
 		updateOnAddChainedMove,
 	} = useAddChainedMoveDialogStore();
 
-	const { openEditChainedMoveDialog, updateSequenceIndex, updateNodeIndex, updateNewMovementName } = useEditChainedMoveDialogStore();
+	const {
+		openEditChainedMoveDialog,
+		updateSequenceIndex,
+		updateNodeIndex,
+		updateNewMovementName,
+	} = useEditChainedMoveDialogStore();
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -218,7 +223,9 @@ function SequenceNodeCard({
 						</DropdownMenuPortal>
 					</DropdownMenuSub>
 
-					<DropdownMenuItem onClick={handleEditChainedMoveButtonClick}>
+					<DropdownMenuItem
+						onClick={handleEditChainedMoveButtonClick}
+					>
 						<IconPencil />
 						Edit
 					</DropdownMenuItem>
@@ -285,30 +292,23 @@ function ChainedMoveSequenceCard({
 	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
 	return (
-		<ScrollArea className="flex-1 min-w-0 overflow-x-auto">
-			<div className="w-full">
-				<div className="flex min-w-max w-full flex-col gap-2 p-4">
-					{sequence.map((node, nodeIndex) => {
-						return (
-							<div
-								key={nodeIndex}
-								className="flex flex-col w-full"
-							>
-								<SequenceNodeCard
-									chainedMoveNode={node}
-									sequenceIndex={sequenceIndex}
-									sequenceIndexInMoveset={indexInMoveset}
-									nodeIndex={nodeIndex}
-									sequenceLength={sequence.length}
-								/>
-							</div>
-						);
-					})}
-				</div>
+		<div className="w-full">
+			<div className="flex min-w-max w-full flex-col gap-2 p-4">
+				{sequence.map((node, nodeIndex) => {
+					return (
+						<div key={nodeIndex} className="flex flex-col w-full">
+							<SequenceNodeCard
+								chainedMoveNode={node}
+								sequenceIndex={sequenceIndex}
+								sequenceIndexInMoveset={indexInMoveset}
+								nodeIndex={nodeIndex}
+								sequenceLength={sequence.length}
+							/>
+						</div>
+					);
+				})}
 			</div>
-
-			<ScrollBar orientation="horizontal" />
-		</ScrollArea>
+		</div>
 	);
 }
 
