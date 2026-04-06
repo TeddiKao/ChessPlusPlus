@@ -23,11 +23,9 @@ import type {
 } from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
-import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
 import EditChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/EditChainedMoveDialog";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
-import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
@@ -324,6 +322,7 @@ function ChainedMovesDialog() {
 		chainedMoveSequences,
 		deletedChainedMoveSequences,
 		addChainedMoveToSequence,
+		addChainedMoveSequence,
 	} = usePiecesEditorStore();
 	const {
 		pieceRulesetDraft,
@@ -337,8 +336,6 @@ function ChainedMovesDialog() {
 		updateAdditionalInfo,
 		updateOnAddChainedMove,
 	} = useAddChainedMoveDialogStore();
-	const { openChainedMoveSequenceCreationDialog } =
-		useChainedMoveSequenceCreationDialogStore();
 
 	function handleAddChainedMoveButtonClick(chainedMoveSequenceIndex: number) {
 		updateChainedMoveSequenceIndex(chainedMoveSequenceIndex);
@@ -397,7 +394,7 @@ function ChainedMovesDialog() {
 	}
 
 	function handleAddSequenceButtonClick() {
-		openChainedMoveSequenceCreationDialog();
+		addChainedMoveSequence([]);
 	}
 
 	return (
@@ -465,7 +462,6 @@ function ChainedMovesDialog() {
 			</Dialog>
 
 			<AddChainedMoveDialog />
-			<ChainedMoveSequenceCreationDialog />
 			<EditChainedMoveDialog />
 		</>
 	);
