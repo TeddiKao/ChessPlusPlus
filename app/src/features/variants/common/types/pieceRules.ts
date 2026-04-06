@@ -1,7 +1,11 @@
-type ChainedMoveNode = {
+type ChainedMoveNodeInput = {
 	moveName: string;
 	validMove: boolean;
 };
+
+type ChainedMoveNode = ChainedMoveNodeInput & {
+	nodeId: string;
+}
 
 type ChainedMoveSequence = ChainedMoveNode[];
 
