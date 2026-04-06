@@ -337,7 +337,7 @@ function ChainedMoveSequenceCard({
 					{sequence.map((node, nodeIndex) => {
 						return (
 							<SequenceNodeCard
-								key={`${node.moveName}-${nodeIndex}`}
+								key={node.nodeId}
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
 								sequenceIndexInMoveset={indexInMoveset}
