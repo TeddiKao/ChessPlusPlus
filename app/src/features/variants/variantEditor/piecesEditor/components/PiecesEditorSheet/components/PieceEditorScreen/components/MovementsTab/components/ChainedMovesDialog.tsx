@@ -29,7 +29,12 @@ import useChainedMovesDialogStore from "@/features/variants/variantEditor/pieces
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
+import {
+	IconGripVertical,
+	IconPencil,
+	IconPlus,
+	IconTrash,
+} from "@tabler/icons-react";
 import { type MouseEvent } from "react";
 
 import { useSortable } from "@dnd-kit/react/sortable";
@@ -79,7 +84,7 @@ function SequenceNodeCard({
 		updateNewMovementName,
 	} = useEditChainedMoveDialogStore();
 
-	const { ref } = useSortable({
+	const { ref, handleRef } = useSortable({
 		id: `${nodeIndex}-${chainedMoveNode.moveName}`,
 		index: nodeIndex,
 	});
@@ -192,12 +197,12 @@ function SequenceNodeCard({
 
 	return (
 		<div ref={ref} className="flex flex-col w-full">
-			<div className="flex flex-row items-center w-full">
+			<div className="grid grid-cols-[9fr_auto] items-center justify-between">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
 							variant="ghost"
-							className="px-4 py-2 rounded-md bg-muted w-full pointer-events-none"
+							className="px-4 py-2 rounded-md bg-muted w-full"
 						>
 							{chainedMoveNode.moveName}
 						</Button>
@@ -292,6 +297,10 @@ function SequenceNodeCard({
 						</DropdownMenuSub>
 					</DropdownMenuContent>
 				</DropdownMenu>
+
+				<div ref={handleRef} className="cursor-grab">
+					<IconGripVertical className="stroke-muted-foreground" />
+				</div>
 			</div>
 		</div>
 	);
