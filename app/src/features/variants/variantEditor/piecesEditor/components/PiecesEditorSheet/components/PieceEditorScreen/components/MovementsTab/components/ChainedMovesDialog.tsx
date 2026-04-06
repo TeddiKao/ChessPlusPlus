@@ -30,8 +30,9 @@ import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/pie
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
 import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
-
 import { type MouseEvent } from "react";
+
+import { useSortable } from "@dnd-kit/react/sortable";
 
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
@@ -76,6 +77,11 @@ function SequenceNodeCard({
 		updateNodeIndex,
 		updateNewMovementName,
 	} = useEditChainedMoveDialogStore();
+
+	const { ref } = useSortable({
+		id: chainedMoveNode.moveName,
+		index: nodeIndex,
+	})
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -188,6 +194,7 @@ function SequenceNodeCard({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button
+						ref={ref}
 						variant="ghost"
 						className="px-4 py-2 rounded-md bg-muted w-full"
 					>
