@@ -74,6 +74,11 @@ type PiecesEditorStore = {
 		moveIndex: number,
 		newMove: ChainedMoveNode,
 	) => void;
+	moveChainedMoveInSequence: (
+		sequenceIndex: number,
+		oldIndex: number,
+		newIndex: number,
+	) => void;
 
 	pieceName: string | null;
 	updatePieceName: (newPieceName: string) => void;
@@ -216,7 +221,12 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			chainedMoveSequences: get().chainedMoveSequences.map(
 				(sequence, index) =>
 					index === sequenceIndex
-						? [sequence[0], sequence[1].filter((_, index) => !moveIndices.includes(index))]
+						? [
+								sequence[0],
+								sequence[1].filter(
+									(_, index) => !moveIndices.includes(index),
+								),
+							]
 						: sequence,
 			),
 		}),
@@ -233,6 +243,24 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 								),
 							]
 						: sequence,
+			),
+		}),
+
+	moveChainedMoveInSequence: (sequenceIndex, oldIndex, newIndex) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) => {
+					if (index === sequenceIndex) {
+						const newSequence = structuredClone(sequence[1]);
+						const element = newSequence.splice(oldIndex, 1)[0];
+
+						newSequence.splice(newIndex, 0, element);
+
+						return [sequence[0], newSequence];
+					} else {
+						return sequence;
+					}
+				}
 			),
 		}),
 
