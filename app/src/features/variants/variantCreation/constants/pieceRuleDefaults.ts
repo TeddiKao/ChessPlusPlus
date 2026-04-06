@@ -143,7 +143,7 @@ const defaultPieceRuleset: PieceRuleset = {
 		moveset: [
 			[
 				{ moveName: "black_pawn_forward", validMove: true },
-				{ moveName: "black_forward_double_step", validMove: true },
+				{ moveName: "black_pawn_double_step", validMove: true },
 			],
 			{
 				moveName: "black_pawn_capture_east",

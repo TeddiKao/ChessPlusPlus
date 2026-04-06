@@ -12,7 +12,10 @@ import {
 	InputGroupInput,
 } from "@/components/ui/input-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { RegularMove } from "@/features/variants/common/types/pieceRules";
+import type {
+	ChainedMoveNode,
+	RegularMove,
+} from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
@@ -46,6 +49,17 @@ function ChainedMoveSequenceCreationDialog() {
 			pieceRules.moveset
 				.filter((move) => !Array.isArray(move))
 				.map((regularMove) => (regularMove as RegularMove).moveName),
+	);
+
+	const allChainedMoves = Object.values(pieceRulesetDraft).flatMap(
+		(pieceRules) =>
+			pieceRules.moveset
+				.filter((move) => Array.isArray(move))
+				.flatMap((chainedMove) =>
+					chainedMove.map(
+						(move) => (move as ChainedMoveNode).moveName,
+					),
+				),
 	);
 
 	function handleSearchQueryInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -140,13 +154,15 @@ function ChainedMoveSequenceCreationDialog() {
 
 									const isSelected = !!foundMovement;
 
-									const usageCount =
+									const regularMoveUsageCount =
 										allRegularMovements.filter(
 											(move) => move === movementName,
 										).length;
 
-									const noun =
-										usageCount === 1 ? "usage" : "usages";
+									const chainedMoveUsageCount =
+										allChainedMoves.filter(
+											(move) => move === movementName,
+										).length;
 
 									return (
 										<div
@@ -167,7 +183,32 @@ function ChainedMoveSequenceCreationDialog() {
 											<div className="flex flex-col gap-1">
 												<p>{movementName}</p>
 												<p className="text-muted-foreground">
-													{usageCount} {noun}
+													{regularMoveUsageCount >
+														0 && (
+														<span>
+															{
+																regularMoveUsageCount
+															}{" "}
+															regular
+														</span>
+													)}
+
+													{regularMoveUsageCount >
+														0 &&
+														chainedMoveUsageCount >
+															0 && (
+															<span> • </span>
+														)}
+
+													{chainedMoveUsageCount >
+														0 && (
+														<span>
+															{
+																chainedMoveUsageCount
+															}{" "}
+															chained
+														</span>
+													)}
 												</p>
 											</div>
 
