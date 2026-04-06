@@ -33,6 +33,7 @@ import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 import { type MouseEvent } from "react";
 
 import { useSortable } from "@dnd-kit/react/sortable";
+import { DragDropProvider } from "@dnd-kit/react";
 
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
@@ -79,9 +80,9 @@ function SequenceNodeCard({
 	} = useEditChainedMoveDialogStore();
 
 	const { ref } = useSortable({
-		id: chainedMoveNode.moveName,
+		id: `${nodeIndex}-${chainedMoveNode.moveName}`,
 		index: nodeIndex,
-	})
+	});
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -190,103 +191,108 @@ function SequenceNodeCard({
 	}
 
 	return (
-		<div className="flex flex-row items-center w-full">
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button
-						ref={ref}
-						variant="ghost"
-						className="px-4 py-2 rounded-md bg-muted w-full"
-					>
-						{chainedMoveNode.moveName}
-					</Button>
-				</DropdownMenuTrigger>
+		<div ref={ref} className="flex flex-col w-full">
+			<div className="flex flex-row items-center w-full">
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							variant="ghost"
+							className="px-4 py-2 rounded-md bg-muted w-full pointer-events-none"
+						>
+							{chainedMoveNode.moveName}
+						</Button>
+					</DropdownMenuTrigger>
 
-				<DropdownMenuContent className="w-max" side="bottom">
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>
-							<IconPlus />
-							Add
-						</DropdownMenuSubTrigger>
+					<DropdownMenuContent className="w-max" side="bottom">
+						<DropdownMenuSub>
+							<DropdownMenuSubTrigger>
+								<IconPlus />
+								Add
+							</DropdownMenuSubTrigger>
 
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem
-									onClick={handleAddMoveBeforeButtonClick}
-								>
-									<IconPlus />
-									Add move before
-								</DropdownMenuItem>
+							<DropdownMenuPortal>
+								<DropdownMenuSubContent>
+									<DropdownMenuItem
+										onClick={handleAddMoveBeforeButtonClick}
+									>
+										<IconPlus />
+										Add move before
+									</DropdownMenuItem>
 
-								<DropdownMenuItem
-									onClick={handleAddMoveAfterButtonClick}
-								>
-									<IconPlus />
-									Add move after
-								</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
+									<DropdownMenuItem
+										onClick={handleAddMoveAfterButtonClick}
+									>
+										<IconPlus />
+										Add move after
+									</DropdownMenuItem>
+								</DropdownMenuSubContent>
+							</DropdownMenuPortal>
+						</DropdownMenuSub>
 
-					<DropdownMenuItem
-						onClick={handleEditChainedMoveButtonClick}
-					>
-						<IconPencil />
-						Edit
-					</DropdownMenuItem>
+						<DropdownMenuItem
+							onClick={handleEditChainedMoveButtonClick}
+						>
+							<IconPencil />
+							Edit
+						</DropdownMenuItem>
 
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger variant="destructive">
-							<IconTrash />
-							Delete
-						</DropdownMenuSubTrigger>
+						<DropdownMenuSub>
+							<DropdownMenuSubTrigger variant="destructive">
+								<IconTrash />
+								Delete
+							</DropdownMenuSubTrigger>
 
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem
-									onClick={handleDeleteThisMoveButtonClick}
-									variant="destructive"
-								>
-									<IconTrash />
-									Delete this move
-								</DropdownMenuItem>
-
-								{nodeIndex > 0 && (
+							<DropdownMenuPortal>
+								<DropdownMenuSubContent>
 									<DropdownMenuItem
 										onClick={
-											handleDeleteMovesBeforeButtonClick
+											handleDeleteThisMoveButtonClick
 										}
 										variant="destructive"
 									>
 										<IconTrash />
-										Delete moves before
+										Delete this move
 									</DropdownMenuItem>
-								)}
 
-								{nodeIndex < sequenceLength - 1 && (
+									{nodeIndex > 0 && (
+										<DropdownMenuItem
+											onClick={
+												handleDeleteMovesBeforeButtonClick
+											}
+											variant="destructive"
+										>
+											<IconTrash />
+											Delete moves before
+										</DropdownMenuItem>
+									)}
+
+									{nodeIndex < sequenceLength - 1 && (
+										<DropdownMenuItem
+											onClick={
+												handleDeleteMovesAfterButtonClick
+											}
+											variant="destructive"
+										>
+											<IconTrash />
+											Delete moves after
+										</DropdownMenuItem>
+									)}
+
 									<DropdownMenuItem
 										onClick={
-											handleDeleteMovesAfterButtonClick
+											handleDeleteSequenceButtonClick
 										}
 										variant="destructive"
 									>
 										<IconTrash />
-										Delete moves after
+										Delete sequence
 									</DropdownMenuItem>
-								)}
-
-								<DropdownMenuItem
-									onClick={handleDeleteSequenceButtonClick}
-									variant="destructive"
-								>
-									<IconTrash />
-									Delete sequence
-								</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
-				</DropdownMenuContent>
-			</DropdownMenu>
+								</DropdownMenuSubContent>
+							</DropdownMenuPortal>
+						</DropdownMenuSub>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</div>
 		</div>
 	);
 }
@@ -296,23 +302,60 @@ function ChainedMoveSequenceCard({
 	sequenceIndex,
 	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
+	const { chainedMoveSequences, moveChainedMoveInSequence } =
+		usePiecesEditorStore();
+
 	return (
 		<div className="w-full">
-			<div className="flex min-w-max w-full flex-col gap-2 p-4">
-				{sequence.map((node, nodeIndex) => {
-					return (
-						<div key={nodeIndex} className="flex flex-col w-full">
+			<DragDropProvider
+				onDragEnd={(event) => {
+					const { operation } = event;
+
+					if (!operation.target) return;
+
+					const startId = operation.source?.id;
+					if (!startId) return;
+
+					const endId = operation.target?.id;
+					if (!endId) return;
+
+					const endMoveName = endId.toString().split("-")[1];
+					const startMoveName = startId.toString().split("-")[1];
+
+					const startIndex = chainedMoveSequences[
+						sequenceIndex
+					][1].findIndex((node) => node.moveName === startMoveName);
+
+					if (startIndex === -1) return;
+
+					const endIndex = chainedMoveSequences[
+						sequenceIndex
+					][1].findIndex((node) => node.moveName === endMoveName);
+
+					if (endIndex === -1) return;
+
+					moveChainedMoveInSequence(
+						sequenceIndex,
+						startIndex,
+						endIndex,
+					);
+				}}
+			>
+				<div className="flex min-w-max w-full flex-col gap-2 p-4">
+					{sequence.map((node, nodeIndex) => {
+						return (
 							<SequenceNodeCard
+								key={nodeIndex}
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
 								sequenceIndexInMoveset={indexInMoveset}
 								nodeIndex={nodeIndex}
 								sequenceLength={sequence.length}
 							/>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+			</DragDropProvider>
 		</div>
 	);
 }
