@@ -1,5 +1,4 @@
 import copy
-# from helper_functions import *
 
 def normalise_json(simple_json: dict):
     normalised_json = copy.deepcopy(simple_json)
@@ -35,5 +34,25 @@ def normalise_json(simple_json: dict):
                         normalised_json["moves"][move_name]["move_definition"]["range"] = 1
                     if "move_stop_conditions" not in temp:
                         normalised_json["moves"][move_name]["move_definition"]["move_stop_conditions"] = ["inside_piece"]
+    else:
+        normalised_json["moves"] = {}
+
+    temp = simple_json
+    if "pieces" in temp and isinstance(temp["pieces"], dict):
+        temp = temp["pieces"]
+        for piece_name, piece in temp.items():
+            if isinstance(piece, dict):
+                if "moveset" in piece and isinstance(piece["moveset"], list):
+                    temp = piece["moveset"]
+                    for index, chain in enumerate(temp):
+                        if isinstance(chain, list):
+                            for cindex, cmove in enumerate(chain):
+                                if isinstance(cmove, dict):
+                                    if "valid_move" not in cmove:
+                                        normalised_json["pieces"][piece_name]["moveset"][index][cindex]["valid_move"] = True
+                                    if "terminate_on_stop" not in cmove:
+                                        normalised_json["pieces"][piece_name]["moveset"][index][cindex]["terminate_on_stop"] = True
+    else:
+        normalised_json["pieces"] = {}
 
     return normalised_json
