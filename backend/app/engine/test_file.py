@@ -2,10 +2,11 @@ import json
 from json import JSONDecodeError
 import app.engine.json_validator.json_validator as json_validator
 import app.engine.legal_move_generator.legal_move_generator as lmg
+import app.engine.json_normaliser.json_normaliser as jn
 
 def test_validate_json():
     try:
-        test_data = json.load(open("test_json.json"))
+        test_data = json.load(open("test_normalised_json.json"))
     except JSONDecodeError:
         return False, "JSON Decode Error detected. Please check the file's syntax."
 
@@ -65,22 +66,29 @@ def display_game_state(board_size: tuple, game_state: dict, show_coords: bool = 
     print("+", end="")
     print("----+" * board_size[0])
 
-SHOW_COORDS = True
+def test_get_legal_moves():
+    SHOW_COORDS = True
 
-tvj_output = test_validate_json()
-print("JSON Validation:")
-print(f"\tOutput: {tvj_output[0]}")
-print(f"\tMessage: {tvj_output[1]}")
+    tvj_output = test_validate_json()
+    print("JSON Validation:")
+    print(f"\tOutput: {tvj_output[0]}")
+    print(f"\tMessage: {tvj_output[1]}")
 
-if tvj_output[0]:
-    game = lmg.Game(json.load(open("test_json.json")))
+    if tvj_output[0]:
+        game = lmg.Game(json.load(open("test_normalised_json.json")))
 
-    game_state = game.get_game_state(True)
-    display_game_state(game_state[0], game_state[1], SHOW_COORDS)
+        game_state = game.get_game_state(True)
+        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-    game.update_game_state((3, 1), (3, 3))
+        game.update_game_state((3, 1), (3, 3))
 
-    game_state = game.get_game_state(True)
-    display_game_state(game_state[0], game_state[1], SHOW_COORDS)
+        game_state = game.get_game_state(True)
+        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-    print(game.get_legal_moves((1, 0)))
+        print(game.get_legal_moves((1, 0)))
+
+def test_normalise_json():
+    test_data = json.load(open("test_simple_json.json"))
+    print(jn.normalise_json(test_data))
+
+test_normalise_json()
