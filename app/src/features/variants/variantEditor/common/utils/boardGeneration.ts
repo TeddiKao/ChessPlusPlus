@@ -4,4 +4,8 @@ function generateAlphabetSequence(sequenceLength: number) {
 	).map((letter) => letter.toLowerCase());
 }
 
-export { generateAlphabetSequence };
+function generateNumberSequence(sequenceLength: number) {
+	return Array.from({ length: sequenceLength }, (_, index) => index + 1);
+}
+
+export { generateAlphabetSequence, generateNumberSequence };
