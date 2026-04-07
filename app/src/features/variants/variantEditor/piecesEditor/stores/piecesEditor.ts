@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import type {
-	ChainedMoveNode,
+	ChainedMoveNodeInput,
 	ChainedMoveSequence,
 	RegularMove,
 } from "@/features/variants/common/types/pieceRules";
 import { handlePieceNameUpdate } from "@/features/variants/variantEditor/common/utils/nameUpdateHandler";
+import { generateId } from "@/shared/utils/idGeneration";
 
 type PieceEditorChanges = {
 	pieceName: string;
@@ -59,7 +60,7 @@ type PiecesEditorStore = {
 	addChainedMoveToSequence: (
 		sequenceIndex: number,
 		insertPos: number | "end",
-		move: ChainedMoveNode,
+		move: ChainedMoveNodeInput,
 	) => void;
 	removeChainedMoveFromSequence: (
 		sequenceIndex: number,
@@ -72,7 +73,12 @@ type PiecesEditorStore = {
 	replaceChainedMoveInSequence: (
 		sequenceIndex: number,
 		moveIndex: number,
-		newMove: ChainedMoveNode,
+		newMove: ChainedMoveNodeInput,
+	) => void;
+	moveChainedMoveInSequence: (
+		sequenceIndex: number,
+		oldIndex: number,
+		newIndex: number,
 	) => void;
 
 	pieceName: string | null;
@@ -173,7 +179,13 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 				chainedMoveSequences: get().chainedMoveSequences.map(
 					(sequence, index) =>
 						index === sequenceIndex
-							? [sequence[0], [...sequence[1], move]]
+							? [
+									sequence[0],
+									[
+										...sequence[1],
+										{ ...move, nodeId: generateId() },
+									],
+								]
 							: sequence,
 				),
 			});
@@ -186,7 +198,7 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 									sequence[0],
 									[
 										...sequence[1].slice(0, insertPos),
-										move,
+										{ ...move, nodeId: generateId() },
 										...sequence[1].slice(insertPos),
 									],
 								]
@@ -216,7 +228,12 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 			chainedMoveSequences: get().chainedMoveSequences.map(
 				(sequence, index) =>
 					index === sequenceIndex
-						? [sequence[0], sequence[1].filter((_, index) => !moveIndices.includes(index))]
+						? [
+								sequence[0],
+								sequence[1].filter(
+									(_, index) => !moveIndices.includes(index),
+								),
+							]
 						: sequence,
 			),
 		}),
@@ -229,10 +246,28 @@ const usePiecesEditorStore = create<PiecesEditorStore>((set, get) => ({
 						? [
 								sequence[0],
 								sequence[1].map((move, index) =>
-									index === moveIndex ? newMove : move,
+									index === moveIndex ? { nodeId: move.nodeId, ...newMove } : move,
 								),
 							]
 						: sequence,
+			),
+		}),
+
+	moveChainedMoveInSequence: (sequenceIndex, oldIndex, newIndex) =>
+		set({
+			chainedMoveSequences: get().chainedMoveSequences.map(
+				(sequence, index) => {
+					if (index === sequenceIndex) {
+						const newSequence = structuredClone(sequence[1]);
+						const element = newSequence.splice(oldIndex, 1)[0];
+
+						newSequence.splice(newIndex, 0, element);
+
+						return [sequence[0], newSequence];
+					} else {
+						return sequence;
+					}
+				},
 			),
 		}),
 

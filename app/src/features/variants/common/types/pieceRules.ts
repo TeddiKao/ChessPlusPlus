@@ -1,7 +1,11 @@
-type ChainedMoveNode = {
+type ChainedMoveNodeInput = {
 	moveName: string;
 	validMove: boolean;
 };
+
+type ChainedMoveNode = ChainedMoveNodeInput & {
+	nodeId: string;
+}
 
 type ChainedMoveSequence = ChainedMoveNode[];
 
@@ -16,4 +20,4 @@ type PieceRules = {
 
 type PieceRuleset = Record<string, PieceRules>;
 
-export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence, ChainedMoveNode };
+export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence, ChainedMoveNode, ChainedMoveNodeInput };

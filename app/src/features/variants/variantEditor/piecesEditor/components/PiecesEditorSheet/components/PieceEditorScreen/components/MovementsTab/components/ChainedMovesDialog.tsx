@@ -16,27 +16,33 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type {
 	ChainedMoveNode,
 	ChainedMoveSequence,
 } from "@/features/variants/common/types/pieceRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import AddChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/AddChainedMoveDialog";
-import ChainedMoveSequenceCreationDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMoveSequenceCreationDialog";
 import EditChainedMoveDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/EditChainedMoveDialog";
 import useAddChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/addChainedMoveDialog";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
-import useChainedMoveSequenceCreationDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMoveSequenceCreationDialog";
 import useEditChainedMoveDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/editChainedMoveDialog";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
-import { IconArrowRight, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
-
+import {
+	IconGripVertical,
+	IconPencil,
+	IconPlus,
+	IconTrash,
+} from "@tabler/icons-react";
 import { type MouseEvent } from "react";
+
+import { isSortable, useSortable } from "@dnd-kit/react/sortable";
+import { DragDropProvider } from "@dnd-kit/react";
 
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
+	nodeId: string;
 	sequenceIndex: number;
 	nodeIndex: number;
 	sequenceIndexInMoveset: number | null;
@@ -51,6 +57,7 @@ type ChainedMoveSequenceCardProps = {
 
 function SequenceNodeCard({
 	chainedMoveNode,
+	nodeId,
 	sequenceIndex,
 	nodeIndex,
 	sequenceIndexInMoveset,
@@ -72,7 +79,17 @@ function SequenceNodeCard({
 		updateOnAddChainedMove,
 	} = useAddChainedMoveDialogStore();
 
-	const { openEditChainedMoveDialog, updateSequenceIndex, updateNodeIndex, updateNewMovementName } = useEditChainedMoveDialogStore();
+	const {
+		openEditChainedMoveDialog,
+		updateSequenceIndex,
+		updateNodeIndex,
+		updateNewMovementName,
+	} = useEditChainedMoveDialogStore();
+
+	const { ref, handleRef } = useSortable({
+		id: nodeId,
+		index: nodeIndex,
+	});
 
 	function handleDeleteSequenceButtonClick(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
@@ -181,100 +198,112 @@ function SequenceNodeCard({
 	}
 
 	return (
-		<div className="flex flex-row items-center">
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button
-						variant="ghost"
-						className="px-4 py-2 rounded-md bg-muted"
-					>
-						{chainedMoveNode.moveName}
-					</Button>
-				</DropdownMenuTrigger>
+		<div ref={ref} className="flex flex-col w-full">
+			<div className="grid grid-cols-[9fr_auto] items-center justify-between">
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							variant="ghost"
+							className="px-4 py-2 rounded-md bg-muted w-full"
+						>
+							{chainedMoveNode.moveName}
+						</Button>
+					</DropdownMenuTrigger>
 
-				<DropdownMenuContent className="w-max" side="bottom">
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>
-							<IconPlus />
-							Add
-						</DropdownMenuSubTrigger>
+					<DropdownMenuContent className="w-max" side="bottom">
+						<DropdownMenuSub>
+							<DropdownMenuSubTrigger>
+								<IconPlus />
+								Add
+							</DropdownMenuSubTrigger>
 
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem
-									onClick={handleAddMoveBeforeButtonClick}
-								>
-									<IconPlus />
-									Add move before
-								</DropdownMenuItem>
+							<DropdownMenuPortal>
+								<DropdownMenuSubContent>
+									<DropdownMenuItem
+										onClick={handleAddMoveBeforeButtonClick}
+									>
+										<IconPlus />
+										Add move before
+									</DropdownMenuItem>
 
-								<DropdownMenuItem
-									onClick={handleAddMoveAfterButtonClick}
-								>
-									<IconPlus />
-									Add move after
-								</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
+									<DropdownMenuItem
+										onClick={handleAddMoveAfterButtonClick}
+									>
+										<IconPlus />
+										Add move after
+									</DropdownMenuItem>
+								</DropdownMenuSubContent>
+							</DropdownMenuPortal>
+						</DropdownMenuSub>
 
-					<DropdownMenuItem onClick={handleEditChainedMoveButtonClick}>
-						<IconPencil />
-						Edit
-					</DropdownMenuItem>
+						<DropdownMenuItem
+							onClick={handleEditChainedMoveButtonClick}
+						>
+							<IconPencil />
+							Edit
+						</DropdownMenuItem>
 
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger variant="destructive">
-							<IconTrash />
-							Delete
-						</DropdownMenuSubTrigger>
+						<DropdownMenuSub>
+							<DropdownMenuSubTrigger variant="destructive">
+								<IconTrash />
+								Delete
+							</DropdownMenuSubTrigger>
 
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem
-									onClick={handleDeleteThisMoveButtonClick}
-									variant="destructive"
-								>
-									<IconTrash />
-									Delete this move
-								</DropdownMenuItem>
-
-								{nodeIndex > 0 && (
+							<DropdownMenuPortal>
+								<DropdownMenuSubContent>
 									<DropdownMenuItem
 										onClick={
-											handleDeleteMovesBeforeButtonClick
+											handleDeleteThisMoveButtonClick
 										}
 										variant="destructive"
 									>
 										<IconTrash />
-										Delete moves before
+										Delete this move
 									</DropdownMenuItem>
-								)}
 
-								{nodeIndex < sequenceLength - 1 && (
+									{nodeIndex > 0 && (
+										<DropdownMenuItem
+											onClick={
+												handleDeleteMovesBeforeButtonClick
+											}
+											variant="destructive"
+										>
+											<IconTrash />
+											Delete moves before
+										</DropdownMenuItem>
+									)}
+
+									{nodeIndex < sequenceLength - 1 && (
+										<DropdownMenuItem
+											onClick={
+												handleDeleteMovesAfterButtonClick
+											}
+											variant="destructive"
+										>
+											<IconTrash />
+											Delete moves after
+										</DropdownMenuItem>
+									)}
+
 									<DropdownMenuItem
 										onClick={
-											handleDeleteMovesAfterButtonClick
+											handleDeleteSequenceButtonClick
 										}
 										variant="destructive"
 									>
 										<IconTrash />
-										Delete moves after
+										Delete sequence
 									</DropdownMenuItem>
-								)}
+								</DropdownMenuSubContent>
+							</DropdownMenuPortal>
+						</DropdownMenuSub>
+					</DropdownMenuContent>
+				</DropdownMenu>
 
-								<DropdownMenuItem
-									onClick={handleDeleteSequenceButtonClick}
-									variant="destructive"
-								>
-									<IconTrash />
-									Delete sequence
-								</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
-				</DropdownMenuContent>
-			</DropdownMenu>
+				<div ref={handleRef} className="cursor-grab">
+					<IconGripVertical className="stroke-muted-foreground" />
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -284,35 +313,46 @@ function ChainedMoveSequenceCard({
 	sequenceIndex,
 	indexInMoveset,
 }: ChainedMoveSequenceCardProps) {
+	const { moveChainedMoveInSequence } =
+		usePiecesEditorStore();
+	
 	return (
-		<ScrollArea className="flex-1 min-w-0 overflow-x-auto">
-			<div className="w-full">
-				<div className="flex min-w-max w-max flex-row items-center p-4">
+		<div className="w-full">
+			<DragDropProvider
+				onDragEnd={(event) => {
+					const { operation } = event;
+
+					if (!operation.target) return;
+					if (!isSortable(operation.source)) return;
+
+					const { initialIndex: startIndex, index: endIndex } = operation.source;
+
+					if (startIndex === endIndex) return;			
+
+					moveChainedMoveInSequence(
+						sequenceIndex,
+						startIndex,
+						endIndex,
+					);
+				}}
+			>
+				<div className="flex min-w-max w-full flex-col gap-2 p-4">
 					{sequence.map((node, nodeIndex) => {
 						return (
-							<div
-								key={nodeIndex}
-								className="flex flex-row items-center"
-							>
-								<SequenceNodeCard
-									chainedMoveNode={node}
-									sequenceIndex={sequenceIndex}
-									sequenceIndexInMoveset={indexInMoveset}
-									nodeIndex={nodeIndex}
-									sequenceLength={sequence.length}
-								/>
-
-								{nodeIndex < sequence.length - 1 && (
-									<IconArrowRight />
-								)}
-							</div>
+							<SequenceNodeCard
+								key={node.nodeId}
+								nodeId={node.nodeId}
+								chainedMoveNode={node}
+								sequenceIndex={sequenceIndex}
+								sequenceIndexInMoveset={indexInMoveset}
+								nodeIndex={nodeIndex}
+								sequenceLength={sequence.length}
+							/>
 						);
 					})}
 				</div>
-			</div>
-
-			<ScrollBar orientation="horizontal" />
-		</ScrollArea>
+			</DragDropProvider>
+		</div>
 	);
 }
 
@@ -328,6 +368,7 @@ function ChainedMovesDialog() {
 		chainedMoveSequences,
 		deletedChainedMoveSequences,
 		addChainedMoveToSequence,
+		addChainedMoveSequence,
 	} = usePiecesEditorStore();
 	const {
 		pieceRulesetDraft,
@@ -341,8 +382,6 @@ function ChainedMovesDialog() {
 		updateAdditionalInfo,
 		updateOnAddChainedMove,
 	} = useAddChainedMoveDialogStore();
-	const { openChainedMoveSequenceCreationDialog } =
-		useChainedMoveSequenceCreationDialogStore();
 
 	function handleAddChainedMoveButtonClick(chainedMoveSequenceIndex: number) {
 		updateChainedMoveSequenceIndex(chainedMoveSequenceIndex);
@@ -401,7 +440,7 @@ function ChainedMovesDialog() {
 	}
 
 	function handleAddSequenceButtonClick() {
-		openChainedMoveSequenceCreationDialog();
+		addChainedMoveSequence([]);
 	}
 
 	return (
@@ -469,7 +508,6 @@ function ChainedMovesDialog() {
 			</Dialog>
 
 			<AddChainedMoveDialog />
-			<ChainedMoveSequenceCreationDialog />
 			<EditChainedMoveDialog />
 		</>
 	);
