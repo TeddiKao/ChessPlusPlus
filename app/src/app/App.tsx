@@ -7,28 +7,24 @@ import VariantEditorPage from "@/pages/VariantEditorPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import HomePage from "@/pages/HomePage";
 
-import { DragDropProvider } from "@dnd-kit/react";
-
 function App() {
 	return (
-		<DragDropProvider>
-			<TooltipProvider>
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<HomePage />} />
-						<Route
-							path="/variants/:variantId"
-							element={<VariantEditorPage />}
-						/>
-						<Route path="/test" element={<TestPage />} />
-						<Route
-							path="/json-validator-test"
-							element={<JSONValidatorTestPage />}
-						/>
-					</Routes>
-				</BrowserRouter>
-			</TooltipProvider>
-		</DragDropProvider>
+		<TooltipProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route
+						path="/variants/:variantId"
+						element={<VariantEditorPage />}
+					/>
+					<Route path="/test" element={<TestPage />} />
+					<Route
+						path="/json-validator-test"
+						element={<JSONValidatorTestPage />}
+					/>
+				</Routes>
+			</BrowserRouter>
+		</TooltipProvider>
 	);
 }
 
