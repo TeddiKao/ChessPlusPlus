@@ -42,6 +42,7 @@ import { DragDropProvider } from "@dnd-kit/react";
 
 type SequenceNodeCardProps = {
 	chainedMoveNode: ChainedMoveNode;
+	nodeId: string;
 	sequenceIndex: number;
 	nodeIndex: number;
 	sequenceIndexInMoveset: number | null;
@@ -56,6 +57,7 @@ type ChainedMoveSequenceCardProps = {
 
 function SequenceNodeCard({
 	chainedMoveNode,
+	nodeId,
 	sequenceIndex,
 	nodeIndex,
 	sequenceIndexInMoveset,
@@ -85,7 +87,7 @@ function SequenceNodeCard({
 	} = useEditChainedMoveDialogStore();
 
 	const { ref, handleRef } = useSortable({
-		id: `${nodeIndex}-${chainedMoveNode.moveName}`,
+		id: nodeId,
 		index: nodeIndex,
 	});
 
@@ -324,6 +326,7 @@ function ChainedMoveSequenceCard({
 					if (!isSortable(operation.source)) return;
 
 					const { initialIndex: startIndex, index: endIndex } = operation.source;
+
 					if (startIndex === endIndex) return;			
 
 					moveChainedMoveInSequence(
@@ -338,6 +341,7 @@ function ChainedMoveSequenceCard({
 						return (
 							<SequenceNodeCard
 								key={node.nodeId}
+								nodeId={node.nodeId}
 								chainedMoveNode={node}
 								sequenceIndex={sequenceIndex}
 								sequenceIndexInMoveset={indexInMoveset}
