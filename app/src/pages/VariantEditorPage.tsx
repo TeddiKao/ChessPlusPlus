@@ -5,6 +5,7 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import Sidebar from "@/features/variants/variantEditor/common/components/Sidebar";
 import { useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import ChessboardGrid from "@/features/variants/variantEditor/common/components/ChessboardGrid";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -65,6 +66,12 @@ function VariantEditorPage() {
 					</Button>
 
 					<span>{variantName}</span>
+				</div>
+
+				<div className="flex flex-row justify-center">
+					<div className="aspect-square flex flex-row justify-center w-full max-w-md">
+						<ChessboardGrid />
+					</div>
 				</div>
 			</div>
 
