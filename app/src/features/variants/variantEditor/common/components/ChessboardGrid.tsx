@@ -15,20 +15,19 @@ function ChessboardGrid() {
 	const files = generateAlphabetSequence(boardXSize);
 
 	return (
-		<div className="grid grid-cols-8 aspect-square w-full">
-			{ranks.map((rank) => (
-				<div key={rank} className="flex flex-col">
-					{files.map((file) => {
-						const isDark = (rank + files.indexOf(file)) % 2 === 0;
+		<div className="grid grid-cols-8 aspect-square max-w-md">
+			{ranks.map((rank) =>
+				files.map((file) => {
+					const isDark = (rank + files.indexOf(file)) % 2 === 0;
 
-						return (
-							<div key={file} className={`${isDark ? "bg-dark" : "bg-light"}`}>
-								{file}
-							</div>
-						);
-					})}
-				</div>
-			))}
+					return (
+						<div
+							key={file}
+							className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"}`}
+						></div>
+					);
+				}),
+			)}
 		</div>
 	);
 }
