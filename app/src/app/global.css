@@ -126,8 +126,8 @@
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
 
-    --chessboard-square-light: var(--chessboard-square-light);
-    --chessboard-square-dark: var(--chessboard-square-dark);
+    --color-chessboard-square-light: var(--chessboard-square-light);
+    --color-chessboard-square-dark: var(--chessboard-square-dark);
 }
 
 @layer base {
