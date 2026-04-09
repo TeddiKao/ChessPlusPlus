@@ -13,6 +13,7 @@ function VariantEditorPage() {
 	const { variantId } = useParams();
 	const { variants, hasHydrated } = useVariantsStore();
 	const {
+		setupRulesDraft,
 		updateCurrentVariantId,
 		updateSetupRulesDraft,
 		updateMovementRulesDraft,
@@ -50,6 +51,8 @@ function VariantEditorPage() {
 
 	const variantName = variants[variantId].variantName;
 
+	if (!setupRulesDraft) return null;
+
 	function handleNavigationToHomePage() {
 		navigate("/");
 	}
@@ -82,7 +85,7 @@ function VariantEditorPage() {
 					)}
 				>
 					<div className="aspect-square flex flex-row justify-center w-full max-w-md">
-						<ChessboardGrid />
+						<ChessboardGrid boardState={[{ pieceName: "white_pawn", xPos: 4, yPos: 3 }]} />
 					</div>
 				</div>
 			</div>
