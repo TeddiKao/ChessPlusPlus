@@ -43,6 +43,9 @@
     --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
     --sidebar-border: oklch(0.923 0.003 48.717);
     --sidebar-ring: oklch(0.709 0.01 56.259);
+
+    --chessboard-square-light: oklch(97% 0.001 106.424);
+    --chessboard-square-dark: oklch(70.9% 0.01 56.259);
 }
 
 .dark {
@@ -77,6 +80,9 @@
     --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.553 0.013 58.071);
+
+    --chessboard-square-light: oklch(97% 0.001 106.424);
+    --chessboard-square-dark: oklch(70.9% 0.01 56.259);
 }
 
 @theme inline {
@@ -119,6 +125,9 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+
+    --color-chessboard-square-light: var(--chessboard-square-light);
+    --color-chessboard-square-dark: var(--chessboard-square-dark);
 }
 
 @layer base {

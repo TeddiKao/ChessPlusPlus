@@ -5,11 +5,15 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import Sidebar from "@/features/variants/variantEditor/common/components/Sidebar";
 import { useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import ChessboardGrid from "@/features/variants/variantEditor/common/components/ChessboardGrid";
+import useSidebarStore from "@/features/variants/variantEditor/common/stores/sidebar";
+import clsx from "clsx";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
 	const { variants, hasHydrated } = useVariantsStore();
 	const {
+		setupRulesDraft,
 		updateCurrentVariantId,
 		updateSetupRulesDraft,
 		updateMovementRulesDraft,
@@ -37,6 +41,8 @@ function VariantEditorPage() {
 		variants,
 	]);
 
+	const { currentOpenMenu } = useSidebarStore();
+
 	if (!variantId) return null;
 	if (!hasHydrated) return null;
 
@@ -45,13 +51,15 @@ function VariantEditorPage() {
 
 	const variantName = variants[variantId].variantName;
 
+	if (!setupRulesDraft) return null;
+
 	function handleNavigationToHomePage() {
 		navigate("/");
 	}
 
 	return (
 		<div className="relative min-h-screen">
-			<div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-6">
 				<div className="flex flex-row gap-2 px-4 py-4 items-center p-12">
 					<Button
 						onClick={handleNavigationToHomePage}
@@ -65,6 +73,20 @@ function VariantEditorPage() {
 					</Button>
 
 					<span>{variantName}</span>
+				</div>
+
+				<div
+					className={clsx(
+						"flex flex-row justify-center",
+						currentOpenMenu === "movements" ||
+							currentOpenMenu === "pieces"
+							? "-ml-28"
+							: "",
+					)}
+				>
+					<div className="aspect-square flex flex-row justify-center w-full max-w-md">
+						<ChessboardGrid boardState={[{ pieceName: "white_pawn", xPos: 4, yPos: 3 }]} />
+					</div>
 				</div>
 			</div>
 
