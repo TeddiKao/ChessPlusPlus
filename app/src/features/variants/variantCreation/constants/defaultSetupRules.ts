@@ -105,12 +105,12 @@ const defaultStartingPosition: SquareInfo[] = [
 	},
 	{
 		pieceName: "white_queen",
-		xPos: 4,
+		xPos: 3,
 		yPos: 0,
 	},
 	{
 		pieceName: "black_queen",
-		xPos: 4,
+		xPos: 3,
 		yPos: 7,
 	},
 	{
@@ -175,12 +175,12 @@ const defaultStartingPosition: SquareInfo[] = [
 	},
 	{
 		pieceName: "white_king",
-		xPos: 3,
+		xPos: 4,
 		yPos: 0,
 	},
 	{
 		pieceName: "black_king",
-		xPos: 3,
+		xPos: 4,
 		yPos: 7,
 	},
 ];
