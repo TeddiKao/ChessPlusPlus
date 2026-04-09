@@ -103,12 +103,12 @@
 			},
 			{
 				"piece_name": "white_queen",
-				"x_pos": 4,
+				"x_pos": 3,
 				"y_pos": 0
 			},
 			{
 				"piece_name": "black_queen",
-				"x_pos": 4,
+				"x_pos": 3,
 				"y_pos": 7
 			},
 			{
@@ -173,12 +173,12 @@
 			},
 			{
 				"piece_name": "white_king",
-				"x_pos": 3,
+				"x_pos": 4,
 				"y_pos": 0
 			},
 			{
 				"piece_name": "black_king",
-				"x_pos": 3,
+				"x_pos": 4,
 				"y_pos": 7
 			}
 		]
