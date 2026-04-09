@@ -543,11 +543,13 @@
         [
           {
             "move_name": "white_pawn_forward",
-            "valid_move": true
+            "valid_move": true,
+            "terminate_on_stop": true
           },
           {
             "move_name": "white_pawn_double_step",
-            "valid_move": true
+            "valid_move": true,
+            "terminate_on_stop": true
           }
         ],
         {
@@ -563,11 +565,13 @@
         [
           {
             "move_name": "black_pawn_forward",
-            "valid_move": true
+            "valid_move": true,
+            "terminate_on_stop": true
           },
           {
             "move_name": "black_pawn_double_step",
-            "valid_move": true
+            "valid_move": true,
+            "terminate_on_stop": true
           }
         ],
         {
