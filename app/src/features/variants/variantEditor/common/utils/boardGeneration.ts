@@ -5,7 +5,7 @@ function generateAlphabetSequence(sequenceLength: number) {
 }
 
 function generateNumberSequence(sequenceLength: number) {
-	return Array.from({ length: sequenceLength }, (_, index) => index + 1);
+	return Array.from({ length: sequenceLength }, (_, index) => index);
 }
 
 export { generateAlphabetSequence, generateNumberSequence };
