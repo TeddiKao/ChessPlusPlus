@@ -8,6 +8,7 @@ import useVariantDraftStore from "@/features/variants/variantEditor/common/store
 import ChessboardGrid from "@/features/variants/variantEditor/common/components/ChessboardGrid";
 import useSidebarStore from "@/features/variants/variantEditor/common/stores/sidebar";
 import clsx from "clsx";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -19,6 +20,8 @@ function VariantEditorPage() {
 		updateMovementRulesDraft,
 		updatePieceRulesetDraft,
 	} = useVariantDraftStore();
+
+	const { activePiece } = usePiecesEditorStore();
 
 	const navigate = useNavigate();
 
@@ -75,19 +78,25 @@ function VariantEditorPage() {
 					<span>{variantName}</span>
 				</div>
 
-				<div
-					className={clsx(
-						"flex flex-row justify-center",
-						currentOpenMenu === "movements" ||
-							currentOpenMenu === "pieces"
-							? "-ml-28"
-							: "",
-					)}
-				>
-					<div className="aspect-square flex flex-row justify-center w-full max-w-md">
-						<ChessboardGrid boardState={[{ pieceName: "white_pawn", xPos: 4, yPos: 3 }]} />
+				{activePiece && (
+					<div
+						className={clsx(
+							"flex flex-row justify-center",
+							currentOpenMenu === "movements" ||
+								currentOpenMenu === "pieces"
+								? "-ml-28"
+								: "",
+						)}
+					>
+						<div className="aspect-square flex flex-row justify-center w-full max-w-md">
+							<ChessboardGrid
+								boardState={
+									new Map([[4, new Map([[3, activePiece]])]])
+								}
+							/>
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 
 			<Sidebar />
