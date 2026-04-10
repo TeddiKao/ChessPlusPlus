@@ -1,18 +1,19 @@
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
-import type { SquareInfo } from "@/features/variants/common/types/setupRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import {
 	generateAlphabetSequence,
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
+import type { StartingPosition } from "@/features/variants/common/types/setupRules";
 
 type ChessboardGridProps = {
-	boardState: SquareInfo[];
+	boardState: StartingPosition;
 };
 
 function ChessboardGrid({ boardState }: ChessboardGridProps) {
 	const { images } = usePieceImagesStore();
-	const { currentVariantId, setupRulesDraft, pieceRulesetDraft } = useVariantDraftStore();
+	const { currentVariantId, setupRulesDraft, pieceRulesetDraft } =
+		useVariantDraftStore();
 
 	if (!setupRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
@@ -27,8 +28,9 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 
 	function renderPieceImage(imageId: string, pieceName: string) {
 		if (!currentVariantId) return null;
-		
-		const imageBlob = images[imageId][currentVariantId] ?? images[imageId].image;
+
+		const imageBlob =
+			images[imageId][currentVariantId] ?? images[imageId].image;
 		const imageUrl = URL.createObjectURL(imageBlob);
 
 		return (
@@ -46,14 +48,9 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 
 					const fileNumber = files.indexOf(file);
 
-					const foundSquare = boardState.find(
-						(square) =>
-							square.xPos === fileNumber && square.yPos === rank,
-					);
+					const foundSquare = boardState.get(fileNumber)?.get(rank);
 
-					const imageId =
-						pieceRulesetDraft[foundSquare?.pieceName ?? ""]
-							?.imageId;
+					const imageId = pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
 					return (
 						<div
@@ -63,7 +60,7 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 							{foundSquare
 								? renderPieceImage(
 										imageId ?? "",
-										foundSquare.pieceName,
+										foundSquare ?? "",
 									)
 								: null}
 						</div>
