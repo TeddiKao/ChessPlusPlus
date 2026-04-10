@@ -36,14 +36,14 @@ export function PieceSelectionScreen() {
 				</SheetHeader>
 
 				<div className="flex flex-col px-3">
-					{Object.keys(pieceRulesetDraft).map((piece) => (
+					{Object.keys(pieceRulesetDraft).map((piece, index) => (
 						<Button
 							className="p-0 px-1 justify-start hover:bg-(--sidebar-primary-hover)"
 							variant="ghost"
 							key={piece}
 							onClick={() => handlePieceClick(piece)}
 						>
-							{piece}
+							{index + 1}. {piece}
 						</Button>
 					))}
 				</div>
