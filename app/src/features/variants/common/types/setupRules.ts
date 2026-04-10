@@ -1,3 +1,5 @@
+type StartingPosition = Map<number, Map<number, string>>;
+
 type PieceOwnershipRules = {
 	white: string[];
 	black: string[];
@@ -8,7 +10,7 @@ type SetupRules = {
 	boardXSize: number;
 	boardYSize: number;
 
-	startingPosition: Map<[number, number], string>;
+	startingPosition: StartingPosition;
 };
 
-export type { SetupRules, PieceOwnershipRules };
+export type { SetupRules, PieceOwnershipRules, StartingPosition };
