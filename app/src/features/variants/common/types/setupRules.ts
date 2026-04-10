@@ -1,9 +1,3 @@
-type SquareInfo = {
-	pieceName: string;
-	xPos: number;
-	yPos: number;
-};
-
 type PieceOwnershipRules = {
 	white: string[];
 	black: string[];
@@ -14,7 +8,7 @@ type SetupRules = {
 	boardXSize: number;
 	boardYSize: number;
 
-	startingPosition: SquareInfo[];
+	startingPosition: Map<[number, number], string>;
 };
 
-export type { SetupRules, PieceOwnershipRules, SquareInfo };
+export type { SetupRules, PieceOwnershipRules };
