@@ -37,7 +37,7 @@ export function MovementSelectionScreen() {
 
 				<div className="flex flex-col overflow-y-auto px-3">
 					{Object.entries(movementRulesDraft).map(
-						([movementName]) => (
+						([movementName], index) => (
 							<Button
 								key={movementName}
 								className="p-0 px-1 text-left justify-start hover:bg-(--sidebar-primary-hover)"
@@ -46,7 +46,7 @@ export function MovementSelectionScreen() {
 									handlePieceMovementClick(movementName)
 								}
 							>
-								{movementName}
+								{index + 1}. {movementName}
 							</Button>
 						),
 					)}
