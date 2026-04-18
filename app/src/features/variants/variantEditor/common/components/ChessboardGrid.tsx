@@ -49,7 +49,8 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 					const fileNumber = files.indexOf(file);
 
 					const foundSquare = boardState.get([fileNumber, rank]);
-					const imageId = pieceRulesetDraft[foundSquare ?? ""]?.imageId;
+					const imageId =
+						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
 					return (
 						<div
