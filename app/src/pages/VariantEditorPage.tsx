@@ -9,6 +9,7 @@ import ChessboardGrid from "@/features/variants/variantEditor/common/components/
 import useSidebarStore from "@/features/variants/variantEditor/common/stores/sidebar";
 import clsx from "clsx";
 import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import { TupleKeyedMap } from "@itwin/core-bentley";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -91,7 +92,9 @@ function VariantEditorPage() {
 						<div className="aspect-square flex flex-row justify-center w-full max-w-md">
 							<ChessboardGrid
 								boardState={
-									new Map([[4, new Map([[3, activePiece]])]])
+									new TupleKeyedMap([
+										[[4, 3], activePiece],
+									])
 								}
 							/>
 						</div>
