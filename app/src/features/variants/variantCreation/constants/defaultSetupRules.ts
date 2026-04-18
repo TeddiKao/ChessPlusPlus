@@ -1,7 +1,9 @@
 import type {
 	PieceOwnershipRules,
 	SetupRules,
+	StartingPosition,
 } from "@/features/variants/common/types/setupRules";
+import { TupleKeyedMap } from "@itwin/core-bentley";
 
 const defaultPieceOwnershipRules: PieceOwnershipRules = {
 	white: [
@@ -30,6 +32,7 @@ const defaultStartingPosition: StartingPosition = new TupleKeyedMap<[number, num
 	[[0, 5], "white_bishop"],
 	[[0, 6], "white_knight"],
 	[[0, 7], "white_rook"],
+
 	[[1, 0], "white_pawn"],
 	[[1, 1], "white_pawn"],
 	[[1, 2], "white_pawn"],
@@ -38,6 +41,7 @@ const defaultStartingPosition: StartingPosition = new TupleKeyedMap<[number, num
 	[[1, 5], "white_pawn"],
 	[[1, 6], "white_pawn"],
 	[[1, 7], "white_pawn"],
+
 	[[7, 0], "black_rook"],
 	[[7, 1], "black_knight"],
 	[[7, 2], "black_bishop"],
@@ -46,6 +50,7 @@ const defaultStartingPosition: StartingPosition = new TupleKeyedMap<[number, num
 	[[7, 5], "black_bishop"],
 	[[7, 6], "black_knight"],
 	[[7, 7], "black_rook"],
+
 	[[6, 0], "black_pawn"],
 	[[6, 1], "black_pawn"],
 	[[6, 2], "black_pawn"],

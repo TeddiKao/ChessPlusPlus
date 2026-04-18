@@ -1,4 +1,6 @@
-type StartingPosition = Map<number, Map<number, string>>;
+import { TupleKeyedMap } from "@itwin/core-bentley";
+
+type StartingPosition = TupleKeyedMap<[number, number], string>;
 
 type PieceOwnershipRules = {
 	white: string[];
