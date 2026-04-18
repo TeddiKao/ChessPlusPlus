@@ -4,6 +4,8 @@ from starlette.middleware.cors import CORSMiddleware
 from app.engine.json_validator import validate_json
 from app.schemas.base_schema import BaseSchema
 
+from app.api.routers.game import router as game_router
+
 app = FastAPI()
 
 origins = ["http://localhost:5173"]
@@ -14,6 +16,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(game_router)
 
 class JSONValidationRequest(BaseSchema):
     json_to_validate: dict
