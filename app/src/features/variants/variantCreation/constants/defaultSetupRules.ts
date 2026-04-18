@@ -1,8 +1,9 @@
 import type {
 	PieceOwnershipRules,
+	PositionState,
 	SetupRules,
-	SquareInfo,
 } from "@/features/variants/common/types/setupRules";
+import { TupleKeyedMap } from "@itwin/core-bentley";
 
 const defaultPieceOwnershipRules: PieceOwnershipRules = {
 	white: [
@@ -22,168 +23,44 @@ const defaultPieceOwnershipRules: PieceOwnershipRules = {
 		"black_king",
 	],
 };
-const defaultStartingPosition: SquareInfo[] = [
-	{
-		pieceName: "white_pawn",
-		xPos: 0,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 1,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 2,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 3,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 4,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 5,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 6,
-		yPos: 1,
-	},
-	{
-		pieceName: "white_pawn",
-		xPos: 7,
-		yPos: 1,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 0,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 1,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 2,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 3,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 4,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 5,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 6,
-		yPos: 6,
-	},
-	{
-		pieceName: "black_pawn",
-		xPos: 7,
-		yPos: 6,
-	},
-	{
-		pieceName: "white_queen",
-		xPos: 3,
-		yPos: 0,
-	},
-	{
-		pieceName: "black_queen",
-		xPos: 3,
-		yPos: 7,
-	},
-	{
-		pieceName: "white_rook",
-		xPos: 0,
-		yPos: 0,
-	},
-	{
-		pieceName: "white_rook",
-		xPos: 7,
-		yPos: 0,
-	},
-	{
-		pieceName: "black_rook",
-		xPos: 0,
-		yPos: 7,
-	},
-	{
-		pieceName: "black_rook",
-		xPos: 7,
-		yPos: 7,
-	},
-	{
-		pieceName: "white_bishop",
-		xPos: 2,
-		yPos: 0,
-	},
-	{
-		pieceName: "white_bishop",
-		xPos: 5,
-		yPos: 0,
-	},
-	{
-		pieceName: "black_bishop",
-		xPos: 2,
-		yPos: 7,
-	},
-	{
-		pieceName: "black_bishop",
-		xPos: 5,
-		yPos: 7,
-	},
-	{
-		pieceName: "white_knight",
-		xPos: 1,
-		yPos: 0,
-	},
-	{
-		pieceName: "white_knight",
-		xPos: 6,
-		yPos: 0,
-	},
-	{
-		pieceName: "black_knight",
-		xPos: 1,
-		yPos: 7,
-	},
-	{
-		pieceName: "black_knight",
-		xPos: 6,
-		yPos: 7,
-	},
-	{
-		pieceName: "white_king",
-		xPos: 4,
-		yPos: 0,
-	},
-	{
-		pieceName: "black_king",
-		xPos: 4,
-		yPos: 7,
-	},
-];
+const defaultStartingPosition: PositionState = new TupleKeyedMap([
+	[[0, 0], "white_rook"],
+	[[1, 0], "white_knight"],
+	[[2, 0], "white_bishop"],
+	[[3, 0], "white_queen"],
+	[[4, 0], "white_king"],
+	[[5, 0], "white_bishop"],
+	[[6, 0], "white_knight"],
+	[[7, 0], "white_rook"],
+
+	[[0, 1], "white_pawn"],
+	[[1, 1], "white_pawn"],
+	[[2, 1], "white_pawn"],
+	[[3, 1], "white_pawn"],
+	[[4, 1], "white_pawn"],
+	[[5, 1], "white_pawn"],
+	[[6, 1], "white_pawn"],
+	[[7, 1], "white_pawn"],
+
+	[[0, 7], "black_rook"],
+	[[1, 7], "black_knight"],
+	[[2, 7], "black_bishop"],
+	[[3, 7], "black_queen"],
+	[[4, 7], "black_king"],
+	[[5, 7], "black_bishop"],
+	[[6, 7], "black_knight"],
+	[[7, 7], "black_rook"],
+
+	[[0, 6], "black_pawn"],
+	[[1, 6], "black_pawn"],
+	[[2, 6], "black_pawn"],
+	[[3, 6], "black_pawn"],
+	[[4, 6], "black_pawn"],
+	[[5, 6], "black_pawn"],
+	[[6, 6], "black_pawn"],
+	[[7, 6], "black_pawn"],
+])
+
 const defaultSetupRules: SetupRules = {
 	pieceOwnership: defaultPieceOwnershipRules,
 	boardXSize: 8,
