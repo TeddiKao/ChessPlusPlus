@@ -5,6 +5,8 @@ import "./global.css";
 import TestPage from "@/pages/TestPage";
 import JSONValidatorTestPage from "@/pages/JSONValidatorTestPage";
 
+import GamePage from "@/pages/GamePage";
+
 function App() {
 	return (
 		<BrowserRouter>
@@ -15,6 +17,7 @@ function App() {
 					path="/json-validator-test"
 					element={<JSONValidatorTestPage />}
 				/>
+				<Route path="/game" element={<GamePage />} />
 			</Routes>
 		</BrowserRouter>
 	);
