@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from app.engine.json_validator import validate_json
 from app.schemas.base_schema import BaseSchema
+from app.engine.json_validator.json_validator import validate_json
 
 app = FastAPI()
 
