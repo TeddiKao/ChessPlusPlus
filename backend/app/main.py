@@ -18,11 +18,14 @@ app.add_middleware(
 class JSONValidationRequest(BaseSchema):
     json_to_validate: dict
 
+class JSONValidationResponse(BaseSchema):
+    validation_status: tuple[bool, str]
+
 @app.post("/test")
 async def test_route():
     return {"message": "Hello, World!"}
 
-@app.post("/json-validator-test")
+@app.post("/json-validator-test", response_model=JSONValidationResponse)
 async def json_validator_test(validation_request: JSONValidationRequest):
     validation_status = validate_json(validation_request.json_to_validate)
 
