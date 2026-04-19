@@ -31,7 +31,8 @@ function HomePage() {
 						My variants
 					</Button>
 					<Button onClick={() => navigate("/game")} className="px-4">
-					//Play variant</Button><Button className="px-4">
+					<IconChess />
+					Play variant</Button><Button className="px-4">
 						<IconChess />
 						Play variant
 					</Button>
