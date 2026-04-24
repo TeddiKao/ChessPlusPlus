@@ -1,7 +1,7 @@
 import type {
 	PieceOwnershipRules,
 	SetupRules,
-	StartingPosition,
+	GameState,
 } from "@/features/variants/common/types/setupRules";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 
@@ -23,7 +23,7 @@ const defaultPieceOwnershipRules: PieceOwnershipRules = {
 		"black_king",
 	],
 };
-const defaultStartingPosition: StartingPosition = new TupleKeyedMap<[number, number], string>([
+const defaultStartingPosition: GameState = new TupleKeyedMap<[number, number], string>([
 	[[0, 0], "white_rook"],
 	[[0, 1], "white_knight"],
 	[[0, 2], "white_bishop"],

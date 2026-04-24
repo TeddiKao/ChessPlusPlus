@@ -4,10 +4,10 @@ import {
 	generateAlphabetSequence,
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
-import type { StartingPosition } from "@/features/variants/common/types/setupRules";
+import type { GameState } from "@/features/variants/common/types/setupRules";
 
 type ChessboardGridProps = {
-	boardState: StartingPosition;
+	boardState: GameState;
 };
 
 function ChessboardGrid({ boardState }: ChessboardGridProps) {
