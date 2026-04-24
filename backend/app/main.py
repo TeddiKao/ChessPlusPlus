@@ -4,6 +4,8 @@ from starlette.middleware.cors import CORSMiddleware
 from app.schemas.base_schema import BaseSchema
 from app.engine.json_validator.json_validator import validate_json
 
+from app.api.routers import move_rules
+
 app = FastAPI()
 
 origins = ["http://localhost:5173"]
@@ -14,6 +16,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(move_rules.router, prefix="/move-rules")
 
 class JSONValidationRequest(BaseSchema):
     json_to_validate: dict
