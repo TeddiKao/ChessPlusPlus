@@ -82,7 +82,6 @@ function VariantEditorPage() {
 	const variantName = variants[variantId].variantName;
 
 	if (!setupRulesDraft) return null;
-	if (!legalMovesPreview) return null;
 
 	function handleNavigationToHomePage() {
 		navigate("/");
@@ -123,7 +122,7 @@ function VariantEditorPage() {
 										[[4, 3], activePiece],
 									])
 								}
-								legalMoves={legalMovesPreview}
+								legalMoves={legalMovesPreview ?? {}}
 							/>
 						</div>
 					</div>
