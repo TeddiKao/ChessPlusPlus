@@ -1,6 +1,7 @@
 import api from "@/app/api";
 import type { MovementRules } from "@/features/variants/common/types/movementRules";
 import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
+import { AxiosError } from "axios";
 
 type LegalMoveDisplayRequestBody = {
     pieceName: string;
@@ -24,7 +25,10 @@ async function displayLegalMoves(request: LegalMoveDisplayRequestBody): Promise<
 
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (error instanceof AxiosError) {
+            console.log(error.response);
+        }
+
         return {};
     }
 }
