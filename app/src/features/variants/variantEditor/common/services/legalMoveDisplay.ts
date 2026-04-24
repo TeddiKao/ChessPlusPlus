@@ -14,7 +14,7 @@ type LegalMoveDisplayResponseBody = Record<string, [number, number][]>;
 
 async function displayLegalMoves(request: LegalMoveDisplayRequestBody): Promise<LegalMoveDisplayResponseBody> {
     try {
-        const response = await api.post("generate-legal-moves", {
+        const response = await api.post("move-rules/generate-legal-moves/", {
             pieceName: request.pieceName,
             currentPos: request.currentPos,
             gameState: request.gameState,
