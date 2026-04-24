@@ -5,7 +5,7 @@ import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
 type LegalMoveDisplayRequestBody = {
     pieceName: string;
     currentPos: [number, number];
-    gameState: [[number, number], string];
+    gameState: [[number, number], string][];
     pieceRuleset: PieceRuleset;
     movementRules: MovementRules;
 }
