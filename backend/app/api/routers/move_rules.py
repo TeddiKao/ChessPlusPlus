@@ -1,4 +1,4 @@
-from backend.app.engine.legal_move_generator.bridge import generate_legal_moves_for_preview
+from app.engine.legal_move_generator.bridge import generate_legal_moves_for_preview
 from fastapi import APIRouter
 
 from app.schemas.legal_move_generator_request import GenerateLegalMovesRequest, GenerateLegalMovesResponse
