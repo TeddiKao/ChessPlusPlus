@@ -4,6 +4,7 @@ class GenerateLegalMovesRequest(BaseSchema):
     current_pos: tuple[int, int]
     game_state: dict
     piece_ruleset: dict
+    movement_rules: dict
 
 class GenerateLegalMovesResponse(BaseSchema):
     legal_moves: dict[str, list[tuple[int, int]]]
