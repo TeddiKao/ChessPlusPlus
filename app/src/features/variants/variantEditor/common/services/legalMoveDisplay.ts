@@ -16,14 +16,6 @@ type LegalMoveDisplayRequestBody = {
 type LegalMoveDisplayResponseBody = Record<string, [number, number][]>;
 
 async function displayLegalMoves(request: LegalMoveDisplayRequestBody): Promise<LegalMoveDisplayResponseBody> {
-    console.log({
-        pieceName: request.pieceName,
-        currentPos: request.currentPos,
-        gameState: request.gameState,
-        pieceRuleset: request.pieceRuleset,
-        movementRules: request.movementRules
-    });
-
     try {
         const response = await api.post("move-rules/generate-legal-moves/", {
             pieceName: request.pieceName,
@@ -34,7 +26,7 @@ async function displayLegalMoves(request: LegalMoveDisplayRequestBody): Promise<
             setupRules: request.setupRules
         })
 
-        return response.data;
+        return response.data.legalMoves;
     } catch (error) {
         if (error instanceof AxiosError) {
             console.log(error.response);
