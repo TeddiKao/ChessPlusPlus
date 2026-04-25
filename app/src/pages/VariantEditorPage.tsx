@@ -38,16 +38,19 @@ function VariantEditorPage() {
 			if (!movementRulesDraft) return null;
 			if (!activePiece) return null;
 
+			if (!setupRulesDraft) return null;
+
 			const previewBoardState = new TupleKeyedMap<[number, number], string>([
-		[[4, 3], activePiece],
-	]);
+				[[4, 3], activePiece],
+			]);
 
 			return await displayLegalMoves({
 				pieceName: activePiece,
 				pieceRuleset: pieceRulesetDraft,
 				movementRules: movementRulesDraft,
 				currentPos: [4, 3],
-				gameState: serialiseGameState(previewBoardState)
+				gameState: serialiseGameState(previewBoardState),
+				setupRules: setupRulesDraft
 			})
 		}
 	})
