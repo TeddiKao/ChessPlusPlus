@@ -68,4 +68,4 @@ const defaultSetupRules: SetupRules = {
 	startingPosition: defaultStartingPosition,
 };
 
-export { defaultSetupRules };
+export { defaultSetupRules , defaultStartingPosition };
