@@ -15,7 +15,6 @@ import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { defaultVariantRules } from "@/features/variants/variantCreation/constants/newVariantDefaults";
 import { defaultPieceImages } from "@/features/variants/variantCreation/constants/defaultPieceImages";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
-import { TupleKeyedMap } from "@itwin/core-bentley";
 import { defaultStartingPosition } from "../constants/defaultSetupRules";
 
 function CreateVariantDialog() {
