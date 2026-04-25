@@ -7,12 +7,18 @@ type PieceOwnershipRules = {
 	black: string[];
 };
 
-type SetupRules = {
+type BaseSetupRules = {
 	pieceOwnership: PieceOwnershipRules;
 	boardXSize: number;
 	boardYSize: number;
+}
 
+type SetupRules = BaseSetupRules & {
 	startingPosition: GameState;
 };
 
-export type { SetupRules, PieceOwnershipRules, GameState };
+type SerialisedSetupRules = BaseSetupRules & {
+	startingPosition: [[number, number], string][];
+}
+
+export type { SetupRules, PieceOwnershipRules, GameState, SerialisedSetupRules };
