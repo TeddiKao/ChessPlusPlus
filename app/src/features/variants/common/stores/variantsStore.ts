@@ -3,10 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { generateId } from "@/shared/utils/idGeneration";
 import { createIndexedDBStorage } from "zustand-indexeddb";
-import VariantListDialog from "../../variantListing/components/VariantListDialog";
-import { TupleKeyedMap } from "@itwin/core-bentley";
 import { reviveTupleKeyedMap } from "../utils/tupleKeyMapRevive";
-import { hasInternalMap } from "@/shared/utils/typeChecks";
 
 type VariantsStore = {
 	variants: Record<string, VariantInfo>;
@@ -84,13 +81,13 @@ const useVariantsStore = create<VariantsStore>()(
 
 							updatedVariantInfo.variantRules.setupRules.startingPosition = revivedStartingPositionMap;
 
-							return [variantId, variantInfo];
+							return [variantId, updatedVariantInfo];
 						},
 					),
 				);
 
 				if (state) {
-					state.variants = tupleKeyedMapRevivedVariants
+					state.variants = tupleKeyedMapRevivedVariants;
 				}
 
 				state?.markAsHydrated();
