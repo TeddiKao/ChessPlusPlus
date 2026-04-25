@@ -18,12 +18,12 @@ class Game:
         self._game_state = {}
         self._id_counter = 0
 
-        piece_default_start_data = {
+        self.piece_default_start_data = {
             "has_not_moved": True
         }
 
         for starting_piece in rules["setup"]["starting_position"]:
-            self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece((starting_piece["x_pos"], starting_piece["y_pos"]), self._id_counter, starting_piece["piece_name"], copy.deepcopy(piece_default_start_data))
+            self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece((starting_piece["x_pos"], starting_piece["y_pos"]), self._id_counter, starting_piece["piece_name"], copy.deepcopy(self.piece_default_start_data))
             self._id_counter += 1
 
     def get_game_state(self, include_size: bool = False):
@@ -31,7 +31,14 @@ class Game:
             return (self._rules["setup"]["board_x_size"], self._rules["setup"]["board_y_size"]), self._game_state
         return self._game_state
 
-    def update_game_state(self, piece_start_postion: tuple, piece_end_postion: tuple):
+    def overwrite_game_state(self, new_game_state: dict): # format is a dictionary with tuple position as the keys, and piece name as the values
+        self._game_state = {}
+        self._id_counter = 0
+        for position, piece_name in new_game_state.items():
+            self._game_state[position] = Piece(position, self._id_counter, piece_name, copy.deepcopy(self.piece_default_start_data))
+            self._id_counter += 1
+
+    def make_move(self, piece_start_postion: tuple, piece_end_postion: tuple): # note that move will be accepted regardless of whether the move is legal or not
 
         if piece_start_postion == piece_end_postion:
             raise StationaryMoveError

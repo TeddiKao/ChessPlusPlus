@@ -80,15 +80,18 @@ def test_get_legal_moves():
         game_state = game.get_game_state(True)
         display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-        game.update_game_state((3, 1), (3, 3))
+        game.make_move((3, 1), (3, 3))
 
         game_state = game.get_game_state(True)
         display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-        print(game.get_legal_moves((1, 0)))
+        game.overwrite_game_state({(3, 4): "white_pawn"})
+
+        game_state = game.get_game_state(True)
+        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
 def test_normalise_json():
     test_data = json.load(open("test_simple_json.json"))
     print(jn.normalise_json(test_data))
 
-test_normalise_json()
+test_get_legal_moves()
