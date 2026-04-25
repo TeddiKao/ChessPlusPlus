@@ -1,3 +1,4 @@
+from app.schemas.legal_move_generator_request import SetupRules
 from app.engine.legal_move_generator.legal_move_generator import Game
 from typing import TypedDict
 from app.engine.legal_move_generator.legal_move_generator import Piece
@@ -14,14 +15,14 @@ def convert_piece_json_ruleset_to_piece_object(piece_json_ruleset: dict):
         data=piece_json_ruleset["data"]
     )
 
-def generate_legal_moves_for_preview(piece_name: str, current_pos: tuple[int, int], game_state: list, piece_ruleset: dict, movement_rules: dict, setup_rules: dict):
-    serialized_piece_ruleset = convert_camel_to_snake(piece_ruleset, [1, 2])
-    serialized_movement_rules = convert_camel_to_snake(movement_rules, [1])
+def generate_legal_moves_for_preview(piece_name: str, current_pos: tuple[int, int], game_state: list, piece_ruleset: dict, movement_rules: dict, setup_rules: SetupRules):
+    serialized_piece_ruleset = convert_camel_to_snake(piece_ruleset, [0])
+    serialized_movement_rules = convert_camel_to_snake(movement_rules, [0])
     
     rules = {
         "moves": serialized_movement_rules,
         "pieces": serialized_piece_ruleset,
-        "setup": setup_rules
+        "setup": setup_rules.model_dump()
     }
 
     game_instance = Game(rules)
