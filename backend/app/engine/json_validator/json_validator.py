@@ -19,10 +19,10 @@ def validate_json(data: dict):
         if wrong_values != set():
             return False, get_wrong_values_error_message(wrong_values, f"main/setup/piece_ownership/{player} (values)", "Wrong pieces do not exist in \"main/pieces (keys)\"")
 
-    if not (temp := check_range(data["setup"]["board_x_size"], 1, 8, "main/setup/board_x_size"))[0]:
+    if not (temp := check_range(data["setup"]["board_x_size"], 1, inf, "main/setup/board_x_size"))[0]:
         return temp
 
-    if not (temp := check_range(data["setup"]["board_y_size"], 1, 8, "main/setup/board_y_size"))[0]:
+    if not (temp := check_range(data["setup"]["board_y_size"], 1, inf, "main/setup/board_y_size"))[0]:
         return temp
 
     if get_if_wrong_data_type(data["setup"]["starting_position"], list):
