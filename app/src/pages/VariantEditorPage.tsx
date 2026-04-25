@@ -13,6 +13,7 @@ import { TupleKeyedMap } from "@itwin/core-bentley";
 import { useQuery } from "@tanstack/react-query";
 import { displayLegalMoves } from "@/features/variants/variantEditor/common/services/legalMoveDisplay";
 import { serialiseGameState } from "@/features/variants/variantEditor/common/utils/gameStateSerialisation";
+import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -28,11 +29,18 @@ function VariantEditorPage() {
 	} = useVariantDraftStore();
 
 	const { activePiece } = usePiecesEditorStore();
+	const { activeMovementName, forMovement, forCapture, offsetX, offsetY, range } = useMovementsEditorStore();
 
 	const navigate = useNavigate();
 
 	const { data: legalMovesPreview } = useQuery({
-		queryKey: ["legalMovesPreview", activePiece, variantId, pieceRulesetDraft, movementRulesDraft],
+		queryKey: [
+			"legalMovesPreview",
+			activePiece,
+			variantId,
+			pieceRulesetDraft,
+			movementRulesDraft,
+		],
 		queryFn: async () => {
 			if (!pieceRulesetDraft) return null;
 			if (!movementRulesDraft) return null;
@@ -40,25 +48,43 @@ function VariantEditorPage() {
 
 			if (!setupRulesDraft) return null;
 
-			const previewBoardState = new TupleKeyedMap<[number, number], string>([
-				[[4, 3], activePiece],
-			]);
+			const previewBoardState = new TupleKeyedMap<
+				[number, number],
+				string
+			>([[[4, 3], activePiece]]);
 
-			return await displayLegalMoves({
-				pieceName: activePiece,
-				pieceRuleset: pieceRulesetDraft,
-				movementRules: movementRulesDraft,
-				currentPos: [4, 3],
-				gameState: serialiseGameState(previewBoardState),
-				setupRules: {
-					pieceOwnership: setupRulesDraft.pieceOwnership,
-					boardXSize: setupRulesDraft.boardXSize,
-					boardYSize: setupRulesDraft.boardYSize,
-					startingPosition: serialiseGameState(setupRulesDraft.startingPosition),
-				}
-			})
-		}
-	})
+			if (activeMovementName) {
+				return await displayLegalMoves({
+					pieceName: activePiece,
+					pieceRuleset: pieceRulesetDraft,
+					movementRules: {
+						...movementRulesDraft,
+						[activeMovementName]: {
+							...movementRulesDraft[activeMovementName],
+							forMovement: forMovement ?? false,
+							forCapture: forCapture ?? false,
+							moveDefinition: {
+								...movementRulesDraft[activeMovementName].moveDefinition,
+								range: range ?? 0,
+								moveX: offsetX ?? 0,
+								moveY: offsetY ?? 0,
+							}
+						}
+					},
+					currentPos: [4, 3],
+					gameState: serialiseGameState(previewBoardState),
+					setupRules: {
+						pieceOwnership: setupRulesDraft.pieceOwnership,
+						boardXSize: setupRulesDraft.boardXSize,
+						boardYSize: setupRulesDraft.boardYSize,
+						startingPosition: serialiseGameState(
+							setupRulesDraft.startingPosition,
+						),
+					},
+				});
+			}
+		},
+	});
 
 	useEffect(() => {
 		if (!variantId) return;
@@ -102,15 +128,19 @@ function VariantEditorPage() {
 		const legalMoveEntries = Object.entries(legalMovesPreview);
 		const movementRuleEntries = Object.entries(movementRulesDraft);
 
-		const entriesWithIndicies = legalMoveEntries.map(([movementName, legalMoves]) => {
-			const movementIndex = movementRuleEntries.findIndex(([name]) => name === movementName);
+		const entriesWithIndicies = legalMoveEntries.map(
+			([movementName, legalMoves]) => {
+				const movementIndex = movementRuleEntries.findIndex(
+					([name]) => name === movementName,
+				);
 
-			if (movementIndex === -1) {
-				return [0, []];
-			}
+				if (movementIndex === -1) {
+					return [0, []];
+				}
 
-			return [movementIndex + 1, legalMoves];
-		});
+				return [movementIndex + 1, legalMoves];
+			},
+		);
 
 		return Object.fromEntries(entriesWithIndicies);
 	}
@@ -146,9 +176,7 @@ function VariantEditorPage() {
 						<div className="aspect-square flex flex-row justify-center w-full max-w-md">
 							<ChessboardGrid
 								boardState={
-									new TupleKeyedMap([
-										[[4, 3], activePiece],
-									])
+									new TupleKeyedMap([[[4, 3], activePiece]])
 								}
 								legalMoves={parseLegalMovesPreview() ?? {}}
 							/>
