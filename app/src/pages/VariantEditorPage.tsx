@@ -95,6 +95,26 @@ function VariantEditorPage() {
 		navigate("/");
 	}
 
+	function parseLegalMovesPreview() {
+		if (!legalMovesPreview) return;
+		if (!movementRulesDraft) return;
+
+		const legalMoveEntries = Object.entries(legalMovesPreview);
+		const movementRuleEntries = Object.entries(movementRulesDraft);
+
+		const entriesWithIndicies = legalMoveEntries.map(([movementName, legalMoves]) => {
+			const movementIndex = movementRuleEntries.findIndex(([name]) => name === movementName);
+
+			if (movementIndex === -1) {
+				return [0, []];
+			}
+
+			return [movementIndex + 1, legalMoves];
+		});
+
+		return Object.fromEntries(entriesWithIndicies);
+	}
+
 	return (
 		<div className="relative min-h-screen">
 			<div className="flex flex-col gap-6">
@@ -130,7 +150,7 @@ function VariantEditorPage() {
 										[[4, 3], activePiece],
 									])
 								}
-								legalMoves={legalMovesPreview ?? {}}
+								legalMoves={parseLegalMovesPreview() ?? {}}
 							/>
 						</div>
 					</div>
