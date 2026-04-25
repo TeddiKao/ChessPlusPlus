@@ -50,7 +50,12 @@ function VariantEditorPage() {
 				movementRules: movementRulesDraft,
 				currentPos: [4, 3],
 				gameState: serialiseGameState(previewBoardState),
-				setupRules: setupRulesDraft
+				setupRules: {
+					pieceOwnership: setupRulesDraft.pieceOwnership,
+					boardXSize: setupRulesDraft.boardXSize,
+					boardYSize: setupRulesDraft.boardYSize,
+					startingPosition: serialiseGameState(setupRulesDraft.startingPosition),
+				}
 			})
 		}
 	})
