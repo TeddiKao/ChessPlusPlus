@@ -5,7 +5,6 @@ import {
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
 import type { GameState } from "@/features/variants/common/types/setupRules";
-import { useQuery } from "@tanstack/react-query";
 
 type ChessboardGridProps = {
 	boardState: GameState;
