@@ -94,4 +94,4 @@ def test_normalise_json():
     test_data = json.load(open("test_simple_json.json"))
     print(jn.normalise_json(test_data))
 
-test_get_legal_moves()
+print(test_validate_json())
