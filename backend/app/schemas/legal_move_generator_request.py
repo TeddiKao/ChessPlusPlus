@@ -3,8 +3,9 @@ from app.schemas.base_schema import BaseSchema
 class GenerateLegalMovesRequest(BaseSchema):
     piece_name: str
     current_pos: tuple[int, int]
-    game_state: list[list[tuple[int, int], str]]
+    game_state: tuple[tuple[tuple[int, int], str]]
     piece_ruleset: dict
+    setup_rules: dict
     movement_rules: dict
 
 class GenerateLegalMovesResponse(BaseSchema):
