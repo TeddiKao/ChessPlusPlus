@@ -1,20 +1,24 @@
+import { hasInternalMap } from "@/shared/utils/typeChecks";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 
-function reviveTupleKeyedMap(mapToRevive: Record<string, unknown>) {
-    const revivedMap = new TupleKeyedMap<any, any>();
+function reviveTupleKeyedMap<K extends readonly unknown[], V>(mapToRevive: unknown): TupleKeyedMap<K, V> {
+    if (!hasInternalMap(mapToRevive)) return new TupleKeyedMap<K, V>();
 
-    function walk(originalMap: Record<string, unknown>, prefix: unknown[] = []) {
-        for (const [key, value] of Object.entries(originalMap)) {
-            const tupleKey = [...prefix, key];
-            if (value && typeof value === "object" && !Array.isArray(value)) {
-                walk(value as Record<string, unknown>, tupleKey);
+    const revivedMap = new TupleKeyedMap<K, V>();
+
+    function walkMap(map: Map<unknown, unknown>, prefix: readonly unknown[] = []) {
+        console.log(map);
+        for (const [key, value] of Array.from(map)) {
+            const mapKey = [...prefix, key] as unknown as K;
+            if (value instanceof Map) {
+                walkMap(value, mapKey);
             } else {
-                revivedMap.set(tupleKey, value);
+                revivedMap.set(mapKey, value as V);
             }
         }
     }
 
-    walk(mapToRevive);
+    walkMap(mapToRevive._map);
 
     return revivedMap;
 }
