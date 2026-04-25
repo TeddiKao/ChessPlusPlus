@@ -14,13 +14,15 @@ async def generate_legal_moves(request: GenerateLegalMovesRequest):
 	current_pos = request.current_pos
 	piece_name = request.piece_name
 	game_state = request.game_state
+	setup_rules = request.setup_rules
 
 	legal_moves = generate_legal_moves_for_preview(
 		piece_name=piece_name,
 		current_pos=current_pos,
 		game_state=game_state,
 		piece_ruleset=piece_ruleset,
-		movement_rules=movement_rules
+		movement_rules=movement_rules,
+		setup_rules=setup_rules
 	)
 
 	return GenerateLegalMovesResponse(
