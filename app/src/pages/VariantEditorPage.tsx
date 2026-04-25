@@ -37,6 +37,12 @@ function VariantEditorPage() {
 		queryKey: [
 			"legalMovesPreview",
 			activePiece,
+			activeMovementName,
+			forMovement,
+			forCapture,
+			offsetX,
+			offsetY,
+			range,
 			variantId,
 			pieceRulesetDraft,
 			movementRulesDraft,
@@ -71,6 +77,22 @@ function VariantEditorPage() {
 							}
 						}
 					},
+					currentPos: [4, 3],
+					gameState: serialiseGameState(previewBoardState),
+					setupRules: {
+						pieceOwnership: setupRulesDraft.pieceOwnership,
+						boardXSize: setupRulesDraft.boardXSize,
+						boardYSize: setupRulesDraft.boardYSize,
+						startingPosition: serialiseGameState(
+							setupRulesDraft.startingPosition,
+						),
+					},
+				});
+			} else {
+				return await displayLegalMoves({
+					pieceName: activePiece,
+					pieceRuleset: pieceRulesetDraft,
+					movementRules: movementRulesDraft,
 					currentPos: [4, 3],
 					gameState: serialiseGameState(previewBoardState),
 					setupRules: {
