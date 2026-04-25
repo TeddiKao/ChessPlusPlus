@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { displayLegalMoves } from "@/features/variants/variantEditor/common/services/legalMoveDisplay";
 import { serialiseGameState } from "@/features/variants/variantEditor/common/utils/gameStateSerialisation";
 import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
+import { reviveTupleKeyedMap } from "@/features/variants/common/utils/tupleKeyMapRevive";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -84,7 +85,7 @@ function VariantEditorPage() {
 						boardXSize: setupRulesDraft.boardXSize,
 						boardYSize: setupRulesDraft.boardYSize,
 						startingPosition: serialiseGameState(
-							setupRulesDraft.startingPosition,
+							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
 						),
 					},
 				});
@@ -100,7 +101,7 @@ function VariantEditorPage() {
 						boardXSize: setupRulesDraft.boardXSize,
 						boardYSize: setupRulesDraft.boardYSize,
 						startingPosition: serialiseGameState(
-							setupRulesDraft.startingPosition,
+							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
 						),
 					},
 				});
@@ -113,6 +114,8 @@ function VariantEditorPage() {
 
 		const selectedVariant = variants[variantId];
 		if (!selectedVariant) return;
+
+		console.log(selectedVariant.variantRules.setupRules instanceof TupleKeyedMap);
 
 		updateCurrentVariantId(variantId);
 		updateSetupRulesDraft(selectedVariant.variantRules.setupRules);
