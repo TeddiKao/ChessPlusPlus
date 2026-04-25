@@ -13,7 +13,7 @@ def snake_to_camel_case(name: str) -> str:
 
 def convert_camel_to_snake(
     camel_dict: dict,
-    exclude_levels: list[int] = None,
+    exclude_levels: list[int] | None = None,
 ):
     if exclude_levels is None:
         exclude_levels = []
@@ -38,8 +38,11 @@ def convert_camel_to_snake(
 
 def convert_snake_to_camel(
     snake_dict: dict,
-    exclude_levels: list[int] = None,
+    exclude_levels: list[int] | None = None,
 ):
+    if exclude_levels is None:
+        exclude_levels = []
+
     def _convert(data, current_level):
         if isinstance(data, dict):
             result = {}
