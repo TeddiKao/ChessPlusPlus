@@ -1,20 +1,24 @@
-type SquareInfo = {
-	pieceName: string;
-	xPos: number;
-	yPos: number;
-};
+import { TupleKeyedMap } from "@itwin/core-bentley";
+
+type GameState = TupleKeyedMap<[number, number], string>;
 
 type PieceOwnershipRules = {
 	white: string[];
 	black: string[];
 };
 
-type SetupRules = {
+type BaseSetupRules = {
 	pieceOwnership: PieceOwnershipRules;
 	boardXSize: number;
 	boardYSize: number;
+}
 
-	startingPosition: SquareInfo[];
+type SetupRules = BaseSetupRules & {
+	startingPosition: GameState;
 };
 
-export type { SetupRules, PieceOwnershipRules, SquareInfo };
+type SerialisedSetupRules = BaseSetupRules & {
+	startingPosition: [[number, number], string][];
+}
+
+export type { SetupRules, PieceOwnershipRules, GameState, SerialisedSetupRules };

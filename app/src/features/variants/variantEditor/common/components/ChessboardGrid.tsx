@@ -1,18 +1,20 @@
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
-import type { SquareInfo } from "@/features/variants/common/types/setupRules";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import {
 	generateAlphabetSequence,
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
+import type { GameState } from "@/features/variants/common/types/setupRules";
 
 type ChessboardGridProps = {
-	boardState: SquareInfo[];
+	boardState: GameState;
+	legalMoves: Record<string, [number, number][]>;
 };
 
-function ChessboardGrid({ boardState }: ChessboardGridProps) {
+function ChessboardGrid({ boardState, legalMoves }: ChessboardGridProps) {
 	const { images } = usePieceImagesStore();
-	const { currentVariantId, setupRulesDraft, pieceRulesetDraft } = useVariantDraftStore();
+	const { currentVariantId, setupRulesDraft, pieceRulesetDraft } =
+		useVariantDraftStore();
 
 	if (!setupRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
@@ -25,10 +27,13 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 	const ranks = generateNumberSequence(boardYSize).reverse();
 	const files = generateAlphabetSequence(boardXSize);
 
+	const legalMoveEntries = Object.entries(legalMoves);
+
 	function renderPieceImage(imageId: string, pieceName: string) {
 		if (!currentVariantId) return null;
-		
-		const imageBlob = images[imageId][currentVariantId] ?? images[imageId].image;
+
+		const imageBlob =
+			images[imageId][currentVariantId] ?? images[imageId].image;
 		const imageUrl = URL.createObjectURL(imageBlob);
 
 		return (
@@ -46,26 +51,47 @@ function ChessboardGrid({ boardState }: ChessboardGridProps) {
 
 					const fileNumber = files.indexOf(file);
 
-					const foundSquare = boardState.find(
-						(square) =>
-							square.xPos === fileNumber && square.yPos === rank,
-					);
-
+					const foundSquare = boardState.get([fileNumber, rank]);
 					const imageId =
-						pieceRulesetDraft[foundSquare?.pieceName ?? ""]
-							?.imageId;
+						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
+
+					const legalMovements = legalMoveEntries
+						.filter(([, coordinates]) => {
+							return coordinates.some(
+								(coordinate) =>
+									coordinate[0] === fileNumber &&
+									coordinate[1] === rank,
+							);
+						})
+						.map(([movementLabel]) => {
+							return movementLabel;
+						});
 
 					return (
 						<div
 							key={file}
-							className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square`}
+							className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 						>
 							{foundSquare
 								? renderPieceImage(
 										imageId ?? "",
-										foundSquare.pieceName,
+										foundSquare ?? "",
 									)
 								: null}
+
+							<div
+								key={`${rank}-${file}`}
+								className="absolute top-0 left-0 flex flex-row flex-wrap gap-2 p-2"
+							>
+								{legalMovements.map((movementLabel) => (
+									<span
+										key={movementLabel}
+										className="text-xs"
+									>
+										{movementLabel}
+									</span>
+								))}
+							</div>
 						</div>
 					);
 				}),

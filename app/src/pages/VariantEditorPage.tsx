@@ -8,6 +8,13 @@ import useVariantDraftStore from "@/features/variants/variantEditor/common/store
 import ChessboardGrid from "@/features/variants/variantEditor/common/components/ChessboardGrid";
 import useSidebarStore from "@/features/variants/variantEditor/common/stores/sidebar";
 import clsx from "clsx";
+import usePiecesEditorStore from "@/features/variants/variantEditor/piecesEditor/stores/piecesEditor";
+import { TupleKeyedMap } from "@itwin/core-bentley";
+import { useQuery } from "@tanstack/react-query";
+import { displayLegalMoves } from "@/features/variants/variantEditor/common/services/legalMoveDisplay";
+import { serialiseGameState } from "@/features/variants/variantEditor/common/utils/gameStateSerialisation";
+import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
+import { reviveTupleKeyedMap } from "@/features/variants/common/utils/tupleKeyMapRevive";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -16,17 +23,99 @@ function VariantEditorPage() {
 		setupRulesDraft,
 		updateCurrentVariantId,
 		updateSetupRulesDraft,
+		movementRulesDraft,
 		updateMovementRulesDraft,
+		pieceRulesetDraft,
 		updatePieceRulesetDraft,
 	} = useVariantDraftStore();
 
+	const { activePiece } = usePiecesEditorStore();
+	const { activeMovementName, forMovement, forCapture, offsetX, offsetY, range } = useMovementsEditorStore();
+
 	const navigate = useNavigate();
+
+	const { data: legalMovesPreview } = useQuery({
+		queryKey: [
+			"legalMovesPreview",
+			activePiece,
+			activeMovementName,
+			forMovement,
+			forCapture,
+			offsetX,
+			offsetY,
+			range,
+			variantId,
+			pieceRulesetDraft,
+			movementRulesDraft,
+		],
+		queryFn: async () => {
+			if (!pieceRulesetDraft) return null;
+			if (!movementRulesDraft) return null;
+			if (!activePiece) return null;
+
+			if (!setupRulesDraft) return null;
+
+			const previewBoardState = new TupleKeyedMap<
+				[number, number],
+				string
+			>([[[4, 3], activePiece]]);
+
+			if (activeMovementName) {
+				return await displayLegalMoves({
+					pieceName: activePiece,
+					pieceRuleset: pieceRulesetDraft,
+					movementRules: {
+						...movementRulesDraft,
+						[activeMovementName]: {
+							...movementRulesDraft[activeMovementName],
+							forMovement: forMovement ?? false,
+							forCapture: forCapture ?? false,
+							moveDefinition: {
+								...movementRulesDraft[activeMovementName].moveDefinition,
+								range: range ?? 0,
+								moveX: offsetX ?? 0,
+								moveY: offsetY ?? 0,
+							}
+						}
+					},
+					currentPos: [4, 3],
+					gameState: serialiseGameState(previewBoardState),
+					setupRules: {
+						pieceOwnership: setupRulesDraft.pieceOwnership,
+						boardXSize: setupRulesDraft.boardXSize,
+						boardYSize: setupRulesDraft.boardYSize,
+						startingPosition: serialiseGameState(
+							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
+						),
+					},
+				});
+			} else {
+				return await displayLegalMoves({
+					pieceName: activePiece,
+					pieceRuleset: pieceRulesetDraft,
+					movementRules: movementRulesDraft,
+					currentPos: [4, 3],
+					gameState: serialiseGameState(previewBoardState),
+					setupRules: {
+						pieceOwnership: setupRulesDraft.pieceOwnership,
+						boardXSize: setupRulesDraft.boardXSize,
+						boardYSize: setupRulesDraft.boardYSize,
+						startingPosition: serialiseGameState(
+							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
+						),
+					},
+				});
+			}
+		},
+	});
 
 	useEffect(() => {
 		if (!variantId) return;
 
 		const selectedVariant = variants[variantId];
 		if (!selectedVariant) return;
+
+		console.log(selectedVariant.variantRules.setupRules instanceof TupleKeyedMap);
 
 		updateCurrentVariantId(variantId);
 		updateSetupRulesDraft(selectedVariant.variantRules.setupRules);
@@ -57,6 +146,30 @@ function VariantEditorPage() {
 		navigate("/");
 	}
 
+	function parseLegalMovesPreview() {
+		if (!legalMovesPreview) return;
+		if (!movementRulesDraft) return;
+
+		const legalMoveEntries = Object.entries(legalMovesPreview);
+		const movementRuleEntries = Object.entries(movementRulesDraft);
+
+		const entriesWithIndicies = legalMoveEntries.map(
+			([movementName, legalMoves]) => {
+				const movementIndex = movementRuleEntries.findIndex(
+					([name]) => name === movementName,
+				);
+
+				if (movementIndex === -1) {
+					return [0, []];
+				}
+
+				return [movementIndex + 1, legalMoves];
+			},
+		);
+
+		return Object.fromEntries(entriesWithIndicies);
+	}
+
 	return (
 		<div className="relative min-h-screen">
 			<div className="flex flex-col gap-6">
@@ -75,19 +188,26 @@ function VariantEditorPage() {
 					<span>{variantName}</span>
 				</div>
 
-				<div
-					className={clsx(
-						"flex flex-row justify-center",
-						currentOpenMenu === "movements" ||
-							currentOpenMenu === "pieces"
-							? "-ml-28"
-							: "",
-					)}
-				>
-					<div className="aspect-square flex flex-row justify-center w-full max-w-md">
-						<ChessboardGrid boardState={[{ pieceName: "white_pawn", xPos: 4, yPos: 3 }]} />
+				{activePiece && (
+					<div
+						className={clsx(
+							"flex flex-row justify-center",
+							currentOpenMenu === "movements" ||
+								currentOpenMenu === "pieces"
+								? "-ml-28"
+								: "",
+						)}
+					>
+						<div className="aspect-square flex flex-row justify-center w-full max-w-md">
+							<ChessboardGrid
+								boardState={
+									new TupleKeyedMap([[[4, 3], activePiece]])
+								}
+								legalMoves={parseLegalMovesPreview() ?? {}}
+							/>
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 
 			<Sidebar />

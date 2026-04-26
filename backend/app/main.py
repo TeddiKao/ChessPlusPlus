@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from app.engine.json_validator import validate_json
 from app.schemas.base_schema import BaseSchema
+from app.engine.json_validator.json_validator import validate_json
+
+from app.api.routers import move_rules
 
 app = FastAPI()
 
@@ -15,14 +17,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(move_rules.router, prefix="/move-rules")
+
 class JSONValidationRequest(BaseSchema):
     json_to_validate: dict
+
+class JSONValidationResponse(BaseSchema):
+    validation_status: tuple[bool, str]
 
 @app.post("/test")
 async def test_route():
     return {"message": "Hello, World!"}
 
-@app.post("/json-validator-test")
+@app.post("/json-validator-test", response_model=JSONValidationResponse)
 async def json_validator_test(validation_request: JSONValidationRequest):
     validation_status = validate_json(validation_request.json_to_validate)
 
