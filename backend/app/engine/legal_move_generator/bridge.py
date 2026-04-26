@@ -19,11 +19,18 @@ def convert_piece_json_ruleset_to_piece_object(piece_json_ruleset: dict):
 def generate_legal_moves_for_preview(piece_name: str, current_pos: tuple[int, int], game_state: list, piece_ruleset: dict, movement_rules: dict, setup_rules: SetupRules):
     serialized_piece_ruleset = convert_camel_to_snake(piece_ruleset, [0])
     serialized_movement_rules = convert_camel_to_snake(movement_rules, [0])
-    
+    serialized_setup_rules = {
+        "piece_ownership": setup_rules.piece_ownership,
+        "board_x_size": setup_rules.board_x_size,
+        "board_y_size": setup_rules.board_y_size,
+        "starting_position": serialise_starting_position(setup_rules.starting_position),
+    }
+
+
     rules = {
         "moves": serialized_movement_rules,
         "pieces": serialized_piece_ruleset,
-        "setup": serialise_starting_position(setup_rules.model_dump())
+        "setup": serialized_setup_rules
     }
 
     game_instance = Game(rules)
