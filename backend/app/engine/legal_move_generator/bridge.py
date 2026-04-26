@@ -3,6 +3,7 @@ from app.engine.legal_move_generator.legal_move_generator import Game
 from typing import TypedDict
 from app.engine.legal_move_generator.legal_move_generator import Piece
 from app.utils.case_converter import convert_camel_to_snake
+from app.utils.starting_position_serialiser import serialise_starting_position
 
 class PieceJSONRuleset(TypedDict):
 	pos: tuple[int, int]
@@ -22,7 +23,7 @@ def generate_legal_moves_for_preview(piece_name: str, current_pos: tuple[int, in
     rules = {
         "moves": serialized_movement_rules,
         "pieces": serialized_piece_ruleset,
-        "setup": setup_rules.model_dump()
+        "setup": serialise_starting_position(setup_rules.model_dump())
     }
 
     game_instance = Game(rules)
