@@ -83,11 +83,14 @@ function ChessboardGrid({ boardState, legalMoves }: ChessboardGridProps) {
 								key={`${rank}-${file}`}
 								className="absolute top-0 left-0 flex flex-row flex-wrap gap-2 p-2"
 							>
-								{legalMovements.length > 0
-									? legalMovements.map((movementLabel) => (
-											<span key={movementLabel} className="text-xs">{movementLabel}</span>
-										))
-									: null}
+								{legalMovements.map((movementLabel) => (
+									<span
+										key={movementLabel}
+										className="text-xs"
+									>
+										{movementLabel}
+									</span>
+								))}
 							</div>
 						</div>
 					);
