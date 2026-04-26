@@ -85,7 +85,7 @@ function ChessboardGrid({ boardState, legalMoves }: ChessboardGridProps) {
 							>
 								{legalMovements.length > 0
 									? legalMovements.map((movementLabel) => (
-											<span className="text-xs">{movementLabel}</span>
+											<span key={movementLabel} className="text-xs">{movementLabel}</span>
 										))
 									: null}
 							</div>
