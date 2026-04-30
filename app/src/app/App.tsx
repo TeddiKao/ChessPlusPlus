@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./global.css";
 import TestPage from "@/pages/TestPage";
 import JSONValidatorTestPage from "@/pages/JSONValidatorTestPage";
+
+import GamePage from "@/pages/GamePage";
 import VariantEditorPage from "@/pages/VariantEditorPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import HomePage from "@/pages/HomePage";
@@ -26,6 +28,7 @@ function App() {
 							path="/json-validator-test"
 							element={<JSONValidatorTestPage />}
 						/>
+						<Route path="/game" element={<GamePage />} />
 					</Routes>
 				</BrowserRouter>
 			</TooltipProvider>

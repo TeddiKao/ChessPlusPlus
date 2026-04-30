@@ -13,11 +13,11 @@ def get_invalid(all_data: set, test_data: set):
 def get_if_wrong_data_type(value, correct_type, multiple_types: bool = False):
     if multiple_types == True:
         for each_ct in correct_type:
-            if isinstance(value, each_ct):
+            if type(value) == each_ct:
                 return False
         else:
             return True
-    if isinstance(value, correct_type):
+    if type(value) == correct_type:
         return False
     return True
 
