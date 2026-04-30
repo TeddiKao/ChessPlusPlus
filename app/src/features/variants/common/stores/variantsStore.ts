@@ -1,8 +1,9 @@
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { generateVariantId } from "@/features/variants/common/utils/idGeneration";
+import { generateId } from "@/shared/utils/idGeneration";
 import { createIndexedDBStorage } from "zustand-indexeddb";
+import { reviveTupleKeyedMap } from "../utils/tupleKeyMapRevive";
 
 type VariantsStore = {
 	variants: Record<string, VariantInfo>;
@@ -22,7 +23,7 @@ const useVariantsStore = create<VariantsStore>()(
 			variants: {},
 
 			createVariant: (variantInfo) => {
-				const generatedVariantId = generateVariantId();
+				const generatedVariantId = generateId();
 
 				set((state) => ({
 					variants: {
@@ -56,11 +57,37 @@ const useVariantsStore = create<VariantsStore>()(
 		}),
 		{
 			name: "variants",
-			storage: createIndexedDBStorage("chessPlusPlusDB", "variants"),
+			storage: createIndexedDBStorage(
+				"chessPlusPlusVariantsDB",
+				"variants",
+			),
 			partialize: (state) => ({ variants: state.variants }),
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {
 					console.error("Error rehydrating variants:", error);
+				}
+
+				const updatedVariants = structuredClone(state?.variants) ?? {};
+				const tupleKeyedMapRevivedVariants = Object.fromEntries(
+					Object.entries(updatedVariants).map(
+						([variantId, variantInfo]) => {
+							const updatedVariantInfo =
+								structuredClone(variantInfo);
+							const originalStartingPosition =
+								updatedVariantInfo.variantRules.setupRules
+									.startingPosition;
+							const revivedStartingPositionMap =
+								reviveTupleKeyedMap<[number, number], string>(originalStartingPosition);
+
+							updatedVariantInfo.variantRules.setupRules.startingPosition = revivedStartingPositionMap;
+
+							return [variantId, updatedVariantInfo];
+						},
+					),
+				);
+
+				if (state) {
+					state.variants = tupleKeyedMapRevivedVariants;
 				}
 
 				state?.markAsHydrated();

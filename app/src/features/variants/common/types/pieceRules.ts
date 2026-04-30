@@ -1,33 +1,23 @@
-type MovementConditions = "has_not_moved";
-type MoveStopConditions = "inside_piece";
-
-type PieceMoveDefinition = {
-	moveX: number;
-	moveY: number;
-	range: number | "inf";
-	moveStopConditions: MoveStopConditions[];
+type ChainedMoveNodeInput = {
+	moveName: string;
+	validMove: boolean;
 };
 
-type PieceMovementRules = {
-	forMovement: boolean;
-	forCapture: boolean;
+type ChainedMoveNode = ChainedMoveNodeInput & {
+	nodeId: string;
+}
 
-	conditions: MovementConditions[];
-	validMove: boolean;
+type ChainedMoveSequence = ChainedMoveNode[];
 
-	moveDefinition: PieceMoveDefinition;
-	chainedMoves: PieceMovementRules[];
+type RegularMove = {
+	moveName: string;
 };
 
 type PieceRules = {
-	moves: PieceMovementRules[];
+	moveset: (RegularMove | ChainedMoveSequence)[];
+	imageId?: string;
 };
 
-type PiecesRules = Record<string, PieceRules>;
+type PieceRuleset = Record<string, PieceRules>;
 
-export type {
-	PiecesRules,
-	PieceMovementRules,
-	PieceMoveDefinition,
-	PieceRules,
-};
+export type { PieceRuleset, RegularMove, PieceRules, ChainedMoveSequence, ChainedMoveNode, ChainedMoveNodeInput };

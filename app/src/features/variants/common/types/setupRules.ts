@@ -1,18 +1,24 @@
 import { TupleKeyedMap } from "@itwin/core-bentley";
 
-type PositionState = TupleKeyedMap<[number, number], string>;
+type GameState = TupleKeyedMap<[number, number], string>;
 
 type PieceOwnershipRules = {
 	white: string[];
 	black: string[];
 };
 
-type SetupRules = {
+type BaseSetupRules = {
 	pieceOwnership: PieceOwnershipRules;
 	boardXSize: number;
 	boardYSize: number;
+}
 
-	startingPosition: PositionState;
+type SetupRules = BaseSetupRules & {
+	startingPosition: GameState;
 };
 
-export type { SetupRules, PieceOwnershipRules, PositionState };
+type SerialisedSetupRules = BaseSetupRules & {
+	startingPosition: [[number, number], string][];
+}
+
+export type { SetupRules, PieceOwnershipRules, GameState, SerialisedSetupRules };

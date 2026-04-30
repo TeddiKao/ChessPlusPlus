@@ -13,6 +13,9 @@ import { Label } from "@/components/ui/label";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import type { VariantInfo } from "@/features/variants/common/types/variants";
 import { defaultVariantRules } from "@/features/variants/variantCreation/constants/newVariantDefaults";
+import { defaultPieceImages } from "@/features/variants/variantCreation/constants/defaultPieceImages";
+import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
+import { defaultStartingPosition } from "../constants/defaultSetupRules";
 
 function CreateVariantDialog() {
 	const {
@@ -25,6 +28,11 @@ function CreateVariantDialog() {
 	} = useCreateVariantDialogStore();
 
 	const { createVariant, hasHydrated } = useVariantsStore();
+	const {
+		defaultImagesCreated,
+		markAsDefaultImagesCreated,
+		updateImages,
+	} = usePieceImagesStore();
 
 	if (!hasHydrated) return null;
 
@@ -35,15 +43,23 @@ function CreateVariantDialog() {
 	function handleCreateVariantFormSubmit(e: SyntheticEvent<HTMLFormElement>) {
 		e.preventDefault();
 
+		const clonedRules = structuredClone(defaultVariantRules);
+		clonedRules.setupRules.startingPosition = defaultStartingPosition;
+
 		const defaultVariant: VariantInfo = {
 			variantName: variantName,
-			variantRules: structuredClone(defaultVariantRules),
+			variantRules: clonedRules,
 		};
 
 		createVariant(defaultVariant);
 
 		clearVariantName();
 		closeDialog();
+
+		if (defaultImagesCreated) return;
+
+		updateImages(defaultPieceImages);
+		markAsDefaultImagesCreated();
 	}
 
 	return (
