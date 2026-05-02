@@ -16,6 +16,7 @@ import { defaultVariantRules } from "@/features/variants/variantCreation/constan
 import { defaultPieceImages } from "@/features/variants/variantCreation/constants/defaultPieceImages";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import { defaultStartingPosition } from "../constants/defaultSetupRules";
+import { TupleKeyedMap } from "@itwin/core-bentley";
 
 function CreateVariantDialog() {
 	const {
@@ -44,7 +45,12 @@ function CreateVariantDialog() {
 		e.preventDefault();
 
 		const clonedRules = structuredClone(defaultVariantRules);
-		clonedRules.setupRules.startingPosition = defaultStartingPosition;
+		clonedRules.setupRules.startingPosition = new TupleKeyedMap<[number, number], string>(
+			Array.from(new Map(defaultStartingPosition).entries()).map(([key, value]) => [
+				[...key],
+				value
+			]
+		));
 
 		const defaultVariant: VariantInfo = {
 			variantName: variantName,
