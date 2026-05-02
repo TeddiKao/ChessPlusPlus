@@ -115,8 +115,6 @@ function VariantEditorPage() {
 		const selectedVariant = variants[variantId];
 		if (!selectedVariant) return;
 
-		console.log(selectedVariant.variantRules.setupRules instanceof TupleKeyedMap);
-
 		updateCurrentVariantId(variantId);
 		updateSetupRulesDraft(selectedVariant.variantRules.setupRules);
 		updateMovementRulesDraft(selectedVariant.variantRules.movementRules);
