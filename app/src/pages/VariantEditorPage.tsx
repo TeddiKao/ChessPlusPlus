@@ -14,7 +14,6 @@ import { useQuery } from "@tanstack/react-query";
 import { displayLegalMoves } from "@/features/variants/variantEditor/common/services/legalMoveDisplay";
 import { serialiseGameState } from "@/features/variants/variantEditor/common/utils/gameStateSerialisation";
 import useMovementsEditorStore from "@/features/variants/variantEditor/movementsEditor/stores/movementsEditor";
-import { reviveTupleKeyedMap } from "@/features/variants/common/utils/tupleKeyMapRevive";
 
 function VariantEditorPage() {
 	const { variantId } = useParams();
@@ -84,9 +83,7 @@ function VariantEditorPage() {
 						pieceOwnership: setupRulesDraft.pieceOwnership,
 						boardXSize: setupRulesDraft.boardXSize,
 						boardYSize: setupRulesDraft.boardYSize,
-						startingPosition: serialiseGameState(
-							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
-						),
+						startingPosition: setupRulesDraft.startingPosition,
 					},
 				});
 			} else {
@@ -100,9 +97,7 @@ function VariantEditorPage() {
 						pieceOwnership: setupRulesDraft.pieceOwnership,
 						boardXSize: setupRulesDraft.boardXSize,
 						boardYSize: setupRulesDraft.boardYSize,
-						startingPosition: serialiseGameState(
-							reviveTupleKeyedMap(setupRulesDraft.startingPosition),
-						),
+						startingPosition: setupRulesDraft.startingPosition,
 					},
 				});
 			}
