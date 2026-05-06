@@ -15,4 +15,4 @@ type SetupRules = {
 	startingPosition: GameState2DArray; 
 };
 
-export type { SetupRules, PieceOwnershipRules, GameStateMap };
+export type { SetupRules, PieceOwnershipRules, GameStateMap, GameState2DArray };
