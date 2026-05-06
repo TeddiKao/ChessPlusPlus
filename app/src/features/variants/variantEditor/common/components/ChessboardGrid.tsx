@@ -4,10 +4,10 @@ import {
 	generateAlphabetSequence,
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
-import type { GameState } from "@/features/variants/common/types/setupRules";
+import type { GameStateMap } from "@/features/variants/common/types/setupRules";
 
 type ChessboardGridProps = {
-	boardState: GameState;
+	boardState: GameStateMap;
 	legalMoves: Record<string, [number, number][]>;
 };
 
