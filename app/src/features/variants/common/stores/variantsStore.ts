@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { generateId } from "@/shared/utils/idGeneration";
 import { createIndexedDBStorage } from "zustand-indexeddb";
-import { reviveTupleKeyedMap } from "../utils/tupleKeyMapRevive";
 
 type VariantsStore = {
 	variants: Record<string, VariantInfo>;
@@ -65,29 +64,6 @@ const useVariantsStore = create<VariantsStore>()(
 			onRehydrateStorage: () => (state, error) => {
 				if (error) {
 					console.error("Error rehydrating variants:", error);
-				}
-
-				const updatedVariants = structuredClone(state?.variants) ?? {};
-				const tupleKeyedMapRevivedVariants = Object.fromEntries(
-					Object.entries(updatedVariants).map(
-						([variantId, variantInfo]) => {
-							const updatedVariantInfo =
-								structuredClone(variantInfo);
-							const originalStartingPosition =
-								updatedVariantInfo.variantRules.setupRules
-									.startingPosition;
-							const revivedStartingPositionMap =
-								reviveTupleKeyedMap<[number, number], string>(originalStartingPosition);
-
-							updatedVariantInfo.variantRules.setupRules.startingPosition = revivedStartingPositionMap;
-
-							return [variantId, updatedVariantInfo];
-						},
-					),
-				);
-
-				if (state) {
-					state.variants = tupleKeyedMapRevivedVariants;
 				}
 
 				state?.markAsHydrated();

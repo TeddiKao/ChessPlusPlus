@@ -1,7 +1,7 @@
-import type { GameState } from "@/features/variants/common/types/setupRules";
+import type { GameStateMap } from "@/features/variants/common/types/setupRules";
 
-function serialiseGameState(gameState: GameState) {
-    return Array.from(gameState);
+function serialiseGameState(gameState: GameStateMap) {
+	return Array.from(gameState);
 }
 
-export { serialiseGameState }
+export { serialiseGameState };
