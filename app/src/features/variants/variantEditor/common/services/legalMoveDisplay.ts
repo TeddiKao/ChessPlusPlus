@@ -1,13 +1,13 @@
 import api from "@/app/api";
 import type { MovementRules } from "@/features/variants/common/types/movementRules";
 import type { PieceRuleset } from "@/features/variants/common/types/pieceRules";
-import type { SetupRules } from "@/features/variants/common/types/setupRules";
+import type { GameState2DArray, SetupRules } from "@/features/variants/common/types/setupRules";
 import { AxiosError } from "axios";
 
 type LegalMoveDisplayRequestBody = {
 	pieceName: string;
 	currentPos: [number, number];
-	gameState: [[number, number], string][];
+	gameState: GameState2DArray;
 	pieceRuleset: PieceRuleset;
 	movementRules: MovementRules;
 	setupRules: SetupRules;
