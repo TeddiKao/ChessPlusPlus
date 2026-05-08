@@ -63,7 +63,7 @@ function SetupMenu() {
 									].map((piece) => (
 										<img
 											key={piece}
-											className="size-12"
+											className="size-12 hover:bg-gray-300 rounded-md"
 											src={URL.createObjectURL(
 												images[piece][
 													currentVariantId
