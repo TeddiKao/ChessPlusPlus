@@ -33,7 +33,7 @@ function SetupMenu() {
 
 				<CollapsibleContent>
 					<Tabs>
-						<TabsList>
+						<TabsList variant="line">
 							<TabsTrigger value="white">White</TabsTrigger>
 							<TabsTrigger value="black">Black</TabsTrigger>
 						</TabsList>
