@@ -1,7 +1,9 @@
+import SetupChessboard from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard";
+
 function BoardSetupPage() {
 	return (
-		<div>
-			<h1>Board Setup</h1>
+		<div className="flex flex-row items-center justify-center w-full h-full">
+			<SetupChessboard />
 		</div>
 	);
 }
