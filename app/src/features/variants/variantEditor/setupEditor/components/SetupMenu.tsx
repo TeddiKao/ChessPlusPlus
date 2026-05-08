@@ -21,7 +21,7 @@ function SetupMenu() {
 				<CollapsibleTrigger asChild>
 					<Button className="flex flex-row items-center justify-between w-full" variant="ghost">
 						<span>Pieces</span>
-						<IconChevronDown className="size-5" />
+						<IconChevronDown className="size-4" />
 					</Button>
 				</CollapsibleTrigger>
 
