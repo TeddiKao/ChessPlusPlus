@@ -6,6 +6,7 @@ import useSetupSettingsEditorStore from "@/features/variants/variantEditor/board
 import { type ChangeEvent, useEffect } from "react";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import { isNullOrUndefined } from "@/shared/utils/typeChecks";
+import { useNavigate } from "react-router-dom";
 
 function BoardSettingsMenu() {
 	const {
@@ -16,8 +17,10 @@ function BoardSettingsMenu() {
 		commitToDraft,
 		addSetupSettingsChanges,
 	} = useSetupSettingsEditorStore();
-	const { setupRulesDraft } = useVariantDraftStore();
+	const { setupRulesDraft, currentVariantId } = useVariantDraftStore();
 
+	const navigate = useNavigate();
+	
 	useEffect(() => {
 		if (!setupRulesDraft) return;
 
@@ -33,6 +36,7 @@ function BoardSettingsMenu() {
 
 	if (isNullOrUndefined(boardXSize)) return null;
 	if (isNullOrUndefined(boardYSize)) return null;
+	if (!currentVariantId) return null;
 
 	function handleBoardXSizeInputChange(e: ChangeEvent<HTMLInputElement>) {
 		const newBoardXSize = e.target.valueAsNumber;
@@ -66,6 +70,10 @@ function BoardSettingsMenu() {
 		commitToDraft(["boardYSize"]);
 	}
 
+	function handleEditSetupButtonClick() {
+		navigate(`/variants/${currentVariantId}/setup`);
+	}
+
 	return (
 		<PopoverContent side="left" sideOffset={8} align="start">
 			<div className="flex flex-col gap-4">
@@ -73,7 +81,7 @@ function BoardSettingsMenu() {
 
 				<div className="grid grid-cols-2 gap-4 items-center">
 					<p>Board setup</p>
-					<Button>Edit setup</Button>
+					<Button onClick={handleEditSetupButtonClick}>Edit setup</Button>
 				</div>
 
 				<FieldSet className="flex flex-col gap-4">
