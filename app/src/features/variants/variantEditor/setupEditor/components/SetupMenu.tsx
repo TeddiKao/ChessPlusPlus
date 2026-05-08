@@ -13,7 +13,7 @@ function SetupMenu() {
 			<div className="flex flex-row justify-between items-center p-2">
 				<h1 className="text-xl font-semibold">Setup options</h1>
 				<Button variant="ghost">
-					<IconX className="size-5" />
+					<IconX className="size-4" />
 				</Button>
 			</div>
 
