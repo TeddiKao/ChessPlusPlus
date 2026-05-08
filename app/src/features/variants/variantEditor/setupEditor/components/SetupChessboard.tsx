@@ -41,7 +41,7 @@ function SetupChessboard() {
 	}
 
 	return (
-		<div className="grid grid-cols-8 aspect-square max-w-md">
+		<div className="grid grid-cols-8 aspect-square w-full max-w-md">
 			{ranks.map((rank) =>
 				files.map((file) => {
 					const isDark = (rank + files.indexOf(file)) % 2 === 0;
