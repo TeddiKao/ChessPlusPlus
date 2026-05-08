@@ -5,9 +5,17 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import { IconChevronDown, IconX } from "@tabler/icons-react";
 
 function SetupMenu() {
+	const { setupRulesDraft } = useVariantDraftStore();
+
+	if (!setupRulesDraft) return null;
+
+	const pieceOwnershipRules = setupRulesDraft.pieceOwnership;
+	const colorsPlaying = Object.keys(pieceOwnershipRules);
+
 	return (
 		<div className="bg-muted p-2 rounded-lg">
 			<div className="flex flex-row justify-between items-center p-2 gap-4">
@@ -34,8 +42,11 @@ function SetupMenu() {
 				<CollapsibleContent>
 					<Tabs>
 						<TabsList variant="line">
-							<TabsTrigger value="white">White</TabsTrigger>
-							<TabsTrigger value="black">Black</TabsTrigger>
+							{colorsPlaying.map((color) => (
+								<TabsTrigger key={color} value={color}>
+									{color}
+								</TabsTrigger>
+							))}
 						</TabsList>
 					</Tabs>
 				</CollapsibleContent>
