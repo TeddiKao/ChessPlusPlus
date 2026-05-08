@@ -8,6 +8,7 @@ import VariantEditorPage from "@/pages/VariantEditorPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import HomePage from "@/pages/HomePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import BoardSetupPage from "@/pages/BoardSetupPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
 							path="/variants/:variantId"
 							element={<VariantEditorPage />}
 						/>
+						<Route path="/variants/:variantId/setup" element={<BoardSetupPage />} />
 						<Route path="/test" element={<TestPage />} />
 						<Route
 							path="/json-validator-test"
