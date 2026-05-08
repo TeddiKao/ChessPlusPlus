@@ -57,7 +57,7 @@ function SetupMenu() {
 
 						{colorsPlaying.map((color) => (
 							<TabsContent key={color} value={color}>
-								<div className="flex flex-row items-center justify-between w-full p-2">
+								<div className="grid grid-cols-8 w-full p-2">
 									{pieceOwnershipRules[
 										color as keyof typeof pieceOwnershipRules
 									].map((piece) => (
