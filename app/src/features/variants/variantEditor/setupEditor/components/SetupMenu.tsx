@@ -18,12 +18,18 @@ function SetupMenu() {
 			</div>
 
 			<Collapsible>
-				<CollapsibleTrigger asChild>
-					<Button className="flex flex-row items-center justify-between w-full" variant="ghost">
-						<span>Pieces</span>
-						<IconChevronDown className="size-4" />
-					</Button>
-				</CollapsibleTrigger>
+				<div className="flex flex-row items-center justify-between w-full p-2">
+					<span className="text-sm font-semibold">Pieces</span>
+					<CollapsibleTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon-xs"
+							className="hover:bg-gray-300"
+						>
+							<IconChevronDown className="size-4" />
+						</Button>
+					</CollapsibleTrigger>
+				</div>
 
 				<CollapsibleContent>
 					<Tabs>
