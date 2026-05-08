@@ -9,10 +9,10 @@ import { IconChevronDown, IconX } from "@tabler/icons-react";
 
 function SetupMenu() {
 	return (
-		<div className="flex flex-col">
-			<div className="flex flex-row justify-between items-center p-2">
+		<div className="bg-muted p-2 rounded-lg">
+			<div className="flex flex-row justify-between items-center p-2 gap-4">
 				<h1 className="text-xl font-semibold">Setup options</h1>
-				<Button variant="ghost">
+				<Button size="icon-xs" variant="ghost">
 					<IconX className="size-4" />
 				</Button>
 			</div>
