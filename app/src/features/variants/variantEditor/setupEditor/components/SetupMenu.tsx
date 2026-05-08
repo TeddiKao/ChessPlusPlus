@@ -19,8 +19,8 @@ function SetupMenu() {
 
 			<Collapsible>
 				<CollapsibleTrigger asChild>
-					<span>Pieces</span>
 					<Button variant="ghost">
+						<span>Pieces</span>
 						<IconChevronDown className="size-5" />
 					</Button>
 				</CollapsibleTrigger>
