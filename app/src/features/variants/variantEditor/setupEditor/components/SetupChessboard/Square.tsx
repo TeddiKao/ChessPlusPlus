@@ -1,3 +1,5 @@
+import { useDroppable } from "@dnd-kit/react";
+
 type SquareProps = {
 	file: number;
 	rank: number;
@@ -5,10 +7,16 @@ type SquareProps = {
 };
 
 function Square({ file, rank, imageComponent }: SquareProps) {
+	const { ref } = useDroppable({
+		id: `${file}-${rank}`,
+	});
+
+
 	const isDark = (rank + file) % 2 === 0;
 
 	return (
 		<div
+			ref={ref}
 			key={`${file}-${rank}`}
 			className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 		>
