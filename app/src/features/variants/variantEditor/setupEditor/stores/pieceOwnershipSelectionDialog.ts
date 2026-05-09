@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
-type PieceOwnershipSelectionStore = {
-	open: boolean;
-	openDialog: () => void;
-	closeDialog: () => void;
+type PieceOwnershipSelectionDialogStore = {
+	isPieceOwnershipSelectionDialogOpen: boolean;
+	openPieceOwnershipSelectionDialog: () => void;
+	closePieceOwnershipSelectionDialog: () => void;
 
 	player: string | null;
 	updatePlayer: (player: string) => void;
@@ -15,11 +15,11 @@ type PieceOwnershipSelectionStore = {
 	clearSelection: () => void;
 };
 
-const usePieceOwnershipSelectionStore = create<PieceOwnershipSelectionStore>(
+const usePieceOwnershipSelectionDialogStore = create<PieceOwnershipSelectionDialogStore>(
 	(set) => ({
-		open: false,
-		openDialog: () => set({ open: true }),
-		closeDialog: () => set({ open: false }),
+		isPieceOwnershipSelectionDialogOpen: false,
+		openPieceOwnershipSelectionDialog: () => set({ isPieceOwnershipSelectionDialogOpen: true }),
+		closePieceOwnershipSelectionDialog: () => set({ isPieceOwnershipSelectionDialogOpen: false }),
 
 		player: null,
 		updatePlayer: (player) => set({ player }),
@@ -40,4 +40,4 @@ const usePieceOwnershipSelectionStore = create<PieceOwnershipSelectionStore>(
 	}),
 );
 
-export default usePieceOwnershipSelectionStore;
+export default usePieceOwnershipSelectionDialogStore;
