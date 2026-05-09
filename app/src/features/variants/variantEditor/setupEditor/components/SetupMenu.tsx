@@ -48,7 +48,7 @@ function PieceImage({ player, piece }: PieceImageProps) {
 		<img
 			ref={ref}
 			key={`${player}-${piece}`}
-			className="size-12 hover:bg-gray-300 rounded-md"
+			className="size-14 hover:bg-gray-300 rounded-md"
 			src={pieceImage}
 			alt={piece}
 		/>
