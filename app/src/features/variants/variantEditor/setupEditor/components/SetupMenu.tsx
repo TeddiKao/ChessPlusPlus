@@ -82,15 +82,14 @@ function SetupMenu() {
 	const pieceOwnershipRules = setupRulesDraft.pieceOwnership;
 	const players = Object.keys(pieceOwnershipRules);
 
-	const selectionList = Object.keys(pieceRulesetDraft).map((piece) => {
-		return {
-			name: piece,
-			isSelected:
-				pieceOwnershipRules[
-					player as keyof typeof pieceOwnershipRules
-				].includes(piece),
-		};
-	});
+	const selectionList = player
+		? Object.keys(pieceRulesetDraft).map((piece) => {
+				return {
+					name: piece,
+					isSelected: pieceOwnershipRules[player].includes(piece),
+				};
+			})
+		: [];
 
 	function handlePieceSelection(piece: string) {
 		if (!player) return;
@@ -113,9 +112,11 @@ function SetupMenu() {
 		updateSetupRulesDraft(updatedSetupRulesDraft);
 	}
 
-	function handleEditPiecesButtonClick(player: string) {
+	function handleEditPiecesButtonClick(playerName: string) {
+		console.log(playerName);
+
 		openPieceOwnershipSelectionDialog();
-		updatePlayer(player);
+		updatePlayer(playerName);
 	}
 
 	return (
@@ -152,14 +153,7 @@ function SetupMenu() {
 									>
 										<span className="text-sm">{color}</span>
 										<DropdownMenu>
-											<DropdownMenuTrigger
-												onClick={() =>
-													handleEditPiecesButtonClick(
-														color,
-													)
-												}
-												asChild
-											>
+											<DropdownMenuTrigger asChild>
 												<Button
 													variant="ghost"
 													size="icon-xs"
@@ -170,7 +164,13 @@ function SetupMenu() {
 											</DropdownMenuTrigger>
 
 											<DropdownMenuContent side="right">
-												<DropdownMenuItem>
+												<DropdownMenuItem
+													onClick={() =>
+														handleEditPiecesButtonClick(
+															color,
+														)
+													}
+												>
 													<ChessKnight className="size-4" />
 													Edit pieces
 												</DropdownMenuItem>
