@@ -87,10 +87,6 @@ function SetupMenu() {
 												<IconPencil className="size-4" />
 												Rename
 											</DropdownMenuItem>
-											<DropdownMenuItem variant="destructive">
-												<IconTrash className="size-4" />
-												Remove
-											</DropdownMenuItem>
 										</DropdownMenuContent>
 									</DropdownMenu>
 								</div>
