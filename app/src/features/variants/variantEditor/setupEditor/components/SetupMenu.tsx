@@ -4,10 +4,23 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
-import { IconChevronDown, IconX } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconDotsVertical,
+	IconPencil,
+	IconTrash,
+	IconX,
+} from "@tabler/icons-react";
+import { ChessKnight } from "lucide-react";
 
 function SetupMenu() {
 	const { setupRulesDraft, pieceRulesetDraft, currentVariantId } =
@@ -30,6 +43,62 @@ function SetupMenu() {
 					<IconX className="size-4" />
 				</Button>
 			</div>
+
+			<Collapsible>
+				<div className="flex flex-row items-center justify-between w-full p-2">
+					<span className="text-sm font-semibold">Players</span>
+					<CollapsibleTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon-xs"
+							className="hover:bg-gray-300"
+						>
+							<IconChevronDown className="size-4" />
+						</Button>
+					</CollapsibleTrigger>
+				</div>
+
+				<CollapsibleContent>
+					<div className="flex flex-col">
+						{colorsPlaying.map((color) => {
+							return (
+								<div
+									key={color}
+									className="flex flex-row items-center justify-between w-full px-2"
+								>
+									<span className="text-sm">{color}</span>
+									<DropdownMenu>
+										<DropdownMenuTrigger asChild>
+											<Button
+												variant="ghost"
+												size="icon-xs"
+												className="hover:bg-gray-300 py-4"
+											>
+												<IconDotsVertical className="size-5" />
+											</Button>
+										</DropdownMenuTrigger>
+
+										<DropdownMenuContent side="right">
+											<DropdownMenuItem>
+												<ChessKnight className="size-4" />
+												Edit pieces
+											</DropdownMenuItem>
+											<DropdownMenuItem>
+												<IconPencil className="size-4" />
+												Rename
+											</DropdownMenuItem>
+											<DropdownMenuItem variant="destructive">
+												<IconTrash className="size-4" />
+												Remove
+											</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
+								</div>
+							);
+						})}
+					</div>
+				</CollapsibleContent>
+			</Collapsible>
 
 			<Collapsible>
 				<div className="flex flex-row items-center justify-between w-full p-2">
