@@ -20,8 +20,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import useChainedMovesDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/chainedMovesDialog";
-import MovementSelectionDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/MovementSelectionDialog";
 import ChainedMovesDialog from "@/features/variants/variantEditor/piecesEditor/components/PiecesEditorSheet/components/PieceEditorScreen/components/MovementsTab/components/ChainedMovesDialog";
+import SelectionDialog from "@/features/variants/variantEditor/common/components/SelectionDialog";
+import useMovementSelectionDialogStore from "@/features/variants/variantEditor/piecesEditor/stores/movementSelectionDialog";
+import type {
+	ChainedMoveNode,
+	RegularMove,
+} from "@/features/variants/common/types/pieceRules";
 
 export function MovementsTab() {
 	const {
@@ -32,10 +37,48 @@ export function MovementsTab() {
 		collapseMovements,
 	} = usePiecesEditorStore();
 
-	const { openChainedMovesDialog, updateActivePiece } = useChainedMovesDialogStore();
+	const { movementRulesDraft } = useVariantDraftStore();
 
-	const { pieceRulesetDraft, updatePieceRulesetDraft, syncPieceRulesetDraftToDB } =
-		useVariantDraftStore();
+	const {
+		pieceName,
+		isMovementSelectionDialogOpen,
+		openMovementSelectionDialog,
+		closeMovementSelectionDialog,
+		searchQuery,
+		updateSearchQuery,
+		clearSearchQuery,
+	} = useMovementSelectionDialogStore();
+
+	const { openChainedMovesDialog, updateActivePiece } =
+		useChainedMovesDialogStore();
+
+	const {
+		pieceRulesetDraft,
+		updatePieceRulesetDraft,
+		syncPieceRulesetDraftToDB,
+	} = useVariantDraftStore();
+
+	if (!movementRulesDraft) return null;
+	if (!pieceRulesetDraft) return null;
+	if (!pieceName) return null;
+
+	const allRegularMovements = Object.values(pieceRulesetDraft).flatMap(
+		(pieceRules) =>
+			pieceRules.moveset
+				.filter((move) => !Array.isArray(move))
+				.map((regularMove) => (regularMove as RegularMove).moveName),
+	);
+
+	const allChainedMoves = Object.values(pieceRulesetDraft).flatMap(
+		(pieceRules) =>
+			pieceRules.moveset
+				.filter((move) => Array.isArray(move))
+				.flatMap((chainedMove) =>
+					chainedMove.map(
+						(move) => (move as ChainedMoveNode).moveName,
+					),
+				),
+	);
 
 	function handleRegularMovementRemoveButtonClick(movementName: string) {
 		if (!pieceRulesetDraft) return;
@@ -68,9 +111,68 @@ export function MovementsTab() {
 		updateActivePiece(activePiece);
 	}
 
+	const selectionList = Object.entries(movementRulesDraft).map(
+		([movementName]) => {
+			const isMovementUsedInPiece = activePieceMovements.some(
+				(move) => move.moveName === movementName,
+			);
+
+			const regularMoveUsageCount = allRegularMovements.filter(
+				(move) => move === movementName,
+			).length;
+
+			const chainedMoveUsageCount = allChainedMoves.filter(
+				(move) => move === movementName,
+			).length;
+
+			return {
+				name: movementName,
+				bottomComponent: (
+					<span>
+						{regularMoveUsageCount > 0 && (
+							<span>{regularMoveUsageCount} regular</span>
+						)}
+
+						{regularMoveUsageCount > 0 &&
+							chainedMoveUsageCount > 0 && <span> • </span>}
+
+						{chainedMoveUsageCount > 0 && (
+							<span>{chainedMoveUsageCount} chained</span>
+						)}
+					</span>
+				),
+				isSelected: isMovementUsedInPiece,
+			};
+		},
+	);
+
+	function handleMovementSelection(movementName: string) {
+		if (!pieceRulesetDraft) return;
+		if (!pieceName) return;
+
+		const updatedPieceRulesetDraft = structuredClone(pieceRulesetDraft);
+
+		if (
+			updatedPieceRulesetDraft[pieceName].moveset
+				.filter((move) => !Array.isArray(move))
+				.some((move) => (move as RegularMove).moveName === movementName)
+		) {
+			updatedPieceRulesetDraft[pieceName].moveset =
+				updatedPieceRulesetDraft[pieceName].moveset.filter(
+					(move) => (move as RegularMove).moveName !== movementName,
+				);
+		} else {
+			updatedPieceRulesetDraft[pieceName].moveset.push({
+				moveName: movementName,
+			});
+		}
+
+		updatePieceRulesetDraft(updatedPieceRulesetDraft);
+	}
+
 	return (
 		<>
-			<TabsContent value="movements"  className="flex flex-col gap-4">
+			<TabsContent value="movements" className="flex flex-col gap-4">
 				<Collapsible
 					className="flex flex-col gap-1"
 					open={isMovementsExpanded}
@@ -138,11 +240,35 @@ export function MovementsTab() {
 
 				<div className="grid grid-cols-[65fr_35fr] items-center">
 					<p>Chained moves</p>
-					<Button onClick={handleChainedMovesButtonClick} className="px-4" variant="outline">View</Button>
+					<Button
+						onClick={handleChainedMovesButtonClick}
+						className="px-4"
+						variant="outline"
+					>
+						View
+					</Button>
 				</div>
 			</TabsContent>
 
-			<MovementSelectionDialog />
+			<SelectionDialog
+				isOpen={isMovementSelectionDialogOpen}
+				onOpenChange={(isOpen) => {
+					if (isOpen) {
+						openMovementSelectionDialog();
+					} else {
+						closeMovementSelectionDialog();
+					}
+				}}
+				onSelection={handleMovementSelection}
+				title="Select movements"
+				description="Select the movements you want to add to the piece. Changes are saved automatically."
+				searchPlaceholder="Search movements"
+				searchQuery={searchQuery}
+				updateSearchQuery={updateSearchQuery}
+				clearSearchQuery={clearSearchQuery}
+				items={selectionList}
+			/>
+
 			<ChainedMovesDialog />
 		</>
 	);
