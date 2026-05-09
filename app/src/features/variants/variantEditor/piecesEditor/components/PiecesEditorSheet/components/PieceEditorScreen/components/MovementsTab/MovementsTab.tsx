@@ -60,7 +60,6 @@ export function MovementsTab() {
 
 	if (!movementRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
-	if (!pieceName) return null;
 
 	const allRegularMovements = Object.values(pieceRulesetDraft).flatMap(
 		(pieceRules) =>
