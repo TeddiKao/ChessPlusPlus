@@ -1,8 +1,7 @@
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
-import {
-	generateNumberSequence,
-} from "@/features/variants/variantEditor/common/utils/boardGeneration";
+import { generateNumberSequence } from "@/features/variants/variantEditor/common/utils/boardGeneration";
+import Square from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/Square";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 
 function SetupChessboard() {
@@ -43,26 +42,19 @@ function SetupChessboard() {
 		<div className="grid grid-cols-8 aspect-square w-full max-w-md">
 			{ranks.map((rank) =>
 				files.map((file) => {
-					const isDark = (rank + files.indexOf(file)) % 2 === 0;
-
-					const fileNumber = files.indexOf(file);
-
-					const foundSquare = boardStateMap.get([fileNumber, rank]);
+					const foundSquare = boardStateMap.get([file, rank]);
 					const imageId =
 						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
 					return (
-						<div
-							key={file}
-							className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
-						>
-							{foundSquare
-								? renderPieceImage(
-										imageId ?? "",
-										foundSquare ?? "",
-									)
-								: null}
-						</div>
+						<Square
+							file={file}
+							rank={rank}
+							imageComponent={renderPieceImage(
+								imageId ?? "",
+								foundSquare ?? "",
+							)}
+						/>
 					);
 				}),
 			)}
