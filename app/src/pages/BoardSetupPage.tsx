@@ -1,4 +1,4 @@
-import SetupChessboard from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard";
+import SetupChessboard from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/SetupChessboard";
 import SetupMenu from "@/features/variants/variantEditor/setupEditor/components/SetupMenu";
 import SetupToolbar from "@/features/variants/variantEditor/setupEditor/components/SetupToolbar";
 import { DragDropProvider } from "@dnd-kit/react";
