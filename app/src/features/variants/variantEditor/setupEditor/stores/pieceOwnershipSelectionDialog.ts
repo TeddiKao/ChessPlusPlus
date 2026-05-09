@@ -13,6 +13,10 @@ type PieceOwnershipSelectionDialogStore = {
 	addPieceToSelection: (piece: string) => void;
 	removePieceFromSelection: (piece: string) => void;
 	clearSelection: () => void;
+
+	searchQuery: string;
+	updateSearchQuery: (query: string) => void;
+	clearSearchQuery: () => void;
 };
 
 const usePieceOwnershipSelectionDialogStore = create<PieceOwnershipSelectionDialogStore>(
@@ -37,6 +41,10 @@ const usePieceOwnershipSelectionDialogStore = create<PieceOwnershipSelectionDial
 			})),
 
 		clearSelection: () => set({ selectedPieces: [] }),
+
+		searchQuery: "",
+		updateSearchQuery: (query) => set({ searchQuery: query }),
+		clearSearchQuery: () => set({ searchQuery: "" }),
 	}),
 );
 
