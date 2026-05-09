@@ -46,14 +46,13 @@ function SetupChessboard() {
 					const imageId =
 						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
+					const imageComponent = imageId ? renderPieceImage(imageId, foundSquare ?? "") : null;
+
 					return (
 						<Square
 							file={file}
 							rank={rank}
-							imageComponent={renderPieceImage(
-								imageId ?? "",
-								foundSquare ?? "",
-							)}
+							imageComponent={imageComponent}
 						/>
 					);
 				}),
