@@ -127,7 +127,7 @@ export function MovementsTab() {
 			return {
 				name: movementName,
 				bottomComponent: (
-					<span>
+					<span className="text-muted-foreground">
 						{regularMoveUsageCount > 0 && (
 							<span>{regularMoveUsageCount} regular</span>
 						)}
