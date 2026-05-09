@@ -220,9 +220,7 @@ function SetupMenu() {
 											<PieceImage
 												key={piece}
 												piece={piece}
-												player={
-													color as "white" | "black"
-												}
+												player={color}
 											/>
 										))}
 									</div>
