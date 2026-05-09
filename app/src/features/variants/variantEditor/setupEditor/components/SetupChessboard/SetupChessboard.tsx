@@ -1,7 +1,6 @@
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import {
-	generateAlphabetSequence,
 	generateNumberSequence,
 } from "@/features/variants/variantEditor/common/utils/boardGeneration";
 import { TupleKeyedMap } from "@itwin/core-bentley";
@@ -24,7 +23,7 @@ function SetupChessboard() {
 	);
 
 	const ranks = generateNumberSequence(boardYSize).reverse();
-	const files = generateAlphabetSequence(boardXSize);
+	const files = generateNumberSequence(boardXSize);
 
 	function renderPieceImage(imageId: string, pieceName: string) {
 		if (!currentVariantId) return null;
