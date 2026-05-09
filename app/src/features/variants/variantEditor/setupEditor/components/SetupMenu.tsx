@@ -13,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import { useDraggable } from "@dnd-kit/react";
 import {
 	IconChevronDown,
 	IconDotsVertical,
@@ -22,12 +23,17 @@ import {
 import { ChessKnight } from "lucide-react";
 
 type PieceImageProps = {
+	player: string;
 	piece: string;
 };
 
-function PieceImage({ piece }: PieceImageProps) {
+function PieceImage({ player, piece }: PieceImageProps) {
 	const { images } = usePieceImagesStore();
 	const { currentVariantId } = useVariantDraftStore();
+
+	const { ref } = useDraggable({
+		id: `${player}-${piece}`,
+	});
 
 	if (!images) return null;
 	if (!currentVariantId) return null;
@@ -38,7 +44,8 @@ function PieceImage({ piece }: PieceImageProps) {
 
 	return (
 		<img
-			key={piece}
+			ref={ref}
+			key={`${player}-${piece}`}
 			className="size-12 hover:bg-gray-300 rounded-md"
 			src={pieceImage}
 			alt={piece}
@@ -150,7 +157,11 @@ function SetupMenu() {
 									{pieceOwnershipRules[
 										color as keyof typeof pieceOwnershipRules
 									].map((piece) => (
-										<PieceImage key={piece} piece={piece} />
+										<PieceImage
+											key={piece}
+											piece={piece}
+											player={color as "white" | "black"}
+										/>
 									))}
 								</div>
 							</TabsContent>
