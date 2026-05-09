@@ -3,7 +3,7 @@ import { useDroppable } from "@dnd-kit/react";
 type SquareProps = {
 	file: number;
 	rank: number;
-	imageComponent: React.ReactNode;
+	imageComponent: React.ReactNode | null;
 };
 
 function Square({ file, rank, imageComponent }: SquareProps) {
