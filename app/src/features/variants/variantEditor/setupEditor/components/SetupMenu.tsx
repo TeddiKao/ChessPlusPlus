@@ -17,10 +17,34 @@ import {
 	IconChevronDown,
 	IconDotsVertical,
 	IconPencil,
-	IconTrash,
 	IconX,
 } from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
+
+type PieceImageProps = {
+	piece: string;
+};
+
+function PieceImage({ piece }: PieceImageProps) {
+	const { images } = usePieceImagesStore();
+	const { currentVariantId } = useVariantDraftStore();
+
+	if (!images) return null;
+	if (!currentVariantId) return null;
+
+	const pieceImage = URL.createObjectURL(
+		images[piece][currentVariantId] ?? images[piece].image,
+	);
+
+	return (
+		<img
+			key={piece}
+			className="size-12 hover:bg-gray-300 rounded-md"
+			src={pieceImage}
+			alt={piece}
+		/>
+	);
+}
 
 function SetupMenu() {
 	const { setupRulesDraft, pieceRulesetDraft, currentVariantId } =
@@ -126,16 +150,7 @@ function SetupMenu() {
 									{pieceOwnershipRules[
 										color as keyof typeof pieceOwnershipRules
 									].map((piece) => (
-										<img
-											key={piece}
-											className="size-12 hover:bg-gray-300 rounded-md"
-											src={URL.createObjectURL(
-												images[piece][
-													currentVariantId
-												] ?? images[piece].image,
-											)}
-											alt={piece}
-										/>
+										<PieceImage key={piece} piece={piece} />
 									))}
 								</div>
 							</TabsContent>
