@@ -24,18 +24,14 @@ function SetupChessboard() {
 	const ranks = generateNumberSequence(boardYSize).reverse();
 	const files = generateNumberSequence(boardXSize);
 
-	function renderPieceImage(imageId: string, pieceName: string) {
+	function getImageUrl(imageId: string) {
 		if (!currentVariantId) return null;
 
 		const imageBlob =
 			images[imageId][currentVariantId] ?? images[imageId].image;
 		const imageUrl = URL.createObjectURL(imageBlob);
 
-		return (
-			<div className="w-full h-full flex items-center justify-center">
-				<img src={imageUrl} alt={pieceName} />
-			</div>
-		);
+		return imageUrl;
 	}
 
 	return (
@@ -46,13 +42,14 @@ function SetupChessboard() {
 					const imageId =
 						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
-					const imageComponent = imageId ? renderPieceImage(imageId, foundSquare ?? "") : null;
+					const imageUrl = imageId ? getImageUrl(imageId) : null;
 
 					return (
 						<Square
 							file={file}
 							rank={rank}
-							imageComponent={imageComponent}
+							imageUrl={imageUrl ?? null}
+							piece={foundSquare ?? ""}
 						/>
 					);
 				}),

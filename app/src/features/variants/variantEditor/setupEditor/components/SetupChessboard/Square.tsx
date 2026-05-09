@@ -1,12 +1,14 @@
+import PieceImage from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/PieceImage";
 import { useDroppable } from "@dnd-kit/react";
 
 type SquareProps = {
 	file: number;
 	rank: number;
-	imageComponent: React.ReactNode | null;
+	imageUrl: string | null;
+	piece: string;
 };
 
-function Square({ file, rank, imageComponent }: SquareProps) {
+function Square({ file, rank, imageUrl, piece }: SquareProps) {
 	const { ref } = useDroppable({
 		id: `${file}-${rank}`,
 	});
@@ -20,7 +22,7 @@ function Square({ file, rank, imageComponent }: SquareProps) {
 			key={`${file}-${rank}`}
 			className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 		>
-			{imageComponent}
+			<PieceImage imageUrl={imageUrl ?? ""} piece={piece} file={file} rank={rank} />
 		</div>
 	);
 }
