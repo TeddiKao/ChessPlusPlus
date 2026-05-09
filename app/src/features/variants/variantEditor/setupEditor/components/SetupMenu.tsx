@@ -64,7 +64,7 @@ function SetupMenu() {
 	if (!currentVariantId) return null;
 
 	const pieceOwnershipRules = setupRulesDraft.pieceOwnership;
-	const colorsPlaying = Object.keys(pieceOwnershipRules);
+	const players = Object.keys(pieceOwnershipRules);
 
 	return (
 		<div className="bg-muted p-2 rounded-lg">
@@ -91,7 +91,7 @@ function SetupMenu() {
 
 				<CollapsibleContent>
 					<div className="flex flex-col">
-						{colorsPlaying.map((color) => {
+						{players.map((color) => {
 							return (
 								<div
 									key={color}
@@ -144,14 +144,14 @@ function SetupMenu() {
 				<CollapsibleContent>
 					<Tabs>
 						<TabsList variant="line">
-							{colorsPlaying.map((color) => (
+							{players.map((color) => (
 								<TabsTrigger key={color} value={color}>
 									{color}
 								</TabsTrigger>
 							))}
 						</TabsList>
 
-						{colorsPlaying.map((color) => (
+						{players.map((color) => (
 							<TabsContent key={color} value={color}>
 								<div className="grid grid-cols-8 w-full p-2">
 									{pieceOwnershipRules[
