@@ -5,11 +5,13 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
+import useSetupBoardStore from "@/features/variants/variantEditor/setupEditor/stores/setupBoard";
 import { IconRepeat, IconTrash } from "@tabler/icons-react";
 
 function SetupToolbar() {
 	const { setupRulesDraft, updateSetupRulesDraft, syncSetupRulesDraftToDB } =
 		useVariantDraftStore();
+	const { toggleBoardFlip } = useSetupBoardStore();
 	if (!setupRulesDraft) return null;
 
 	function handleClearBoard() {
@@ -19,6 +21,10 @@ function SetupToolbar() {
 		updatedSetupRulesDraft.startingPosition = [];
 		updateSetupRulesDraft(updatedSetupRulesDraft);
 		syncSetupRulesDraftToDB();
+	}
+
+	function handleFlipBoard() {
+		toggleBoardFlip();
 	}
 
 	return (
@@ -39,7 +45,7 @@ function SetupToolbar() {
 
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<Button variant="ghost" className="hover:bg-gray-300 p-1">
+					<Button onClick={handleFlipBoard} variant="ghost" className="hover:bg-gray-300 p-1">
 						<IconRepeat className="size-6" />
 					</Button>
 				</TooltipTrigger>
