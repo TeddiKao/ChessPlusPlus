@@ -19,7 +19,6 @@ import { useDraggable } from "@dnd-kit/react";
 import {
 	IconChevronDown,
 	IconDotsVertical,
-	IconPencil,
 	IconX,
 } from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
@@ -173,10 +172,6 @@ function SetupMenu() {
 												>
 													<ChessKnight className="size-4" />
 													Edit pieces
-												</DropdownMenuItem>
-												<DropdownMenuItem>
-													<IconPencil className="size-4" />
-													Rename
 												</DropdownMenuItem>
 											</DropdownMenuContent>
 										</DropdownMenu>
