@@ -60,6 +60,7 @@ function SetupMenu() {
 	const {
 		setupRulesDraft,
 		updateSetupRulesDraft,
+		syncSetupRulesDraftToDB,
 		pieceRulesetDraft,
 		currentVariantId,
 	} = useVariantDraftStore();
@@ -120,6 +121,7 @@ function SetupMenu() {
 		}
 
 		updateSetupRulesDraft(updatedSetupRulesDraft);
+		syncSetupRulesDraftToDB();
 	}
 
 	function handleEditPiecesButtonClick(playerName: string) {
