@@ -1,3 +1,5 @@
+import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import SetupChessboard from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/SetupChessboard";
 import SetupMenu from "@/features/variants/variantEditor/setupEditor/components/SetupMenu";
@@ -9,15 +11,39 @@ import { useParams } from "react-router-dom";
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
 
 function BoardSetupPage() {
-	const { setupRulesDraft, updateSetupRulesDraft, currentVariantId, updateCurrentVariantId } = useVariantDraftStore();
+	const {
+		setupRulesDraft,
+		updateSetupRulesDraft,
+		updateCurrentVariantId,
+		updateMovementRulesDraft,
+		updatePieceRulesetDraft,
+	} = useVariantDraftStore();
+	
+	const { images, hasHydrated } = usePieceImagesStore();
+	const { variants } = useVariantsStore();
 	const { variantId } = useParams();
 
 	useEffect(() => {
-		if (currentVariantId) return;
+		if (!hasHydrated) return;
 		if (!variantId) return;
 
+		const selectedVariant = variants[variantId];
+		if (!selectedVariant) return;
+
 		updateCurrentVariantId(variantId);
- 	}, []);
+		updateSetupRulesDraft(selectedVariant.variantRules.setupRules);
+		updateMovementRulesDraft(selectedVariant.variantRules.movementRules);
+		updatePieceRulesetDraft(selectedVariant.variantRules.pieceRuleset);
+	}, [
+		updateCurrentVariantId,
+		updateMovementRulesDraft,
+		updatePieceRulesetDraft,
+		updateSetupRulesDraft,
+		variantId,
+		variants,
+		images,
+		hasHydrated,
+	]);
 
 	if (!setupRulesDraft) return null;
 
@@ -48,7 +74,8 @@ function BoardSetupPage() {
 			updatedSetupRulesDraft.startingPosition =
 				updatedSetupRulesDraft.startingPosition.filter(
 					([[file, rank]]) =>
-						file !== Number(startLocation[0]) || rank !== Number(startLocation[1]),
+						file !== Number(startLocation[0]) ||
+						rank !== Number(startLocation[1]),
 				);
 		}
 
