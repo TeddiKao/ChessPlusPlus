@@ -41,7 +41,12 @@ function SetupChessboard() {
 	}
 
 	return (
-		<div className="grid grid-cols-8 aspect-square w-full max-w-md">
+		<div
+			className="grid aspect-square w-full max-w-md"
+			style={{
+				gridTemplateColumns: `repeat(${boardXSize}, 1fr)`,
+			}}
+		>
 			{ranks.map((rank) =>
 				files.map((file) => {
 					const foundSquare = boardStateMap.get([file, rank]);
