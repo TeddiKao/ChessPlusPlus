@@ -102,10 +102,10 @@ function BoardSetupPage() {
 
 	return (
 		<div className="flex flex-col w-full h-full">
-			<div className="flex flex-row items-center gap-2 w-full p-4 pb-0">
-				<Button variant="ghost" data-icon="inline-start" onClick={handleBackToVariantEditor}>
-					<IconChevronLeft className="size-4" />
-					<span className="text-sm font-normal">Back</span>
+			<div className="flex flex-row items-center gap-2 w-full p-3 pb-0">
+				<Button variant="ghost" className="pl-1 pr-2" data-icon="inline-start" onClick={handleBackToVariantEditor}>
+					<IconChevronLeft className="size-5" />
+					<span className="text-base font-normal">Back</span>
 				</Button>
 			</div>
 			
