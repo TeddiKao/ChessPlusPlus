@@ -3,11 +3,22 @@ import SetupChessboard from "@/features/variants/variantEditor/setupEditor/compo
 import SetupMenu from "@/features/variants/variantEditor/setupEditor/components/SetupMenu";
 import SetupToolbar from "@/features/variants/variantEditor/setupEditor/components/SetupToolbar";
 import { DragDropProvider } from "@dnd-kit/react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
 
 function BoardSetupPage() {
-	const { setupRulesDraft, updateSetupRulesDraft } = useVariantDraftStore();
+	const { setupRulesDraft, updateSetupRulesDraft, currentVariantId, updateCurrentVariantId } = useVariantDraftStore();
+	const { variantId } = useParams();
+
+	useEffect(() => {
+		if (currentVariantId) return;
+		if (!variantId) return;
+
+		updateCurrentVariantId(variantId);
+ 	}, []);
+
 	if (!setupRulesDraft) return null;
 
 	function handleDragEnd(...args: Parameters<NonNullable<OnDragEnd>>) {
@@ -23,13 +34,24 @@ function BoardSetupPage() {
 		if (!file) return;
 		if (!rank) return;
 
-		const [player, piece] =
+		const [identifier, piece] =
 			(event.operation.source?.id as string).split("-") ?? [];
 
-		if (!player) return;
+		if (!identifier) return;
 		if (!piece) return;
 
 		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
+
+		const startLocation = event.operation.source?.data.startLocation;
+
+		if (startLocation) {
+			updatedSetupRulesDraft.startingPosition =
+				updatedSetupRulesDraft.startingPosition.filter(
+					([[file, rank]]) =>
+						file !== Number(startLocation[0]) || rank !== Number(startLocation[1]),
+				);
+		}
+
 		updatedSetupRulesDraft.startingPosition = [
 			...updatedSetupRulesDraft.startingPosition,
 			[[Number(file), Number(rank)], piece],
