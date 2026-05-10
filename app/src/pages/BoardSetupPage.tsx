@@ -4,9 +4,11 @@ import useVariantDraftStore from "@/features/variants/variantEditor/common/store
 import SetupChessboard from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/SetupChessboard";
 import SetupMenu from "@/features/variants/variantEditor/setupEditor/components/SetupMenu";
 import SetupToolbar from "@/features/variants/variantEditor/setupEditor/components/SetupToolbar";
+import { Button } from "@/components/ui/button";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { IconChevronLeft } from "@tabler/icons-react";
 
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
 
@@ -17,11 +19,14 @@ function BoardSetupPage() {
 		updateCurrentVariantId,
 		updateMovementRulesDraft,
 		updatePieceRulesetDraft,
+
+		syncSetupRulesDraftToDB
 	} = useVariantDraftStore();
-	
+
 	const { images, hasHydrated } = usePieceImagesStore();
 	const { variants } = useVariantsStore();
 	const { variantId } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!hasHydrated) return;
@@ -90,15 +95,29 @@ function BoardSetupPage() {
 		});
 	}
 
+	function handleBackToVariantEditor() {
+		syncSetupRulesDraftToDB();
+		navigate(`/variants/${variantId}`);
+	}
+
 	return (
-		<div className="flex flex-row items-center justify-center w-full h-full">
-			<DragDropProvider onDragEnd={handleDragEnd}>
-				<div className="flex flex-row w-full h-full items-center justify-center gap-4">
-					<SetupChessboard />
-					<SetupToolbar />
-					<SetupMenu />
-				</div>
-			</DragDropProvider>
+		<div className="flex flex-col w-full h-full">
+			<div className="flex flex-row items-center gap-2 w-full p-4 pb-0">
+				<Button variant="ghost" data-icon="inline-start" onClick={handleBackToVariantEditor}>
+					<IconChevronLeft className="size-4" />
+					<span className="text-sm font-normal">Back</span>
+				</Button>
+			</div>
+			
+			<div className="flex flex-row items-center justify-center w-full h-full">
+				<DragDropProvider onDragEnd={handleDragEnd}>
+					<div className="flex flex-row w-full h-full items-center justify-center gap-4">
+						<SetupChessboard />
+						<SetupToolbar />
+						<SetupMenu />
+					</div>
+				</DragDropProvider>
+			</div>
 		</div>
 	);
 }
