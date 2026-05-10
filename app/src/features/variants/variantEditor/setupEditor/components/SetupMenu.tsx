@@ -125,8 +125,6 @@ function SetupMenu() {
 	}
 
 	function handleEditPiecesButtonClick(playerName: string) {
-		console.log(playerName);
-
 		openPieceOwnershipSelectionDialog();
 		updatePlayer(playerName);
 	}
