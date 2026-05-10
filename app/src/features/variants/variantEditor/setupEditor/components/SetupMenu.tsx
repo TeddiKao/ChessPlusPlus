@@ -17,7 +17,12 @@ import useVariantDraftStore from "@/features/variants/variantEditor/common/store
 import usePieceOwnershipSelectionDialogStore from "@/features/variants/variantEditor/setupEditor/stores/pieceOwnershipSelectionDialog";
 import useSetupMenuStore from "@/features/variants/variantEditor/setupEditor/stores/setupMenu";
 import { useDraggable } from "@dnd-kit/react";
-import { IconChevronDown, IconDotsVertical, IconX } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconChevronUp,
+	IconDotsVertical,
+	IconX,
+} from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
 
 type PieceImageProps = {
@@ -136,15 +141,13 @@ function SetupMenu() {
 
 				<Collapsible
 					open={isPlayersExpanded}
-					onOpenChange={
-						(open) => {
-							if (open) {
-								expandPlayers();
-							} else {
-								collapsePlayers();
-							}
+					onOpenChange={(open) => {
+						if (open) {
+							expandPlayers();
+						} else {
+							collapsePlayers();
 						}
-					}
+					}}
 				>
 					<div className="flex flex-row items-center justify-between w-full p-2">
 						<span className="text-sm font-semibold">Players</span>
@@ -152,9 +155,14 @@ function SetupMenu() {
 							<Button
 								variant="ghost"
 								size="icon-xs"
-								className="hover:bg-gray-300"
+								className="hover:bg-gray-300 aria-expanded:hover:bg-gray-300"
+								onMouseEnter={() => console.log("mouse enter")}
 							>
-								<IconChevronDown className="size-4" />
+								{isPlayersExpanded ? (
+									<IconChevronUp className="size-4" />
+								) : (
+									<IconChevronDown className="size-4" />
+								)}
 							</Button>
 						</CollapsibleTrigger>
 					</div>
@@ -199,24 +207,29 @@ function SetupMenu() {
 					</CollapsibleContent>
 				</Collapsible>
 
-				<Collapsible open={isPiecesExpanded} onOpenChange={
-					(open) => {
+				<Collapsible
+					open={isPiecesExpanded}
+					onOpenChange={(open) => {
 						if (open) {
 							expandPieces();
 						} else {
 							collapsePieces();
 						}
-					}
-				}>
+					}}
+				>
 					<div className="flex flex-row items-center justify-between w-full p-2">
 						<span className="text-sm font-semibold">Pieces</span>
 						<CollapsibleTrigger asChild>
 							<Button
 								variant="ghost"
 								size="icon-xs"
-								className="hover:bg-gray-300"
+								className="hover:bg-gray-300 aria-expanded:hover:bg-gray-300"
 							>
-								<IconChevronDown className="size-4" />
+								{isPiecesExpanded ? (
+									<IconChevronUp className="size-4" />
+								) : (
+									<IconChevronDown className="size-4" />
+								)}
 							</Button>
 						</CollapsibleTrigger>
 					</div>
