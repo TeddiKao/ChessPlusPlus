@@ -22,7 +22,7 @@ function Square({ file, rank, imageUrl, piece }: SquareProps) {
 			key={`${file}-${rank}`}
 			className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 		>
-			<PieceImage imageUrl={imageUrl ?? ""} piece={piece} file={file} rank={rank} />
+			<PieceImage imageUrl={imageUrl ?? null} piece={piece} file={file} rank={rank} />
 		</div>
 	);
 }
