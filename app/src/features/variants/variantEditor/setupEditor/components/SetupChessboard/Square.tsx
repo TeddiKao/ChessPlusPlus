@@ -8,19 +8,20 @@ type SquareProps = {
 	imageUrl: string | null;
 	piece: string;
 
+	isFlipped: boolean;
 	boardXSize: number;
 	boardYSize: number;
 };
 
-function Square({ file, rank, imageUrl, piece, boardXSize, boardYSize }: SquareProps) {
+function Square({ file, rank, imageUrl, piece, isFlipped, boardXSize, boardYSize }: SquareProps) {
 	const { ref } = useDroppable({
 		id: `${file}-${rank}`,
 	});
 
 	const isDark = (rank + file) % 2 === 0;
 
-	const rankEdges = [0, boardYSize - 1];
-	const fileEdges = [0, boardXSize - 1];
+	const isOnLeftEdge = isFlipped ? file === boardXSize - 1 : file === 0;
+	const isOnBottomEdge = isFlipped ? rank === boardYSize - 1 : rank === 0;
 
 	return (
 		<div
@@ -35,7 +36,7 @@ function Square({ file, rank, imageUrl, piece, boardXSize, boardYSize }: SquareP
 				rank={rank}
 			/>
 
-			{rankEdges.includes(rank) && (
+			{isOnLeftEdge && (
 				<span
 					className={clsx(
 						"absolute top-0 left-0 text-xs font-semibold p-1",
@@ -48,7 +49,7 @@ function Square({ file, rank, imageUrl, piece, boardXSize, boardYSize }: SquareP
 				</span>
 			)}
 
-			{fileEdges.includes(file) && (
+			{isOnBottomEdge && (
 				<span
 					className={clsx(
 						"absolute bottom-0 right-0 text-xs font-semibold p-1",

@@ -59,6 +59,7 @@ function SetupChessboard() {
 							piece={foundSquare ?? ""}
 							boardXSize={boardXSize}
 							boardYSize={boardYSize}
+							isFlipped={isFlipped}
 						/>
 					);
 				}),
