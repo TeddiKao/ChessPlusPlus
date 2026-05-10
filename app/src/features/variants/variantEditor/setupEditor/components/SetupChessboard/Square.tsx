@@ -7,14 +7,20 @@ type SquareProps = {
 	rank: number;
 	imageUrl: string | null;
 	piece: string;
+
+	boardXSize: number;
+	boardYSize: number;
 };
 
-function Square({ file, rank, imageUrl, piece }: SquareProps) {
+function Square({ file, rank, imageUrl, piece, boardXSize, boardYSize }: SquareProps) {
 	const { ref } = useDroppable({
 		id: `${file}-${rank}`,
 	});
 
 	const isDark = (rank + file) % 2 === 0;
+
+	const rankEdges = [0, boardYSize - 1];
+	const fileEdges = [0, boardXSize - 1];
 
 	return (
 		<div
@@ -29,27 +35,31 @@ function Square({ file, rank, imageUrl, piece }: SquareProps) {
 				rank={rank}
 			/>
 
-			<span
-				className={clsx(
-					"absolute top-0 left-0 text-xs font-semibold p-1",
-					isDark
-						? "text-chessboard-square-light"
-						: "text-chessboard-square-dark",
-				)}
-			>
-				{rank}
-			</span>
+			{rankEdges.includes(rank) && (
+				<span
+					className={clsx(
+						"absolute top-0 left-0 text-xs font-semibold p-1",
+						isDark
+							? "text-chessboard-square-light"
+							: "text-chessboard-square-dark",
+					)}
+				>
+					{rank}
+				</span>
+			)}
 
-			<span
-				className={clsx(
-					"absolute bottom-0 right-0 text-xs font-semibold p-1",
-					isDark
-						? "text-chessboard-square-light"
-						: "text-chessboard-square-dark",
-				)}
-			>
-				{file}
-			</span>
+			{fileEdges.includes(file) && (
+				<span
+					className={clsx(
+						"absolute bottom-0 right-0 text-xs font-semibold p-1",
+						isDark
+							? "text-chessboard-square-light"
+							: "text-chessboard-square-dark",
+					)}
+				>
+					{file}
+				</span>
+			)}
 		</div>
 	);
 }
