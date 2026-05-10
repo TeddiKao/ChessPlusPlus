@@ -10,6 +10,9 @@ type PieceImageProps = {
 function PieceImage({ piece, imageUrl, file, rank }: PieceImageProps) {
 	const { ref } = useDraggable({
 		id: `${file}_${rank}-${piece}`,
+		data: {
+			startLocation: [file, rank],
+		}
 	});
 
 	return <img ref={ref} src={imageUrl} alt={piece} />;
