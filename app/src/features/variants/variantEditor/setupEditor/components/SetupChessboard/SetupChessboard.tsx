@@ -2,12 +2,14 @@ import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import { generateNumberSequence } from "@/features/variants/variantEditor/common/utils/boardGeneration";
 import Square from "@/features/variants/variantEditor/setupEditor/components/SetupChessboard/Square";
+import useSetupBoardStore from "@/features/variants/variantEditor/setupEditor/stores/setupBoard";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 
 function SetupChessboard() {
 	const { images } = usePieceImagesStore();
 	const { currentVariantId, setupRulesDraft, pieceRulesetDraft } =
 		useVariantDraftStore();
+	const { isFlipped } = useSetupBoardStore();
 
 	if (!setupRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
@@ -21,8 +23,12 @@ function SetupChessboard() {
 		setupRulesDraft.startingPosition,
 	);
 
-	const ranks = generateNumberSequence(boardYSize).reverse();
-	const files = generateNumberSequence(boardXSize);
+	const ranks = isFlipped
+		? generateNumberSequence(boardYSize)
+		: generateNumberSequence(boardYSize).reverse();
+	const files = isFlipped
+		? generateNumberSequence(boardXSize).reverse()
+		: generateNumberSequence(boardXSize);
 
 	function getImageUrl(imageId: string) {
 		if (!currentVariantId) return null;
