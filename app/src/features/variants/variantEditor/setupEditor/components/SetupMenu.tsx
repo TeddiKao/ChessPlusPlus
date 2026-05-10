@@ -15,12 +15,9 @@ import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import SelectionDialog from "@/features/variants/variantEditor/common/components/SelectionDialog";
 import useVariantDraftStore from "@/features/variants/variantEditor/common/stores/variantDraft";
 import usePieceOwnershipSelectionDialogStore from "@/features/variants/variantEditor/setupEditor/stores/pieceOwnershipSelectionDialog";
+import useSetupMenuStore from "@/features/variants/variantEditor/setupEditor/stores/setupMenu";
 import { useDraggable } from "@dnd-kit/react";
-import {
-	IconChevronDown,
-	IconDotsVertical,
-	IconX,
-} from "@tabler/icons-react";
+import { IconChevronDown, IconDotsVertical, IconX } from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
 
 type PieceImageProps = {
@@ -72,6 +69,15 @@ function SetupMenu() {
 		updateSearchQuery,
 		clearSearchQuery,
 	} = usePieceOwnershipSelectionDialogStore();
+
+	const {
+		isPlayersExpanded,
+		isPiecesExpanded,
+		expandPlayers,
+		collapsePlayers,
+		expandPieces,
+		collapsePieces,
+	} = useSetupMenuStore();
 
 	if (!setupRulesDraft) return null;
 	if (!pieceRulesetDraft) return null;
@@ -128,7 +134,18 @@ function SetupMenu() {
 					</Button>
 				</div>
 
-				<Collapsible>
+				<Collapsible
+					open={isPlayersExpanded}
+					onOpenChange={
+						(open) => {
+							if (open) {
+								expandPlayers();
+							} else {
+								collapsePlayers();
+							}
+						}
+					}
+				>
 					<div className="flex flex-row items-center justify-between w-full p-2">
 						<span className="text-sm font-semibold">Players</span>
 						<CollapsibleTrigger asChild>
@@ -182,7 +199,15 @@ function SetupMenu() {
 					</CollapsibleContent>
 				</Collapsible>
 
-				<Collapsible>
+				<Collapsible open={isPiecesExpanded} onOpenChange={
+					(open) => {
+						if (open) {
+							expandPieces();
+						} else {
+							collapsePieces();
+						}
+					}
+				}>
 					<div className="flex flex-row items-center justify-between w-full p-2">
 						<span className="text-sm font-semibold">Pieces</span>
 						<CollapsibleTrigger asChild>
