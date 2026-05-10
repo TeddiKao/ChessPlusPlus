@@ -1,7 +1,7 @@
 import { useDraggable } from "@dnd-kit/react";
 
 type PieceImageProps = {
-	imageUrl: string;
+	imageUrl: string | null;
 	piece: string;
 	file: number;
 	rank: number;
@@ -15,7 +15,7 @@ function PieceImage({ piece, imageUrl, file, rank }: PieceImageProps) {
 		}
 	});
 
-	return <img ref={ref} src={imageUrl} alt={piece} />;
+	return <img ref={ref} src={imageUrl ?? undefined} alt={piece} />;
 }
 
 export default PieceImage;
