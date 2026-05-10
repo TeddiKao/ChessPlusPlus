@@ -15,7 +15,9 @@ function PieceImage({ piece, imageUrl, file, rank }: PieceImageProps) {
 		}
 	});
 
-	return <img ref={ref} src={imageUrl ?? undefined} alt={piece} />;
+	if (!imageUrl) return null;
+
+	return <img ref={ref} src={imageUrl} alt={piece} />;
 }
 
 export default PieceImage;
