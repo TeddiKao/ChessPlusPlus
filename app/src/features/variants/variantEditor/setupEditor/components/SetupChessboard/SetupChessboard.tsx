@@ -57,6 +57,8 @@ function SetupChessboard() {
 							rank={rank}
 							imageUrl={imageUrl ?? null}
 							piece={foundSquare ?? ""}
+							boardXSize={boardXSize}
+							boardYSize={boardYSize}
 						/>
 					);
 				}),
