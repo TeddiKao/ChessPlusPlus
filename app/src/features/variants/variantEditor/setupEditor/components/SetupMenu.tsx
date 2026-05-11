@@ -156,7 +156,6 @@ function SetupMenu() {
 								variant="ghost"
 								size="icon-xs"
 								className="hover:bg-gray-300 aria-expanded:hover:bg-gray-300"
-								onMouseEnter={() => console.log("mouse enter")}
 							>
 								{isPlayersExpanded ? (
 									<IconChevronUp className="size-4" />
