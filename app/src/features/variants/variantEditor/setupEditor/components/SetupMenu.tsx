@@ -79,6 +79,9 @@ function SetupMenu() {
 	const {
 		isPlayersExpanded,
 		isPiecesExpanded,
+		isBoardSizeExpanded,
+		expandBoardSize,
+		collapseBoardSize,
 		expandPlayers,
 		collapsePlayers,
 		expandPieces,
@@ -138,6 +141,34 @@ function SetupMenu() {
 						<IconX className="size-4" />
 					</Button>
 				</div>
+
+				<Collapsible
+					open={isBoardSizeExpanded}
+					onOpenChange={(open) => {
+						if (open) {
+							expandBoardSize();
+						} else {
+							collapseBoardSize();
+						}
+					}}
+				>
+					<div className="flex flex-row items-center justify-between w-full p-2">
+						<span className="text-sm font-semibold">Board size</span>
+						<CollapsibleTrigger asChild>
+							<Button
+								variant="ghost"
+								size="icon-xs"
+								className="hover:bg-gray-300 aria-expanded:hover:bg-gray-300"
+							>
+								{isPlayersExpanded ? (
+									<IconChevronUp className="size-4" />
+								) : (
+									<IconChevronDown className="size-4" />
+								)}
+							</Button>
+						</CollapsibleTrigger>
+					</div>
+				</Collapsible>
 
 				<Collapsible
 					open={isPlayersExpanded}
