@@ -3,10 +3,7 @@ import { TupleKeyedMap } from "@itwin/core-bentley";
 type GameStateMap = TupleKeyedMap<[number, number], string>;
 type GameState2DArray = [[number, number], string][];
 
-type PieceOwnershipRules = {
-	white: string[];
-	black: string[];
-};
+type PieceOwnershipRules = Record<string, string[]>;
 
 type SetupRules = {
 	pieceOwnership: PieceOwnershipRules;
