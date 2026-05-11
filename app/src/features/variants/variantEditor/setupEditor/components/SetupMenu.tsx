@@ -10,6 +10,8 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import SelectionDialog from "@/features/variants/variantEditor/common/components/SelectionDialog";
@@ -168,6 +170,41 @@ function SetupMenu() {
 							</Button>
 						</CollapsibleTrigger>
 					</div>
+
+					<CollapsibleContent>
+						<FieldSet className="flex flex-col gap-4 px-2">
+							<Field
+								className="grid grid-cols-2 gap-4 items-center"
+								orientation="horizontal"
+							>
+								<FieldLabel htmlFor="boardWidthInput">
+									Board width
+								</FieldLabel>
+								<Input
+									className="bg-background"
+									id="boardWidthInput"
+									type="number"
+									placeholder="Width"
+									min={1}
+								/>
+							</Field>
+							<Field
+								className="grid grid-cols-2 gap-4 items-center"
+								orientation="horizontal"
+							>
+								<FieldLabel htmlFor="boardHeightInput">
+									Board height
+								</FieldLabel>
+								<Input
+									className="bg-background"
+									id="boardHeightInput"
+									type="number"
+									placeholder="Height"
+									min={1}
+								/>
+							</Field>
+						</FieldSet>
+					</CollapsibleContent>
 				</Collapsible>
 
 				<Collapsible
