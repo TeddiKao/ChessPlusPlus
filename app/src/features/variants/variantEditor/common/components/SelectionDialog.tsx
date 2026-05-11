@@ -87,7 +87,7 @@ function SelectionDialog({
 						<div className="flex flex-col gap-2 pr-4">
 							{items
 								.filter((item) =>
-									item.name.includes(searchQuery),
+									item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 								)
 								.map(({ name, bottomComponent, isSelected }) => {
 									return (
