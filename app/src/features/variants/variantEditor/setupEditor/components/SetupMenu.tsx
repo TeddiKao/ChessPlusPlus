@@ -26,6 +26,7 @@ import {
 	IconX,
 } from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
+import type { ChangeEvent } from "react";
 
 type PieceImageProps = {
 	player: string;
@@ -97,6 +98,7 @@ function SetupMenu() {
 
 	const pieceOwnershipRules = setupRulesDraft.pieceOwnership;
 	const players = Object.keys(pieceOwnershipRules);
+	const { boardXSize, boardYSize } = setupRulesDraft;
 
 	const selectionList = player
 		? Object.keys(pieceRulesetDraft).map((piece) => {
@@ -132,6 +134,27 @@ function SetupMenu() {
 	function handleEditPiecesButtonClick(playerName: string) {
 		openPieceOwnershipSelectionDialog();
 		updatePlayer(playerName);
+	}
+
+	function handleBoardWidthInputChange(e: ChangeEvent<HTMLInputElement>) {
+		if (!setupRulesDraft) return;
+		
+		const newBoardXSize = e.target.valueAsNumber;
+		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
+		
+		updatedSetupRulesDraft.boardXSize = newBoardXSize;
+		updateSetupRulesDraft(updatedSetupRulesDraft);
+		syncSetupRulesDraftToDB();
+	}
+
+	function handleBoardHeightInputChange(e: ChangeEvent<HTMLInputElement>) {
+		if (!setupRulesDraft) return;
+		
+		const newBoardYSize = e.target.valueAsNumber;
+		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
+		updatedSetupRulesDraft.boardYSize = newBoardYSize;
+		updateSetupRulesDraft(updatedSetupRulesDraft);
+		syncSetupRulesDraftToDB();
 	}
 
 	return (
@@ -186,6 +209,8 @@ function SetupMenu() {
 									type="number"
 									placeholder="Width"
 									min={1}
+									value={boardXSize}
+									onChange={handleBoardWidthInputChange}
 								/>
 							</Field>
 							<Field
@@ -201,6 +226,8 @@ function SetupMenu() {
 									type="number"
 									placeholder="Height"
 									min={1}
+									value={boardYSize}
+									onChange={handleBoardHeightInputChange}
 								/>
 							</Field>
 						</FieldSet>
