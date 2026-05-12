@@ -10,6 +10,8 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import SelectionDialog from "@/features/variants/variantEditor/common/components/SelectionDialog";
@@ -24,6 +26,7 @@ import {
 	IconX,
 } from "@tabler/icons-react";
 import { ChessKnight } from "lucide-react";
+import type { ChangeEvent } from "react";
 
 type PieceImageProps = {
 	player: string;
@@ -79,6 +82,9 @@ function SetupMenu() {
 	const {
 		isPlayersExpanded,
 		isPiecesExpanded,
+		isBoardSizeExpanded,
+		expandBoardSize,
+		collapseBoardSize,
 		expandPlayers,
 		collapsePlayers,
 		expandPieces,
@@ -92,6 +98,7 @@ function SetupMenu() {
 
 	const pieceOwnershipRules = setupRulesDraft.pieceOwnership;
 	const players = Object.keys(pieceOwnershipRules);
+	const { boardXSize, boardYSize } = setupRulesDraft;
 
 	const selectionList = player
 		? Object.keys(pieceRulesetDraft).map((piece) => {
@@ -129,6 +136,27 @@ function SetupMenu() {
 		updatePlayer(playerName);
 	}
 
+	function handleBoardWidthInputChange(e: ChangeEvent<HTMLInputElement>) {
+		if (!setupRulesDraft) return;
+		
+		const newBoardXSize = e.target.valueAsNumber;
+		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
+		
+		updatedSetupRulesDraft.boardXSize = newBoardXSize;
+		updateSetupRulesDraft(updatedSetupRulesDraft);
+		syncSetupRulesDraftToDB();
+	}
+
+	function handleBoardHeightInputChange(e: ChangeEvent<HTMLInputElement>) {
+		if (!setupRulesDraft) return;
+		
+		const newBoardYSize = e.target.valueAsNumber;
+		const updatedSetupRulesDraft = structuredClone(setupRulesDraft);
+		updatedSetupRulesDraft.boardYSize = newBoardYSize;
+		updateSetupRulesDraft(updatedSetupRulesDraft);
+		syncSetupRulesDraftToDB();
+	}
+
 	return (
 		<>
 			<div className="bg-muted p-2 rounded-lg">
@@ -138,6 +166,73 @@ function SetupMenu() {
 						<IconX className="size-4" />
 					</Button>
 				</div>
+
+				<Collapsible
+					open={isBoardSizeExpanded}
+					onOpenChange={(open) => {
+						if (open) {
+							expandBoardSize();
+						} else {
+							collapseBoardSize();
+						}
+					}}
+				>
+					<div className="flex flex-row items-center justify-between w-full p-2">
+						<span className="text-sm font-semibold">Board size</span>
+						<CollapsibleTrigger asChild>
+							<Button
+								variant="ghost"
+								size="icon-xs"
+								className="hover:bg-gray-300 aria-expanded:hover:bg-gray-300"
+							>
+								{isPlayersExpanded ? (
+									<IconChevronUp className="size-4" />
+								) : (
+									<IconChevronDown className="size-4" />
+								)}
+							</Button>
+						</CollapsibleTrigger>
+					</div>
+
+					<CollapsibleContent>
+						<FieldSet className="flex flex-col gap-4 px-2">
+							<Field
+								className="grid grid-cols-2 gap-4 items-center"
+								orientation="horizontal"
+							>
+								<FieldLabel htmlFor="boardWidthInput">
+									Board width
+								</FieldLabel>
+								<Input
+									className="bg-background"
+									id="boardWidthInput"
+									type="number"
+									placeholder="Width"
+									min={1}
+									value={boardXSize}
+									onChange={handleBoardWidthInputChange}
+								/>
+							</Field>
+							<Field
+								className="grid grid-cols-2 gap-4 items-center"
+								orientation="horizontal"
+							>
+								<FieldLabel htmlFor="boardHeightInput">
+									Board height
+								</FieldLabel>
+								<Input
+									className="bg-background"
+									id="boardHeightInput"
+									type="number"
+									placeholder="Height"
+									min={1}
+									value={boardYSize}
+									onChange={handleBoardHeightInputChange}
+								/>
+							</Field>
+						</FieldSet>
+					</CollapsibleContent>
+				</Collapsible>
 
 				<Collapsible
 					open={isPlayersExpanded}
