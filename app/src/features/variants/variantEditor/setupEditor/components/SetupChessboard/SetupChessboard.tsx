@@ -42,7 +42,7 @@ function SetupChessboard() {
 
 	return (
 		<div
-			className="grid aspect-square w-full max-w-md"
+			className="grid w-full max-w-md"
 			style={{
 				gridTemplateColumns: `repeat(${boardXSize}, 1fr)`,
 			}}
