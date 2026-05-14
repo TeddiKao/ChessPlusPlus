@@ -82,24 +82,14 @@ def test_get_legal_moves():
 
     if tvj_output[0]:
         game = lmg.Game(json.load(open(TEST_NORMALISED_JSON_PATH)))
+        game.overwrite_game_state({(4, 3): "white_bishop"})
 
-        game_state = game.get_game_state(True)
-        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
+        legal_moves = game.get_legal_moves((4, 3))
 
-        game.make_move((3, 1), (3, 3))
-
-        game_state = game.get_game_state(True)
-        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
-
-        game.overwrite_game_state({(3, 4): "white_bishop"})
-
-        game_state = game.get_game_state(True)
-        display_game_state(game_state[0], game_state[1], SHOW_COORDS)
+        return legal_moves
 
 def test_normalise_json():
     test_data = json.load(open(TEST_SIMPLE_JSON_PATH))
     print(jn.normalise_json(test_data))
-
-print(test_validate_json())
 
 print(test_get_legal_moves())
