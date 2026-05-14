@@ -5,15 +5,10 @@ import useCreateVariantDialogStore from "@/features/variants/variantCreation/sto
 import VariantListDialog from "@/features/variants/variantListing/components/VariantListDialog";
 import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 
-import { useNavigate } from "react-router-dom";
-
-
 function HomePage() {
 	const { openDialog: openCreateVariantDialog } =
 		useCreateVariantDialogStore();
 	const { openDialog: openVariantListDialog } = useVariantListDialogStore();
-
-	const navigate = useNavigate();
 
 	return (
 		<>
@@ -30,8 +25,7 @@ function HomePage() {
 						<IconFolder />
 						My variants
 					</Button>
-					<Button onClick={() => navigate("/game")} className="px-4">
-					//Play variant</Button><Button className="px-4">
+					<Button className="px-4">
 						<IconChess />
 						Play variant
 					</Button>
