@@ -1,12 +1,18 @@
 import json
 from json import JSONDecodeError
+from pathlib import Path
+
 import app.engine.json_validator.json_validator as json_validator
 import app.engine.legal_move_generator.legal_move_generator as lmg
 import app.engine.json_normaliser.json_normaliser as jn
 
+BASE_DIR = Path(__file__).parent.resolve()
+TEST_NORMALISED_JSON_PATH = BASE_DIR / "test_normalised_json.json"
+TEST_SIMPLE_JSON_PATH = BASE_DIR / "test_simple_json.json"
+
 def test_validate_json():
     try:
-        test_data = json.load(open("test_normalised_json.json"))
+        test_data = json.load(open(TEST_NORMALISED_JSON_PATH))
     except JSONDecodeError:
         return False, "JSON Decode Error detected. Please check the file's syntax."
 
@@ -75,7 +81,7 @@ def test_get_legal_moves():
     print(f"\tMessage: {tvj_output[1]}")
 
     if tvj_output[0]:
-        game = lmg.Game(json.load(open("test_normalised_json.json")))
+        game = lmg.Game(json.load(open(TEST_NORMALISED_JSON_PATH)))
 
         game_state = game.get_game_state(True)
         display_game_state(game_state[0], game_state[1], SHOW_COORDS)
@@ -85,13 +91,15 @@ def test_get_legal_moves():
         game_state = game.get_game_state(True)
         display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
-        game.overwrite_game_state({(3, 4): "white_pawn"})
+        game.overwrite_game_state({(3, 4): "white_bishop"})
 
         game_state = game.get_game_state(True)
         display_game_state(game_state[0], game_state[1], SHOW_COORDS)
 
 def test_normalise_json():
-    test_data = json.load(open("test_simple_json.json"))
+    test_data = json.load(open(TEST_SIMPLE_JSON_PATH))
     print(jn.normalise_json(test_data))
 
 print(test_validate_json())
+
+print(test_get_legal_moves())
