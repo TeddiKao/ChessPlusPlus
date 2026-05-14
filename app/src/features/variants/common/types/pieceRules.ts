@@ -1,5 +1,6 @@
 type ChainedMoveNodeInput = {
 	moveName: string;
+	terminateOnStop: boolean;
 	validMove: boolean;
 };
 

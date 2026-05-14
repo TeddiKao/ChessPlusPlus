@@ -155,6 +155,7 @@ function SequenceNodeCard({
 			addChainedMoveToSequence(sequenceIndex, nodeIndex, {
 				moveName: movementToAdd,
 				validMove: true,
+				terminateOnStop: true,
 			});
 		});
 
@@ -180,6 +181,7 @@ function SequenceNodeCard({
 			addChainedMoveToSequence(sequenceIndex, nodeIndex + 1, {
 				moveName: movementToAdd,
 				validMove: true,
+				terminateOnStop: true,
 			});
 		});
 
@@ -400,6 +402,7 @@ function ChainedMovesDialog() {
 				{
 					moveName: movementToAdd,
 					validMove: true,
+					terminateOnStop: true,
 				},
 			);
 		});

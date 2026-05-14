@@ -127,8 +127,8 @@ const defaultPieceRuleset: PieceRuleset = {
 	white_pawn: {
 		moveset: [
 			[
-				{ moveName: "white_pawn_forward", validMove: true, nodeId: generateId() },
-				{ moveName: "white_pawn_double_step", validMove: true, nodeId: generateId() },
+				{ moveName: "white_pawn_forward", validMove: true, terminateOnStop: true, nodeId: generateId() },
+				{ moveName: "white_pawn_double_step", validMove: true, terminateOnStop: true, nodeId: generateId() },
 			],
 			{
 				moveName: "white_pawn_capture_east",
@@ -143,8 +143,8 @@ const defaultPieceRuleset: PieceRuleset = {
 	black_pawn: {
 		moveset: [
 			[
-				{ moveName: "black_pawn_forward", validMove: true, nodeId: generateId() },
-				{ moveName: "black_pawn_double_step", validMove: true, nodeId: generateId() },
+				{ moveName: "black_pawn_forward", validMove: true, terminateOnStop: true, nodeId: generateId() },
+				{ moveName: "black_pawn_double_step", validMove: true, terminateOnStop: true, nodeId: generateId() },
 			],
 			{
 				moveName: "black_pawn_capture_east",

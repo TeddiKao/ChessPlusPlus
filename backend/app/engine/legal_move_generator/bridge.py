@@ -34,6 +34,7 @@ def generate_legal_moves_for_preview(piece_name: str, current_pos: tuple[int, in
     }
 
     game_instance = Game(rules)
+    game_instance.overwrite_game_state({})
 
     serialised_game_state = dict(game_state)
 
