@@ -40,35 +40,41 @@ function SetupChessboard() {
 		return imageUrl;
 	}
 
+	const boardY = Math.max(boardYSize, 1);
+	const gridWidth = `min(100%, calc(100% * ${boardXSize} / 8), calc(28rem * ${boardXSize} / ${boardY}))`;
+
 	return (
-		<div
-			className="grid w-full max-w-md"
-			style={{
-				gridTemplateColumns: `repeat(${boardXSize}, 1fr)`,
-			}}
-		>
-			{ranks.map((rank) =>
-				files.map((file) => {
-					const foundSquare = boardStateMap.get([file, rank]);
-					const imageId =
-						pieceRulesetDraft[foundSquare ?? ""]?.imageId;
+		<div className="w-full max-w-md">
+			<div
+				className="grid min-w-0"
+				style={{
+					width: gridWidth,
+					gridTemplateColumns: `repeat(${boardXSize}, minmax(0, 1fr))`,
+				}}
+			>
+				{ranks.map((rank) =>
+					files.map((file) => {
+						const foundSquare = boardStateMap.get([file, rank]);
+						const imageId =
+							pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
-					const imageUrl = imageId ? getImageUrl(imageId) : null;
+						const imageUrl = imageId ? getImageUrl(imageId) : null;
 
-					return (
-						<Square
-							key={`${file}-${rank}`}
-							file={file}
-							rank={rank}
-							imageUrl={imageUrl ?? null}
-							piece={foundSquare ?? ""}
-							boardXSize={boardXSize}
-							boardYSize={boardYSize}
-							isFlipped={isFlipped}
-						/>
-					);
-				}),
-			)}
+						return (
+							<Square
+								key={`${file}-${rank}`}
+								file={file}
+								rank={rank}
+								imageUrl={imageUrl ?? null}
+								piece={foundSquare ?? ""}
+								boardXSize={boardXSize}
+								boardYSize={boardYSize}
+								isFlipped={isFlipped}
+							/>
+						);
+					}),
+				)}
+			</div>
 		</div>
 	);
 }
