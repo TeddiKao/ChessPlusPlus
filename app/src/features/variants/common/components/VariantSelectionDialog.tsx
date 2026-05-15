@@ -10,7 +10,7 @@ type VariantAction = {
 	execute: (variantId: string) => void;
 }
 
-type VariantActions = Record<string, VariantAction>;
+export type VariantActions = Record<string, VariantAction>;
 
 type VariantSelectionDialogProps = {
 	actions: VariantActions;
