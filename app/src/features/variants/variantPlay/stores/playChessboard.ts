@@ -1,9 +1,9 @@
-import type { GameStateMap } from "@/features/variants/common/types/setupRules";
+import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import { create } from "zustand";
 
 type PlayChessboardStore = {
-	gameBoardState: GameStateMap | null;
-	updateGameBoardState: (gameBoardState: GameStateMap) => void;
+	gameBoardState: GameState2DArray | null;
+	updateGameBoardState: (gameBoardState: GameState2DArray) => void;
 	resetGameBoardState: () => void;
 
 	isFlipped: boolean;
@@ -13,7 +13,7 @@ type PlayChessboardStore = {
 
 const usePlayChessboardStore = create<PlayChessboardStore>((set) => ({
 	gameBoardState: null,
-	updateGameBoardState: (gameBoardState: GameStateMap) => set({ gameBoardState }),
+	updateGameBoardState: (gameBoardState: GameState2DArray) => set({ gameBoardState }),
 	resetGameBoardState: () => set({ gameBoardState: null }),
 	
 	isFlipped: false,
