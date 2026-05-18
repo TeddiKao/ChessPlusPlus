@@ -2,8 +2,11 @@ import uuid
 import itertools
 
 from fastapi import APIRouter
+
 from app.schemas.create_game_request import CreateGameRequest, CreateGameResponse
 from app.schemas.game_legal_move_generation_request import GameLegalMoveGenerationRequest, GameLegalMoveGenerationResponse
+from app.schemas.game_make_move_request import GameMakeMoveRequest, GameMakeMoveResponse
+
 from app.engine.legal_move_generator.legal_move_generator import Game, Piece
 from app.utils.case_converter import convert_camel_to_snake
 from app.utils.starting_position_serialiser import serialise_starting_position
@@ -65,3 +68,25 @@ async def generate_legal_moves(request: GameLegalMoveGenerationRequest):
 	legal_moves = list(itertools.chain(*legal_moves.values()))
 
 	return GameLegalMoveGenerationResponse(legal_moves=legal_moves)
+
+@router.post("/process-move", response_model=GameMakeMoveResponse)
+async def process_move(request: GameMakeMoveRequest):
+	game_instance = active_games.get(request.game_id)
+	if game_instance is None:
+		return GameMakeMoveResponse(valid_move=False, new_game_state=None)
+
+	legal_moves = game_instance.get_legal_moves(request.piece_start_pos)
+	legal_moves = list(itertools.chain(*legal_moves.values()))
+
+	if request.piece_end_pos in legal_moves:
+		game_instance.make_move(request.piece_start_pos, request.piece_end_pos)
+		valid_move = True
+	else:
+		valid_move = False
+
+	if valid_move:
+		new_game_state = list[tuple[tuple[int, int], str]]((entry[0], entry[1].piece_name) for entry in game_instance.get_game_state().items())
+	else:
+		new_game_state = None
+
+	return GameMakeMoveResponse(valid_move=valid_move, new_game_state=new_game_state)
