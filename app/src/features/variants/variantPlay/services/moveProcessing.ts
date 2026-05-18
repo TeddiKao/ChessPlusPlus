@@ -1,8 +1,14 @@
 import api from "@/app/api";
+import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import { AxiosError } from "axios";
 
 type GenerateLegalMovesResponse = {
 	legalMoves: [number, number][] | null;
+};
+
+type ProcessMoveResponse = {
+	validMove: boolean;
+	newGameState: GameState2DArray | null;
 };
 
 async function generateLegalMoves(
@@ -26,4 +32,26 @@ async function generateLegalMoves(
 	}
 }
 
-export { generateLegalMoves };
+async function processMove(
+	gameId: string,
+	pieceStartPos: [number, number],
+	pieceEndPos: [number, number],
+): Promise<ProcessMoveResponse> {
+	try {
+		const response = await api.post("game/process-move/", {
+			gameId,
+			pieceStartPos,
+			pieceEndPos,
+		})
+
+		return { validMove: response.data.validMove, newGameState: response.data.newGameState };
+	} catch (error) {
+		if (error instanceof AxiosError) {
+			console.log(error.response);
+		}
+
+		return { validMove: false, newGameState: null };
+	}
+}
+
+export { generateLegalMoves, processMove };
