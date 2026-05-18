@@ -1,4 +1,5 @@
 import uuid
+import itertools
 
 from fastapi import APIRouter
 from app.schemas.create_game_request import CreateGameRequest, CreateGameResponse
@@ -61,5 +62,6 @@ async def generate_legal_moves(request: GameLegalMoveGenerationRequest):
 		return GameLegalMoveGenerationResponse(legal_moves=None)
 
 	legal_moves = game_instance.get_legal_moves(request.current_pos)
+	legal_moves = list(itertools.chain(*legal_moves.values()))
 
 	return GameLegalMoveGenerationResponse(legal_moves=legal_moves)
