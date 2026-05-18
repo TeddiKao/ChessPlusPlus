@@ -13,6 +13,7 @@ function PieceImage({ imageUrl, piece, file, rank }: PieceImageProps) {
 		id: `${file}-${rank}-${piece}`,
 		data: {
 			startLocation: [file, rank],
+			piece,
 		}
 	});
 
