@@ -5,6 +5,7 @@ from app.schemas.base_schema import BaseSchema
 from app.engine.json_validator.json_validator import validate_json
 
 from app.api.routers import move_rules
+from app.api.routers import game
 
 app = FastAPI()
 
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(move_rules.router, prefix="/move-rules")
+app.include_router(game.router, prefix="/game")
 
 class JSONValidationRequest(BaseSchema):
     json_to_validate: dict
