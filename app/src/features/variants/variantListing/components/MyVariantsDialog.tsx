@@ -1,23 +1,24 @@
-
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
 import DeleteVariantAlert from "@/features/variants/variantListing/components/DeleteVariantAlert";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 import VariantRenameDialog from "@/features/variants/variantListing/components/VariantRenameDialog";
 import useVariantRenameDialogStore from "@/features/variants/variantListing/stores/variantRenameDialog";
 import { useNavigate } from "react-router-dom";
-import VariantSelectionDialog, { type VariantActions } from "@/features/variants/common/components/VariantSelectionDialog";
+import VariantSelectionDialog, {
+	type VariantActions,
+} from "@/features/variants/common/components/VariantSelectionDialog";
+import useMyVariantsDialogStore from "@/features/variants/variantListing/stores/myVariantsDialog";
 
-function VariantListDialog() {
+function MyVariantsDialog() {
 	const { hasHydrated } = useVariantsStore();
 	const {
 		isOpen,
-		openDialog: openVariantListDialog,
-		closeDialog: closeVariantListDialog,
+		openDialog: openMyVariantsDialog,
+		closeDialog: closeMyVariantsDialog,
 		selectedVariantId,
 		updateSelectedVariantId,
 		clearSelectedVariantId,
-	} = useVariantListDialogStore();
+	} = useMyVariantsDialogStore();
 
 	const { openAlert } = useVariantDeleteAlertStore();
 
@@ -41,32 +42,34 @@ function VariantListDialog() {
 			label: "Open",
 			variant: "default",
 			execute: (variantId) => {
-				closeVariantListDialog();
+				closeMyVariantsDialog();
 				navigate(`variants/${variantId}`);
-			}
+			},
 		},
 		rename: {
 			label: "Rename",
 			variant: "outline",
 			execute: (variantId) => {
 				openVariantRenameDialog(variantId);
-			}
+			},
 		},
 		delete: {
 			label: "Delete",
 			variant: "destructive",
 			execute: (variantId) => {
 				openAlert(variantId);
-			}
-		}
-	}
+			},
+		},
+	};
 
 	return (
 		<>
 			<VariantSelectionDialog
 				actions={actions}
 				isOpen={isOpen}
-				onOpenChange={(isOpen) => isOpen ? openVariantListDialog() : closeVariantListDialog()}
+				onOpenChange={(isOpen) =>
+					isOpen ? openMyVariantsDialog() : closeMyVariantsDialog()
+				}
 				handleVariantSelection={handleVariantSelection}
 				selectedVariantId={selectedVariantId}
 			/>
@@ -77,4 +80,4 @@ function VariantListDialog() {
 	);
 }
 
-export default VariantListDialog;
+export default MyVariantsDialog;
