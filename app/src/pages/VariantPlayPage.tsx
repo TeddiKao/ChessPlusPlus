@@ -3,6 +3,7 @@ import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import PlayChessboard from "@/features/variants/variantPlay/components/PlayChessboard/PlayChessboard";
 import { createGame } from "@/features/variants/variantPlay/services/game";
+import { generateLegalMoves } from "@/features/variants/variantPlay/services/moveProcessing";
 import useGameplayStore from "@/features/variants/variantPlay/stores/gameplay";
 import { DragDropProvider } from "@dnd-kit/react";
 import { IconChevronLeft } from "@tabler/icons-react";
@@ -10,11 +11,12 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
+type OnDragStart = React.ComponentProps<typeof DragDropProvider>["onDragStart"];
 
 function VariantPlayPage() {
 	const navigate = useNavigate();
 
-	const { gameBoardState, updateGameBoardState } = useGameplayStore();
+	const { gameBoardState, updateGameBoardState, activeGameId, updateActiveGameId } = useGameplayStore();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { variantId } = useParams();
 
@@ -52,10 +54,11 @@ function VariantPlayPage() {
 			if (!gameState) return;
 
 			updateGameBoardState(gameState);
+			updateActiveGameId(gameId);
 		}
 
 		handleCreateGame();
-	}, [hasVariantsHydrated, variantId, variants, updateGameBoardState]);
+	}, [hasVariantsHydrated, variantId, variants, updateGameBoardState, updateActiveGameId]);
 
 	function handleBackToHomePage() {
 		navigate("/");
@@ -94,6 +97,24 @@ function VariantPlayPage() {
 		updateGameBoardState(updatedGameBoardState as GameState2DArray);
 	}
 
+	async function handleDragStart(...args: Parameters<NonNullable<OnDragStart>>) {
+		if (!activeGameId) return;
+
+		const [event] = args;
+
+		if (event.operation.canceled) return;
+
+		const startLocation = event.operation.source?.data.startLocation;
+		if (!startLocation) return;
+
+		const [file, rank] = startLocation;
+
+		const legalMoves = await generateLegalMoves(activeGameId, [file, rank]);
+		if (!legalMoves) return;
+
+		console.log(legalMoves);
+	}
+
 	return (
 		<div className="flex flex-col w-full h-full">
 			<div className="flex flex-row items-center gap-2 w-full p-3 pb-0">
@@ -109,7 +130,7 @@ function VariantPlayPage() {
 			</div>
 
 			<div className="flex flex-row items-center justify-center w-full h-full">
-				<DragDropProvider onDragEnd={handleDragEnd}>
+				<DragDropProvider onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
 					<PlayChessboard />
 				</DragDropProvider>
 			</div>
