@@ -43,7 +43,7 @@ function MyVariantsDialog() {
 			variant: "default",
 			execute: (variantId) => {
 				closeMyVariantsDialog();
-				navigate(`variants/${variantId}`);
+				navigate(`/variants/${variantId}`);
 			},
 		},
 		rename: {
