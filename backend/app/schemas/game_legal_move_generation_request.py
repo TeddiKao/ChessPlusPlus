@@ -5,4 +5,4 @@ class GameLegalMoveGenerationRequest(BaseSchema):
 	current_pos: tuple[int, int]
 
 class GameLegalMoveGenerationResponse(BaseSchema):
-	legal_moves = list[tuple[int, int]]
+	legal_moves: list[tuple[int, int]]
