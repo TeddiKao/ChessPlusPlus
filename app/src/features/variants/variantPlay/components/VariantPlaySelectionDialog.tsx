@@ -2,6 +2,7 @@ import VariantSelectionDialog, {
 	type VariantActions,
 } from "@/features/variants/common/components/VariantSelectionDialog";
 import useVariantPlaySelectionDialogStore from "@/features/variants/variantPlay/stores/variantPlaySelectionDialog";
+import { useNavigate } from "react-router-dom";
 
 function VariantPlaySelectionDialog() {
 	const {
@@ -12,6 +13,8 @@ function VariantPlaySelectionDialog() {
 		updateSelectedVariantId,
 		clearSelectedVariantId,
 	} = useVariantPlaySelectionDialogStore();
+
+	const navigate = useNavigate();
 
 	function handleVariantSelection(variantId: string) {
 		if (variantId === selectedVariantId) {
@@ -26,7 +29,7 @@ function VariantPlaySelectionDialog() {
 			label: "Play",
 			variant: "default",
 			execute: (variantId) => {
-				console.log(variantId);
+				navigate(`/variants/${variantId}/play`);
 			},
 		},
 	};
