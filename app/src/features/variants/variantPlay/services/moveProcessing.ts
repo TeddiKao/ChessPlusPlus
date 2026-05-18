@@ -21,7 +21,7 @@ async function generateLegalMoves(
 			currentPos,
 		});
 
-		return response.data.legalMoves;
+		return { legalMoves: response.data.legalMoves };
 	}
 	catch (error) {
 		if (error instanceof AxiosError) {
