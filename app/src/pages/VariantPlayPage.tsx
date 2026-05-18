@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import PlayChessboard from "@/features/variants/variantPlay/components/PlayChessboard/PlayChessboard";
 import { createGame } from "@/features/variants/variantPlay/services/game";
-import { generateLegalMoves } from "@/features/variants/variantPlay/services/moveProcessing";
+import {
+	generateLegalMoves,
+	processMove,
+} from "@/features/variants/variantPlay/services/moveProcessing";
 import useGameplayStore from "@/features/variants/variantPlay/stores/gameplay";
 import { DragDropProvider } from "@dnd-kit/react";
 import { IconChevronLeft } from "@tabler/icons-react";
@@ -16,7 +18,12 @@ type OnDragStart = React.ComponentProps<typeof DragDropProvider>["onDragStart"];
 function VariantPlayPage() {
 	const navigate = useNavigate();
 
-	const { gameBoardState, updateGameBoardState, activeGameId, updateActiveGameId } = useGameplayStore();
+	const {
+		gameBoardState,
+		updateGameBoardState,
+		activeGameId,
+		updateActiveGameId,
+	} = useGameplayStore();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { variantId } = useParams();
 
@@ -58,13 +65,20 @@ function VariantPlayPage() {
 		}
 
 		handleCreateGame();
-	}, [hasVariantsHydrated, variantId, variants, updateGameBoardState, updateActiveGameId]);
+	}, [
+		hasVariantsHydrated,
+		variantId,
+		variants,
+		updateGameBoardState,
+		updateActiveGameId,
+	]);
 
 	function handleBackToHomePage() {
 		navigate("/");
 	}
 
-	function handleDragEnd(...args: Parameters<NonNullable<OnDragEnd>>) {
+	async function handleDragEnd(...args: Parameters<NonNullable<OnDragEnd>>) {
+		if (!activeGameId) return;
 		if (!gameBoardState) return;
 
 		const [event] = args;
@@ -83,21 +97,21 @@ function VariantPlayPage() {
 		if (!startLocation) return;
 		if (!piece) return;
 
-		const filteredGameBoardState = gameBoardState.filter(
-			([location]) =>
-				location[0] !== Number(startLocation[0]) ||
-				location[1] !== Number(startLocation[1]),
+		const { validMove, newGameState } = await processMove(
+			activeGameId,
+			startLocation,
+			[Number(file), Number(rank)],
 		);
 
-		const updatedGameBoardState = [
-			...filteredGameBoardState,
-			[[Number(file), Number(rank)], piece],
-		];
+		if (!validMove) return;
+		if (!newGameState) return;
 
-		updateGameBoardState(updatedGameBoardState as GameState2DArray);
+		updateGameBoardState(newGameState);
 	}
 
-	async function handleDragStart(...args: Parameters<NonNullable<OnDragStart>>) {
+	async function handleDragStart(
+		...args: Parameters<NonNullable<OnDragStart>>
+	) {
 		if (!activeGameId) return;
 
 		const [event] = args;
@@ -130,7 +144,10 @@ function VariantPlayPage() {
 			</div>
 
 			<div className="flex flex-row items-center justify-center w-full h-full">
-				<DragDropProvider onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+				<DragDropProvider
+					onDragEnd={handleDragEnd}
+					onDragStart={handleDragStart}
+				>
 					<PlayChessboard />
 				</DragDropProvider>
 			</div>
