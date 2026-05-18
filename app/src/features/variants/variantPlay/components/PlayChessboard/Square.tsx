@@ -74,9 +74,7 @@ function Square({
 			)}
 
 			{isLegal && (
-				<span className="flex flex-row items-center justify-center size-4 rounded-full bg-primary">
-
-				</span>
+				<span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-4 rounded-full bg-primary"></span>
 			)}
 		</div>
 	);
