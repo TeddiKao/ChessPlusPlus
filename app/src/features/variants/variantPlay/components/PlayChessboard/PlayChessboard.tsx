@@ -2,12 +2,12 @@ import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import { generateNumberSequence } from "@/features/variants/variantEditor/common/utils/boardGeneration";
 import Square from "@/features/variants/variantPlay/components/PlayChessboard/Square";
-import usePlayChessboardStore from "@/features/variants/variantPlay/stores/playChessboard";
+import useGameplayStore from "@/features/variants/variantPlay/stores/gameplay";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 import { useParams } from "react-router-dom";
 
 function PlayChessboard() {
-	const { isFlipped, gameBoardState } = usePlayChessboardStore();
+	const { isBoardFlipped, gameBoardState } = useGameplayStore();
 	const { variantId } = useParams();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { images, hasHydrated: hasImagesHydrated } = usePieceImagesStore();
@@ -24,14 +24,16 @@ function PlayChessboard() {
 	const boardXSize = selectedVariant.variantRules.setupRules.boardXSize;
 	const boardYSize = selectedVariant.variantRules.setupRules.boardYSize;
 
-	const boardStateMap = new TupleKeyedMap<[number, number], string>(gameBoardState ?? []);
+	const boardStateMap = new TupleKeyedMap<[number, number], string>(
+		gameBoardState ?? [],
+	);
 
 	const gridWidth = `min(100%, calc(100% * ${boardXSize} / 8), calc(28rem * ${boardXSize} / ${boardYSize}))`;
 
-	const ranks = isFlipped
+	const ranks = isBoardFlipped
 		? generateNumberSequence(boardYSize)
 		: generateNumberSequence(boardYSize).reverse();
-	const files = isFlipped
+	const files = isBoardFlipped
 		? generateNumberSequence(boardXSize).reverse()
 		: generateNumberSequence(boardXSize);
 
@@ -67,7 +69,7 @@ function PlayChessboard() {
 								rank={rank}
 								imageUrl={imageUrl ?? null}
 								piece={foundSquare ?? ""}
-								isFlipped={isFlipped}
+								isFlipped={isBoardFlipped}
 								boardXSize={boardXSize}
 								boardYSize={boardYSize}
 							/>
