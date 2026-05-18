@@ -6,6 +6,10 @@ type GameplayStore = {
 	updateGameBoardState: (gameBoardState: GameState2DArray) => void;
 	resetGameBoardState: () => void;
 
+	legalMoves: [number, number][] | null;
+	updateLegalMoves: (legalMoves: [number, number][]) => void;
+	clearLegalMoves: () => void;
+
 	activeGameId: string | null;
 	updateActiveGameId: (activeGameId: string) => void;
 	clearActiveGameId: () => void;
@@ -20,6 +24,11 @@ const useGameplayStore = create<GameplayStore>((set) => ({
 	updateGameBoardState: (gameBoardState: GameState2DArray) =>
 		set({ gameBoardState }),
 	resetGameBoardState: () => set({ gameBoardState: null }),
+
+	legalMoves: null,
+	updateLegalMoves: (legalMoves: [number, number][]) =>
+		set({ legalMoves }),
+	clearLegalMoves: () => set({ legalMoves: null }),
 
 	activeGameId: null,
 	updateActiveGameId: (activeGameId: string) =>
