@@ -23,6 +23,7 @@ function VariantPlayPage() {
 		updateGameBoardState,
 		activeGameId,
 		updateActiveGameId,
+		updateLegalMoves,
 	} = useGameplayStore();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { variantId } = useParams();
@@ -123,10 +124,10 @@ function VariantPlayPage() {
 
 		const [file, rank] = startLocation;
 
-		const legalMoves = await generateLegalMoves(activeGameId, [file, rank]);
+		const legalMoves = (await generateLegalMoves(activeGameId, [file, rank]))?.legalMoves;
 		if (!legalMoves) return;
 
-		console.log(legalMoves);
+		updateLegalMoves(legalMoves);
 	}
 
 	return (
