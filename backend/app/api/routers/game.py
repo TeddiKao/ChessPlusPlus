@@ -48,4 +48,7 @@ async def create_game(request: CreateGameRequest):
 
 	active_games[game_id] = game_instance
 
-	return CreateGameResponse(game_id=game_id, game_state=game_instance.get_game_state())
+	return CreateGameResponse(
+		game_id=game_id, 
+		game_state=list[tuple[tuple[int, int], str]]((entry[0], entry[1].piece_name) for entry in game_instance.get_game_state().items())
+	)
