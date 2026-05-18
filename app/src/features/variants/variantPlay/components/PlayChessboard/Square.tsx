@@ -11,6 +11,8 @@ type SquareProps = {
 	isFlipped: boolean;
 	boardXSize: number;
 	boardYSize: number;
+
+	isLegal: boolean;
 };
 
 function Square({
@@ -21,6 +23,7 @@ function Square({
 	isFlipped,
 	boardXSize,
 	boardYSize,
+	isLegal,
 }: SquareProps) {
 	const { ref } = useDroppable({
 		id: `${file}-${rank}`,
@@ -67,6 +70,12 @@ function Square({
 					)}
 				>
 					{file}
+				</span>
+			)}
+
+			{isLegal && (
+				<span className="flex flex-row items-center justify-center size-4 rounded-full bg-primary">
+
 				</span>
 			)}
 		</div>

@@ -7,7 +7,7 @@ import { TupleKeyedMap } from "@itwin/core-bentley";
 import { useParams } from "react-router-dom";
 
 function PlayChessboard() {
-	const { isBoardFlipped, gameBoardState } = useGameplayStore();
+	const { isBoardFlipped, gameBoardState, legalMoves } = useGameplayStore();
 	const { variantId } = useParams();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { images, hasHydrated: hasImagesHydrated } = usePieceImagesStore();
@@ -72,6 +72,13 @@ function PlayChessboard() {
 								isFlipped={isBoardFlipped}
 								boardXSize={boardXSize}
 								boardYSize={boardYSize}
+								isLegal={
+									legalMoves?.some(
+										([legalFile, legalRank]) =>
+											legalFile === file &&
+											legalRank === rank,
+									) ?? false
+								}
 							/>
 						);
 					}),
