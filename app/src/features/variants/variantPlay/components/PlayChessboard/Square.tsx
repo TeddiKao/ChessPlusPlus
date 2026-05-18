@@ -1,3 +1,4 @@
+import PieceImage from "@/features/variants/variantPlay/components/PlayChessboard/PieceImage";
 import clsx from "clsx";
 
 type SquareProps = {
@@ -30,7 +31,12 @@ function Square({
 			key={`${file}-${rank}`}
 			className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 		>
-			{imageUrl ? <img src={imageUrl} alt={piece ?? ""} /> : null}
+			<PieceImage
+				imageUrl={imageUrl ?? null}
+				piece={piece}
+				file={file}
+				rank={rank}
+			/>
 
 			{isOnLeftEdge && (
 				<span

@@ -1,6 +1,7 @@
 import usePieceImagesStore from "@/features/variants/common/stores/pieceImages";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import { generateNumberSequence } from "@/features/variants/variantEditor/common/utils/boardGeneration";
+import Square from "@/features/variants/variantPlay/components/PlayChessboard/Square";
 import usePlayChessboardStore from "@/features/variants/variantPlay/stores/playChessboard";
 import { TupleKeyedMap } from "@itwin/core-bentley";
 import { useParams } from "react-router-dom";
@@ -26,7 +27,7 @@ function PlayChessboard() {
 	const boardStateMap = new TupleKeyedMap<[number, number], string>(
 		selectedVariant.variantRules.setupRules.startingPosition,
 	);
-	
+
 	const gridWidth = `min(100%, calc(100% * ${boardXSize} / 8), calc(28rem * ${boardXSize} / ${boardYSize}))`;
 
 	const ranks = isFlipped
@@ -39,8 +40,7 @@ function PlayChessboard() {
 	function getImageUrl(imageId: string) {
 		if (!variantId) return null;
 
-		const imageBlob =
-			images[imageId][variantId] ?? images[imageId].image;
+		const imageBlob = images[imageId][variantId] ?? images[imageId].image;
 		const imageUrl = URL.createObjectURL(imageBlob);
 
 		return imageUrl;
@@ -62,15 +62,17 @@ function PlayChessboard() {
 							pieceRulesetDraft[foundSquare ?? ""]?.imageId;
 
 						const imageUrl = imageId ? getImageUrl(imageId) : null;
-						const isDark = (rank + file) % 2 === 0;
 
 						return (
-							<div
-								key={`${file}-${rank}`}
-								className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
-							>
-								{imageUrl ? <img src={imageUrl} alt={foundSquare ?? ""} /> : null}
-							</div>
+							<Square
+								file={file}
+								rank={rank}
+								imageUrl={imageUrl ?? null}
+								piece={foundSquare ?? ""}
+								isFlipped={isFlipped}
+								boardXSize={boardXSize}
+								boardYSize={boardYSize}
+							/>
 						);
 					}),
 				)}
