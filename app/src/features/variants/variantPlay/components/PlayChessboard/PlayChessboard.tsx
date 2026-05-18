@@ -7,7 +7,7 @@ import { TupleKeyedMap } from "@itwin/core-bentley";
 import { useParams } from "react-router-dom";
 
 function PlayChessboard() {
-	const { isFlipped } = usePlayChessboardStore();
+	const { isFlipped, gameBoardState } = usePlayChessboardStore();
 	const { variantId } = useParams();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { images, hasHydrated: hasImagesHydrated } = usePieceImagesStore();
@@ -24,9 +24,7 @@ function PlayChessboard() {
 	const boardXSize = selectedVariant.variantRules.setupRules.boardXSize;
 	const boardYSize = selectedVariant.variantRules.setupRules.boardYSize;
 
-	const boardStateMap = new TupleKeyedMap<[number, number], string>(
-		selectedVariant.variantRules.setupRules.startingPosition,
-	);
+	const boardStateMap = new TupleKeyedMap<[number, number], string>(gameBoardState ?? []);
 
 	const gridWidth = `min(100%, calc(100% * ${boardXSize} / 8), calc(28rem * ${boardXSize} / ${boardYSize}))`;
 
