@@ -6,7 +6,7 @@ type GameplayStore = {
 	updateGameBoardState: (gameBoardState: GameState2DArray) => void;
 	resetGameBoardState: () => void;
 
-	isFlipped: boolean;
+	isBoardFlipped: boolean;
 	toggleBoardFlip: () => void;
 	resetBoardFlip: () => void;
 };
@@ -17,9 +17,10 @@ const useGameplayStore = create<GameplayStore>((set) => ({
 		set({ gameBoardState }),
 	resetGameBoardState: () => set({ gameBoardState: null }),
 
-	isFlipped: false,
-	toggleBoardFlip: () => set((state) => ({ isFlipped: !state.isFlipped })),
-	resetBoardFlip: () => set({ isFlipped: false }),
+	isBoardFlipped: false,
+	toggleBoardFlip: () =>
+		set((state) => ({ isBoardFlipped: !state.isBoardFlipped })),
+	resetBoardFlip: () => set({ isBoardFlipped: false }),
 }));
 
 export default useGameplayStore;
