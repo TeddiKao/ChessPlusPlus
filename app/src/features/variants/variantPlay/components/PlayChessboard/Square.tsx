@@ -1,4 +1,5 @@
 import PieceImage from "@/features/variants/variantPlay/components/PlayChessboard/PieceImage";
+import { useDroppable } from "@dnd-kit/react";
 import clsx from "clsx";
 
 type SquareProps = {
@@ -21,6 +22,10 @@ function Square({
 	boardXSize,
 	boardYSize,
 }: SquareProps) {
+	const { ref } = useDroppable({
+		id: `${file}-${rank}`,
+	});
+
 	const isDark = (rank + file) % 2 === 0;
 
 	const isOnLeftEdge = isFlipped ? file === boardXSize - 1 : file === 0;
@@ -28,6 +33,7 @@ function Square({
 
 	return (
 		<div
+			ref={ref}
 			key={`${file}-${rank}`}
 			className={`${isDark ? "bg-chessboard-square-dark" : "bg-chessboard-square-light"} aspect-square relative`}
 		>
