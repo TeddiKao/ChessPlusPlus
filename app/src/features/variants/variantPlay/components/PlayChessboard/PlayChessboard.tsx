@@ -65,6 +65,7 @@ function PlayChessboard() {
 
 						return (
 							<Square
+								key={`${file}-${rank}`}
 								file={file}
 								rank={rank}
 								imageUrl={imageUrl ?? null}
