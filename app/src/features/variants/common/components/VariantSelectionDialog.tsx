@@ -18,6 +18,8 @@ type VariantAction = {
 export type VariantActions = Record<string, VariantAction>;
 
 type VariantSelectionDialogProps = {
+	title: string;
+	description?: string;
 	actions: VariantActions;
 	isOpen: boolean;
 	onOpenChange: (isOpen: boolean) => void;
@@ -26,6 +28,8 @@ type VariantSelectionDialogProps = {
 };
 
 function VariantSelectionDialog({
+	title,
+	description,
 	actions,
 	isOpen,
 	onOpenChange,
@@ -38,10 +42,10 @@ function VariantSelectionDialog({
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>My variants</DialogTitle>
-					<DialogDescription>
-						Below is a list of your created variants
-					</DialogDescription>
+					<DialogTitle>{title}</DialogTitle>
+					{description && (
+						<DialogDescription>{description}</DialogDescription>
+					)}
 				</DialogHeader>
 
 				<div className="flex flex-col gap-2">

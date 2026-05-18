@@ -65,6 +65,8 @@ function MyVariantsDialog() {
 	return (
 		<>
 			<VariantSelectionDialog
+				title="My variants"
+				description="Below is a list of your created variants"
 				actions={actions}
 				isOpen={isOpen}
 				onOpenChange={(isOpen) =>
