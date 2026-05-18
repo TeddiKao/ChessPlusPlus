@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
 import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import PlayChessboard from "@/features/variants/variantPlay/components/PlayChessboard/PlayChessboard";
-import usePlayChessboardStore from "@/features/variants/variantPlay/stores/playChessboard";
+import { createGame } from "@/features/variants/variantPlay/services/game";
+import useGameplayStore from "@/features/variants/variantPlay/stores/gameplay";
 import { DragDropProvider } from "@dnd-kit/react";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { useEffect } from "react";
@@ -13,7 +14,7 @@ type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
 function VariantPlayPage() {
 	const navigate = useNavigate();
 
-	const { gameBoardState, updateGameBoardState } = usePlayChessboardStore();
+	const { gameBoardState, updateGameBoardState } = useGameplayStore();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { variantId } = useParams();
 
@@ -28,6 +29,33 @@ function VariantPlayPage() {
 			selectedVariant.variantRules.setupRules.startingPosition;
 		updateGameBoardState(startingPosition);
 	}, [updateGameBoardState, variants, variantId, hasVariantsHydrated]);
+
+	useEffect(() => {
+		if (!hasVariantsHydrated) return;
+		if (!variantId) return;
+
+		const selectedVariant = variants[variantId];
+		if (!selectedVariant) return;
+
+		const setupRules = selectedVariant.variantRules.setupRules;
+		const pieceRuleset = selectedVariant.variantRules.pieceRuleset;
+		const movementRules = selectedVariant.variantRules.movementRules;
+
+		async function handleCreateGame() {
+			const { gameId, gameState } = await createGame(
+				setupRules,
+				pieceRuleset,
+				movementRules,
+			);
+
+			if (!gameId) return;
+			if (!gameState) return;
+
+			updateGameBoardState(gameState);
+		}
+
+		handleCreateGame();
+	}, [hasVariantsHydrated, variantId, variants, updateGameBoardState]);
 
 	function handleBackToHomePage() {
 		navigate("/");
