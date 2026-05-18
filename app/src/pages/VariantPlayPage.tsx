@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
+import useVariantsStore from "@/features/variants/common/stores/variantsStore";
+import type { GameState2DArray } from "@/features/variants/common/types/setupRules";
 import PlayChessboard from "@/features/variants/variantPlay/components/PlayChessboard/PlayChessboard";
 import usePlayChessboardStore from "@/features/variants/variantPlay/stores/playChessboard";
 import { DragDropProvider } from "@dnd-kit/react";
 import { IconChevronLeft } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>["onDragEnd"];
 
@@ -11,6 +14,20 @@ function VariantPlayPage() {
 	const navigate = useNavigate();
 
 	const { gameBoardState, updateGameBoardState } = usePlayChessboardStore();
+	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
+	const { variantId } = useParams();
+
+	useEffect(() => {
+		if (!hasVariantsHydrated) return;
+		if (!variantId) return;
+
+		const selectedVariant = variants[variantId];
+		if (!selectedVariant) return;
+
+		const startingPosition =
+			selectedVariant.variantRules.setupRules.startingPosition;
+		updateGameBoardState(startingPosition);
+	}, [updateGameBoardState, variants, variantId, hasVariantsHydrated]);
 
 	function handleBackToHomePage() {
 		navigate("/");
@@ -35,10 +52,18 @@ function VariantPlayPage() {
 		if (!startLocation) return;
 		if (!piece) return;
 
-		const updatedGameBoardState = structuredClone(gameBoardState);
-		updatedGameBoardState.set([Number(file), Number(rank)], piece);
+		const filteredGameBoardState = gameBoardState.filter(
+			([location]) =>
+				location[0] !== Number(startLocation[0]) ||
+				location[1] !== Number(startLocation[1]),
+		);
 
-		updateGameBoardState(updatedGameBoardState);
+		const updatedGameBoardState = [
+			...filteredGameBoardState,
+			[[Number(file), Number(rank)], piece],
+		];
+
+		updateGameBoardState(updatedGameBoardState as GameState2DArray);
 	}
 
 	return (
