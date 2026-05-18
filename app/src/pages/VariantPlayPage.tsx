@@ -24,6 +24,7 @@ function VariantPlayPage() {
 		activeGameId,
 		updateActiveGameId,
 		updateLegalMoves,
+		clearLegalMoves,
 	} = useGameplayStore();
 	const { variants, hasHydrated: hasVariantsHydrated } = useVariantsStore();
 	const { variantId } = useParams();
@@ -79,6 +80,8 @@ function VariantPlayPage() {
 	}
 
 	async function handleDragEnd(...args: Parameters<NonNullable<OnDragEnd>>) {
+		clearLegalMoves();
+
 		if (!activeGameId) return;
 		if (!gameBoardState) return;
 
