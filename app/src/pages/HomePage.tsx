@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { IconChess, IconFolder, IconPlus } from "@tabler/icons-react";
 import CreateVariantDialog from "@/features/variants/variantCreation/components/CreateVariantDialog";
 import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialog";
-import VariantListDialog from "@/features/variants/variantListing/components/VariantListDialog";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
+import MyVariantsDialog from "@/features/variants/variantListing/components/MyVariantsDialog";
+import useMyVariantsDialogStore from "@/features/variants/variantListing/stores/myVariantsDialog";
 
 function HomePage() {
 	const { openDialog: openCreateVariantDialog } =
 		useCreateVariantDialogStore();
-	const { openDialog: openVariantListDialog } = useVariantListDialogStore();
+	const { openDialog: openMyVariantsDialog } = useMyVariantsDialogStore();
 
 	return (
 		<>
@@ -21,7 +21,7 @@ function HomePage() {
 						<IconPlus />
 						Create variant
 					</Button>
-					<Button onClick={openVariantListDialog} className="px-4">
+					<Button onClick={openMyVariantsDialog} className="px-4">
 						<IconFolder />
 						My variants
 					</Button>
@@ -33,7 +33,7 @@ function HomePage() {
 			</div>
 
 			<CreateVariantDialog />
-			<VariantListDialog />
+			<MyVariantsDialog />
 		</>
 	);
 }

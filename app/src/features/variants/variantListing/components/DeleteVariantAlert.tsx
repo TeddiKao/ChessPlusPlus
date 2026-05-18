@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import useVariantDeleteAlertStore from "@/features/variants/variantListing/stores/variantDeleteAlert";
 import useVariantsStore from "@/features/variants/common/stores/variantsStore";
-import useVariantListDialogStore from "@/features/variants/variantListing/stores/variantListDialog";
+import useMyVariantsDialogStore from "@/features/variants/variantListing/stores/myVariantsDialog";
 
 function DeleteVariantAlert() {
 	const { isOpen, openAlert, closeAlert, variantIdToDelete } =
 		useVariantDeleteAlertStore();
 	const { selectedVariantId, clearSelectedVariantId } =
-		useVariantListDialogStore();
+		useMyVariantsDialogStore();
 	const { removeVariant } = useVariantsStore();
 
 	if (!selectedVariantId) return null;
