@@ -2,6 +2,7 @@ import uuid
 
 from fastapi import APIRouter
 from app.schemas.create_game_request import CreateGameRequest, CreateGameResponse
+from app.schemas.game_legal_move_generation_request import GameLegalMoveGenerationRequest, GameLegalMoveGenerationResponse
 from app.engine.legal_move_generator.legal_move_generator import Game, Piece
 from app.utils.case_converter import convert_camel_to_snake
 from app.utils.starting_position_serialiser import serialise_starting_position
@@ -52,3 +53,13 @@ async def create_game(request: CreateGameRequest):
 		game_id=game_id, 
 		game_state=list[tuple[tuple[int, int], str]]((entry[0], entry[1].piece_name) for entry in game_instance.get_game_state().items())
 	)
+
+@router.post("/generate-legal-moves", response_model=GameLegalMoveGenerationResponse)
+async def generate_legal_moves(request: GameLegalMoveGenerationRequest):
+	game_instance = active_games.get(request.game_id)
+	if game_instance is None:
+		return GameLegalMoveGenerationResponse(legal_moves=None)
+
+	legal_moves = game_instance.get_legal_moves(request.current_pos)
+
+	return GameLegalMoveGenerationResponse(legal_moves=legal_moves)
