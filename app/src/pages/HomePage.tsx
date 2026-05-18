@@ -4,11 +4,14 @@ import CreateVariantDialog from "@/features/variants/variantCreation/components/
 import useCreateVariantDialogStore from "@/features/variants/variantCreation/stores/createVariantDialog";
 import MyVariantsDialog from "@/features/variants/variantListing/components/MyVariantsDialog";
 import useMyVariantsDialogStore from "@/features/variants/variantListing/stores/myVariantsDialog";
+import useVariantPlaySelectionDialogStore from "@/features/variants/variantPlay/stores/variantPlaySelectionDialog";
+import VariantPlaySelectionDialog from "@/features/variants/variantPlay/components/VariantPlaySelectionDialog";
 
 function HomePage() {
 	const { openDialog: openCreateVariantDialog } =
 		useCreateVariantDialogStore();
 	const { openDialog: openMyVariantsDialog } = useMyVariantsDialogStore();
+	const { openVariantPlaySelectionDialog } = useVariantPlaySelectionDialogStore();
 
 	return (
 		<>
@@ -25,7 +28,7 @@ function HomePage() {
 						<IconFolder />
 						My variants
 					</Button>
-					<Button className="px-4">
+					<Button onClick={openVariantPlaySelectionDialog} className="px-4">
 						<IconChess />
 						Play variant
 					</Button>
@@ -34,6 +37,7 @@ function HomePage() {
 
 			<CreateVariantDialog />
 			<MyVariantsDialog />
+			<VariantPlaySelectionDialog />
 		</>
 	);
 }
