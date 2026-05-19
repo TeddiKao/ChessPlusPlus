@@ -39,14 +39,17 @@ class Game:
             return (self._rules["setup"]["board_x_size"], self._rules["setup"]["board_y_size"]), self._game_state
         return self._game_state
 
-    def overwrite_game_state(self, new_game_state: dict): # format is a dictionary with tuple position as the keys, and piece name as the values
+    def overwrite_game_state(self, new_game_state: dict): # Format is a dictionary with tuple position as the keys, and piece name as the values
         self._game_state = {}
         self._id_counter = 0
         for position, piece_name in new_game_state.items():
             self._game_state[position] = Piece(position, self._id_counter, piece_name, copy.deepcopy(self.piece_default_start_data))
             self._id_counter += 1
 
-    def make_move(self, piece_start_postion: tuple, piece_end_postion: tuple): # note that move will be accepted regardless of whether the move is legal or not
+    def overwrite_game_state_raw(self, new_game_state: dict): # Format is the raw game state format, where the items are Piece objects. BE CAREFUL OF THIS
+        self._game_state = new_game_state
+
+    def make_move(self, piece_start_postion: tuple, piece_end_postion: tuple): # Note that move will be accepted regardless of whether the move is legal or not
 
         if piece_start_postion == piece_end_postion:
             raise StationaryMoveError
