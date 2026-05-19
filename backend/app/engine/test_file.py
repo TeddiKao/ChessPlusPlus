@@ -92,4 +92,14 @@ def test_normalise_json():
     test_data = json.load(open(TEST_SIMPLE_JSON_PATH))
     print(jn.normalise_json(test_data))
 
-print(test_get_legal_moves())
+def debug_movement():
+
+    game = lmg.Game(json.load(open(TEST_NORMALISED_JSON_PATH)))
+    game.set_debug_mode(True)
+    game.overwrite_game_state({(0, 0): "white_knight", (1, 2): "black_pawn", (2, 1): "black_pawn", (0, 4): "black_pawn", (4, 2): "black_pawn"})
+    game_state = game.get_game_state(True)
+    display_game_state(game_state[0], game_state[1], True)
+    legal_moves = game.get_legal_moves((0, 0))
+    print(legal_moves)
+
+debug_movement()

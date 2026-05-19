@@ -9,11 +9,12 @@ class Piece:
         self.data = data
 
     def __repr__(self):
-        return f"PieceObject={{position: {self.position},piece_id: {self.piece_id}, piece_name: {self.piece_name}, data: {self.data}}}"
-
+        return f"PieceObject={{position: {self.position}, piece_id: {self.piece_id}, piece_name: {self.piece_name}, data: {self.data}}}"
 
 class Game:
     def __init__(self, rules: dict):
+        self.debug_mode = False
+
         self._rules = rules
         self._game_state = {}
         self._id_counter = 0
@@ -25,6 +26,13 @@ class Game:
         for starting_piece in rules["setup"]["starting_position"]:
             self._game_state[(starting_piece["x_pos"], starting_piece["y_pos"])] = Piece((starting_piece["x_pos"], starting_piece["y_pos"]), self._id_counter, starting_piece["piece_name"], copy.deepcopy(self.piece_default_start_data))
             self._id_counter += 1
+
+    def set_debug_mode(self, debug_mode: bool):
+        self.debug_mode = debug_mode
+
+    def _debug_print(self, statement, end="\n"):
+        if self.debug_mode:
+            print(statement, end=end)
 
     def get_game_state(self, include_size: bool = False):
         if include_size:
@@ -53,7 +61,6 @@ class Game:
         self._game_state.pop(piece_start_postion)
 
     def _check_condition(self, condition_name: str, piece_object: Piece):
-        # piece_object = self._game_state[piece_position]
         match condition_name:
             case "has_not_moved":
                 if piece_object.data["has_not_moved"] == True:
@@ -78,7 +85,6 @@ class Game:
             return False
 
     def _check_move_stop_condition(self, condition_name: str, piece_object: Piece):
-        # piece_object = self._game_state[piece_position]
         match condition_name:
             case "inside_piece":
                 if self._inside_piece(piece_object.position):
@@ -88,7 +94,8 @@ class Game:
         raise InvalidConditionError
 
     def _loop_move(self, start_object: Piece, move_name: str, get_termination: bool = False):
-        # print(f"Start: {start_position}")
+        self._debug_print(f"Move name: {move_name}")
+        self._debug_print(f"Start: {start_object.position}")
 
         terminate = False
 
@@ -103,7 +110,7 @@ class Game:
                     terminate = True
                     break
             if pass_conditions == False:
-                # print("Failed conditions")
+                self._debug_print("Failed conditions")
                 if get_termination == True:
                     return [], terminate
                 else:
@@ -121,48 +128,50 @@ class Game:
         range_counter = 0
         piece_object = copy.deepcopy(start_object)
         while True:
-            # print(f"Moved from {current_position} to ", end="")
+            self._debug_print(f"Moved from {current_position} to ", end="")
             current_position = list(current_position)
             current_position[0] += move_x
             current_position[1] += move_y
             current_position = tuple(current_position)
-            # print(current_position)
+            self._debug_print(current_position)
 
             if not self._position_within_board(current_position):
-                # print("Outside board: break")
+                self._debug_print("Outside board: break")
                 terminate = True
                 break
             else:
                 stop_loop = False
+                range_counter += 1
                 if not move_range == "inf":
-                    if range_counter == move_range:
-                        # print("Reached max range: break")
+                    if range_counter >= move_range:
+                        self._debug_print("Reached max range: break")
                         stop_loop = True
-                    range_counter += 1
+
                 pass_conditions = True
-                # print(f"Checking move_stop_conditions at {current_position}")
+                self._debug_print(f"Checking move_stop_conditions at {current_position}")
                 for move_stop_condition in move_stop_conditions:
                     piece_object.position = current_position
                     if self._check_move_stop_condition(move_stop_condition, piece_object):
                         pass_conditions = False
                         break
                 if pass_conditions == False:
-                    # print("Failed conditions: break")
+                    self._debug_print("Failed conditions: break")
                     terminate = True
                     stop_loop = True
 
                 if stop_loop == True:
                     if self._inside_piece(current_position) and for_capture:
                         legal_moves.append(current_position)
-                        # print(f"Added {current_position} to legal move")
+                        self._debug_print(f"Added {current_position} to legal move")
                     break
 
             if for_movement:
                 if not self._inside_piece(current_position):
                     legal_moves.append(current_position)
-                    # print(f"Added {current_position} to legal move")
+                    self._debug_print(f"Added {current_position} to legal move")
 
-        # print(f"Returned at {current_position}")
+        self._debug_print(f"Returned at {current_position}")
+        self._debug_print("")
         if get_termination == True:
             return legal_moves, terminate
         else:
@@ -172,6 +181,8 @@ class Game:
 
         legal_moves = {}
 
+        if not piece_position in self._game_state:
+            raise NoPieceFoundError
         piece_object = self._game_state[piece_position]
 
         piece_name = self._game_state[piece_position].piece_name
@@ -189,10 +200,8 @@ class Game:
 
                     if each_move["valid_move"]:
                         legal_moves[each_move["move_name"]] = each_legal_moves
-                    # print(each_legal_moves[-1])
                     if not each_legal_moves == []:
                         each_piece_object.position = each_legal_moves[-1]
-                        print(each_piece_object.data)
 
                     if each_legal_moves_both[1] and each_move["terminate_on_stop"]:
                         break
