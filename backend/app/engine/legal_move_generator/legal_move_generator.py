@@ -145,7 +145,7 @@ class Game:
             else:
                 stop_loop = False
                 range_counter += 1
-                if not move_range == "inf":
+                if move_range != "inf":
                     if range_counter >= move_range:
                         self._debug_print("Reached max range: break")
                         stop_loop = True
@@ -166,12 +166,10 @@ class Game:
                     if self._inside_piece(current_position) and for_capture:
                         legal_moves.append(current_position)
                         self._debug_print(f"Added {current_position} to legal move")
+                    elif for_movement:
+                        legal_moves.append(current_position)
+                        self._debug_print(f"Added {current_position} to legal move")
                     break
-
-            if for_movement:
-                if not self._inside_piece(current_position):
-                    legal_moves.append(current_position)
-                    self._debug_print(f"Added {current_position} to legal move")
 
         self._debug_print(f"Returned at {current_position}")
         self._debug_print("")

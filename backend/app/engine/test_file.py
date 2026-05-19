@@ -98,11 +98,12 @@ def debug_movement():
 
     game = lmg.Game(json.load(open(TEST_NORMALISED_JSON_PATH)))
     game.set_debug_mode(True)
+    game.overwrite_game_state({(0, 0): "white_pawn"})
     # game.overwrite_game_state({(0, 0): "white_knight", (1, 2): "black_pawn", (2, 1): "black_pawn", (0, 4): "black_pawn", (4, 2): "black_pawn"})
-    game.overwrite_game_state_raw({(3, 3): Piece((3, 3), 0, "white_pawn", {"has_not_moved": True}), (5, 5): Piece((5, 5), 1, "black_queen", {"has_not_moved": False})})
+    # game.overwrite_game_state_raw({(3, 3): Piece((3, 3), 0, "white_pawn", {"has_not_moved": True}), (5, 5): Piece((5, 5), 1, "black_queen", {"has_not_moved": False})})
     game_state = game.get_game_state(True)
     display_game_state(game_state[0], game_state[1], True)
-    legal_moves = game.get_legal_moves((3, 3))
+    legal_moves = game.get_legal_moves((0, 0))
     print(legal_moves)
 
 debug_movement()
