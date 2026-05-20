@@ -163,13 +163,18 @@ class Game:
                     stop_loop = True
 
                 if stop_loop == True:
-                    if self._inside_piece(current_position) and for_capture:
-                        legal_moves.append(current_position)
-                        self._debug_print(f"Added {current_position} to legal move")
-                    elif for_movement:
-                        legal_moves.append(current_position)
-                        self._debug_print(f"Added {current_position} to legal move")
+                    if self._inside_piece(current_position):
+                        if for_capture:
+                            legal_moves.append(current_position)
+                            self._debug_print(f"Added {current_position} to legal move")
+                    else:
+                        if for_movement:
+                            legal_moves.append(current_position)
+                            self._debug_print(f"Added {current_position} to legal move")
                     break
+            if for_movement:
+                legal_moves.append(current_position)
+                self._debug_print(f"Added {current_position} to legal move")
 
         self._debug_print(f"Returned at {current_position}")
         self._debug_print("")
