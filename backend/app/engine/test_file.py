@@ -6,6 +6,8 @@ import app.engine.json_validator.json_validator as json_validator
 import app.engine.legal_move_generator.legal_move_generator as lmg
 import app.engine.json_normaliser.json_normaliser as jn
 
+from app.engine.legal_move_generator.legal_move_generator import Piece
+
 BASE_DIR = Path(__file__).parent.resolve()
 TEST_NORMALISED_JSON_PATH = BASE_DIR / "test_normalised_json.json"
 TEST_SIMPLE_JSON_PATH = BASE_DIR / "test_simple_json.json"
@@ -92,4 +94,16 @@ def test_normalise_json():
     test_data = json.load(open(TEST_SIMPLE_JSON_PATH))
     print(jn.normalise_json(test_data))
 
-print(test_get_legal_moves())
+def debug_movement():
+
+    game = lmg.Game(json.load(open(TEST_NORMALISED_JSON_PATH)))
+    game.set_debug_mode(True)
+    game.overwrite_game_state({(0, 0): "white_knight", (1, 2): "black_pawn", (0, 1): "white_queen", (1, 0): "white_pawn"})
+    # game.overwrite_game_state({(0, 0): "white_knight", (1, 2): "black_pawn", (2, 1): "black_pawn", (0, 4): "black_pawn", (4, 2): "black_pawn"})
+    # game.overwrite_game_state_raw({(3, 3): Piece((3, 3), 0, "white_pawn", {"has_not_moved": True}), (5, 5): Piece((5, 5), 1, "black_queen", {"has_not_moved": False})})
+    game_state = game.get_game_state(True)
+    display_game_state(game_state[0], game_state[1], True)
+    legal_moves = game.get_legal_moves((0, 1))
+    print(legal_moves)
+
+debug_movement()
